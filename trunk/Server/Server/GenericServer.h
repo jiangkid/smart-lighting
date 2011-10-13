@@ -1,13 +1,45 @@
 // GenericServer.h: interface for the GenericServer class.
 //创建：吴红生  10月12日
 //////////////////////////////////////////////////////////////////////
-
+#include "stdafx.h"
 #if !defined(AFX_GENERICSERVER_H__9AD16B75_BA21_4561_ABE5_31541134C7F1__INCLUDED_)
 #define AFX_GENERICSERVER_H__9AD16B75_BA21_4561_ABE5_31541134C7F1__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
+
+/*****CIOCPBuffer结构用来描述per-I/O数据，即缓冲区数据，它包含了在套接字上处理IO操作的必要信息*****/
+struct CIOCPBuffer
+{
+	WSAOVERLAPPED overlapped;
+	SOCKET sClient;							//AcceptEx接收的客户方套接字
+	char *buff;									// IO操作使用的缓冲区
+	int nLen;									 //buff	缓冲区的大小
+	ULONG nSequenceNumber;		 //此IO的序列号
+	int nOperation;							 //	操作类型
+#define OP_ACCEPT  1
+#define OP_WRITE    2
+#define OP_READ      3
+	CIOCPBuffer *pNext;
+};
+
+/***** 客户的上下文对象，即per-Handle数据，它包含了套接字信息，用CIOCPContext结构来描述 *****/
+/*****相关功能：服务器程序每接收到一个新的连接，就为新连接创建客户上下文对象以记录客户信息*****/
+struct CIOCPContext
+{
+	SOCKET s;										//套接字句柄
+	sockaddr_in addrLocal;					 //连接的本地地址
+	sockaddr_in addrRemote;				  //连接的远程地址
+	BOOL bClosing;								//套接字是否关闭
+	int nOutstandingRecv;					 //此套接字上抛出的重叠操作的数量
+	int nOutstandingSend;					//
+	ULONG nReadSequence;				//安排给接收的下一个序列号
+	ULONG nCurrentSequence;			   //当前要读的序列号
+	CIOCPBuffer *pOutOfOrderReads;	//记录没有按顺序完成的读IO
+	CRITICAL_SECTION Lock;				  //保护这个结构
+	CIOCPContext *pNext;
+};
 
 class GenericServer  
 {
@@ -32,7 +64,7 @@ protected:
 	void ReleaseBuffer(CIOCPBuffer *pBuffer);
 	/*****申请和释放套接字上下文*****/
 	CIOCPContext *AllocateContext(SOCKET s);
-	void ReleaseContext(IOCPContext *pContext);
+	void ReleaseContext(CIOCPContext *pContext);
 	/*****释放空闲缓冲区对象列表和空闲上下文对象列表*****/
 	void FreeBuffers();
 	void FreeContext();
@@ -45,8 +77,8 @@ protected:
 	CIOCPBuffer *GetNextReadBuffer(CIOCPContext *pContext, CIOCPBuffer *pBuffer );
 	/*****投递IO、发送IO、接收IO******/
 	BOOL PostAccept(CIOCPBuffer *pBuffer);
-	BOOL PostSend(CIOCPContex *pContext,CIOCPBuffer *pBuffer);
-	BOOL PostRecv(CIOCPContex *pContext,CIOCPBuffer *pBuffer);
+	BOOL PostSend(CIOCPContext *pContext,CIOCPBuffer *pBuffer);
+	BOOL PostRecv(CIOCPContext *pContext,CIOCPBuffer *pBuffer);
 	void HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int nError);
 	/*****事件通知函数******/
 	/*****建立一个新的连接******/
@@ -99,5 +131,6 @@ private:
 	static DWORD WINAPI  _ListenThreadProc(LPVOID lpParam);
 	static DWORD WINAPI  _WorkThreadProc(LPVOID lpParam);
 };
+
 
 #endif // !defined(AFX_GENERICSERVER_H__9AD16B75_BA21_4561_ABE5_31541134C7F1__INCLUDED_)
