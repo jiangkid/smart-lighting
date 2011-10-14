@@ -1,7 +1,7 @@
 // GenericServer.h: interface for the GenericServer class.
 //创建：吴红生  10月12日
 //////////////////////////////////////////////////////////////////////
-#include "stdafx.h"
+
 #if !defined(AFX_GENERICSERVER_H__9AD16B75_BA21_4561_ABE5_31541134C7F1__INCLUDED_)
 #define AFX_GENERICSERVER_H__9AD16B75_BA21_4561_ABE5_31541134C7F1__INCLUDED_
 
@@ -124,7 +124,7 @@ protected:
 	HANDLE m_hCompletion;
 	SOCKET m_sListen;
 	LPFN_ACCEPTEX m_lpfnAcceptEx;  //AcceptEx函数地址
-	BOOL m_bShutdown;//用于通知监听线程退出
+	BOOL m_bShutDown;//用于通知监听线程退出
 	BOOL m_bServerStarted;//记录服务器是否启动
 
 private:
