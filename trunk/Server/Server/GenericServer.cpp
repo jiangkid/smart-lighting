@@ -113,6 +113,422 @@ BOOL GenericServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, i
 	::WSAEventSelect(  m_sListen,  m_nAcceptEvent, FD_ACCEPT);
 }
 
+/***************申请缓冲区对象***************/
+CIOCPBuffer *GenericServer::AllocateBuffer(int nLen)
+{
+	CIOCPBuffer *pBuffer = NULL;
+	if(nLen>BUFFER_SIZE)
+	{
+		return FALSE;
+	}
+	::EnterCriticalSection(&m_FreeBufferListLock);
+	if(m_pFreeBufferList==NULL)
+	{
+		pBuffer =(CIOCPBuffer *) ::HeapAlloc(GetProcessHeap(),HEAP_ZERO_MEMORY,sizeof(CIOCPBuffer)+BUFFER_SIZE);
+	}
+	else
+	{
+		pBuffer = m_pFreeBufferList;			//从内存池中腾出一块区域
+		m_pFreeBufferList = m_pFreeBufferList->pNext;
+		pBuffer->pNext = NULL;
+		m_nFreeBufferCount --;
+	}
+	::LeaveCriticalSection(&m_FreeBufferListLock);
+	/*****初始化新的缓冲区对象*****/
+	if(pBuffer!=NULL)
+	{
+		pBuffer->buff = (char*)(pBuffer + 1);
+		pBuffer->nLen = nLen;
+	}
+}
+
+/***************释放缓冲区对象***************/
+void GenericServer::ReleaseBuffer(CIOCPBuffer *pBuffer)
+{
+	::EnterCriticalSection(&m_FreeBufferListLock);
+	if(m_nFreeBufferCount<m_nMaxFreeBuffers)
+	{
+		memset(pBuffer,0,sizeof(CIOCPBuffer)+BUFFER_SIZE);
+		pBuffer->pNext = m_nFreeBufferList;
+		m_nFreeBufferList = pBuffer;
+		m_nFreeBufferCount ++;
+	}
+	::LeaveCriticalSection(&m_FreeBufferListLock);
+}
+	/***************申请套接字上下文***************/
+CIOCPContext *GenericServer::AllocateContext(SOCKET s)
+{
+	CIOCPContext *pContext = NULL;
+	
+	::EnterCriticalSection(&m_FreeContextListLock);
+	if(m_pFreeBufferList==NULL)
+	{
+		pContext =(CIOCPContext *) ::HeapAlloc(GetProcessHeap(),HEAP_ZERO_MEMORY,sizeof(CIOCPContext)+BUFFER_SIZE);
+		::InitializeCriticalSection(pContext->Lock);
+	}
+	else
+	{
+		pContext = m_pFreeContextList;			//从内存池中腾出一块区域
+		m_pFreeContextList = m_pFreeContextList->pNext;
+		pContext->pNext = NULL;
+		m_nFreeContextCount --;
+	}
+	::LeaveCriticalSection(&m_FreeContextListLock);
+	/*****初始化新的缓冲区对象*****/
+	if(pContext!=NULL)
+	{
+		pContext->s = s;
+	}
+}
+	/***************释放套接字上下文***************/
+void GenericServer::ReleaseContext(CIOCPContext *pContext)
+{
+	if(pContext->s != INVALID_SOCKET)
+		::closesocket(s);
+	//首先释放（如果有的话）此套节字上的没有按顺序完成的读I/O的缓冲区
+	CIOCPBuffer *pNext;
+	while(pContext->pOutOfOrderReads !=  NULL)
+	{
+		pNext = pContext->pOutOfOrderReads->pNext;
+		::ReleaseBuffer(pContext->pOutOfOrderReads);
+		pContext->pOutOfOrderReads = pNext;
+	}
+	::EnterCriticalSection(&m_FreeContextListLock);
+	if(m_nFreeContextCount <= m_nMaxFreeContexts) // 添加到空闲列表
+	{
+		// 先将关键代码段变量保存到一个临时变量中
+		CRITICAL_SECTION cstmp = pContext->Lock;
+		// 将要释放的上下文对象初始化为0
+		memset(pContext, 0, sizeof(CIOCPContext));
+
+		// 再放会关键代码段变量，将要释放的上下文对象添加到空闲列表的表头
+		pContext->Lock = cstmp;
+		pContext->pNext = m_pFreeContextList;
+		m_pFreeContextList = pContext;
+		
+		// 更新计数
+		m_nFreeContextCount ++;
+	}
+	else
+	{
+		::DeleteCriticalSection(&pContext->Lock);
+		::HeapFree(::GetProcessHeap, 0, pContext);
+	}
+	::LeaveCriticalSection(&m_FreeContextListLock);
+}
+	/***************释放空闲缓冲区对象列表***************/
+void GenericServer::FreeBuffers()
+{
+	::EnterCriticalSection(&m_FreeBufferListLock);
+	CIOCPBuffer *pFreeBuffer = m_pFreeBufferList;
+	CIOCPBuffer *pNextBuffer;
+	while(pFreeBuffer  != NULL)   //遍历
+	{
+		pNextBuffer = m_pFreeBuffer->pNext;
+		if(!::HeapFree(::GetProcessHeap(), 0, pFreeBuffer))
+		{
+			break;
+		}
+		m_pFreeBuffer = pNextBuffer;
+	}
+	m_pFreeBufferList = NULL;
+	m_nFreeBufferCount = 0;
+	::LeaveCriticalSection(&m_FreeBufferListLock);
+}
+	/***************释放空闲上下文对象列表***************/
+void GenericServer::FreeContext()
+{
+	::EnterCriticalSection(&m_FreeContextListLock);
+	CIOCPContext *pFreeContext =  m_pFreeContextList;
+	CIOCPContext *pNextContext;
+	while(pFreeContext != NULL)
+	{
+		pNextContext = pFreeContext->pNext;
+		::DeleteCriticalSection(&pFreeContext->Lock);
+		if(!::HeapFree(::GetProcessHeap(), 0, pFreeContext))
+		{
+#ifdef _DEBUG
+			::OutputDebugString("  FreeBuffers释放内存出错！");
+#endif // _DEBUG
+			break;
+		}
+		pFreeContext = pNextContext;
+	}
+	m_pFreeContextList = NULL;
+	m_nFreeContextCount = 0;
+	::LeaveCriticalSection(&m_FreeContextListLock);
+}
+	/***************向连接列表中添加一个连接***************/
+BOOL GenericServer::AddAConnection(CIOCPContext *pContext)
+{
+	::EnterCriticalSection(&m_ConnectionListLock);
+	if(m_nCurrentConnection <= m_nMaxConnections)
+	{
+		// 添加到表头
+		pContext->pNext = m_pConnectionList;
+		m_pConnectionList = pContext;
+		// 更新计数
+		m_nCurrentConnection ++;
+
+		::LeaveCriticalSection(&m_ConnectionListLock);
+		return TRUE;
+	}
+	::LeaveCriticalSection(&m_ConnectionListLock);
+	return FALSE;
+}
+	/***************从列表中移除要关闭的一个连接***************/
+void CloseAConnection(CIOCPContext *pContext)
+{
+	::EnterCriticalSection(&m_ConnectionListLock);
+	CIOCPContext* pTest = m_pConnectionList;
+	if(pTest == pContext)
+	{
+		m_pConnectionList =  pContext->pNext;
+		m_nCurrentConnection --;
+	}
+	else
+	{
+		while(pTest != NULL && pTest->pNext !=  pContext)
+			pTest = pTest->pNext;
+		if(pTest != NULL)
+		{
+			pTest->pNext =  pContext->pNext;
+			m_nCurrentConnection --;
+		}
+	}
+	::LeaveCriticalSection(&m_ConnectionListLock);
+	// 然后关闭客户套节字
+	::EnterCriticalSection(&pContext->Lock);
+
+	if(pContext->s != INVALID_SOCKET)
+	{
+		::closesocket(pContext->s);	
+		pContext->s = INVALID_SOCKET;
+	}
+	pContext->bClosing = TRUE;
+
+	::LeaveCriticalSection(&pContext->Lock);
+}
+	/***************关闭所有连接***************/
+void CloseAllConnection()
+{
+	// 遍历整个连接列表，关闭所有的客户套节字
+
+	::EnterCriticalSection(&m_ConnectionListLock);
+
+	CIOCPContext *pContext = m_pConnectionList;
+	while(pContext != NULL)
+	{	
+		::EnterCriticalSection(&pContext->Lock);
+		if(pContext->s != INVALID_SOCKET)
+		{
+			::closesocket(pContext->s);
+			pContext->s = INVALID_SOCKET;
+		}
+		pContext->bClosing = TRUE;
+		::LeaveCriticalSection(&pContext->Lock);			
+		pContext = pContext->pNext;
+	}
+	m_pConnectionList = NULL;
+	m_nCurrentConnection = 0;
+	::LeaveCriticalSection(&m_ConnectionListLock);
+}
+	/***************插入未决的接受请求***************/
+BOOL GenericServer::InsertPendingAccept(CIOCPBuffer *pBuffer)
+{
+	// 将一个I/O缓冲区对象插入到m_pPendingAccepts表中
+
+	::EnterCriticalSection(&m_PendingAcceptsLock);
+
+	if(m_pPendingAccepts == NULL)
+		m_pPendingAccepts = pBuffer;
+	else
+	{
+		pBuffer->pNext = m_pPendingAccepts;
+		m_pPendingAccepts = pBuffer;
+	}
+	m_nPendingAcceptCount ++;
+
+	::LeaveCriticalSection(&m_PendingAcceptsLock);
+
+	return TRUE;
+}
+	/***************移除未决的接受请求***************/
+BOOL GenericServer::RemovePendingAccept(CIOCPBuffer *pBuffer)
+{
+	BOOL bResult = FALSE;
+
+	// 遍历m_pPendingAccepts表，从中移除pBuffer所指向的缓冲区对象
+	::EnterCriticalSection(&m_PendingAcceptsLock);
+
+	CIOCPBuffer *pTest = m_pPendingAccepts;
+	if(pTest == pBuffer)	// 如果是表头元素
+	{
+		m_pPendingAccepts = pBuffer->pNext;
+		bResult = TRUE;
+	}
+	else					// 不是表头元素的话，就要遍历这个表来查找了
+	{
+		while(pTest != NULL && pTest->pNext != pBuffer)
+			pTest = pTest->pNext;
+		if(pTest != NULL)
+		{
+			pTest->pNext = pBuffer->pNext;
+			 bResult = TRUE;
+		}
+	}
+	// 更新计数
+	if(bResult)
+		m_nPendingAcceptCount --;
+
+	::LeaveCriticalSection(&m_PendingAcceptsLock);
+
+	return  bResult;
+}
+}
+	/***************取得下一个要读取的***************/
+CIOCPBuffer *GenericServer::GetNextReadBuffer(CIOCPContext *pContext, CIOCPBuffer *pBuffer )
+{
+	if(pBuffer != NULL)
+	{
+		// 如果与要读的下一个序列号相等，则读这块缓冲区
+		if(pBuffer->nSequenceNumber == pContext->nCurrentReadSequence)
+		{
+			return pBuffer;
+		}
+		
+		// 如果不相等，则说明没有按顺序接收数据，将这块缓冲区保存到连接的pOutOfOrderReads列表中
+
+		// 列表中的缓冲区是按照其序列号从小到大的顺序排列的
+
+		pBuffer->pNext = NULL;
+		
+		CIOCPBuffer *ptr = pContext->pOutOfOrderReads;
+		CIOCPBuffer *pPre = NULL;
+		while(ptr != NULL)
+		{
+			if(pBuffer->nSequenceNumber < ptr->nSequenceNumber)
+				break;
+			
+			pPre = ptr;
+			ptr = ptr->pNext;
+		}
+		
+		if(pPre == NULL) // 应该把pBuffer插入到pOutOfOrderReads中的表头  pBuffer->nSequenceNumber < ptr->nSequenceNumber
+		{
+			pBuffer->pNext = pContext->pOutOfOrderReads;
+			pContext->pOutOfOrderReads = pBuffer;
+		}
+		else			// 应该插入到表的中间
+		{
+			pBuffer->pNext = pPre->pNext;  //?????
+			pPre->pNext = pBuffer->pNext;
+		}
+	}
+
+	// 检查表头元素的序列号，如果与要读的序列号一致，就将它从表中移除，返回给用户
+	CIOCPBuffer *ptr = pContext->pOutOfOrderReads;
+	if(ptr != NULL && (ptr->nSequenceNumber == pContext->nCurrentReadSequence))
+	{
+		pContext->pOutOfOrderReads = ptr->pNext;
+		return ptr;
+	}
+	return NULL;
+}
+	/***************投递IO、发送IO、接收IO***************/
+BOOL GenericServer::PostAccept(CIOCPBuffer *pBuffer)
+{
+// 设置I/O类型
+		pBuffer->nOperation = OP_ACCEPT;
+
+		// 投递此重叠I/O  
+		DWORD dwBytes;
+		pBuffer->sClient = ::WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+		BOOL b = m_lpfnAcceptEx(m_sListen, 
+			pBuffer->sClient,
+			pBuffer->buff, 
+			pBuffer->nLen - ((sizeof(sockaddr_in) + 16) * 2),
+			sizeof(sockaddr_in) + 16, 
+			sizeof(sockaddr_in) + 16, 
+			&dwBytes, 
+			&pBuffer->ol);
+		if(!b && ::WSAGetLastError() != WSA_IO_PENDING)
+		{
+			return FALSE;
+		}
+		return TRUE;
+}
+
+BOOL GenericServer::PostSend(CIOCPContext *pContext,CIOCPBuffer *pBuffer)
+{
+	// 设置I/O类型
+	pBuffer->nOperation = OP_READ;	
+	
+	::EnterCriticalSection(&pContext->Lock);
+
+	// 设置序列号
+	pBuffer->nSequenceNumber = pContext->nReadSequence;
+
+	// 投递此重叠I/O
+	DWORD dwBytes;
+	DWORD dwFlags = 0;
+	WSABUF buf;
+	buf.buf = pBuffer->buff;
+	buf.len = pBuffer->nLen;
+	if(::WSARecv(pContext->s, &buf, 1, &dwBytes, &dwFlags, &pBuffer->ol, NULL) != NO_ERROR)
+	{
+		if(::WSAGetLastError() != WSA_IO_PENDING)
+		{
+			::LeaveCriticalSection(&pContext->Lock);
+			return FALSE;
+		}
+	}
+
+	// 增加套节字上的重叠I/O计数和读序列号计数
+
+	pContext->nOutstandingRecv ++;
+	pContext->nReadSequence ++;
+
+	::LeaveCriticalSection(&pContext->Lock);
+
+	return TRUE;
+}
+
+BOOL GenericServer::PostRecv(CIOCPContext *pContext,CIOCPBuffer *pBuffer)
+{
+	// 跟踪投递的发送的数量，防止用户仅发送数据而不接收，导致服务器抛出大量发送操作
+	if(pContext->nOutstandingSend > m_nMaxSends)
+		return FALSE;
+
+	// 设置I/O类型，增加套节字上的重叠I/O计数
+	pBuffer->nOperation = OP_WRITE;
+
+	// 投递此重叠I/O
+	DWORD dwBytes;
+	DWORD dwFlags = 0;
+	WSABUF buf;
+	buf.buf = pBuffer->buff;
+	buf.len = pBuffer->nLen;
+	if(::WSASend(pContext->s, 
+			&buf, 1, &dwBytes, dwFlags, &pBuffer->ol, NULL) != NO_ERROR)
+	{
+		if(::WSAGetLastError() != WSA_IO_PENDING)
+			return FALSE;
+	}	
+	
+	// 增加套节字上的重叠I/O计数
+	::EnterCriticalSection(&pContext->Lock);
+	pContext->nOutstandingSend ++;
+	::LeaveCriticalSection(&pContext->Lock);
+
+	return TRUE;
+}
+
+void GenericServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int nError)
+{
+
+}
+
 void GenericServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
 {
 
