@@ -109,6 +109,7 @@ BOOL CServerDlg::OnInitDialog()
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
 	}
+	
 
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
