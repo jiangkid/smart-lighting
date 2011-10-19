@@ -62,6 +62,9 @@ BEGIN_MESSAGE_MAP(CServerDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	//}}AFX_MSG_MAP
+	ON_BN_CLICKED(IDC_START, &CServerDlg::OnBnClickedStart)
+	ON_BN_CLICKED(IDC_STOP, &CServerDlg::OnBnClickedStop)
+	ON_BN_CLICKED(IDC_END, &CServerDlg::OnBnClickedEnd)
 END_MESSAGE_MAP()
 
 
@@ -148,3 +151,18 @@ HCURSOR CServerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+void CServerDlg::OnBnClickedStart()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+void CServerDlg::OnBnClickedStop()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+void CServerDlg::OnBnClickedEnd()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
