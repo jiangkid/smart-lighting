@@ -8,13 +8,13 @@ struct CIOCPBuffer
 {
 	WSAOVERLAPPED overlapped;
 	SOCKET sClient;							//AcceptEx接收的客户方套接字
-	char *buff;									// IO操作使用的缓冲区
-	int nLen;									 //buff	缓冲区的大小
-	ULONG nSequenceNumber;		 //此IO的序列号
-	int nOperation;							 //	操作类型
-#define OP_ACCEPT  1
-#define OP_WRITE    2
-#define OP_READ      3
+	char *buff;								// IO操作使用的缓冲区
+	int nLen;								//buff	缓冲区的大小
+	ULONG nSequenceNumber;					//此IO的序列号
+	int nOperation;							//	操作类型
+#define OP_ACCEPT		1
+#define OP_WRITE		2
+#define OP_READ			3
 	CIOCPBuffer *pNext;
 };
 
@@ -22,16 +22,16 @@ struct CIOCPBuffer
 /*****相关功能：服务器程序每接收到一个新的连接，就为新连接创建客户上下文对象以记录客户信息*****/
 struct CIOCPContext
 {
-	SOCKET s;										//套接字句柄
-	sockaddr_in addrLocal;					 //连接的本地地址
-	sockaddr_in addrRemote;				  //连接的远程地址
-	BOOL bClosing;								//套接字是否关闭
-	int nOutstandingRecv;					 //此套接字上抛出的重叠操作的数量
+	SOCKET s;								//套接字句柄
+	sockaddr_in addrLocal;					//连接的本地地址
+	sockaddr_in addrRemote;					//连接的远程地址
+	BOOL bClosing;							//套接字是否关闭
+	int nOutstandingRecv;					//此套接字上抛出的重叠操作的数量
 	int nOutstandingSend;					//
-	ULONG nReadSequence;				//安排给接收的下一个序列号
-	ULONG nCurrentSequence;			   //当前要读的序列号
-	CIOCPBuffer *pOutOfOrderReads;	//记录没有按顺序完成的读IO
-	CRITICAL_SECTION Lock;				  //保护这个结构
+	ULONG nReadSequence;					//安排给接收的下一个序列号
+	ULONG nCurrentSequence;					//当前要读的序列号
+	CIOCPBuffer *pOutOfOrderReads;			//记录没有按顺序完成的读IO
+	CRITICAL_SECTION Lock;					//保护这个结构
 	CIOCPContext *pNext;
 };
 
