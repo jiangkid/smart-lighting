@@ -41,8 +41,7 @@ public:
 	CGenericServer(void);
 	~CGenericServer(void);	
 
-	/*****开始服务：状态变量初始化、socket创建与绑定、完成端口创建与关联*****/
-	BOOL Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialReads);
+
 	/*****停止服务*****/
 	void Shutdown();
 	/*****关闭一个连接和关闭所有连接*****/

@@ -65,25 +65,7 @@ CGenericServer::~CGenericServer(void)
 	::DeleteCriticalSection(&m_ConnectionListLock);		
 }
 
-/*****开始服务：状态变量初始化、socket创建与绑定、完成端口创建与关联*****/
-BOOL CGenericServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialReads)
-{
-	if(m_bServerStarted)
-	{
-		return FALSE;
-	}
-	/*****参数设置*****/
-	m_nPort = nPort;
-	m_nMaxConnections = nMaxConnections;
-	m_nMaxFreeBuffers = nMaxFreeBuffers;
-	m_nMaxFreeContexts = nMaxFreeContexts;
-	m_nInitialReads = nInitialReads;
-	/*****状态设置*****/
-	m_bServerStarted = TRUE;
-	m_bShutDown = FALSE;
 
-	return TRUE;
-}
 
 /***************申请缓冲区对象***************/
 CIOCPBuffer *CGenericServer::AllocateBuffer(int nLen)
