@@ -8,6 +8,7 @@
 #define IDS_ABOUTBOX					101
 #define IDD_SERVER_DIALOG				102
 
+#define IDD_SERVER_DIALOG22				10222
 // 新对象的下一组默认值
 //
 #ifdef APSTUDIO_INVOKED
