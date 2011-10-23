@@ -117,7 +117,7 @@ DWORD WINAPI  CClientServer::_ListenThreadProc(LPVOID lpParam)
 			}
 			//等待IO处理线程退出
 			::WaitForMultipleObjects(MAX_THREAD,&hWaitEvents[2],TRUE,5*1000);
-			for (i=2;i<MAX_THREAD+2;i++)
+			for (int i=2;i<MAX_THREAD+2;i++)
 			{
 				::CloseHandle(hWaitEvents[i]);
 			}
