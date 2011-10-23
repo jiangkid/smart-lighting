@@ -1,6 +1,9 @@
 #include "StdAfx.h"
 #include "ClientServer.h"
 
+CClientServer  _ClientServer;
+CClientServer *ClientServer = &_ClientServer;
+
 CClientServer::CClientServer(void)
 {
 }
@@ -13,7 +16,7 @@ BOOL CClientServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, i
 {
 	if(m_bServerStarted)
 	{
-		return FALSE;
+		return TRUE;
 	}
 	/*****参数设置*****/
 	m_nPort = nPort;
@@ -36,11 +39,33 @@ BOOL CClientServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, i
 		return FALSE;
 	}
 	::listen(m_sListen,300);
+	//加载扩展函数AcceptEx
+	GUID GuidAcceptEx = WSAID_ACCEPTEX;
+	DWORD dwBytes;
+	::WSAIoctl(m_sListen,
+				SIO_GET_EXTENSION_FUNCTION_POINTER,
+				&GuidAcceptEx,sizeof(GuidAcceptEx),
+				&m_lpfnAcceptEx,
+				sizeof(m_lpfnAcceptEx),
+				&dwBytes,
+				NULL,
+				NULL);
+	//加载扩展函数GetAcceptExSockaddrs,该函数用来从AcceptEx取得数据
+	GUID GuidGetAcceptExSockaddrs = WSAID_GETACCEPTEXSOCKADDRS;
+	::WSAIoctl(m_sListen,
+				SIO_GET_EXTENSION_FUNCTION_POINTER,
+				&GuidGetAcceptExSockaddrs,
+				sizeof(GuidGetAcceptExSockaddrs),
+				&m_lpfnGetAcceptExSockaddrs,
+				sizeof(m_lpfnGetAcceptExSockaddrs),
+				&dwBytes,
+				NULL,
+				NULL);
 	/*****创建完成端口，关联*****/
 	m_hCompletion = CreateIoCompletionPort ( INVALID_HANDLE_VALUE, NULL, 0, 0 );
 	::CreateIoCompletionPort(&m_sListen,m_hCompletion,(DWORD)0,0);
 	/*****注册事件*****/
-	::WSAEventSelect(  m_sListen,  m_hAcceptEvent, FD_ACCEPT);
+	::WSAEventSelect(m_sListen,  m_hAcceptEvent, FD_ACCEPT);
 	//创建监听线程
 	HANDLE	hThread=CreateThread(NULL,0,_ListenThreadProc,this,0,NULL);
 	return TRUE;
@@ -88,7 +113,13 @@ DWORD WINAPI  CClientServer::_ListenThreadProc(LPVOID lpParam)
 			//通知所有的IO处理线程退出
 			for(int i=2;i<MAX_THREAD+2;++i)
 			{
-
+				::PostQueuedCompletionStatus(pThis->m_hCompletion,-1,0,NULL);
+			}
+			//等待IO处理线程退出
+			::WaitForMultipleObjects(MAX_THREAD,&hWaitEvents[2],TRUE,5*1000);
+			for (i=2;i<MAX_THREAD+2;i++)
+			{
+				::CloseHandle(hWaitEvents[i]);
 			}
 		}
 	}
@@ -99,8 +130,41 @@ DWORD WINAPI  CClientServer::_ListenThreadProc(LPVOID lpParam)
 
 DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 {
-
-
-
+	CClientServer *pThis = (CClientServer*)lpParam;
+	CIOCPBuffer *pBuffer;
+	DWORD dwKey;
+	DWORD dwTrans;
+	LPOVERLAPPED lpoverlapped;
+	while (TRUE)
+	{
+		//在关联到此完成端口的所有套接字上等待IO完成
+		BOOL bOK=::GetQueuedCompletionStatus(pThis->m_hCompletion,&dwTrans,(LPDWORD)&dwKey,
+			                           (LPOVERLAPPED*)&lpoverlapped,WSA_INFINITE);
+		if (dwTrans=-1)//用户通知退出
+		{
+			::ExitThread(0);
+		}
+		pBuffer = CONTAINING_RECORD(lpoverlapped,CIOCPBuffer,overlapped);
+		int nError = NO_ERROR;
+		if (!bOK)
+		{
+			SOCKET s;
+			if (pBuffer->nOperation == OP_ACCEPT)
+			{
+				s = pThis->m_sListen;
+			}
+			else
+			{
+				s = ((CIOCPContext*)dwKey)->s;
+			}
+			DWORD dwFlags = 0;
+			if (!::WSAGetOverlappedResult(s,&pBuffer->overlapped,&dwTrans,FALSE,&dwFlags))
+			{
+				nError = ::WSAGetLastError();
+			}
+			pThis->HandleIO(dwKey,pBuffer,dwTrans,nError);
+		}
+	}
 	return TRUE;
 }
+

@@ -1,6 +1,7 @@
 #pragma once
 #include "genericserver.h"
 
+
 class CClientServer :
 	public CGenericServer
 {
@@ -15,3 +16,5 @@ public:
 
 
 };
+
+extern CClientServer *ClientServer;
