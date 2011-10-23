@@ -132,6 +132,159 @@ BOOL CGPRSServer::StopServer()
 	return TRUE;
 }
 
+//
+//服务器管理线程
+//
+DWORD WINAPI CGPRSServer::AdminThread(LPVOID pParam)
+{
+	CGPRSServer *pGPRSServer = (CGPRSServer *) pParam;
+
+	//通知StratServer函数，Admin线程已启动,
+	SetEvent(pGPRSServer->m_evtThreadLanched);
+
+	//等待服务停止指令，该指令在三种情况下会被触发
+	//1.调用StartServer函数时，ListenThread未能正常启动
+	//2.服务器ListenThread运行过程中出错
+	//3.调用StopServer函数
+
+	//阻塞m_evtSvrToStop事件对象被触发
+	WaitForSingleObject(pGPRSServer->m_evtSvrToStop,INFINITE);
+
+	//Do Clear Work
+	if(pGPRSServer->m_sListen!=INVALID_SOCKET)
+		closesocket(pGPRSServer->m_sListen);//将导致ListenThread的accept调用出错并结束
+
+	if(pGPRSServer->m_hCompletion)
+	{
+		//通知Service线程结束
+		for(UINT i=0; i<pGPRSServer->m_nSvcThreadNum;i++)
+			PostQueuedCompletionStatus(pGPRSServer->m_hCompletion,0,0,NULL);
+	}
+	//等待所有Service线程和监听线程结束
+	WaitForMultipleObjects(pGPRSServer->m_nSvcThreadNum+1,&(pGPRSServer->m_hThreadList[1]),TRUE,WAIT4THREAD_MILLISECS*2);
+
+	DWORD nExitCode;
+	for(UINT j=1;j<pGPRSServer->m_nSvcThreadNum;j++)
+	{
+		GetExitCodeThread(pGPRSServer->m_hThreadList[j],&nExitCode);
+		if(nExitCode==STILL_ACTIVE)
+			TerminateThread(pGPRSServer->m_hThreadList[j],1);
+	}
+	return 0;
+}
+
+//
+//服务器监听线程
+//
+DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
+{
+	CGPRSServer *pGPRSServer=(CGPRSServer *) pParam;
+
+	//创建I/O完成端口
+	pGPRSServer->m_hCompletion=pGPRSServer->CreateNewIoCompletionPort(0);
+	if(pGPRSServer->m_hCompletion==NULL)
+		return -1;
+
+	//创建多个工作线程
+	for(UINT i=0;i<pGenericServer->m_nSvcThreadNum;i++)
+	{
+		HANDLE hThread=CreateThread(NULL,0,ServiceThread,pGenericServer,0,NULL);
+		if(hThread == NULL)
+			return -1;
+
+		else
+			pGenericServer->m_hThreadList[i+2]=hThread;
+	}
+
+	//创建监听端口，设置SO_REUSEADDR选项为TRUE，绑定本地端口5002，并调用Listen函数进行监听
+	pGenericServer->m_sdListen=socket(AF_INET,SOCK_STREAM,0);
+	if(pGenericServer->m_sdListen==INVALID_SOCKET)
+		return -1;
+
+	BOOL bReuseAddr=TRUE;
+
+	//在监听套接口上启用SO_REUSEADDR选项,为真,套接字可与一个正在被其他套接字使用的地址绑定在一起
+	if(setsockopt(pGenericServer->m_sdListen,SOL_SOCKET,SO_REUSEADDR,(char *)&bReuseAddr,sizeof(bReuseAddr))==SOCKET_ERROR)
+		return -1;
+
+	SOCKADDR_IN local;
+	memset(&local,0,sizeof(local));
+	local.sin_family=AF_INET;
+	local.sin_port=htons(5002);
+	local.sin_addr.S_un.S_addr=INADDR_ANY;
+	if(bind(pGenericServer->m_sdListen,(SOCKADDR *)&local,sizeof(local))==SOCKET_ERROR)
+		return -1;
+
+	if(listen(pGenericServer->m_sdListen,5)==SOCKET_ERROR)
+		return -1;
+
+	//通知StartServer函数，监听线程已启动
+	SetEvent(pGenericServer->m_evtThreadLanched);
+
+	SOCKET sockAccept;
+	LPCONN_CTX lpConnCtx;
+	int nResult;
+
+#ifdef _DEMO
+	SOCKADDR_IN from;
+#endif
+	while(1)    //循环接受外来连接，并投递初始I/O操作请求
+	{
+		sockAccept=accept(pGenericServer->m_sdListen,NULL,NULL);
+		if(sockAccept==INVALID_SOCKET)
+		{
+			SetEvent(pGenericServer->m_evtSvrToStop);
+			return -1;
+		}
+#ifdef _DEMO
+		memset(&from,0,sizeof(from));
+		int fromlen=sizeof(from);
+		getpeername(sockAccept,(SOCKADDR *)&from,&fromlen);
+		AfxGetMainWnd()->PostMessage(WM_USER_CLIENT,from.sin_addr.s_addr,CLIENT_CONN_REQ);
+#endif
+		if(pGenericServer->m_bSvrPaused)
+		{
+			closesocket(sockAccept);
+#ifdef _DEMO
+			AfxGetMainWnd()->PostMessage(WM_USER_CLIENT,from.sin_addr.s_addr,CLIENT_REJECT);
+
+#endif
+			continue;
+		}
+
+		lpConnCtx=pGenericServer->CreateConnCtx(sockAccept,pGenericServer->m_hIOCP);
+		if(lpConnCtx==NULL)
+		{
+			SetEvent(pGenericServer->m_evtSvrToStop);
+			return -1;
+		}
+		else
+			pGenericServer->ConnListAdd(lpConnCtx);
+
+#ifdef _DEMO
+		AfxGetMainWnd()->PostMessage(WM_USER_CLIENT,from.sin_addr.s_addr,CLIENT_ACCEPT);
+#endif
+		//投递初始I/O操作
+		nResult=WSARecv(sockAccept,
+			&(lpConnCtx->pPerIOData->wbuf),
+			1,
+			NULL,
+			&(lpConnCtx->pPerIOData->flags),
+			&(lpConnCtx->pPerIOData->OverLapped),
+			NULL
+			);
+		if(nResult==SOCKET_ERROR && WSAGetLastError()!=ERROR_IO_PENDING)
+		{
+			pGenericServer->ConnListRemove(lpConnCtx);
+			continue;
+		}
+	}
+	return 0;
+}
+
+
+
+
 
 
 

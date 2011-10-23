@@ -618,3 +618,19 @@ void CGenericServer::OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuff
 {
 
 }
+
+//
+//创建I/O完成端口
+//
+HANDLE CGenericServer::CreateNewIoCompletionPort(DWORD dwNumberOfConcurrentThreads)
+{
+	return (CreateIoCompletionPort(INVALID_HANDLE_VALUE,NULL,0,dwNumberOfConcurrentThreads));
+}
+
+//
+//将套接口与完成端口绑定
+//
+BOOL CGenericServer::AssociateWithIoCompletionPort(HANDLE hComPort,HANDLE hDevice,DWORD dwCompKey)
+{
+	return (CreateIoCompletionPort(hDevice,hComPort,dwCompKey,0)==hComPort);
+}
