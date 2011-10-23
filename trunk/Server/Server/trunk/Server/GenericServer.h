@@ -1,8 +1,8 @@
 #pragma once
 
 
-#define BUFFER_SIZE		1024*3
-#define MAX_THREAD   2
+#define BUFFER_SIZE		1024*4    //I/O
+#define MAX_THREAD      4
 /*****CIOCPBuffer结构用来描述per-I/O数据，即缓冲区数据，它包含了在套接字上处理IO操作的必要信息*****/
 struct CIOCPBuffer
 {
@@ -43,7 +43,7 @@ public:
 
 
 	/*****停止服务*****/
-	void Shutdown();
+	virtual void Shutdown();
 	/*****关闭一个连接和关闭所有连接*****/
 	void CloseAConnection(CIOCPContext *pContext);
 	void CloseAllConnection();
