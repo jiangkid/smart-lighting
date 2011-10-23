@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "Server.h"
 #include "ServerDlg.h"
-
+#include "ClientServer.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -154,15 +154,22 @@ HCURSOR CServerDlg::OnQueryDragIcon()
 
 void CServerDlg::OnBnClickedStart()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	if (ClientServer->Start(5005,2000,500,300,4))
+	{
+		MessageBox("服务器启动成功！");
+	}
+	else
+	{
+		MessageBox("服务器启动失败！");
+	}
 }
 
 void CServerDlg::OnBnClickedStop()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	
 }
 
 void CServerDlg::OnBnClickedEnd()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	
 }

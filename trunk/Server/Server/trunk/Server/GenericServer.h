@@ -117,6 +117,7 @@ protected:
 	HANDLE m_hCompletion;
 	SOCKET m_sListen;
 	LPFN_ACCEPTEX m_lpfnAcceptEx;  //AcceptEx函数地址
+	LPFN_GETACCEPTEXSOCKADDRS m_lpfnGetAcceptExSockaddrs;//GetAcceptExSockaddrs函数地址
 	BOOL m_bShutDown;//用于通知监听线程退出
 	BOOL m_bServerStarted;//记录服务器是否启动
 };
