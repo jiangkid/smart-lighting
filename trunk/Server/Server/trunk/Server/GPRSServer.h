@@ -27,8 +27,7 @@ protected:
 
 	static DWORD WINAPI ListenThread(LPVOID pParam);
 	static DWORD WINAPI ServiceThread(LPVOID pParam);
-	static DWORD WINAPI AdminThread(LPVOID pParam);
-
+	static DWORD WINAPI AdminThread(LPVOID pParam); 
 };
 
 extern CGenericServer     *g_pGenericServer;

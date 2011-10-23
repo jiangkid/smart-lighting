@@ -85,6 +85,12 @@ protected:
 	/*****一个连接上写操作完成******/
 	virtual void OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
 
+	//创建I/O完成端口
+	HANDLE CreateNewIoCompletionPort(DWORD dwNumberOfConcurrentThreads);
+
+	//关联I/O完成端口
+	BOOL AssociateWithIoCompletionPort(HANDLE hComPort,HANDLE hDevice,DWORD dwCompKey);
+
 	/*************************变量*************************/
 	/*****记录空闲结构信息 ******/
 	CIOCPBuffer *m_pFreeBufferList;
