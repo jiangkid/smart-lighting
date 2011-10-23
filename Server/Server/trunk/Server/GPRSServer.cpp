@@ -86,7 +86,9 @@ BOOL CGPRSServer::StratServer()
 	{
 		TerminateThread(hThread,1);
 		CloseHandle(hThread);
-		SetEvent(m_evtSvrToStop); //通知管理线程结束
+
+		//通知管理线程结束
+		SetEvent(m_evtSvrToStop); 
 		if(WaitForSingleObject(m_hThreadList[0],WAIT4THREAD_MILLISECS*3)!=WAIT_OBJECT_0)
 			TerminateThread(m_hThreadList[0],1);
 		CloseHandle(m_hThreadList[0]);
