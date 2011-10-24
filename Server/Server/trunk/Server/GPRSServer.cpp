@@ -41,9 +41,6 @@ BOOL CGPRSServer::StratServer()
 		return FALSE;
 	}
 
-	//初始化 Winsock库
-	CInitSock theSock;
-
 	//启动管理线程,该线程负责服务器的关闭
 	HANDLE hThread=CreateThread(NULL,0,AdminThread,this,0,NULL);
 	if(hThread==NULL)

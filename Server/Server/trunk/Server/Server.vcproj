@@ -203,10 +203,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\InitSock.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Server.cpp"
 				>
 			</File>
@@ -250,10 +246,6 @@
 			</File>
 			<File
 				RelativePath=".\GPRSServer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\InitSock.h"
 				>
 			</File>
 			<File
