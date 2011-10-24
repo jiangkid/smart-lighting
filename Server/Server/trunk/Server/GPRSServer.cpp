@@ -217,7 +217,7 @@ DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
 
 	//通知StartServer函数，监听线程已启动
 	SetEvent(pGPRSServer->m_evtThreadLanched);
-
+/*
 	SOCKET sockAccept;
 	LPCONN_CTX lpConnCtx;
 	int nResult;
@@ -275,7 +275,7 @@ DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
 			pGenericServer->ConnListRemove(lpConnCtx);
 			continue;
 		}
-	}
+	}*/
 	return 0;
 }
 
