@@ -9,6 +9,7 @@
 #define new DEBUG_NEW
 #endif
 
+CServerDlg   ServerDlg ;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -98,7 +99,6 @@ BOOL CServerDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -144,17 +144,27 @@ void CServerDlg::OnPaint()
 	}
 }
 
-//当用户拖动最小化窗口时系统调用此函数取得光标
-//显示。
+//当用户拖动最小化窗口时系统调用此函数取得光标显示。
 HCURSOR CServerDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
-
+/**************在编辑框显示内容**************/
+void CServerDlg::Edit(LPARAM lParam)
+{
+	CString  text ;
+	CString str = (char *)lParam;
+	//获得已有数据
+	GetDlgItemText(IDC_EDIT,text);
+	text += "\r\n";	
+	text += str;
+	//显示所有接收到的数据
+	SetDlgItemText(IDC_EDIT,text);
+}
 
 void CServerDlg::OnBnClickedStart()
 {
-	if (ClientServer->Start(5005,2000,500,300,4))
+	if (ClientServer->Start(5005,50,20,20,2,4))
 	{
 		MessageBox("服务器启动成功！");
 	}
