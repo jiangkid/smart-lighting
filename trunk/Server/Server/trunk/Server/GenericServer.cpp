@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "GenericServer.h"
-
-
+#include "resource.h"		// 主符号
+#include "ServerDlg.h"
 CGenericServer::CGenericServer(void)
 {
 	/*****列表*****/
@@ -26,7 +26,7 @@ CGenericServer::CGenericServer(void)
 	m_hRepostEvent = ::CreateEvent(NULL, FALSE, FALSE, NULL);
 	m_nRepostCount = 0;
 
-	m_nPort = 5002;
+	m_nPort = 5005;
 
 
 	m_nInitialAccepts = 10;				//开始投递的Accept I/O的数量
@@ -389,10 +389,14 @@ BOOL CGenericServer::PostAccept(CIOCPBuffer *pBuffer)
 {
 	// 设置I/O类型
 	pBuffer->nOperation = OP_ACCEPT;
-
+	pBuffer->overlapped.hEvent = NULL;
 	// 投递此重叠I/O  
 	DWORD dwBytes;
-	pBuffer->sClient = ::WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+	pBuffer->sClient = ::WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, NULL, WSA_FLAG_OVERLAPPED);
+	if (pBuffer->sClient == INVALID_SOCKET)
+	{
+		MessageBox(NULL,"创建套接字出错","PostAccept",MB_OK);
+	}
 	BOOL b = m_lpfnAcceptEx(m_sListen, 
 		pBuffer->sClient,
 		pBuffer->buff, 
@@ -405,6 +409,7 @@ BOOL CGenericServer::PostAccept(CIOCPBuffer *pBuffer)
 	{
 		return FALSE;
 	}
+	::MessageBox(NULL,"PostAccept 成功！","提示",MB_OK);
 	return TRUE;
 }
 
@@ -480,7 +485,7 @@ BOOL CGenericServer::PostRecv(CIOCPContext *pContext,CIOCPBuffer *pBuffer)
 void CGenericServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int nError)
 {
 	CIOCPContext *pContext = (CIOCPContext*)dwKey;
-	
+	::MessageBox(NULL,"进入HandleIO函数！","提示",MB_OK);
 	if (pContext != NULL)  
 	{
 		/******(1)是发送和接收请求，减少套接字上的未决的IO计数******/
@@ -539,6 +544,7 @@ void CGenericServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, 
 	/******开始处理******/
 	if (pBuffer->nOperation == OP_ACCEPT)
 	{
+		::MessageBox(NULL,"接收处理！","提示",MB_OK);
 		CIOCPContext *pClient = AllocateContext(pBuffer->sClient);
 		if (pClient != NULL)
 		{
@@ -546,22 +552,25 @@ void CGenericServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, 
 			{
 				int nLocalLen,nRemoteLen;
 				LPSOCKADDR pLocalAddr, pRemoteAddr;
-				m_lpfnGetAcceptExSockaddrs(pBuffer->buff,0,
-					sizeof(sockaddr_in*)+16,
-					sizeof(sockaddr_in*)+16,
-					(SOCKADDR**)&pLocalAddr,
-					&nLocalLen,
-					(SOCKADDR**)&pRemoteAddr,
-					&nRemoteLen);
+				m_lpfnGetAcceptExSockaddrs(pBuffer->buff,
+																0,
+																sizeof(sockaddr_in*)+16,
+																sizeof(sockaddr_in*)+16,
+																(SOCKADDR**)&pLocalAddr,
+																&nLocalLen,
+																(SOCKADDR**)&pRemoteAddr,
+																&nRemoteLen);
 				memcpy(&pClient->addrLocal,pLocalAddr,nLocalLen);
 				memcpy(&pClient->addrRemote,pRemoteAddr,nRemoteLen);
 				//关联新连接到完成端口对象
 				::CreateIoCompletionPort((HANDLE)pClient->s,m_hCompletion,(DWORD)pClient,0);
 				//通知用户
 				pBuffer->nLen = dwTrans;
+				::MessageBox(NULL,"获取接受的信息！","OP_ACCEPT",MB_OK);
 				OnConnectionEstablished(pClient,pBuffer);
+
 				//向新的连接投递一个READ请求，这些空间在套接字关闭或出错时释放
-				for (int i=0;i<5;i++)
+			/*	for (int i=0;i<5;i++)
 				{
 					CIOCPBuffer *p = AllocateBuffer(BUFFER_SIZE);
 					if (p != NULL)
@@ -572,16 +581,16 @@ void CGenericServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, 
 							break;
 						}
 					}
-				}
+				}*/
 			}
-			else  //连接数量已满，关闭连接
+			/*else  //连接数量已满，关闭连接
 			{
 				CloseAConnection(pClient);
 				ReleaseContext(pClient);
-			}
+			}*/
 		}
 		//资源不足，关闭与客户的连接
-		else
+		/*else
 		{
 			::closesocket(pBuffer->sClient);
 			pBuffer->sClient = INVALID_SOCKET;
@@ -590,13 +599,17 @@ void CGenericServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, 
 		ReleaseBuffer(pBuffer);
 		//通知监听线程继续再投递一个Accept请求
 		::InterlockedIncrement(&m_nRepostCount);
-		::SetEvent(m_hRepostEvent);
+		::SetEvent(m_hRepostEvent);*/
 	}
 }
 
 void CGenericServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
 {
-
+	CString tmp;
+	tmp.Format("%s\r\n",pContext->addrRemote);
+	printf("%s",tmp);
+	ServerDlg.Edit(*tmp);
+	return;
 }
 
 void CGenericServer::OnConnectionClosing(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
