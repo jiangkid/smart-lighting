@@ -3,10 +3,9 @@
 
 #include "stdafx.h"
 #include "LightClient.h"
-
+#include "ChatCAsyncSocketDlg.h"
 #include "MainFrm.h"
 #include "LoginDlg.h"
-#include "ConnectDlg.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -116,6 +115,6 @@ void CMainFrame::Dump(CDumpContext& dc) const
 void CMainFrame::OnConnect() 
 {
 	// TODO: Add your command handler code here
-	CConnectDlg dlg;
+	CChatCAsyncSocketDlg dlg;
 	dlg.DoModal();
 }

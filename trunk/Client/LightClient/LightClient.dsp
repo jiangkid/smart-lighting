@@ -90,7 +90,11 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\ConnectDlg.cpp
+SOURCE=.\ChatCAsyncSocketDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\VC\ChatCAsyncSocket\DataSocket.cpp
 # End Source File
 # Begin Source File
 
@@ -110,15 +114,15 @@ SOURCE=.\LightClientView.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\VC\ChatCAsyncSocket\ListenSocket.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\LoginDlg.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\MainFrm.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Mysocket.cpp
 # End Source File
 # Begin Source File
 
@@ -131,7 +135,11 @@ SOURCE=.\StdAfx.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\ConnectDlg.h
+SOURCE=.\ChatCAsyncSocketDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\VC\ChatCAsyncSocket\DataSocket.h
 # End Source File
 # Begin Source File
 
@@ -147,15 +155,15 @@ SOURCE=.\LightClientView.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\VC\ChatCAsyncSocket\ListenSocket.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\LoginDlg.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\MainFrm.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Mysocket.h
 # End Source File
 # Begin Source File
 
