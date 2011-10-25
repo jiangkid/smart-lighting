@@ -2,8 +2,7 @@
 #include "genericserver.h"
 
 
-class CClientServer :
-	public CGenericServer
+class CClientServer :	public CGenericServer
 {
 public:
 	CClientServer(void);
@@ -14,6 +13,18 @@ public:
 	static DWORD WINAPI _ListenThreadProc(LPVOID lpParam);
 	static DWORD WINAPI _WorkerThreadProc(LPVOID lpParam);
 
+	void HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int nError);
+
+	/*****建立一个新的连接******/
+   void OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+	/*****一个连接关闭******/
+	void OnConnectionClosing(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+	/*****在一个连接上发生了错误******/
+	void OnConnectionError(CIOCPContext *pContext, CIOCPBuffer *pBuffer,int nError);
+	/*****一个连接上读操作完成******/
+	void OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+	/*****一个连接上写操作完成******/
+	void OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
 
 };
 

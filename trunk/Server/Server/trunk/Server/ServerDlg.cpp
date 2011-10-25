@@ -1,7 +1,7 @@
 // ServerDlg.cpp : 实现文件
 //
 
-#include "stdafx.h"
+#include "stdafx.h"                            
 #include "Server.h"
 #include "ServerDlg.h"
 #include "ClientServer.h"
@@ -66,6 +66,7 @@ BEGIN_MESSAGE_MAP(CServerDlg, CDialog)
 	ON_BN_CLICKED(IDC_START, &CServerDlg::OnBnClickedStart)
 	ON_BN_CLICKED(IDC_STOP, &CServerDlg::OnBnClickedStop)
 	ON_BN_CLICKED(IDC_END, &CServerDlg::OnBnClickedEnd)
+	//ON_MESSAGE(WM_DATASHOW, OnDatashow)
 END_MESSAGE_MAP()
 
 
@@ -150,17 +151,31 @@ HCURSOR CServerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 /**************在编辑框显示内容**************/
-void CServerDlg::Edit(LPARAM lParam)
+void CServerDlg::Edit(CString lParam)
 {
+	::MessageBox(NULL,"进入Edit！","Edit",MB_OK);
 	CString  text ;
-	CString str = (char *)lParam;
+	CString str ="hello";
+	////获得已有数据
+	//GetDlgItemText(IDC_EDIT,text);
+	//text += "\r\n";	
+	//text += str;
+	//显示所有接收到的数据
+	SetDlgItemText(IDC_EDIT1,str);
+}
+
+/*LRESULT CServerDlg::OnDatashow(WPARAM wParam,LPARAM lParam)
+{
+	/*CString  text ;
+	CString str = (CString )lParam;
 	//获得已有数据
 	GetDlgItemText(IDC_EDIT,text);
 	text += "\r\n";	
 	text += str;
 	//显示所有接收到的数据
 	SetDlgItemText(IDC_EDIT,text);
-}
+	return 0;
+}*/
 
 void CServerDlg::OnBnClickedStart()
 {
@@ -183,3 +198,4 @@ void CServerDlg::OnBnClickedEnd()
 {
 	
 }
+

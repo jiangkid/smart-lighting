@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "ClientServer.h"
-
+#include "ServerDlg.h"
 CClientServer  _ClientServer;
 CClientServer *ClientServer = &_ClientServer;
 int y;
@@ -229,3 +229,153 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 	return TRUE;
 }
 
+/******************************************************************************
+函数名：HandleIO
+功能：处理完成的IO请求，投递新的IO请求，释放完成的缓冲区对象和关闭的客户上下文对象
+*******************************************************************************/
+void CClientServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int nError)
+{
+	CIOCPContext *pContext = (CIOCPContext*)dwKey;
+	::MessageBox(NULL,"进入HandleIO函数！","提示",MB_OK);
+	if (pContext != NULL)  
+	{
+		/******(1)是发送和接收请求，减少套接字上的未决的IO计数******/
+		::EnterCriticalSection(&pContext->Lock);
+		if (pBuffer->nOperation == OP_READ)
+		{
+			pContext->nOutstandingRecv--;
+		}
+		else if (pBuffer->nOperation == OP_WRITE)
+		{
+			pContext->nOutstandingSend--;
+		}
+		::LeaveCriticalSection(&pContext->Lock);
+	
+		/******（2）检查套接字是否已经被我们关闭******/
+		if (pContext->bClosing)  
+		{
+			//套接字已经被关闭
+			if (pContext->nOutstandingRecv == 0 && pContext->nOutstandingSend)
+			{
+				ReleaseContext(pContext);
+			}
+			//释放已关闭套接字的未决IO
+			ReleaseBuffer(pBuffer);
+			return;
+		}
+	}
+	else  //连接请求
+	{
+		RemovePendingAccept(pBuffer);
+	}
+	/******（3）检查套接字上发生的错误，如果有的话，通知用户，然后关闭套接字******/
+	if (nError != NO_ERROR)
+	{
+		if (pBuffer->nOperation != OP_ACCEPT)
+		{
+			OnConnectionError(pContext,pBuffer,nError);
+			CloseAConnection(pContext);
+			if (pContext->nOutstandingRecv == 0 && pContext->nOutstandingSend  == 0)
+			{
+				ReleaseContext(pContext);
+			}
+		}
+		else
+		{
+			//客户端出错，释放IO缓冲区
+			if (pBuffer->sClient != INVALID_SOCKET)
+			{
+				::closesocket(pBuffer->sClient);
+				pBuffer->sClient = INVALID_SOCKET;
+			}
+		}
+		ReleaseBuffer(pBuffer);
+		return;
+	}
+	/******开始处理******/
+	if (pBuffer->nOperation == OP_ACCEPT)
+	{
+		::MessageBox(NULL,"接收处理！","提示",MB_OK);
+		CIOCPContext *pClient = AllocateContext(pBuffer->sClient);
+		if (pClient != NULL)
+		{
+			if (AddAConnection(pClient))
+			{
+				int nLocalLen,nRemoteLen;
+				LPSOCKADDR pLocalAddr, pRemoteAddr;
+				m_lpfnGetAcceptExSockaddrs(pBuffer->buff,
+																0,
+																sizeof(sockaddr_in*)+16,
+																sizeof(sockaddr_in*)+16,
+																(SOCKADDR**)&pLocalAddr,
+																&nLocalLen,
+																(SOCKADDR**)&pRemoteAddr,
+																&nRemoteLen);
+				memcpy(&pClient->addrLocal,pLocalAddr,nLocalLen);
+				memcpy(&pClient->addrRemote,pRemoteAddr,nRemoteLen);
+				//关联新连接到完成端口对象
+				::CreateIoCompletionPort((HANDLE)pClient->s,m_hCompletion,(DWORD)pClient,0);
+				//通知用户
+				pBuffer->nLen = dwTrans;
+				::MessageBox(NULL,"获取接受的信息！","OP_ACCEPT",MB_OK);
+				OnConnectionEstablished(pClient,pBuffer);
+
+				//向新的连接投递一个READ请求，这些空间在套接字关闭或出错时释放
+			/*	for (int i=0;i<5;i++)
+				{
+					CIOCPBuffer *p = AllocateBuffer(BUFFER_SIZE);
+					if (p != NULL)
+					{
+						if (!PostRecv(pClient,p))
+						{
+							CloseAConnection(pClient);
+							break;
+						}
+					}
+				}*/
+			}
+			/*else  //连接数量已满，关闭连接
+			{
+				CloseAConnection(pClient);
+				ReleaseContext(pClient);
+			}*/
+		}
+		//资源不足，关闭与客户的连接
+		/*else
+		{
+			::closesocket(pBuffer->sClient);
+			pBuffer->sClient = INVALID_SOCKET;
+		}
+		//Accept请求完成，释放IO缓冲区
+		ReleaseBuffer(pBuffer);
+		//通知监听线程继续再投递一个Accept请求
+		::InterlockedIncrement(&m_nRepostCount);
+		::SetEvent(m_hRepostEvent);*/
+	}
+}
+
+void CClientServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
+{
+	::MessageBox(NULL,"进入OnConnectionEstablished！","OnConnectionEstablished",MB_OK);
+	CString tmp;
+	tmp.Format("%s\r\n",pContext->addrRemote);
+	printf("%s",tmp);
+	ServerDlg.Edit(tmp);
+	return;
+}
+
+void CClientServer::OnConnectionClosing(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
+{
+}
+
+void CClientServer::OnConnectionError(CIOCPContext *pContext, CIOCPBuffer *pBuffer,int nError)
+{
+}
+
+void CClientServer::OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
+{
+}
+
+void CClientServer::OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
+{
+}

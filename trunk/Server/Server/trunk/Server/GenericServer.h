@@ -43,7 +43,7 @@ public:
 
 
 	/*****停止服务*****/
-	virtual void Shutdown();
+	//virtual void Shutdown();
 	/*****关闭一个连接和关闭所有连接*****/
 	void CloseAConnection(CIOCPContext *pContext);
 	void CloseAllConnection();
@@ -72,7 +72,7 @@ public:
 	BOOL PostAccept(CIOCPBuffer *pBuffer);
 	BOOL PostSend(CIOCPContext *pContext,CIOCPBuffer *pBuffer);
 	BOOL PostRecv(CIOCPContext *pContext,CIOCPBuffer *pBuffer);
-	void HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int nError);
+	
 	/*****事件通知函数******/
 	/*****建立一个新的连接******/
 	virtual void OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
