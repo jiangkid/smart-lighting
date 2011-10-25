@@ -3,7 +3,7 @@
 
 CClientServer  _ClientServer;
 CClientServer *ClientServer = &_ClientServer;
-
+int y;
 CClientServer::CClientServer(void)
 {
 }
@@ -12,7 +12,7 @@ CClientServer::~CClientServer(void)
 {
 }
 /*****开始服务：状态变量初始化、socket创建与绑定、完成端口创建与关联*****/
-BOOL CClientServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialReads)
+BOOL CClientServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialAccepts, int nInitialReads)
 {
 	if(m_bServerStarted)
 	{
@@ -23,6 +23,7 @@ BOOL CClientServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, i
 	m_nMaxConnections = nMaxConnections;
 	m_nMaxFreeBuffers = nMaxFreeBuffers;
 	m_nMaxFreeContexts = nMaxFreeContexts;
+	m_nInitialAccepts = nInitialAccepts;
 	m_nInitialReads = nInitialReads;
 	/*****状态设置*****/
 	m_bServerStarted = TRUE;
@@ -63,7 +64,7 @@ BOOL CClientServer::Start(int nPort, int nMaxConnections, int nMaxFreeBuffers, i
 				NULL);
 	/*****创建完成端口，关联*****/
 	m_hCompletion = CreateIoCompletionPort ( INVALID_HANDLE_VALUE, NULL, 0, 0 );
-	::CreateIoCompletionPort(&m_sListen,m_hCompletion,(DWORD)0,0);
+	::CreateIoCompletionPort((HANDLE)m_sListen,m_hCompletion,(DWORD)0,0);
 	/*****注册事件*****/
 	::WSAEventSelect(m_sListen,  m_hAcceptEvent, FD_ACCEPT);
 	//创建监听线程
@@ -99,10 +100,11 @@ DWORD WINAPI  CClientServer::_ListenThreadProc(LPVOID lpParam)
 	//下面进入无线循环，处理事件对象数组中的事件
 	while(TRUE)
 	{
-		int nIndex = ::WSAWaitForMultipleEvents(nEventCount,hWaitEvents,FALSE,60*1000,FALSE);
+		int nIndex = ::WSAWaitForMultipleEvents(nEventCount,hWaitEvents,FALSE,300*1000,FALSE);
 		//首先检查是否要停止服务
 		if(pThis->m_bShutDown || nIndex == WSA_WAIT_FAILED)
 		{
+			::MessageBox(NULL,"用户通知退出或事件出错！","监听线程",MB_OK);
 			//关闭所有连接
 			pThis->CloseAllConnection();
 			::Sleep(0);
@@ -121,10 +123,64 @@ DWORD WINAPI  CClientServer::_ListenThreadProc(LPVOID lpParam)
 			{
 				::CloseHandle(hWaitEvents[i]);
 			}
+			::CloseHandle(pThis->m_hCompletion);
+			pThis->FreeBuffers();
+			pThis->FreeContext();
+			::ExitThread(0);
+		}
+		//1)定时检查所有未返回的AcceptEx IO 的连接建立了多少时间
+		if (nIndex == WSA_WAIT_TIMEOUT)
+		{
+			::MessageBox(NULL,"事件等待超时！","提示",MB_OK);
+			printf("WSA_WAIT_TIMEOUT is d%", ++y);
+			pBuffer = pThis->m_pPendingAccepts;
+			while (pBuffer != NULL)
+			{
+				int nSeconds;
+				int nLen = sizeof(nSeconds);
+				::getsockopt(pBuffer->sClient,SOL_SOCKET,SO_CONNECT_TIME,(char*)&nSeconds,&nLen);
+				if (nSeconds!= -1 && nSeconds > 10*60)
+				{
+					::MessageBox(NULL,"关闭客户端的连接！","提示",MB_OK);
+					closesocket(pBuffer->sClient);
+					pBuffer->sClient = INVALID_SOCKET;
+				}
+				pBuffer = pBuffer->pNext;
+			}
+		}
+		else
+		{
+			nIndex = nIndex - WAIT_OBJECT_0;
+			WSANETWORKEVENTS Netevent;
+			int nLimit = 0;
+			if (nIndex = 0)   // 1 )m_hAcceptEvent事件对象受信，说明投递的Accept请求不够，需要增加
+			{
+				::WSAEnumNetworkEvents(pThis->m_sListen,hWaitEvents[nIndex],&Netevent);
+				if (Netevent.lNetworkEvents & FD_ACCEPT)
+				{
+					nLimit = 50;
+				}
+			}
+			else if(nIndex = 1) // 2）m_hAcceptEvent事件对象受信，说明投递的Accept请求不够，需要增加
+			{
+				nLimit = InterlockedExchange(&pThis->m_nRepostCount,0);
+			}
+			else if (nIndex > 1)
+			{
+				pThis->m_bShutDown = TRUE;
+			}
+			int i = 0;
+			while (i++<nLimit && pThis->m_nPendingAcceptCount < pThis->m_nMaxAccepts)
+			{
+				pBuffer = pThis->AllocateBuffer(BUFFER_SIZE);
+				if(pBuffer != NULL)
+				{
+					pThis->InsertPendingAccept(pBuffer);
+					pThis->PostAccept(pBuffer);
+				}
+			}
 		}
 	}
-
-
 	return TRUE;
 }
 
@@ -135,23 +191,28 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 	DWORD dwKey;
 	DWORD dwTrans;
 	LPOVERLAPPED lpoverlapped;
+	::MessageBox(NULL,"进入工作线程！","提示",MB_OK);
 	while (TRUE)
 	{
 		//在关联到此完成端口的所有套接字上等待IO完成
 		BOOL bOK=::GetQueuedCompletionStatus(pThis->m_hCompletion,&dwTrans,(LPDWORD)&dwKey,
 			                           (LPOVERLAPPED*)&lpoverlapped,WSA_INFINITE);
-		if (dwTrans=-1)//用户通知退出
+		if (dwTrans==-1)//用户通知退出
 		{
-			::ExitThread(0);
+			::MessageBox(NULL,"退出工作线程！","提示",MB_OK);
+			::ExitThread(0);			
 		}
+		::MessageBox(NULL,"获得接受请求！","提示",MB_OK);
 		pBuffer = CONTAINING_RECORD(lpoverlapped,CIOCPBuffer,overlapped);
 		int nError = NO_ERROR;
 		if (!bOK)
 		{
+			::MessageBox(NULL,"等待完成端口出错！","提示",MB_OK);
 			SOCKET s;
 			if (pBuffer->nOperation == OP_ACCEPT)
 			{
 				s = pThis->m_sListen;
+				::MessageBox(NULL,"等待完成端口出错--接受出错！","提示",MB_OK);
 			}
 			else
 			{
@@ -161,9 +222,9 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 			if (!::WSAGetOverlappedResult(s,&pBuffer->overlapped,&dwTrans,FALSE,&dwFlags))
 			{
 				nError = ::WSAGetLastError();
-			}
-			pThis->HandleIO(dwKey,pBuffer,dwTrans,nError);
+			}			
 		}
+		pThis->HandleIO(dwKey,pBuffer,dwTrans,nError);
 	}
 	return TRUE;
 }
