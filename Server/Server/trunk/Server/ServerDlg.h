@@ -1,9 +1,9 @@
 // ServerDlg.h : 头文件
 //
-
+#include "resource.h"
 #pragma once
 
-
+#define  WM_DATASHOW  WM_USER+5
 // CServerDlg 对话框
 class CServerDlg : public CDialog
 {
@@ -13,7 +13,7 @@ public:
 
 // 对话框数据
 	enum { IDD = IDD_SERVER_DIALOG };
-	void Edit(LPARAM lParam);
+	void Edit(CString lParam);
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
@@ -33,6 +33,7 @@ public:
 	afx_msg void OnBnClickedStart();
 	afx_msg void OnBnClickedStop();
 	afx_msg void OnBnClickedEnd();
+	//afx_msg LRESULT OnDatashow(WPARAM wParam, LPARAM lParam);
 };
 
 extern CServerDlg   ServerDlg ;
