@@ -50,7 +50,7 @@ public:
 	/*****取得当前连接的数量*****/
 	ULONG GetCurrentConnection();
 
-protected:
+//protected:
 	/*************************函数*************************/
 	/*****申请和释放缓冲区对象*****/
 	CIOCPBuffer *AllocateBuffer(int nLen);
