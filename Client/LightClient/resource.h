@@ -16,6 +16,10 @@
 #define IDC_IPADDRESS1                  1007
 #define IDC_CONNECT                     1008
 #define IDC_Quit_Connect                1009
+#define IDC_SERVERIP                    1010
+#define IDC_LISTEN_PORT_C               1011
+#define IDC_SHOWTEXT                    1012
+#define IDC_INPUTTEXT                   1013
 #define ID_Login                        32771
 #define ID_Connect                      32773
 #define ID_Exit                         32774
@@ -29,7 +33,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32777
-#define _APS_NEXT_CONTROL_VALUE         1010
+#define _APS_NEXT_CONTROL_VALUE         1014
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
