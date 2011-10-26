@@ -195,13 +195,13 @@ DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
 
 	//创建监听端口，设置SO_REUSEADDR选项为TRUE，绑定本地端口5002，并调用Listen函数进行监听
 	pGPRSServer->m_sListen=socket(AF_INET,SOCK_STREAM,0);
-	if(pGPRSServer->m_dListen==INVALID_SOCKET)
+	if(pGPRSServer->m_sListen==INVALID_SOCKET)
 		return -1;
 
 	BOOL bReuseAddr=TRUE;
 
 	//在监听套接口上启用SO_REUSEADDR选项,为真,套接字可与一个正在被其他套接字使用的地址绑定在一起
-	if(setsockopt(pGPRSServer->m_dListen,SOL_SOCKET,SO_REUSEADDR,(char *)&bReuseAddr,sizeof(bReuseAddr))==SOCKET_ERROR)
+	if(setsockopt(pGPRSServer->m_sListen,SOL_SOCKET,SO_REUSEADDR,(char *)&bReuseAddr,sizeof(bReuseAddr))==SOCKET_ERROR)
 		return -1;
 
 	SOCKADDR_IN local;
@@ -209,10 +209,10 @@ DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
 	local.sin_family=AF_INET;
 	local.sin_port=htons(5002);
 	local.sin_addr.S_un.S_addr=INADDR_ANY;
-	if(bind(pGPRSServer->m_dListen,(SOCKADDR *)&local,sizeof(local))==SOCKET_ERROR)
+	if(bind(pGPRSServer->m_sListen,(SOCKADDR *)&local,sizeof(local))==SOCKET_ERROR)
 		return -1;
 
-	if(listen(pGPRSServer->m_dListen,5)==SOCKET_ERROR)
+	if(listen(pGPRSServer->m_sListen,5)==SOCKET_ERROR)
 		return -1;
 
 	//通知StartServer函数，监听线程已启动
@@ -276,6 +276,11 @@ DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
 			continue;
 		}
 	}*/
+	return 0;
+}
+DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
+{
+
 	return 0;
 }
 
