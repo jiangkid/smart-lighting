@@ -161,7 +161,8 @@ void CServerDlg::Edit(CString lParam)
 	//text += "\r\n";	
 	//text += str;
 	//显示所有接收到的数据
-	SetDlgItemText(IDC_EDIT1,str);
+	SetDlgItemText(IDC_EDIT,str);
+	::MessageBox(NULL,"进入Edit！","Edit",MB_OK);
 }
 
 /*LRESULT CServerDlg::OnDatashow(WPARAM wParam,LPARAM lParam)
@@ -191,7 +192,8 @@ void CServerDlg::OnBnClickedStart()
 
 void CServerDlg::OnBnClickedStop()
 {
-	
+	CString str ="hello";
+	SetDlgItemText(IDC_EDIT,str);
 }
 
 void CServerDlg::OnBnClickedEnd()
