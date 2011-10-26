@@ -357,10 +357,11 @@ void CClientServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, i
 void CClientServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
 {
 	::MessageBox(NULL,"½øÈëOnConnectionEstablished£¡","OnConnectionEstablished",MB_OK);
-	CString tmp;
-	tmp.Format("%s\r\n",pContext->addrRemote);
-	printf("%s",tmp);
-	ServerDlg.Edit(tmp);
+	CString tmp = "just do it!";
+	//tmp.Format("%s\r\n",pContext->addrRemote);
+	//printf("%s",tmp);
+	::SetDlgItemText(H_ServerDlg,IDC_EDIT,tmp);
+	//Edit(tmp);
 	return;
 }
 

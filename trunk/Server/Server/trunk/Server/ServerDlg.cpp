@@ -10,6 +10,10 @@
 #endif
 
 CServerDlg   ServerDlg ;
+HWND H_ServerDlg;
+
+void Edit(LPCTSTR lParam);
+
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -99,6 +103,12 @@ BOOL CServerDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
+	H_ServerDlg = this->m_hWnd;	
+	if (H_ServerDlg == NULL)
+	{
+		::MessageBox(NULL,"获取窗口句柄失败","句柄",MB_OK);
+	}
+
 	// TODO: 在此添加额外的初始化代码
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -151,32 +161,11 @@ HCURSOR CServerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 /**************在编辑框显示内容**************/
-void CServerDlg::Edit(CString lParam)
+void Edit(LPCTSTR lParam)
 {
+	SetDlgItemText(H_ServerDlg,IDC_EDIT,lParam);
 	::MessageBox(NULL,"进入Edit！","Edit",MB_OK);
-	CString  text ;
-	CString str ="hello";
-	////获得已有数据
-	//GetDlgItemText(IDC_EDIT,text);
-	//text += "\r\n";	
-	//text += str;
-	//显示所有接收到的数据
-	SetDlgItemText(IDC_EDIT,str);
-	::MessageBox(NULL,"进入Edit！","Edit",MB_OK);
-}
-
-/*LRESULT CServerDlg::OnDatashow(WPARAM wParam,LPARAM lParam)
-{
-	/*CString  text ;
-	CString str = (CString )lParam;
-	//获得已有数据
-	GetDlgItemText(IDC_EDIT,text);
-	text += "\r\n";	
-	text += str;
-	//显示所有接收到的数据
-	SetDlgItemText(IDC_EDIT,text);
-	return 0;
-}*/
+}	
 
 void CServerDlg::OnBnClickedStart()
 {
@@ -192,12 +181,12 @@ void CServerDlg::OnBnClickedStart()
 
 void CServerDlg::OnBnClickedStop()
 {
-	CString str ="hello";
-	SetDlgItemText(IDC_EDIT,str);
+	
 }
 
 void CServerDlg::OnBnClickedEnd()
 {
-	
+	CString temp = "hello!";
+	Edit(temp);
 }
 

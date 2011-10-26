@@ -1,8 +1,8 @@
 #pragma once
 #include "genericserver.h"
+#include "ServerDlg.h"
 
-
-class CClientServer :	public CGenericServer
+class CClientServer :	public CGenericServer, public CServerDlg
 {
 public:
 	CClientServer(void);
