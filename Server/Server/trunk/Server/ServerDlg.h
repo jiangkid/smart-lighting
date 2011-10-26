@@ -13,7 +13,7 @@ public:
 
 // 对话框数据
 	enum { IDD = IDD_SERVER_DIALOG };
-	void Edit(CString lParam);
+	//void Edit(LPCTSTR lParam);
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
@@ -37,3 +37,4 @@ public:
 };
 
 extern CServerDlg   ServerDlg ;
+extern HWND H_ServerDlg;

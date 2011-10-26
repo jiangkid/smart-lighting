@@ -484,7 +484,7 @@ void CGenericServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer
 	CString tmp;
 	tmp.Format("%s\r\n",pContext->addrRemote);
 	printf("%s",tmp);
-	ServerDlg.Edit(tmp);
+//Edit(tmp);
 	return;
 }
 
