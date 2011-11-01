@@ -6,6 +6,8 @@
 #include "ChatCAsyncSocketDlg.h"
 #include "MainFrm.h"
 #include "LoginDlg.h"
+#include "LightClientView.h"
+#include "LightClientView2.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -117,4 +119,16 @@ void CMainFrame::OnConnect()
 	// TODO: Add your command handler code here
 	CChatCAsyncSocketDlg dlg;
 	dlg.DoModal();
+}
+
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext) 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	m_wndSplitter.CreateStatic(this,1,2);
+	m_wndSplitter.CreateView(0,0,RUNTIME_CLASS(CLightClientView2),
+		CSize(100,200),pContext);
+	m_wndSplitter.CreateView(0,1,RUNTIME_CLASS(CLightClientView),
+		CSize(100,200),pContext);
+	return TRUE;
+	//return CFrameWnd::OnCreateClient(lpcs, pContext);
 }
