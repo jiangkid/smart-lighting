@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "LightClient.h"
 
+
 #include "LightClientDoc.h"
 
 #ifdef _DEBUG
