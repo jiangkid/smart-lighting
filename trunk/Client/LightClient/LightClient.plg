@@ -6,31 +6,6 @@
 --------------------Configuration: LightClient - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP62.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/LightClient.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"F:\Â·µÆÏµÍ³\Client\LightClient\MainFrm.cpp"
-]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP62.tmp" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP63.tmp" with contents
-[
-/nologo /subsystem:windows /incremental:yes /pdb:"Debug/LightClient.pdb" /debug /machine:I386 /out:"Debug/LightClient.exe" /pdbtype:sept 
-".\Debug\ChatCAsyncSocketDlg.obj"
-".\Debug\DataSocket.obj"
-".\Debug\LightClient.obj"
-".\Debug\LightClientDoc.obj"
-".\Debug\LightClientView.obj"
-".\Debug\ListenSocket.obj"
-".\Debug\LoginDlg.obj"
-".\Debug\MainFrm.obj"
-".\Debug\StdAfx.obj"
-".\Debug\LightClient.res"
-]
-Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP63.tmp"
-<h3>Output Window</h3>
-Compiling...
-MainFrm.cpp
-Linking...
 
 
 

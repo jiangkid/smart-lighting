@@ -2,13 +2,13 @@
 
 [General Info]
 Version=1
-LastClass=CMainFrame
-LastTemplate=CDialog
+LastClass=CLightClientView2
+LastTemplate=CTreeView
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "lightclient.h"
 LastPage=0
 
-ClassCount=9
+ClassCount=11
 Class1=CDataSocket
 Class2=CLightClientApp
 Class3=CAboutDlg
@@ -23,6 +23,8 @@ Resource1=IDD_ABOUTBOX
 Resource2=IDD_LOGIN
 Resource3=IDD_CONNECT
 Class9=CChatCAsyncSocketDlg
+Class10=CLightClientView1
+Class11=CLightClientView2
 Resource4=IDR_MAINFRAME
 
 [CLS:CDataSocket]
@@ -72,6 +74,8 @@ Type=0
 BaseClass=CFrameWnd
 HeaderFile=MainFrm.h
 ImplementationFile=MainFrm.cpp
+Filter=T
+VirtualFilter=fWC
 
 [DLG:IDD_ABOUTBOX]
 Type=1
@@ -158,4 +162,20 @@ BaseClass=CDialog
 Filter=D
 LastObject=ID_Connect
 VirtualFilter=dWC
+
+[CLS:CLightClientView1]
+Type=0
+HeaderFile=LightClientView1.h
+ImplementationFile=LightClientView1.cpp
+BaseClass=CListView
+Filter=C
+VirtualFilter=VWC
+
+[CLS:CLightClientView2]
+Type=0
+HeaderFile=LightClientView2.h
+ImplementationFile=LightClientView2.cpp
+BaseClass=CTreeView
+Filter=C
+VirtualFilter=VWC
 

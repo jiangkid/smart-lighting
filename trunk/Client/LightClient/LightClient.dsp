@@ -114,6 +114,10 @@ SOURCE=.\LightClientView.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\LightClientView2.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\VC\ChatCAsyncSocket\ListenSocket.cpp
 # End Source File
 # Begin Source File
@@ -152,6 +156,10 @@ SOURCE=.\LightClientDoc.h
 # Begin Source File
 
 SOURCE=.\LightClientView.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\LightClientView2.h
 # End Source File
 # Begin Source File
 

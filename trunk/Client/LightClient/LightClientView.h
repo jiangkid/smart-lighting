@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-
+class CLightClientDoc;
 class CLightClientView : public CView
 {
 protected: // create from serialization only
