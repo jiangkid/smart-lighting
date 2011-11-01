@@ -5,6 +5,10 @@
 	Name="Server"
 	ProjectGUID="{671B3FD7-87BC-41AA-9D54-E6EE44F6948A}"
 	RootNamespace="Server"
+	SccProjectName="Svn"
+	SccAuxPath="Svn"
+	SccLocalPath="Svn"
+	SccProvider="SubversionScc"
 	Keyword="MFCProj"
 	TargetFrameworkVersion="196613"
 	>
