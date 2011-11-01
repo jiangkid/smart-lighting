@@ -55,7 +55,7 @@ BOOL CLightClientView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CLightClientView::OnDraw(CDC* pDC)
 {
-	CLightClientDoc* pDoc = GetDocument();
+	CLightClientDoc* pDoc = (CLightClientDoc*)CLightClientView::GetDocument();
 	ASSERT_VALID(pDoc);
 	// TODO: add draw code for native data here
 }
