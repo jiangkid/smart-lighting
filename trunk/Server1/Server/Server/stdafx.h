@@ -31,7 +31,6 @@
 #include <winsock2.h>
 #pragma comment(lib, "ws2_32.lib")
 
-#include <windows.h>
 #include <Mswsock.h>
 #include <Afxwin.h>
 
@@ -43,6 +42,9 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 
 #include <afxcontrolbars.h>     // 功能区和控件条的 MFC 支持
+
+//导入ADO类型库
+#import "c:\Program Files\Common Files\System\ADO\msado15.dll" no_namespace rename("EOF", "EndOfFile")
 
 
 

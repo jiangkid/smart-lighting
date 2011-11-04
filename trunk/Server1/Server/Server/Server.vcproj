@@ -214,6 +214,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ServerCommand.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ServerDataSet.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ServerDlg.cpp"
 				>
 			</File>
@@ -273,6 +281,14 @@
 			</File>
 			<File
 				RelativePath=".\Server.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ServerCommand.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ServerDataSet.h"
 				>
 			</File>
 			<File
