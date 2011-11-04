@@ -190,6 +190,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DataSet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DBCommand.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DBConnection.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GenericServer.cpp"
 				>
 			</File>
@@ -233,6 +245,18 @@
 			>
 			<File
 				RelativePath=".\ClientServer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DataSet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DBCommand.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DBConnection.h"
 				>
 			</File>
 			<File
