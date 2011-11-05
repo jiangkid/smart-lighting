@@ -12,5 +12,9 @@ public:
 	CServerDataSet(void);
 	~CServerDataSet(void);
 
+	//和user&password表的"user"列对应的方法
+	CString GetUserName();
+	void SetUserName(CString name);
+
 
 };
