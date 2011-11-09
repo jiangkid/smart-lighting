@@ -103,6 +103,12 @@ BOOL CServerDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	H_ServerDlg = this->m_hWnd;
+
+	if (!m_conn->Open(("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\\SmartLighting\\Server1\\Server\\server.mdb;Persit Security Info=False")))
+	{
+		AfxMessageBox("打开数据库出错!");
+		return FALSE;
+	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -168,7 +174,13 @@ void CServerDlg::OnBnClickedStart()
 		GetDlgItem(IDC_CSPort)->EnableWindow(FALSE);
 		GetDlgItem(IDC_GPRSPort)->EnableWindow(FALSE);
 		::MessageBox(NULL,"服务器开启成功！","提示",MB_OK);
-	}	
+	}
+	/*
+	if (!m_conn->Open(("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\\SmartLighting\\Server1\\Server\\server.mdb;Persit Security Info=False")))
+	{
+		return ;
+	}
+	*/
 }
 
 void CServerDlg::OnBnClickedClear()
