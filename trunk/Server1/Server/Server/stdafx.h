@@ -43,15 +43,16 @@
 
 #include <afxcontrolbars.h>     // 功能区和控件条的 MFC 支持
 
-//导入ADO类型库
-#import "c:\Program Files\Common Files\System\ADO\msado15.dll" no_namespace rename("EOF", "EndOfFile")
 
+//导入ADO库
+#pragma warning(disable:4146)
+#import "C:\Program Files\Common Files\system\ado\msadox.dll" no_namespace rename("EOF","adoEOF")
+#pragma warning (default:4146)
 
-
-
-
-
-
+#pragma warning(disable:4146)
+#import "C:\Program Files\Common Files\System\ADO\msado15.dll" named_guids rename("EOF","adoEOF"), rename("BOF","adoBOF")
+#pragma warning(default:4146)
+using namespace ADODB;
 
 
 #ifdef _UNICODE

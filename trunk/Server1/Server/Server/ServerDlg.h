@@ -1,7 +1,8 @@
 
 // ServerDlg.h : 头文件
 //
-#include "resource.h"		// 主符号 
+#include "resource.h"		// 主符号
+#include "DBConnection.h"
 #pragma once
 
 
@@ -11,6 +12,7 @@ class CServerDlg : public CDialog
 // 构造
 public:
 	
+	CDBConnection *m_conn;
 	CServerDlg(CWnd* pParent = NULL);	// 标准构造函数
 // 对话框数据
 	enum { IDD = IDD_SERVER_DIALOG };

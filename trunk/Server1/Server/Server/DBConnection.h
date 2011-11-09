@@ -13,5 +13,7 @@ public:
 	void Close();                             //关闭数据的连接
 	BOOL Open(CString CnnStr);  //打开数据库的连接,
 
-	_ConnectionPtr  m_pConn;
+	_ConnectionPtr  m_pConnection;
 };
+
+extern CDBConnection *g_pDBConnection;

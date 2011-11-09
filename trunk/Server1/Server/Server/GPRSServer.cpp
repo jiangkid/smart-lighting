@@ -3,6 +3,7 @@
 //#include "InitSock.h"
 #include <process.h>
 #include "ServerDlg.h"
+#include "ServerDataSet.h"
 CGPRSServer     _GPRSServer;
 CGPRSServer     *pGprsServer = &_GPRSServer;
 
@@ -165,6 +166,10 @@ DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
 	}
 	return 0;
 }
+
+//
+//服务器服务线程
+//
 DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 {
 	CGPRSServer  *pIOCPServer = (CGPRSServer*)pParam;
@@ -221,7 +226,8 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 			pIOCPServer->strRecv+=(CString)strTemp_recv;
 			SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strRecv);
 
-			lpPerIOData->wbuf.buf = "China!\n";
+			lpPerIOData->wbuf.buf = (char*)LPCTSTR(g_pServerDataSet->GetUserName());
+			//lpPerIOData->wbuf.buf
 			lpPerIOData->wbuf.len=18;
 			lpPerIOData->oper=SVR_IO_WRITE;
 			lpPerIOData->flags=0;

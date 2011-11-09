@@ -18,3 +18,5 @@ public:
 
 
 };
+
+extern CServerDataSet *g_pServerDataSet;
