@@ -3,6 +3,7 @@
 //      are changed infrequently
 //
 
+
 #if !defined(AFX_STDAFX_H__5C34E024_8FC9_41E1_8093_F71537F77AEA__INCLUDED_)
 #define AFX_STDAFX_H__5C34E024_8FC9_41E1_8093_F71537F77AEA__INCLUDED_
 
@@ -22,6 +23,9 @@
 
 #include <afxsock.h>		// MFC socket extensions
 #include "afxcview.h"
+#import "c:\program files\common files\system\ado\msado15.dll" \
+	no_namespace \
+	rename ("EOF", "adoEOF")   
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

@@ -41,6 +41,7 @@ BEGIN_MESSAGE_MAP(CChatCAsyncSocketDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONNECT, OnConnect)
 	ON_EN_UPDATE(IDC_INPUTTEXT,SendMessageToPeer)
 	ON_COMMAND(ID_Connect, OnConnect)
+	ON_BN_CLICKED(IDC_EXIT, OnExit)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -133,6 +134,7 @@ void CChatCAsyncSocketDlg::OnConnect()
 	
 	//connect to server
 	m_ClientSocket.Connect((sockaddr*)&addr, sizeof(addr));
+
 	m_ChatWords+="Connecting...\r\n";
 	RefreshScreen();
 }
@@ -206,23 +208,27 @@ void CChatCAsyncSocketDlg::OnClientConnect(int iResult)
 	CString buffer;
 	sockaddr_in name;
 	int namelen;
+	CChatCAsyncSocketDlg dlg;
 	
 	if(iResult!=0)
 	{
 		GetErrorReason(iResult);
 		buffer.Format("Failed connected to server.\r\n");
+		AfxMessageBox(_T("Á¬½ÓÊ§°Ü£¬ÇëÖØÊÔ£¡"));
 		m_ChatWords+=buffer;
 		RefreshScreen();
 		m_ClientSocket.Close();
 	}
 	else
 	{
+		
 		namelen=sizeof(sockaddr_in);
 		m_ClientSocket.GetPeerName((sockaddr*)&name,&namelen);
 		buffer.Format("Successfully connected to %s:%d.\r\n",inet_ntoa(name.sin_addr),ntohs(name.sin_port));
 		m_ChatWords+=buffer;
 		RefreshScreen();
 		m_bActive=TRUE;
+		//dlg->ShowWindow(SW_MINIMIZE);
 	}
 }
 
@@ -411,5 +417,11 @@ void CChatCAsyncSocketDlg::GetErrorReason(int nErrorCode)
 void CChatCAsyncSocketDlg::OnOK() 
 {
 	// TODO: Add extra validation here
+	CDialog::OnOK();
+}
+
+void CChatCAsyncSocketDlg::OnExit() 
+{
+	// TODO: Add your control notification handler code here
 	CDialog::OnOK();
 }
