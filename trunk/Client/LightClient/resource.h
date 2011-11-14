@@ -8,6 +8,8 @@
 #define IDR_LIGHTCTYPE                  129
 #define IDD_LOGIN                       131
 #define IDD_CONNECT                     132
+#define ID_MSCOMM_PRINT					133
+#define IDB_IMAGELIST                   133
 #define IDC_LOGIN                       1000
 #define IDC_EDIT1                       1003
 #define IDC_EDIT2                       1004
@@ -25,6 +27,7 @@
 #define ID_Exit                         32774
 #define ID_ID                           32775
 #define ID_DECISION                     32776
+#define ID_TEST                         32777
 
 // Next default values for new objects
 // 
@@ -32,7 +35,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        133
-#define _APS_NEXT_COMMAND_VALUE         32777
+#define _APS_NEXT_COMMAND_VALUE         32778
 #define _APS_NEXT_CONTROL_VALUE         1014
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

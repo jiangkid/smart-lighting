@@ -158,3 +158,28 @@ void CLightClientApp::OnAppAbout()
 /////////////////////////////////////////////////////////////////////////////
 // CLightClientApp message handlers
 
+
+int CLightClientApp::ExitInstance() 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	// TODO: Add your specialized code here and/or call the base class
+	// 关闭ADO连接状态
+	try
+	{
+		_CommandPtr m_pCommand;
+		m_pCommand.CreateInstance(__uuidof(Command));
+		m_pCommand->ActiveConnection = m_pConnection;  // 将库连接赋于它
+		m_pCommand->CommandText = "DELETE FROM MacInfoTab";  // SQL语句
+		m_pCommand->Execute(NULL,NULL,adCmdText); // 删除所有记录
+		m_pCommand->CommandText = "DELETE FROM BuildingTab";  // SQL语句
+		m_pCommand->Execute(NULL,NULL,adCmdText); // 删除所有记录	
+	}
+	catch(_com_error *e)
+	{
+		AfxMessageBox(e->ErrorMessage());
+	}
+	if(m_pConnection->State)
+		m_pConnection->Close();
+	m_pConnection = NULL;
+	return CWinApp::ExitInstance();
+}

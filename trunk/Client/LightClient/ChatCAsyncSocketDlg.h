@@ -62,6 +62,7 @@ protected:
 		afx_msg void OnListen();
 		afx_msg	void SendMessageToPeer();
 		virtual void OnOK();
+	afx_msg void OnExit();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

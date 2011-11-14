@@ -13,7 +13,7 @@
 #endif
 
 #include "resource.h"       // main symbols
-
+#include "LVErrorRecord.h"
 /////////////////////////////////////////////////////////////////////////////
 // CLightClientApp:
 // See LightClient.cpp for the implementation of this class
@@ -29,6 +29,7 @@ public:
 	//{{AFX_VIRTUAL(CLightClientApp)
 	public:
 	virtual BOOL InitInstance();
+	virtual int ExitInstance();
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -37,6 +38,12 @@ public:
 		// NOTE - the ClassWizard will add and remove member functions here.
 		//    DO NOT EDIT what you see in these blocks of generated code !
 	//}}AFX_MSG
+public:
+	_ConnectionPtr	m_pConnection;
+	_CommandPtr		m_pCommand;
+	_RecordsetPtr	m_pRecordset;
+
+	CLVErrorRecord	*pRecord;
 	DECLARE_MESSAGE_MAP()
 };
 

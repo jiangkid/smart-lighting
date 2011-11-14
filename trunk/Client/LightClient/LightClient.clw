@@ -2,13 +2,13 @@
 
 [General Info]
 Version=1
-LastClass=CLightClientView2
-LastTemplate=CTreeView
+LastClass=CMSComm
+LastTemplate=generic CWnd
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "lightclient.h"
 LastPage=0
 
-ClassCount=11
+ClassCount=13
 Class1=CDataSocket
 Class2=CLightClientApp
 Class3=CAboutDlg
@@ -19,12 +19,14 @@ Class7=CLoginDlg
 Class8=CMainFrame
 
 ResourceCount=4
-Resource1=IDD_ABOUTBOX
-Resource2=IDD_LOGIN
-Resource3=IDD_CONNECT
+Resource1=IDD_CONNECT
+Resource2=IDD_ABOUTBOX
+Resource3=IDD_LOGIN
 Class9=CChatCAsyncSocketDlg
 Class10=CLightClientView1
 Class11=CLightClientView2
+Class12=CLVErrorRecord
+Class13=CMSComm
 Resource4=IDR_MAINFRAME
 
 [CLS:CDataSocket]
@@ -38,6 +40,8 @@ Type=0
 BaseClass=CWinApp
 HeaderFile=LightClient.h
 ImplementationFile=LightClient.cpp
+Filter=N
+VirtualFilter=AC
 
 [CLS:CAboutDlg]
 Type=0
@@ -68,6 +72,7 @@ Type=0
 BaseClass=CDialog
 HeaderFile=LoginDlg.h
 ImplementationFile=LoginDlg.cpp
+LastObject=CLoginDlg
 
 [CLS:CMainFrame]
 Type=0
@@ -76,6 +81,7 @@ HeaderFile=MainFrm.h
 ImplementationFile=MainFrm.cpp
 Filter=T
 VirtualFilter=fWC
+LastObject=ID_Login
 
 [DLG:IDD_ABOUTBOX]
 Type=1
@@ -107,7 +113,8 @@ Command3=ID_Connect
 Command4=ID_ID
 Command5=ID_DECISION
 Command6=ID_APP_ABOUT
-CommandCount=6
+Command7=ID_TEST
+CommandCount=7
 
 [ACL:IDR_MAINFRAME]
 Type=1
@@ -160,7 +167,7 @@ HeaderFile=ChatCAsyncSocketDlg.h
 ImplementationFile=ChatCAsyncSocketDlg.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=ID_Connect
+LastObject=CChatCAsyncSocketDlg
 VirtualFilter=dWC
 
 [CLS:CLightClientView1]
@@ -178,4 +185,18 @@ ImplementationFile=LightClientView2.cpp
 BaseClass=CTreeView
 Filter=C
 VirtualFilter=VWC
+
+[CLS:CLVErrorRecord]
+Type=0
+HeaderFile=LVErrorRecord.h
+ImplementationFile=LVErrorRecord.cpp
+BaseClass=CListView
+Filter=C
+
+[CLS:CMSComm]
+Type=0
+HeaderFile=MSComm.h
+ImplementationFile=MSComm.cpp
+BaseClass=generic CWnd
+Filter=W
 

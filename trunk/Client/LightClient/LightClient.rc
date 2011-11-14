@@ -94,6 +94,10 @@ BEGIN
     BEGIN
         MENUITEM "πÿ”⁄ LightClient(&A)...",     ID_APP_ABOUT
     END
+    POPUP "TEST"
+    BEGIN
+        MENUITEM "≤‚ ‘",                        ID_TEST
+    END
 END
 
 

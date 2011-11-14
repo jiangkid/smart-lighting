@@ -6,11 +6,107 @@
 --------------------Configuration: LightClient - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP212.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/LightClient.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\路灯系统\client\LightClient\LightClient.cpp"
+"F:\路灯系统\client\LightClient\MainFrm.cpp"
+"F:\路灯系统\client\LightClient\LVErrorRecord.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP212.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP213.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/LightClient.pdb" /debug /machine:I386 /out:"Debug/LightClient.exe" /pdbtype:sept 
+".\Debug\ChatCAsyncSocketDlg.obj"
+".\Debug\DataSocket.obj"
+".\Debug\LightClient.obj"
+".\Debug\LightClientDoc.obj"
+".\Debug\LightClientView.obj"
+".\Debug\LightClientView2.obj"
+".\Debug\ListenSocket.obj"
+".\Debug\LoginDlg.obj"
+".\Debug\MainFrm.obj"
+".\Debug\StdAfx.obj"
+".\Debug\LightClient.res"
+".\Debug\LVErrorRecord.obj"
+".\Debug\MSComm.obj"
+".\Debug\excel.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP213.tmp"
+<h3>Output Window</h3>
+Compiling...
+LightClient.cpp
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2146: syntax error : missing ';' before identifier 'm_wndOutput'
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2501: 'CTabCtrlBar' : missing storage-class or type specifiers
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2501: 'm_wndOutput' : missing storage-class or type specifiers
+MainFrm.cpp
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2146: syntax error : missing ';' before identifier 'm_wndOutput'
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2501: 'CTabCtrlBar' : missing storage-class or type specifiers
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2501: 'm_wndOutput' : missing storage-class or type specifiers
+F:\路灯系统\client\LightClient\MainFrm.cpp(84) : error C2065: 'm_ImageList' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(84) : error C2228: left of '.Create' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(87) : error C2065: 'm_wndBuilding' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(87) : error C2228: left of '.SetBtnImageList' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(91) : error C2228: left of '.Create' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(91) : error C2065: 'CG_ID_VIEW_BUILDING' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(99) : error C2228: left of '.SetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(99) : error C2228: left of '.GetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(102) : error C2228: left of '.EnableDocking' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(108) : error C2065: 'm_wndOutput' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(108) : error C2228: left of '.SetBtnImageList' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(112) : error C2228: left of '.Create' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(112) : error C2065: 'CG_ID_VIEW_OUTPUT' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(120) : error C2228: left of '.AddView' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(121) : error C2228: left of '.AddView' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(121) : error C2653: 'CListOperatorRecord' : is not a class or namespace name
+F:\路灯系统\client\LightClient\MainFrm.cpp(121) : error C2065: 'classCListOperatorRecord' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(124) : error C2228: left of '.SetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(124) : error C2228: left of '.GetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(127) : error C2228: left of '.EnableDocking' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(133) : error C2065: 'm_wndInformation' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(133) : error C2228: left of '.SetBtnImageList' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(137) : error C2228: left of '.Create' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(137) : error C2065: 'CG_ID_VIEW_INFORMATION' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(145) : error C2228: left of '.SetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(145) : error C2228: left of '.GetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(148) : error C2228: left of '.EnableDocking' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(154) : error C2065: 'm_wndMacInfo' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(154) : error C2228: left of '.SetBtnImageList' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(158) : error C2228: left of '.Create' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(158) : error C2065: 'CG_ID_VIEW_MACINFO' : undeclared identifier
+F:\路灯系统\client\LightClient\MainFrm.cpp(166) : error C2228: left of '.SetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(166) : error C2228: left of '.GetBarStyle' must have class/struct/union type
+F:\路灯系统\client\LightClient\MainFrm.cpp(169) : error C2228: left of '.EnableDocking' must have class/struct/union type
+LVErrorRecord.cpp
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2146: syntax error : missing ';' before identifier 'm_wndOutput'
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2501: 'CTabCtrlBar' : missing storage-class or type specifiers
+f:\路灯系统\client\lightclient\mainfrm.h(67) : error C2501: 'm_wndOutput' : missing storage-class or type specifiers
+Generating Code...
+Error executing cl.exe.
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP214.tmp" with contents
+[
+/nologo /o"Debug/LightClient.bsc" 
+".\Debug\StdAfx.sbr"
+".\Debug\ChatCAsyncSocketDlg.sbr"
+".\Debug\DataSocket.sbr"
+".\Debug\LightClient.sbr"
+".\Debug\LightClientDoc.sbr"
+".\Debug\LightClientView.sbr"
+".\Debug\LightClientView2.sbr"
+".\Debug\ListenSocket.sbr"
+".\Debug\LoginDlg.sbr"
+".\Debug\MainFrm.sbr"
+".\Debug\LVErrorRecord.sbr"
+".\Debug\MSComm.sbr"
+".\Debug\excel.sbr"]
+Creating command line "bscmake.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP214.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
 <h3>Results</h3>
-LightClient.exe - 0 error(s), 0 warning(s)
+LightClient.exe - 43 error(s), 0 warning(s)
 </pre>
 </body>
 </html>
