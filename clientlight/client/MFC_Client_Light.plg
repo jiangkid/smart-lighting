@@ -6,6 +6,66 @@
 --------------------Configuration: MFC_Client_Light - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP64.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/MFC_Client_Light.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\SmartLighting\clientlight\client\ClientSocket.cpp"
+"E:\SmartLighting\clientlight\client\MainFrm.cpp"
+"E:\SmartLighting\clientlight\client\MFC_Client_Light.cpp"
+"E:\SmartLighting\clientlight\client\MFC_Client_LightDoc.cpp"
+"E:\SmartLighting\clientlight\client\MFC_Client_LightView.cpp"
+"E:\SmartLighting\clientlight\client\OnViewStatus.cpp"
+"E:\SmartLighting\clientlight\client\OnVIewStatusList.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP64.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP65.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/MFC_Client_Light.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\SmartLighting\clientlight\client\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP65.tmp" 
+<h3>Output Window</h3>
+Compiling...
+StdAfx.cpp
+Compiling...
+ClientSocket.cpp
+MainFrm.cpp
+MFC_Client_Light.cpp
+MFC_Client_LightDoc.cpp
+MFC_Client_LightView.cpp
+OnViewStatus.cpp
+OnVIewStatusList.cpp
+Generating Code...
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP66.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/MFC_Client_Light.pdb" /debug /machine:I386 /out:"Debug/MFC_Client_Light.exe" /pdbtype:sept 
+.\Debug\ClientSocket.obj
+.\Debug\MainFrm.obj
+.\Debug\MFC_Client_Light.obj
+.\Debug\MFC_Client_LightDoc.obj
+.\Debug\MFC_Client_LightView.obj
+.\Debug\OnViewStatus.obj
+.\Debug\OnVIewStatusList.obj
+.\Debug\StdAfx.obj
+.\Debug\MFC_Client_Light.res
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP66.tmp"
+<h3>Output Window</h3>
+Linking...
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP67.tmp" with contents
+[
+/nologo /o"Debug/MFC_Client_Light.bsc" 
+.\Debug\StdAfx.sbr
+.\Debug\ClientSocket.sbr
+.\Debug\MainFrm.sbr
+.\Debug\MFC_Client_Light.sbr
+.\Debug\MFC_Client_LightDoc.sbr
+.\Debug\MFC_Client_LightView.sbr
+.\Debug\OnViewStatus.sbr
+.\Debug\OnVIewStatusList.sbr]
+Creating command line "bscmake.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP67.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
