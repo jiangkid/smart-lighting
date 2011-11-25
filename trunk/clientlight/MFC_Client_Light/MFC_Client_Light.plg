@@ -1,0 +1,48 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: MFC_Client_Light - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC0.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/MFC_Client_Light.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\路灯控制系统客户端界面\MFC_Client_Light\ClientSocket.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC0.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC1.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/MFC_Client_Light.pdb" /debug /machine:I386 /out:"Debug/MFC_Client_Light.exe" /pdbtype:sept 
+".\Debug\AddminLoginDlg.obj"
+".\Debug\BCMenu.obj"
+".\Debug\BtnST.obj"
+".\Debug\CeXDib.obj"
+".\Debug\ClientSocket.obj"
+".\Debug\LightView.obj"
+".\Debug\MainFrm.obj"
+".\Debug\MFC_Client_Light.obj"
+".\Debug\MFC_Client_LightDoc.obj"
+".\Debug\MFC_Client_LightView.obj"
+".\Debug\OnViewStatus.obj"
+".\Debug\OnVIewStatusList.obj"
+".\Debug\ShadeButtonST.obj"
+".\Debug\StdAfx.obj"
+".\Debug\UserLoginDlg.obj"
+".\Debug\WinXPButtonST.obj"
+".\Debug\MFC_Client_Light.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC1.tmp"
+<h3>Output Window</h3>
+Compiling...
+ClientSocket.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+MFC_Client_Light.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
