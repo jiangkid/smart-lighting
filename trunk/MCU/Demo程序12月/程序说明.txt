@@ -1,0 +1,50 @@
+GPRS协议：
+1.终端->服务器
+	a).连接成功:一次发送
+		数据类型：
+		BYTE0	BYTE1	BYTE2	BYTE3	BYTE4	BYTE5	BYTE6	BYTE7	BYTE8	BYTE9	BYTE10	
+		起始符	/*********************终端时间**********************/	/**终端ID***/	结束符
+		0x7B	YearH	YearL	Month	date	hour	min	sec	IDH	IDL	0x7D
+
+	b).正常数据发送：5分钟一帧，
+		数据类型：
+		BYTE0	BYTE1	BYTE2	BYTE3	BYTE4	BYTE5
+		起始符	/**终端ID***/	节点	状态	结束符
+		0x7B	IDH	IDL			0x7D	
+
+	c).心跳功能：30秒一帧，发送单字节0x1F；
+
+	d).故障通信：现在用不到；
+
+	e).说明：
+		0x7B：{
+		0x7D：}
+		IDH：0x30
+		IDL：0x31
+		节点：0x01-0xF7
+		状态：0x01-开	0x02-关
+		
+2.服务器->终端
+	a).控制灯开关
+		BYTE0	BYTE1	BYTE2	BYTE3	BYTE4	BYTE5
+		起始符	/**终端ID***/	节点	状态	结束符
+		0x7B	IDH	IDL			0x7D	
+Zigbee协议：(仅demo使用)
+	bit7	bit6	bit5	bit4	bit3	bit2	bit1	bit0	
+	0	C1	C0	0	L1	L2	L3	L4
+	a).查询，1s查询一次状态,查询指令0x40；返回灯开关信息
+	b).实时控制，0x61,0x62,0x64,0x68分别控制1234号灯，返回灯开关信息
+	
+
+
+/////////////////////gprs开关机
+GPRS_ON  PC6
+GPRS_OFF PC7
+///////////////////SPI控制
+SPI1_SCK PA5   上拉电阻
+SPI1_MISO PA6  上拉电阻
+SPI1_MOSI PA7  上拉电阻
+CS3  PA4                     
+/////////////////////串口2
+U2_TX PA2
+U2_RX PA3
