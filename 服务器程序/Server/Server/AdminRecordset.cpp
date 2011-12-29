@@ -26,4 +26,5 @@ CString CAdminRecordset::GetPswByAdminName(CString AdminName)
 		else
 			return Psw;
 	}
+	return NULL;
 }

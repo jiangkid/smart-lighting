@@ -234,11 +234,11 @@ BOOL  CClientServer::FieldSet(CHAR * buffer)
 		{
 			temp2 += buffer[y];
 		}
-		if (LightCommand.AddNewInformation(temp1,temp2) != TRUE)
-		{
-			return FALSE;
-		}
-		break;
+// 		if (LightCommand.AddNewInformation(temp1,temp2) != TRUE)
+// 		{
+// 			return FALSE;
+// 		}
+// 		break;
 	case '0x37':												//…Ë÷√¬∑
 		for (i=2;buffer[i] != '+'; ++i)
 		{
