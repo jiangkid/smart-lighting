@@ -404,11 +404,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\LightRecordset.h"
+				RelativePath=".\LightCommand.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LigntCommand.h"
+				RelativePath=".\LightRecordset.h"
 				>
 			</File>
 			<File

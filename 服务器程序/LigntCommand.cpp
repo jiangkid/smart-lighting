@@ -1,15 +1,15 @@
 #include "StdAfx.h"
-#include "LigntCommand.h"
+#include "LightCommand.h"
 
-CLigntCommand::CLigntCommand(void)
+CLightCommand::CLightCommand(void)
 {
 }
 
-CLigntCommand::~CLigntCommand(void)
+CLightCommand::~CLightCommand(void)
 {
 }
 
-BOOL CLigntCommand:: AddNewInformation(CString  x, CString temp)
+BOOL CLightCommand:: AddNewInformation(CString  x, CString temp)
 {
 	CString SQL;
 	SQL.Format("Insert Into Lights([ID],[Name])Values(\""+x+"\",\""+temp+"\")");
