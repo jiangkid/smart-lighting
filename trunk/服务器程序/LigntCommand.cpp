@@ -9,13 +9,7 @@ CLightCommand::~CLightCommand(void)
 {
 }
 
-BOOL CLightCommand:: AddNewInformation(CString  x, CString temp)
+BOOL CLightCommand::AddLight(CString LightID,CString LightName,BOOL Status,CString GroupNum)
 {
-	CString SQL;
-	SQL.Format("Insert Into Lights([ID],[Name])Values(\""+x+"\",\""+temp+"\")");
-	if (!ExcuteSQL(SQL))
-	{
-		return FALSE;
-	}
-	return TRUE;
+return FALSE;
 }
