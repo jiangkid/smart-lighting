@@ -10,7 +10,7 @@
 #include "AreaRecordset.h"
 #include "AreaCommand.h"
 #include "TerminalCommand.h"
-#include "LigntCommand.h"
+#include "LightCommand.h"
 #include "RoadCommand.h"
 #include "DBCommand.h"
 #include "DBRecordset.h"
@@ -165,7 +165,7 @@ protected:
 	CUserCommand UserCommand;
 	CAreaCommand  AreaCommand;
 	CTerminalCommand   TerminalCommand;
-	CLigntCommand  LightCommand;
+	CLightCommand  LightCommand;
 	CRoadCommand  RoadCommand;
 };
 extern DWORD  mThreadID1;
