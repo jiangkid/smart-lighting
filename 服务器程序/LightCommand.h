@@ -8,5 +8,5 @@ public:
 	CLightCommand(void);
 	~CLightCommand(void);
 
-	BOOL AddNewInformation(CString  x, CString temp);
+	BOOL AddLight(CString LightID,CString LightName,BOOL Status,CString GroupNum);
 };
