@@ -29,6 +29,7 @@ CString CUserRecordset::GetPswByUserName(CString UserName)
 		else
 			return Psw;
 	}
+	return NULL;
 }
 
 //
