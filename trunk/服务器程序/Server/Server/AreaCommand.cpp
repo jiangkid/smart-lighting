@@ -9,12 +9,41 @@ CAreaCommand::~CAreaCommand(void)
 {
 }
 
-//新建
+int CAreaCommand::GetMaxID()
+{
+	int nResult=0;
+	_RecordsetPtr pRs;
+	CString sql;
+	sql="SELECT * FROM Areas";
+	try
+	{
+		/*_RecordsetPtr pRs;*/
+		pRs.CreateInstance("ADODB.RecordSet");
+		pRs->Open((_variant_t)sql,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+	while (!pRs->adoEOF)
+	{
+		pRs->MoveNext();
+		nResult++;
+	}
+	pRs->Close();
+	return nResult;
+}
+
 //
-BOOL CAreaCommand:: AddNewInformation(CString x, CString temp)
+//向Areas这张表中添加一条新的记录
+//
+BOOL CAreaCommand::AddArea(CString AreaID, CString AreaName, CString Roads)
 {
 	CString SQL;
-	SQL.Format("Insert Into Areas([AreaID],[AreaName])Values(\""+x+"\",\""+temp+"\")");
+	int MaxID = GetMaxID();
+	MaxID++;
+
+	SQL.Format("Insert Into Areas([ID],[AreaID],[AreaName],[Roads])Values(%d,\""+AreaID+"\",\""+AreaName+"\",\""+Roads+"\")",MaxID);
 	if (!ExcuteSQL(SQL))
 	{
 		return FALSE;
