@@ -43,7 +43,6 @@ CString CUserRecordset::GetAreaNameByUserName(CString UserName)
 	SQL.Format("Select * From Users Where Name = '%s'",UserName);
 	if (Open(SQL))
 	{
-		/*strcpy(AreaName.GetBuffer(1024/ *AreaName.GetLength()* /),GetAsString("Area"));*/
 		AreaName=GetAsString("Area");
 		return AreaName; 
 	}

@@ -22,6 +22,7 @@
 #include "HRLightRecordset.h"
 #include "AdminCommand.h"
 #include "AreaCommand.h"
+#include "AreaRecordset.h"
 //////////////////////////////////////////////////////
 
 //CGPRSServer    _GPRSServer;
@@ -226,6 +227,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 	CHRLightRecordset m_HRLightRs;
 	CAdminCommand m_AdminCmd;
 	CAreaCommand m_AreaCmd;
+	CAreaRecordset m_AreaRs;
 
 	m_HRLightCmd.m_cnn=pIOCPServer->m_conn;
 	m_AdminRst.m_cnn=pIOCPServer->m_conn;
@@ -243,6 +245,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 	m_HRLightRs.m_cnn=pIOCPServer->m_conn;
 	m_AdminCmd.m_cnn=pIOCPServer->m_conn;
 	m_AreaCmd.m_cnn=pIOCPServer->m_conn;
+	m_AreaRs.m_cnn=pIOCPServer->m_conn;
 //////////////////////////////////////////////////////////////////////////////
 
 	
@@ -351,7 +354,8 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 //		m_AdminCmd.ChangeAdminPsw("丁亮","123456789");
 //		m_AdminCmd.DeleteAdmin("吴红生");
 //		m_AdminCmd.NewAdmin("dingliang","1234567890");
-		m_AreaCmd.AddArea("10000000","下沙","一号路，二号路，三号路");
+//		m_AreaCmd.AddArea("10000000","下沙","一号路，二号路，三号路");
+		m_AreaRs.SetAreaByAreaID("10000000","高沙","三号路,四号路,五号路");
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
  		pIOCPServer->InitializeBuffer(lpPerIOData,SVR_IO_WRITE );
@@ -376,6 +380,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 		m_TerminalRs.Close();
 		m_RoadRs.Close();
 		m_LightRs.Close();
+		m_AreaRs.Close();
 		
 		////////////////////////////////////////////////////////////////////////////////////
 		
