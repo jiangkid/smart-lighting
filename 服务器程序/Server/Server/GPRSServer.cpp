@@ -346,7 +346,9 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 //		m_HROperationCmd.AddOperationRecord("2011-12-26 12:00:00","πÿ±’1000∫≈µ∆");
 //		tempOprationRecord=m_HROperationRs.GetOpertionRecord("2011-12-14 12:00:00","2011-12-29 12:00:00");
 //		 tempLightRecord=m_HRLightRs.GetLightRecord("2∫≈µ∆");
-		m_AdminCmd.ChangeAdminPsw("∂°¡¡","123456789");
+//		m_AdminCmd.ChangeAdminPsw("∂°¡¡","123456789");
+//		m_AdminCmd.DeleteAdmin("Œ‚∫Ï…˙");
+//		m_AdminCmd.NewAdmin("dingliang","1234567890");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
