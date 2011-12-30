@@ -7,16 +7,10 @@ class CAreaRecordset :
 public:
 	CAreaRecordset(void);
 	~CAreaRecordset(void);
+	
+	//根据区域的ID设置区域的名称和区域下的路
+	BOOL SetAreaByAreaID(CString AreaID,CString AreaName,CString Roads);
 
-	//加载Area表中所有的数据
-	BOOL LoadAreaData();
-
-	//设置区域的ID
-	void SetAreaID(int ID);
-
-	//设置区域的名称
-	void SetAreaName(CString AreaName);
-
-public:
-
+	//根据区域的名称来查看区域下的路
+	CString GetRoadsByAreaName(CString AreaName);
 };

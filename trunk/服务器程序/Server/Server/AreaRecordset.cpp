@@ -10,29 +10,34 @@ CAreaRecordset::~CAreaRecordset(void)
 }
 
 //
-//加载Area表中的所有数据
+//根据区域的ID设置区域的名称和区域下的路
 //
-BOOL CAreaRecordset::LoadAreaData()
+BOOL CAreaRecordset::SetAreaByAreaID(CString AreaID, CString AreaName, CString Roads)
 {
-	//使用Open方法加载所有的数据
-	return Open("Select * From Areas");
+	CString SQL;
+	SQL.Format("Select * From Areas Where AreaID='%s'",AreaID);
+	if (Open(SQL))
+	{
+		SetAsString("AreaName",AreaName);
+		SetAsString("Roads",Roads);
+		return TRUE;
+	}
+	return FALSE;
 }
 
 //
-//设置区域的ID
+//根据区域的名称查看区域下的路 
 //
-void CAreaRecordset::SetAreaID(int ID)
+CString CAreaRecordset::GetRoadsByAreaName(CString AreaName)
 {
-	CString strID;
-	strID.Format("%d",ID);
-	SetAsString("AreaID",strID);
-}
+	CString SQL;
+	CString Roads;
 
-//
-//设置区域的名称
-//
-void CAreaRecordset::SetAreaName(CString AreaName)
-{
-	SetAsString("AreaName",AreaName);
+	SQL.Format("Select * From AreaName Where Name = '%s'",AreaName);
+	if (Open(SQL))
+	{
+		Roads=GetAsString("Roads");
+		return Roads; 
+	}
+	return NULL;
 }
-
