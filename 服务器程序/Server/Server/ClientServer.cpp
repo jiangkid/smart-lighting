@@ -279,11 +279,11 @@ BOOL  CClientServer::FieldSet(CHAR * buffer)
 		{
 			temp2 += buffer[y];
 		}
-		if (AreaCommand.AddNewInformation(temp1,temp2) != TRUE)
-		{
-			return FALSE;
-		}
-		break;
+//		if (AreaCommand.AddNewInformation(temp1,temp2) != TRUE)
+//		{
+//			return FALSE;
+//		}
+//		break;
 	default:
 		break;
 	}
