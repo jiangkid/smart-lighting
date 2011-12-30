@@ -7,4 +7,6 @@ class CAdminCommand :
 public:
 	CAdminCommand(void);
 	~CAdminCommand(void);
+
+	BOOL AddAdmin(CString);
 };
