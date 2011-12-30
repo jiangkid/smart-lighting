@@ -275,6 +275,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 	CString tempLightStatus;
 	CString tempOprationRecord;
 	CString tempLightRecord;
+	CString tempRoads;
 	////////////////////////////////////////////////////////////////
 
 
@@ -355,12 +356,13 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 //		m_AdminCmd.DeleteAdmin("吴红生");
 //		m_AdminCmd.NewAdmin("dingliang","1234567890");
 //		m_AreaCmd.AddArea("10000000","下沙","一号路，二号路，三号路");
-		m_AreaRs.SetAreaByAreaID("10000000","高沙","三号路,四号路,五号路");
+//		m_AreaRs.SetAreaByAreaID("10000000","高沙","三号路,四号路,五号路");
+		tempRoads=m_AreaRs.GetRoadsByAreaName("高沙");
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
  		pIOCPServer->InitializeBuffer(lpPerIOData,SVR_IO_WRITE );
- 		pIOCPServer->pClient->pPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)tempLightRecord;
- 		pIOCPServer->pClient->pPerIOData->wbuf.len =tempLightRecord.GetLength();
+ 		pIOCPServer->pClient->pPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)tempRoads;
+ 		pIOCPServer->pClient->pPerIOData->wbuf.len =tempRoads.GetLength();
  		pIOCPServer->pClient->pPerIOData->oper = SVR_IO_WRITE;
  		pIOCPServer->pClient->pPerIOData->flags = 0;
  		nResult=WSASend(pIOCPServer->m_sAccept, 

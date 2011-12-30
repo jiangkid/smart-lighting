@@ -33,7 +33,7 @@ CString CAreaRecordset::GetRoadsByAreaName(CString AreaName)
 	CString SQL;
 	CString Roads;
 
-	SQL.Format("Select * From AreaName Where Name = '%s'",AreaName);
+	SQL.Format("Select * From Areas Where AreaName = '%s'",AreaName);
 	if (Open(SQL))
 	{
 		Roads=GetAsString("Roads");
