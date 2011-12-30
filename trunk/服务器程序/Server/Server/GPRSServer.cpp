@@ -20,6 +20,7 @@
 #include "HROperation.h"
 #include "HROperationRecordset.h"
 #include "HRLightRecordset.h"
+#include "AdminCommand.h"
 //////////////////////////////////////////////////////
 
 //CGPRSServer    _GPRSServer;
@@ -222,6 +223,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 	CHROperationCommand m_HROperationCmd;
 	CHROperationRecordset m_HROperationRs;
 	CHRLightRecordset m_HRLightRs;
+	CAdminCommand m_AdminCmd;
 
 	m_HRLightCmd.m_cnn=pIOCPServer->m_conn;
 	m_AdminRst.m_cnn=pIOCPServer->m_conn;
@@ -237,6 +239,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 	m_HROperationCmd.m_cnn=pIOCPServer->m_conn;
 	m_HROperationRs.m_cnn=pIOCPServer->m_conn;
 	m_HRLightRs.m_cnn=pIOCPServer->m_conn;
+	m_AdminCmd.m_cnn=pIOCPServer->m_conn;
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -342,7 +345,8 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 //		m_LightRs.SetLightStatus(3,1);
 //		m_HROperationCmd.AddOperationRecord("2011-12-26 12:00:00","πÿ±’1000∫≈µ∆");
 //		tempOprationRecord=m_HROperationRs.GetOpertionRecord("2011-12-14 12:00:00","2011-12-29 12:00:00");
-		 tempLightRecord=m_HRLightRs.GetLightRecord("2∫≈µ∆");
+//		 tempLightRecord=m_HRLightRs.GetLightRecord("2∫≈µ∆");
+		m_AdminCmd.ChangeAdminPsw("∂°¡¡","123456789");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
