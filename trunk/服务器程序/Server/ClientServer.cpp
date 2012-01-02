@@ -141,7 +141,7 @@ BOOL CClientServer::CreateUser(CHAR * buffer)
 		temp2 += buffer[y];
 	}
 	 ++y;
-	for (x=y; buffer[x]!='\0';++x)
+	 for (x=y; buffer[x]!='#';++x)
 	{
 		temp3 +=buffer[x];
 	}
