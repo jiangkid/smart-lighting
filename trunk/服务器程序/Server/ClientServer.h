@@ -12,7 +12,7 @@ public:
 	BOOL StopServer();
 
 	/****通信协议数据处理函数****/
-	BOOL  FieldSet(CHAR * buffer);
+	CString  FieldSet(CHAR * buffer);
 	BOOL LogIn(LPCIOCPContext  pContext);   //登录检测函数
 	CString DataCheck(CHAR * buffer);   //传输过来的数据判断
 	BOOL CreateUser(CHAR * buffer);

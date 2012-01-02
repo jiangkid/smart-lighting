@@ -34,7 +34,7 @@ CClientServer::~CClientServer(void)
 		else temp = "C1";
 		break;
 	case 'D':
-		this->DeleteUser(buffer);		   //删除用户
+		this->DeleteUser(buffer);				//删除用户
 		break;
 	case 'G':
 		temp = this->GetLedStatus(buffer);
@@ -47,16 +47,12 @@ CClientServer::~CClientServer(void)
 		else temp = "M1";
 		break;
 	case 'N':  
-		this->InQueue(QlistCtG,buffer);				//传输命令
+		this->InQueue(QlistCtG,buffer);			//传输命令
 		break;
-	case 'H':											//获取历史信息
+	case 'H':									//获取历史信息
 		break;
-	case 'S': 
-		if (this->FieldSet(buffer)==TRUE)
-		{
-			temp = "S0";
-		}
-		temp = "S1";				//创建区域
+	case 'S':									//创建区域
+		temp = this->FieldSet(buffer);
 		break;
 	default:
 		temp ="";
@@ -226,9 +222,9 @@ BOOL CClientServer::ChangePassword(CHAR* buffer)
  /********************************************
 函数功能：区域设置
  ********************************************/
-BOOL  CClientServer::FieldSet(CHAR * buffer)
+CString  CClientServer::FieldSet(CHAR * buffer)
 {
-	CString temp1,temp2;
+	CString temp,temp1,temp2;
 	int i = 0;
 	int y = 0;
 	switch(buffer[1])
@@ -243,27 +239,18 @@ BOOL  CClientServer::FieldSet(CHAR * buffer)
 		{
 			temp2 += buffer[y];
 		}
-// 		if (LightCommand.AddNewInformation(temp1,temp2) != TRUE)
-// 		{
-// 			return FALSE;
-// 		}
-// 		break;
-	case '0x37':												//设置路
-		for (i=2;buffer[i] != '+'; ++i)
+		if (LightCommand.AddLight(temp1,temp2) == TRUE)
 		{
-			temp1 += buffer[i];
+			temp = "S60";
+			return temp;
 		}
-		++i; 
-		for (y = i;buffer[y] != '#';y++)
+		else
 		{
-			temp2 += buffer[y];
+			temp = "S61";
+			return temp;
 		}
-//		if (RoadCommand.AddNewInformation(temp1,temp2) != TRUE)
-//		{
-//			return FALSE;
-//		}
 		break;
-	case '0x38':												//设置终端
+	case 'R':												//设置路0x37
 		for (i=2;buffer[i] != '+'; ++i)
 		{
 			temp1 += buffer[i];
@@ -273,12 +260,18 @@ BOOL  CClientServer::FieldSet(CHAR * buffer)
 		{
 			temp2 += buffer[y];
 		}
-//		if (TerminalCommand.AddNewInformation(temp1,temp2) != TRUE)
-//		{
-//			return FALSE;
-//		}
+		if (RoadCommand.AddRoad(temp1,temp2) == TRUE)
+		{
+			temp = "S70";
+			return temp;
+		}
+		else
+		{
+			temp = "S71";
+			return temp;
+		}
 		break;
-	case '0x39':												//设置区域
+	case 'T':												//设置终端
 		for (i=2;buffer[i] != '+'; ++i)
 		{
 			temp1 += buffer[i];
@@ -288,15 +281,43 @@ BOOL  CClientServer::FieldSet(CHAR * buffer)
 		{
 			temp2 += buffer[y];
 		}
-//		if (AreaCommand.AddNewInformation(temp1,temp2) != TRUE)
-//		{
-//			return FALSE;
-//		}
-//		break;
+		if (TerminalCommand.AddTerminal(temp1,temp2) == TRUE)
+		{
+			temp = "S80";
+			return temp;
+		}
+		else
+		{
+			temp = "S81";
+			return temp;
+		}
+		break;
+	case 'A':												//设置区域
+		for (i=2;buffer[i] != '+'; ++i)
+		{
+			temp1 += buffer[i];
+		}
+		++i; 
+		for (y = i;buffer[y] != '#';y++)
+		{
+			temp2 += buffer[y];
+		}
+		if (AreaCommand.AddArea(temp1,temp2) == TRUE)
+		{
+			temp = "S90";
+			return temp;
+		}
+		else
+		{
+			temp = "S91";
+			return temp;
+		}
+		break;
 	default:
+		temp = "";
 		break;
 	}
-	return TRUE;
+	return temp;
 }
  /********************************************
 函数功能：获取灯的状态
