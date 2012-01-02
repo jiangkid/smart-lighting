@@ -11,13 +11,13 @@ CUserCommand::~CUserCommand(void)
 //
 //新建新的用户，返回新插入员工ID
 //
-BOOL CUserCommand::NewUser(CString UserName,CString Psw,CString AreaName)
+BOOL CUserCommand::NewUser(CString UserName,CString Psw)//,CString AreaName
 {
 	CString SQL;
 	int MaxID = GetMaxUserID();
 	MaxID++;
 
-	SQL.Format("Insert Into Users([ID],[Name],[Password],[Area])Values(%d,\""+UserName+"\",\""+Psw+"\",\""+AreaName+"\")",MaxID);
+	SQL.Format("Insert Into Users([ID],[Name],[Password])Values(%d,\""+UserName+"\",\""+Psw+"\")",MaxID);
 	if (!ExcuteSQL(SQL))
 	{
 		return FALSE;
