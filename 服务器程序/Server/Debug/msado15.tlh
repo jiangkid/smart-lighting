@@ -1,9 +1,9 @@
-﻿// Created by Microsoft (R) C/C++ Compiler Version 15.00.30729.01 (67db3f9f).
+﻿// Created by Microsoft (R) C/C++ Compiler Version 15.00.30729.01 (1b629f69).
 //
-// e:\mysmartlighting\server\server\debug\msado15.tlh
+// e:\smartlighting\服务器程序\server\debug\msado15.tlh
 //
 // C++ source equivalent of Win32 type library C:\Program Files\Common Files\System\ADO\msado15.dll
-// compiler-generated file created 12/30/11 at 13:58:42 - DO NOT EDIT!
+// compiler-generated file created 01/02/12 at 10:28:16 - DO NOT EDIT!
 
 #pragma once
 #pragma pack(push, 8)
@@ -16,7 +16,7 @@ namespace ADODB {
 // Forward references and typedefs
 //
 
-struct __declspec(uuid("2a75196c-d9eb-4129-b803-931327f72d5c"))
+struct __declspec(uuid("b691e011-1797-432e-907a-4d8c69339129"))
 /* LIBID */ __ADODB;
 enum CursorTypeEnum;
 enum CursorOptionEnum;
@@ -3134,7 +3134,7 @@ _Record : _ADO
 //
 
 extern "C" const GUID __declspec(selectany) LIBID_ADODB =
-    {0x2a75196c,0xd9eb,0x4129,{0xb8,0x03,0x93,0x13,0x27,0xf7,0x2d,0x5c}};
+    {0xb691e011,0x1797,0x432e,{0x90,0x7a,0x4d,0x8c,0x69,0x33,0x91,0x29}};
 extern "C" const GUID __declspec(selectany) IID__Collection =
     {0x00000512,0x0000,0x0010,{0x80,0x00,0x00,0xaa,0x00,0x6d,0x2e,0xa4}};
 extern "C" const GUID __declspec(selectany) IID__DynaCollection =
@@ -3224,7 +3224,7 @@ extern "C" const GUID __declspec(selectany) IID__Record =
 // Wrapper method implementations
 //
 
-#include "e:\mysmartlighting\server\server\debug\msado15.tli"
+#include "e:\smartlighting\服务器程序\server\debug\msado15.tli"
 
 } // namespace ADODB
 

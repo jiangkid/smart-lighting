@@ -8,5 +8,8 @@ public:
 	CTerminalCommand(void);
 	~CTerminalCommand(void);
 
-	BOOL AddNewInformation(CString  x, CString temp);
+	BOOL AddTerminal(CString TerminalID, CString TerminalName,CString Roads);
+
+private:
+	int GetMaxID();
 };

@@ -20,7 +20,7 @@ CString CAdminRecordset::GetPswByAdminName(CString AdminName)
 		Psw=GetAsString("Password");
 		if (Psw=="")
 		{
-			::AfxMessageBox("非法的管理员名称!");
+//			::AfxMessageBox("非法的管理员名称!");
 			return NULL;
 		}
 		else

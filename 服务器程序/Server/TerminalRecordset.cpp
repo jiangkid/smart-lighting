@@ -21,10 +21,10 @@ BOOL CTerminalRecordset::LoadTerminalData()
 //
 //设置终端的ID来设置终端的名称,成功时返回TRUE，失败时返回FALSE
 //
-BOOL CTerminalRecordset::SetTerminalName(int TID,CString TerminalName)
+BOOL CTerminalRecordset::SetTerminalName(CString TerminalID,CString TerminalName)
 {
 	CString SQL;
-	SQL.Format("Select * From  Terminals Where [TID] = %d",TID);
+	SQL.Format("Select * From  Terminals Where [TerminalID] = %s",TerminalID);
 	if (Open(SQL))
 	{
 		SetAsString("Name",TerminalName);
@@ -36,11 +36,11 @@ BOOL CTerminalRecordset::SetTerminalName(int TID,CString TerminalName)
 //
 //根据ID查看路的名称,返回为路的名称
 //
-CString CTerminalRecordset::GetTerminalName(int TID)
+CString CTerminalRecordset::GetTerminalName(CString TerminalID)
 {
 	CString SQL;
 	CString TerminalName;
-	SQL.Format("Select * From  Terminals Where [TID] = %d",TID);
+	SQL.Format("Select * From  Terminals Where [TerminalID] = '%s'",TerminalID);
 	if (Open(SQL))
 	{
 		TerminalName=GetAsString("Name");
