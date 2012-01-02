@@ -26,8 +26,12 @@ CClientServer::~CClientServer(void)
 	CString temp;
 	switch (buffer[0])
 	{
-	case 'C': 
-		this->CreateUser(buffer);			//创建新用户
+	case 'C': //创建新用户
+		if (this->CreateUser(buffer) == TRUE)
+		{
+			temp = "C0";
+		}
+		else temp = "C1";
 		break;
 	case 'D':
 		this->DeleteUser(buffer);		   //删除用户
@@ -36,10 +40,11 @@ CClientServer::~CClientServer(void)
 		temp = this->GetLedStatus(buffer);
 		break;
 	case'M':
-		if (this->ChangePassword(buffer) != TRUE)
+		if (this->ChangePassword(buffer) == TRUE)
 		{
-			temp = "error";
+			temp = "M0";
 		}
+		else temp = "M1";
 		break;
 	case 'N':  
 		this->InQueue(QlistCtG,buffer);				//传输命令
@@ -47,7 +52,11 @@ CClientServer::~CClientServer(void)
 	case 'H':											//获取历史信息
 		break;
 	case 'S': 
-		this->FieldSet(buffer);				//创建区域
+		if (this->FieldSet(buffer)==TRUE)
+		{
+			temp = "S0";
+		}
+		temp = "S1";				//创建区域
 		break;
 	default:
 		temp ="";
@@ -129,28 +138,28 @@ CClientServer::~CClientServer(void)
 ***************************************************/
 BOOL CClientServer::CreateUser(CHAR * buffer)
 {
-	CString temp1,temp2,temp3;
+	CString temp1,temp2;
 	int i = 0, y =0, x = 0;
 	for (i=2;buffer[i] != '+'; ++i)
 	{
 		temp1 += buffer[i];
 	}
 	++i;
-	for ( y = i; buffer[y] != '+';++y)
+	for ( y = i; buffer[y] != '#';++y)
 	{
 		temp2 += buffer[y];
 	}
-	 ++y;
+	/* ++y;,temp3
 	 for (x=y; buffer[x]!='#';++x)
 	{
 		temp3 +=buffer[x];
-	}
+	}*/
 	switch (buffer[1])
 	{
 	case '0':
 		break;
 	case '1':
-		if (UserCommand.NewUser(temp1,temp2,temp3) == FALSE)
+		if (UserCommand.NewUser(temp1,temp2) == FALSE)
 		{
 			return FALSE;
 		}
@@ -572,14 +581,17 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 			GetDlgItemText(H_ServerDlg,IDC_EDIT1,strTemp_recv,BUFFER_SIZE);	
 			pIOCPServer->strRecv+=(CString)strTemp_recv;
 			SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strRecv);
-			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
 
-			pIOCPServer->DataCheck(lpPerIOData->wbuf.buf);
-			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
-			nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
+			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->wbuf.buf);
+			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_WRITE);
+			lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
+			lpPerIOData->wbuf.len=pIOCPServer->strSend.GetLength();
+			lpPerIOData->flags=0;
+			nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
 			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
 			{
 				pIOCPServer->ConnListRemove(lpConnCtx);
+				continue;
 			}
 			/*pIOCPServer->strSend = 
 			lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
