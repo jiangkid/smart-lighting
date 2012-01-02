@@ -13,13 +13,13 @@ CTerminalCommand::~CTerminalCommand(void)
 //向Terminal表中添加一条记录
 //
 
-BOOL CTerminalCommand::AddTerminal(CString TerminalID, CString TerminalName,CString Roads)
+BOOL CTerminalCommand::AddTerminal(CString TerminalID, CString TerminalName)
 {
 	CString SQL;
 	int MaxID = GetMaxID();
 	MaxID++;
 
-	SQL.Format("Insert Into Terminals([ID],[TerminalID],[TerminalName],[Roads])Values(%d,\""+TerminalID+"\",\""+TerminalName+"\",\""+Roads+"\")",MaxID);
+	SQL.Format("Insert Into Terminals([ID],[TerminalID],[TerminalName])Values(%d,\""+TerminalID+"\",\""+TerminalName+"\")",MaxID);
 	if (!ExcuteSQL(SQL))
 	{
 		return FALSE;

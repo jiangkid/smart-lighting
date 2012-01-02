@@ -37,13 +37,13 @@ int CAreaCommand::GetMaxID()
 //
 //向Areas这张表中添加一条新的记录
 //
-BOOL CAreaCommand::AddArea(CString AreaID, CString AreaName, CString Roads)
+BOOL CAreaCommand::AddArea(CString AreaID, CString AreaName)
 {
 	CString SQL;
 	int MaxID = GetMaxID();
 	MaxID++;
 
-	SQL.Format("Insert Into Areas([ID],[AreaID],[AreaName],[Roads])Values(%d,\""+AreaID+"\",\""+AreaName+"\",\""+Roads+"\")",MaxID);
+	SQL.Format("Insert Into Areas([ID],[AreaID],[AreaName])Values(%d,\""+AreaID+"\",\""+AreaName+"\")",MaxID);
 	if (!ExcuteSQL(SQL))
 	{
 		return FALSE;
