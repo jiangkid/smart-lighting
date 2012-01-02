@@ -276,6 +276,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 	CString tempOprationRecord;
 	CString tempLightRecord;
 	CString tempRoads;
+	CString tempAdminPsw;
 	////////////////////////////////////////////////////////////////
 
 
@@ -357,7 +358,8 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 //		m_AdminCmd.NewAdmin("dingliang","1234567890");
 //		m_AreaCmd.AddArea("10000000","下沙","一号路，二号路，三号路");
 //		m_AreaRs.SetAreaByAreaID("10000000","高沙","三号路,四号路,五号路");
-		tempRoads=m_AreaRs.GetRoadsByAreaName("高沙");
+		tempRoads=m_AreaRs.GetTerminalsByAreaName("高沙");
+//		tempAdminPsw=m_AdminRst.GetPswByAdminName("丁亮");
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
  		pIOCPServer->InitializeBuffer(lpPerIOData,SVR_IO_WRITE );
