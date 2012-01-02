@@ -21,10 +21,10 @@ BOOL CRoadRecordset::LoadRoadData()
 //
 //设置路的名称
 //
-BOOL CRoadRecordset::SetRoadName(int RoadID,CString RoadName)
+BOOL CRoadRecordset::SetRoadName(CString RoadID,CString RoadName)
 {
 	CString SQL;
-	SQL.Format("Select * From  Roads Where [ID] = %d",RoadID);
+	SQL.Format("Select * From  Roads Where [RoadID] = '%s'",RoadID);
 	if (Open(SQL))
 	{
 		SetAsString("Name",RoadName);
@@ -36,11 +36,11 @@ BOOL CRoadRecordset::SetRoadName(int RoadID,CString RoadName)
 //
 //根据ID来查看路的名称
 //
-CString CRoadRecordset::GetRoadName(int RoadID)
+CString CRoadRecordset::GetRoadName(CString RoadID)
 {
 	CString SQL;
 	CString RoadName;
-	SQL.Format("Select * From  Roads Where [ID] = %d",RoadID);
+	SQL.Format("Select * From  Roads Where [RoadID] = '%s'",RoadID);
 	if (Open(SQL))
 	{
 		RoadName=GetAsString("Name");

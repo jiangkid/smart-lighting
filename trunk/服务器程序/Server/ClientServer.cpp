@@ -249,10 +249,10 @@ BOOL  CClientServer::FieldSet(CHAR * buffer)
 		{
 			temp2 += buffer[y];
 		}
-		if (RoadCommand.AddNewInformation(temp1,temp2) != TRUE)
-		{
-			return FALSE;
-		}
+//		if (RoadCommand.AddNewInformation(temp1,temp2) != TRUE)
+//		{
+//			return FALSE;
+//		}
 		break;
 	case '0x38':												//…Ë÷√÷’∂À
 		for (i=2;buffer[i] != '+'; ++i)
@@ -264,10 +264,10 @@ BOOL  CClientServer::FieldSet(CHAR * buffer)
 		{
 			temp2 += buffer[y];
 		}
-		if (TerminalCommand.AddNewInformation(temp1,temp2) != TRUE)
-		{
-			return FALSE;
-		}
+//		if (TerminalCommand.AddNewInformation(temp1,temp2) != TRUE)
+//		{
+//			return FALSE;
+//		}
 		break;
 	case '0x39':												//…Ë÷√«¯”Ú
 		for (i=2;buffer[i] != '+'; ++i)

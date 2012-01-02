@@ -12,9 +12,9 @@ public:
 	BOOL LoadTerminalData();
 
 	//根据终端的ID来设置终端的名称
-	BOOL SetTerminalName(int TID,CString TerminalName);
+	BOOL SetTerminalName(CString TerminalID,CString TerminalName);
 
 	//根据ID查看终端的名称
-	CString GetTerminalName(int TID);
+	CString GetTerminalName(CString TerminalID);
 
 }; 

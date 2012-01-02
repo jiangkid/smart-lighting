@@ -34,16 +34,14 @@ int CHRTerminalCommand::GetMaxID()
 	return nResult;
 }
 
-BOOL CHRTerminalCommand::AddHistoryRecordOfTerminal(int TID,CString Va,CString Vb,CString Vc,CString P,
+BOOL CHRTerminalCommand::AddHistoryRecordOfTerminal(CString TerminalID,CString Va,CString Vb,CString Vc,CString P,
 												   CString Ir1,CString Ir2,CString Ir3,CString Ir4, CString Ir5,CString Ir6,CString Ir7,CString Ir8)
 {
 	CString SQL;
 	int MaxID = GetMaxID();
 	MaxID++;
-	CString strTID;
-	strTID.Format("%d",TID);
 
-	SQL.Format("Insert Into HistoryRecordOfTerminal([ID],[TID],Va,Vb,Vc,P,Ir1,Ir2,Ir3,Ir4,Ir5,Ir6,Ir7,Ir8)Values(%d,\""+strTID+"\",\""+Va+"\",\""+Vb+"\",\""+Vc+"\",\""+P+"\",\""+Ir1+"\",\""+Ir2+"\",\""+Ir3+"\",\""+Ir4+"\",\""+Ir5+"\",\""+Ir6+"\",\""+Ir7+"\",\""+Ir8+"\")",MaxID);
+	SQL.Format("Insert Into HistoryRecordOfTerminal([ID],[TerminalID],Va,Vb,Vc,P,Ir1,Ir2,Ir3,Ir4,Ir5,Ir6,Ir7,Ir8)Values(%d,\""+TerminalID+"\",\""+Va+"\",\""+Vb+"\",\""+Vc+"\",\""+P+"\",\""+Ir1+"\",\""+Ir2+"\",\""+Ir3+"\",\""+Ir4+"\",\""+Ir5+"\",\""+Ir6+"\",\""+Ir7+"\",\""+Ir8+"\")",MaxID);
 	
 	if (ExcuteSQL(SQL))
 	{
