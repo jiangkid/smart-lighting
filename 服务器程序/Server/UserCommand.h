@@ -9,7 +9,7 @@ public:
 	~CUserCommand(void);
 
 	//新建一个用户
-	BOOL NewUser(CString UserName,CString Psw,CString AreaName);
+	BOOL NewUser(CString UserName,CString Psw);
 
 	//更改用户的名称
 	BOOL ChangeUserName(CString UserName,CString NewName);
