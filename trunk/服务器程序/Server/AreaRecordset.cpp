@@ -32,11 +32,13 @@ CString CAreaRecordset::GetTerminalsByAreaName(CString AreaName)
 {
 	CString SQL;
 	CString Terminals;
+	CString TerminalsName;
+	CString TerminalsID;
 
 	SQL.Format("Select * From Areas Where AreaName = '%s'",AreaName);
 	if (Open(SQL))
 	{
-		Terminals=GetAsString("Terminals");
+		Terminals=GetAsString("TerminalsName");
 		return Terminals; 
 	}
 	return NULL;
