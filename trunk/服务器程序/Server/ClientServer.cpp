@@ -41,8 +41,12 @@ CClientServer::~CClientServer(void)
 		break;
 	case 'H':									//获取历史信息
 		break;
-
-	case'M':
+	case 'L':
+		if (InitializeClient(buffer)==TRUE)
+		{
+		}
+		break;
+	case 'M':
 		if (this->ChangePassword(buffer) == TRUE)
 		{
 			temp = "M0";
@@ -61,9 +65,9 @@ CClientServer::~CClientServer(void)
 	}
 	return temp;
  }
- /********************************************
-函数功能：用户登录验证
- ********************************************/
+/********************************************
+   函数功能：用户登录验证
+********************************************/
  BOOL CClientServer::LogIn(LPCIOCPContext  pContext)
  {
 	 CString  temp1,temp2,temp3;
@@ -129,6 +133,22 @@ CClientServer::~CClientServer(void)
 	 temp3+=temp1;
 	 SetDlgItemText(H_ServerDlg,IDC_EDIT1,temp3);*/
 	 return TRUE;
+ }
+ /**************************************************
+ 函数功能：初始化
+ ***************************************************/
+ BOOL CClientServer::InitializeClient(CHAR* buffer)
+ {
+	CString User,AreaName,AreaID,TermialName,TermialID,RoadName,RoadID;
+	for (int i=1;buffer[i]!='#';++i)
+	{
+		User +=buffer[i];
+	}
+	AreaName = UserRecordset.GetAreaNameByUserName(User);
+	TermialID = AreaRecordset.GetTerminalsByAreaName(AreaName);
+	TermialName = AreaRecordset.GetTerminalsByAreaName(AreaName);
+	
+	return TRUE;
  }
 /**************************************************
 函数功能：创建新用户
