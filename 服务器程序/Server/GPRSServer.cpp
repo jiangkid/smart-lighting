@@ -358,7 +358,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 //		m_AdminCmd.NewAdmin("dingliang","1234567890");
 //		m_AreaCmd.AddArea("10000000","下沙","一号路，二号路，三号路");
 //		m_AreaRs.SetAreaByAreaID("10000000","高沙","三号路,四号路,五号路");
-		tempRoads=m_AreaRs.GetTerminalsByAreaName("高沙");
+//		tempRoads=m_AreaRs.GetTerminalsByAreaName("高沙");
 //		tempAdminPsw=m_AdminRst.GetPswByAdminName("丁亮");
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -388,91 +388,85 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 		
 		////////////////////////////////////////////////////////////////////////////////////
 		
-// 		Sleep(100);
-// 		bSucess = GetQueuedCompletionStatus(hIOCP,
-// 			&dwIOSize,
-// 			(LPDWORD)&lpConnCtx,
-// 			&pOverLapped,
-// 			500);    
-// 		if ((!bSucess) &&(GetLastError() ==  WAIT_TIMEOUT))
-// 		{
-// 			continue;
-// 		}
-// 		if (lpConnCtx == NULL)
-// 		{
-// 			return -1;
-// 		}
-// 		if(dwIOSize == -1)  //用户通知退出
-// 		{
-// 			::ExitThread(0);
-// 		}
-// 		lpPerIOData = (LPCIOCPBuffer)(pOverLapped);
-// 
-// 		if (!bSucess||(bSucess&&(dwIOSize==0)))
-// 		{
-// 			if ((lpConnCtx->sockAccept != INVALID_SOCKET)/*&&(lpConnCtx->LogIn == TRUE || lpConnCtx->LogIn == FALSE)*/)
-// 			{
-// 				addrAccept = lpConnCtx->addrAccept;
-// 				pIOCPServer->ConnListRemove(lpConnCtx);
-// 				GetDlgItemText(H_ServerDlg,IDC_EDIT2,strTemp_send,BUFFER_SIZE);
-// 				pIOCPServer->strSend.Format("客户端退出 :%s\r\n",inet_ntoa(addrAccept.sin_addr));
-// 				pIOCPServer->strSend+=(CString)strTemp_send;
-// 				SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strSend);
-// 			}			
-// 			continue;
-// 		}
-// 		switch(lpPerIOData->oper)
-// 		{
-// 		case SVR_IO_WRITE:
-// 			/*pIOCPServer->strSend = lpPerIOData->wbuf.buf;
-// 			GetDlgItemText(H_ServerDlg,IDC_EDIT2,strTemp_send,BUFFER_SIZE);
-// 			pIOCPServer->strSend+=(CString)strTemp_send;
-// 			SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strSend);*/
-// 			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
-// 			nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
-// 			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
-// 			{
-// 				pIOCPServer->ConnListRemove(lpConnCtx);
-// 			}
-// 			break;
-// 
-// 		case SVR_IO_READ:
-// 			pIOCPServer->strRecv = lpPerIOData->wbuf.buf;
-// 			GetDlgItemText(H_ServerDlg,IDC_EDIT2,strTemp_recv,BUFFER_SIZE);			
-// 			pIOCPServer->strRecv += "\r\n";
-// 			pIOCPServer->strRecv+=(CString)strTemp_recv;
-// 			SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strRecv);
-// 			
-// 			pIOCPServer->InQueue(QlistGtC,lpPerIOData->wbuf.buf);
-// 			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
-// 			nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
-// 			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
-// 			{
-// 				pIOCPServer->ConnListRemove(lpConnCtx);
-// 			}
-// 			/*lpPerIOData->wbuf.buf = "China!\n";
-// 			lpPerIOData->wbuf.len=18;
-// 			lpPerIOData->oper=SVR_IO_WRITE;
-// 			lpPerIOData->flags=0;
-// 			nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
-// 			if(nResult==SOCKET_ERROR && WSAGetLastError()!=ERROR_IO_PENDING)
-// 			{
-// 				pIOCPServer->ConnListRemove(lpConnCtx);
-// 			}*/
-// 			break;
-// 		default: break;
-// 		}
+ 		Sleep(100);
+ 		bSucess = GetQueuedCompletionStatus(hIOCP,
+ 			&dwIOSize,
+ 			(LPDWORD)&lpConnCtx,
+ 			&pOverLapped,
+ 			500);    
+ 		if ((!bSucess) &&(GetLastError() ==  WAIT_TIMEOUT))
+ 		{
+ 			continue;
+ 		}
+ 		if (lpConnCtx == NULL)
+ 		{
+ 			return -1;
+ 		}
+ 		if(dwIOSize == -1)  //用户通知退出
+ 		{
+ 			::ExitThread(0);
+ 		}
+ 		lpPerIOData = (LPCIOCPBuffer)(pOverLapped);
+ 
+ 		if (!bSucess||(bSucess&&(dwIOSize==0)))
+ 		{
+ 			if ((lpConnCtx->sockAccept != INVALID_SOCKET)/*&&(lpConnCtx->LogIn == TRUE || lpConnCtx->LogIn == FALSE)*/)
+ 			{
+ 				addrAccept = lpConnCtx->addrAccept;
+ 				pIOCPServer->ConnListRemove(lpConnCtx);
+ 				GetDlgItemText(H_ServerDlg,IDC_EDIT2,strTemp_send,BUFFER_SIZE);
+ 				pIOCPServer->strSend.Format("客户端退出 :%s\r\n",inet_ntoa(addrAccept.sin_addr));
+ 				pIOCPServer->strSend+=(CString)strTemp_send;
+ 				SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strSend);
+ 			}			
+ 			continue;
+ 		}
+ 		switch(lpPerIOData->oper)
+ 		{
+ 		case SVR_IO_WRITE:
+ 			/*pIOCPServer->strSend = lpPerIOData->wbuf.buf;
+ 			GetDlgItemText(H_ServerDlg,IDC_EDIT2,strTemp_send,BUFFER_SIZE);
+ 			pIOCPServer->strSend+=(CString)strTemp_send;
+ 			SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strSend);*/
+ 			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
+ 			nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
+ 			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+ 			{
+ 				pIOCPServer->ConnListRemove(lpConnCtx);
+ 			}
+
+ 			break;
+ 
+ 		case SVR_IO_READ:
+ 			pIOCPServer->strRecv = lpPerIOData->wbuf.buf;
+ 			GetDlgItemText(H_ServerDlg,IDC_EDIT2,strTemp_recv,BUFFER_SIZE);			
+ 			pIOCPServer->strRecv += "\r\n";
+ 			pIOCPServer->strRecv+=(CString)strTemp_recv;
+ 			SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strRecv);
+ 			
+ 			pIOCPServer->InQueue(QlistGtC,lpPerIOData->wbuf.buf);
+ 			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
+ 			nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
+ 			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+ 			{
+ 				pIOCPServer->ConnListRemove(lpConnCtx);
+ 			}
+ 			/*lpPerIOData->wbuf.buf = "China!\n";
+ 			lpPerIOData->wbuf.len=18;
+ 			lpPerIOData->oper=SVR_IO_WRITE;
+ 			lpPerIOData->flags=0;
+ 			nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+ 			if(nResult==SOCKET_ERROR && WSAGetLastError()!=ERROR_IO_PENDING)
+ 			{
+ 				pIOCPServer->ConnListRemove(lpConnCtx);
+ 			}*/
+ 			break;
+ 		default: break;
+ 		}
   	}
 	delete lpPerIOData;
 	CoUninitialize();
 	return TRUE;
 }
 
-//
-//发送心跳消息，发送三次，若在前两次收到GPRS端的连接，则继续，若未收到回复，则断开此链接
-//
-void CGPRSServer::SendHeartBeeatMsg()
-{
-
-}
 
