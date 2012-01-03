@@ -39,6 +39,9 @@ CClientServer::~CClientServer(void)
 	case 'G':
 		temp = this->GetLedStatus(buffer);
 		break;
+	case 'H':									//获取历史信息
+		break;
+
 	case'M':
 		if (this->ChangePassword(buffer) == TRUE)
 		{
@@ -48,8 +51,6 @@ CClientServer::~CClientServer(void)
 		break;
 	case 'N':  
 		this->InQueue(QlistCtG,buffer);			//传输命令
-		break;
-	case 'H':									//获取历史信息
 		break;
 	case 'S':									//创建区域
 		temp = this->FieldSet(buffer);
@@ -292,7 +293,7 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 			return temp;
 		}
 		break;
-	case 'A':												//设置区域
+	case 'G':												//设置区域
 		for (i=2;buffer[i] != '+'; ++i)
 		{
 			temp1 += buffer[i];
