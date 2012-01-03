@@ -17,4 +17,10 @@ public:
 	//根据ID查看终端的名称
 	CString GetTerminalName(CString TerminalID);
 
+	//根据终端的ID来获取终端下所有路的ID
+	CString GetRoadIDsByTerminalID(CString TerminalID);
+
+	//根据终端的ID来获取终端下所有路的名称
+	CString GetRoadNamesByTerminalID(CString TerminalID);
+
 }; 

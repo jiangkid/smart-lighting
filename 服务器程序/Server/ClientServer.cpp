@@ -42,9 +42,7 @@ CClientServer::~CClientServer(void)
 	case 'H':									//获取历史信息
 		break;
 	case 'L':
-		if (InitializeClient(buffer)==TRUE)
-		{
-		}
+		temp = "L0";
 		break;
 	case 'M':
 		if (this->ChangePassword(buffer) == TRUE)
@@ -135,18 +133,54 @@ CClientServer::~CClientServer(void)
 	 return TRUE;
  }
  /**************************************************
+ 函数功能：添加ID
+ ***************************************************/
+ BOOL CClientServer::AddID(CHAR* buffer)
+ {
+	/*CString  temp;
+	for ()
+	{
+	}
+	switch (buffer[1])
+	{
+	case 'G':
+		
+		break;
+	case 'T':
+		
+		break;
+	case 'R':
+		
+		break;
+	case 'L':
+		
+		break;
+	}*/
+	 return TRUE;
+ }
+ /**************************************************
  函数功能：初始化
  ***************************************************/
- BOOL CClientServer::InitializeClient(CHAR* buffer)
+ BOOL CClientServer::InitializeClient(CHAR* buffer,CString &x,CString &y,CString &z)
  {
-	CString User,AreaName,AreaID,TermialName,TermialID,RoadName,RoadID;
+	//LPCIOCPBuffer lpPerIOData = new CIOCPBuffer;
+	int nResult;
+	CString buffer1,User,AreaName,AreaID,TermialName,TermialID,RoadName,RoadID;
 	for (int i=1;buffer[i]!='#';++i)
 	{
 		User +=buffer[i];
 	}
 	AreaName = UserRecordset.GetAreaNameByUserName(User);
-	TermialID = AreaRecordset.GetTerminalsByAreaName(AreaName);
-	TermialName = AreaRecordset.GetTerminalsByAreaName(AreaName);
+	AreaID = AreaRecordset.GetAreaIDByAreaName(AreaName);
+	AreaName += '+';
+	AreaName += AreaID;
+	x="L0G<";
+	x+=AreaName;
+	x+=">#";
+	/**/
+//	AreaID = AreaRecordset.GetAreaIDByAreaName(AreaName);
+//	TermialID = AreaRecordset.GetTerminalIDsByAreaID(AreaID);
+//	TermialName = AreaRecordset.GetTerminalsByAreaName(AreaName);
 	
 	return TRUE;
  }
@@ -372,7 +406,9 @@ BOOL CClientServer::Start(int nPort)
 	UserRecordset.m_cnn = m_conn;
 	UserCommand.m_cnn = m_conn;
 	AreaCommand.m_cnn = m_conn;
+	AreaRecordset.m_cnn = m_conn;
 	TerminalCommand.m_cnn = m_conn;
+	TerminalRecordset.m_cnn = m_conn;
 	LightCommand.m_cnn = m_conn;
 	RoadCommand.m_cnn = m_conn;
 	for (UINT i = 0; i < m_nSvrThreadNum; ++i)
@@ -492,7 +528,7 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 	LPCIOCPContext lpConnCtx;
 	sockaddr_in addrAccept;
 	int nResult;
-	CString buffer1;
+	CString buffer1,buffer2,buffer3;
 	char strTemp_send[BUFFER_SIZE];
 	char strTemp_recv[BUFFER_SIZE];
 	while (1)
@@ -625,15 +661,32 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 			SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strRecv);
 
 			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->wbuf.buf);
-			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_WRITE);
-			lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
-			lpPerIOData->wbuf.len=pIOCPServer->strSend.GetLength();
-			lpPerIOData->flags=0;
-			nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
-			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+			if (pIOCPServer->strSend == "L0")
 			{
-				pIOCPServer->ConnListRemove(lpConnCtx);
-				continue;
+				pIOCPServer->InitializeClient(lpPerIOData->wbuf.buf,buffer1,buffer2,buffer3);
+				pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_WRITE);
+				lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
+				lpPerIOData->wbuf.len=buffer1.GetLength();
+				lpPerIOData->flags=0;
+				nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+				if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+				{
+					pIOCPServer->ConnListRemove(lpConnCtx);
+					continue;
+				}
+			}
+			else
+			{
+				pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_WRITE);
+				lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
+				lpPerIOData->wbuf.len=pIOCPServer->strSend.GetLength();
+				lpPerIOData->flags=0;
+				nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+				if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+				{
+					pIOCPServer->ConnListRemove(lpConnCtx);
+					continue;
+				}
 			}
 			/*pIOCPServer->strSend = 
 			lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
