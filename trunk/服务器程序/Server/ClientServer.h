@@ -19,8 +19,8 @@ public:
 	BOOL DeleteUser(CHAR * buffer);
 	CString  GetLedStatus(CHAR* buffer);
 	BOOL ChangePassword(CHAR* buffer);
-	BOOL InitializeClient(CHAR* buffer);
-	BOOL IDAdd(CHAR* buffer);
+	BOOL InitializeClient(CHAR* buffer,CString &x,CString &y,CString &z);
+	BOOL AddID(CHAR* buffer);
 
 	HANDLE m_evtSvrToStop;                      //用于管理线程停止服务器
 	HANDLE m_evtThreadLanched;              //用于通知线程已成功启动

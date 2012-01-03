@@ -37,16 +37,44 @@ CString CUserRecordset::GetPswByUserName(CString UserName)
 //
 CString CUserRecordset::GetAreaNameByUserName(CString UserName)
 {
-	CString SQL;
-	CString AreaName;
+	CString UserSQL;
+	CString AreaSQL;
+	CString strID;
+	CString strAreas;
+	int intID;
+	_variant_t vAreaName;
+	_RecordsetPtr pRs;
 
-	SQL.Format("Select * From Users Where Name = '%s'",UserName);
-	if (Open(SQL))
+	UserSQL.Format("Select * From Users Where [Name]='%s'",UserName);
+	if (Open(UserSQL))
 	{
-		AreaName=GetAsString("Area");
-		return AreaName; 
+		strID=GetAsString("ID");
+		intID=atoi(strID);
 	}
-	return NULL;
+
+	AreaSQL.Format("Select * From Areas Where IDUser=%d",intID);
+	try
+	{
+		pRs.CreateInstance("ADODB.RecordSet");
+		pRs->Open((_variant_t)AreaSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+	while (!pRs->adoEOF)
+	{
+		vAreaName=pRs->GetCollect("AreaName");
+		if (vAreaName.vt!=VT_NULL)
+		{
+			//strAreas+="+";
+			strAreas+=(LPCTSTR)(_bstr_t)vAreaName;
+		}
+		pRs->MoveNext();
+	}
+	return strAreas;
+
+	pRs->Close();
 }
 
 

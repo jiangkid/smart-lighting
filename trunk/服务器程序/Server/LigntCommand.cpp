@@ -14,7 +14,7 @@ BOOL CLightCommand::AddLight(CString LightID,CString LightName/*,BOOL Status,CSt
 	CString SQL;
 	int MaxID = GetMaxID();
 	MaxID++;
-	SQL.Format("Insert Into Lights([ID],[LightID],[Name])Values(%d,\""+LightID+"\",\""+LightName+"\")",MaxID);
+	SQL.Format("Insert Into Lights([ID],[LightID],[LightName])Values(%d,\""+LightID+"\",\""+LightName+"\")",MaxID);
 	if (!ExcuteSQL(SQL))
 	{
 		return FALSE;
