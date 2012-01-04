@@ -16,4 +16,8 @@ public:
 
 	//根据ID来查看路的名称
 	CString GetRoadName(CString RoadID);
+	//根据路名获取该条路下的所有灯的名称
+	CString GetLightNamesByRoadName(CString RoadName);
+	//根据路名得到该条路下所有灯的ID
+	CString GetLightIDsByRoadName(CString RoadName);
 };
