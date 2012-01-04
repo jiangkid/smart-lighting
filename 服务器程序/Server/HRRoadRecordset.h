@@ -7,4 +7,5 @@ class CHRRoadRecordset :
 public:
 	CHRRoadRecordset(void);
 	~CHRRoadRecordset(void);
+
 };
