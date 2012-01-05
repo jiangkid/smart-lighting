@@ -9,18 +9,13 @@ CRoadRecordset::~CRoadRecordset(void)
 {
 }
 
-//
 //加载路这张表中的所有数据
-//
 BOOL CRoadRecordset::LoadRoadData()
 {
 	return Open("Select * From Roads");
 }
 
-
-//
 //设置路的名称
-//
 BOOL CRoadRecordset::SetRoadName(CString RoadID,CString RoadName)
 {
 	CString SQL;
@@ -33,9 +28,9 @@ BOOL CRoadRecordset::SetRoadName(CString RoadID,CString RoadName)
 	return FALSE;
 }
 
-//
+
 //根据ID来查看路的名称
-//
+
 CString CRoadRecordset::GetRoadName(CString RoadID)
 {
 	CString SQL;

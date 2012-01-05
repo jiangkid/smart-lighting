@@ -8,8 +8,8 @@ public:
 	CRoadCommand(void);
 	~CRoadCommand(void);
 
-    BOOL AddRoad(CString RoadID, CString RoadName);//,CString Lights
-
+    BOOL AddRoad(CString RoadID, CString RoadName);
+	BOOL AddRoadID(CString RoadID);
 private:
 	int GetMaxID();
 };

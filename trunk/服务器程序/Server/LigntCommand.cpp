@@ -22,6 +22,20 @@ BOOL CLightCommand::AddLight(CString LightID,CString LightName/*,BOOL Status,CSt
 	return TRUE;
 }
 
+BOOL CLightCommand::AddLightID(CString LightID)
+{
+	CString SQL;
+	int MaxID = GetMaxID();
+	MaxID++;
+	int IDRoad = 0;
+	SQL.Format("Insert Into Lights([ID],[LightID],[IDRoad])Values(%d,\""+LightID+"\",%d)",MaxID,IDRoad);
+	if (!ExcuteSQL(SQL))
+	{
+		return FALSE;
+	}
+	return TRUE;
+}
+
 int CLightCommand::GetMaxID()
 {
 	int nResult=0;

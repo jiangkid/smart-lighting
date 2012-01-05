@@ -34,8 +34,8 @@ CGenericServer::CGenericServer(void)
 	//将sysInfo.dwNumberOfProcessors*2和MAX_THREAD_NUM之间的较小值赋给m_nSvcThreadNum;
 	SYSTEM_INFO sysInfo;
 	GetSystemInfo(&sysInfo);
-	m_nSvrThreadNum=sysInfo.dwNumberOfProcessors*2 < MAX_THREAD ? (sysInfo.dwNumberOfProcessors*2):MAX_THREAD;
-	
+	//m_nSvrThreadNum=sysInfo.dwNumberOfProcessors*2 < MAX_THREAD ? (sysInfo.dwNumberOfProcessors*2):MAX_THREAD;
+	m_nSvrThreadNum=3;
 	InitQueue();
 
 }
@@ -245,7 +245,7 @@ void CGenericServer::ConnListClear()
 {
 	m_ServerState=SERVER_STOP;
 	m_sListen=INVALID_SOCKET;
-	for(int i=0; i<MAX_THREAD+2; i++)
+	for(int i=0; i<3; i++)//for(int i=0; i<MAX_THREAD+2; i++)此处根据线程数改变
 	{
 		if(m_hThreadList[i])
 			CloseHandle(m_hThreadList[i]);

@@ -1,6 +1,6 @@
 #pragma once
 #define BUFFER_SIZE		1024*3    //I/O
-#define MAX_THREAD     4
+#define MAX_THREAD      4         //
 #define WAIT4THREAD_MILLISECS 3000         //表示线程A在等待线程B触发某事件对象时，最多只等待3秒钟
 #define QMAXSize  100
 
@@ -51,6 +51,16 @@ typedef enum _IO_OPER
 	SVR_IO_READ,
 	SVR_IO_WRITE,
 }IO_OPER,*LPIO_OPER;
+
+//传输的ID（试用）
+typedef struct LightIEEEID
+{
+	char strName[20];
+	unsigned char gID;
+	unsigned char tID;
+	unsigned char rID;
+	unsigned long int lightID;
+}DemoID,*pDemoID;
 
 //扩展重叠结构体
 typedef struct _OverLappedEx

@@ -9,7 +9,7 @@ public:
 	~CTerminalCommand(void);
 
 	BOOL AddTerminal(CString TerminalID, CString TerminalName);//,CString Roads
-
+	BOOL AddTerminalID(CString TerminalID);
 private:
 	int GetMaxID();
 };

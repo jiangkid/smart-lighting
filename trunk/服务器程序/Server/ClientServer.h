@@ -14,13 +14,13 @@ public:
 	/****通信协议数据处理函数****/
 	CString  FieldSet(CHAR * buffer);
 	BOOL LogIn(LPCIOCPContext  pContext);   //登录检测函数
-	CString DataCheck(CHAR * buffer);   //传输过来的数据判断
+	CString DataCheck(CHAR * buffer,DWORD length);   //传输过来的数据判断
 	BOOL CreateUser(CHAR * buffer);
 	BOOL DeleteUser(CHAR * buffer);
 	CString  GetLedStatus(CHAR* buffer);
 	BOOL ChangePassword(CHAR* buffer);
 	BOOL InitializeClient(CHAR* buffer,CString &x,CString &y,CString &z);
-	BOOL AddID(CHAR* buffer);
+	BOOL AddID(unsigned long int &buffer);
 
 	HANDLE m_evtSvrToStop;                      //用于管理线程停止服务器
 	HANDLE m_evtThreadLanched;              //用于通知线程已成功启动
@@ -34,6 +34,9 @@ public:
 	
 	SOCKET m_sAccept;
 	CIOCPContext  *pClient ;
+
+protected:
+	static int listen;
 };
 
 //extern CClientServer *ClientServer;
