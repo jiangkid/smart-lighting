@@ -206,7 +206,10 @@ DWORD WINAPI CGPRSServer::ListenThread(LPVOID pParam)
 DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 {	
 	::CoInitialize(NULL);
-	while(!listen);
+	while(!listen)
+	{
+		Sleep(100);
+	}
 	CGPRSServer  *pIOCPServer = (CGPRSServer*)pParam;
 	HANDLE hIOCP = pIOCPServer ->m_hCompletion;
 

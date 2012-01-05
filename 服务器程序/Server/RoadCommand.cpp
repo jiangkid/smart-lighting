@@ -27,6 +27,23 @@ BOOL CRoadCommand::AddRoad(CString RoadID, CString RoadName)//,CString Lights
 
 }
 
+//向路的这张表中添加一个新的ID
+//
+BOOL CRoadCommand::AddRoadID(CString RoadID)
+{
+	CString SQL;
+	int MaxID = GetMaxID();
+	MaxID++;
+	int IDTerminal = 0;
+	SQL.Format("Insert Into Roads([ID],[RoadID],[IDTerminal])Values(%d,\""+RoadID+"\",%d)",MaxID,IDTerminal);
+	if (!ExcuteSQL(SQL))
+	{
+		return FALSE;
+	}
+	return TRUE;
+
+}
+
 int CRoadCommand::GetMaxID()
 {
 	int nResult=0;

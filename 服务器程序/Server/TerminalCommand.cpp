@@ -27,6 +27,21 @@ BOOL CTerminalCommand::AddTerminal(CString TerminalID, CString TerminalName)
 	return TRUE;
 }
 
+//向Terminal表中添加一个新的ID
+BOOL CTerminalCommand::AddTerminalID(CString TerminalID)
+{
+	CString SQL;
+	int MaxID = GetMaxID();
+	MaxID++;
+	int IDArea = 0;
+	SQL.Format("Insert Into Terminals([ID],[TerminalID],[IDArea])Values(%d,\""+TerminalID+"\",%d)",MaxID,IDArea);
+	if (!ExcuteSQL(SQL))
+	{
+		return FALSE;
+	}
+	return TRUE;
+}
+
 int CTerminalCommand::GetMaxID()
 {
 	int nResult=0;

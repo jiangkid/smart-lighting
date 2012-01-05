@@ -14,18 +14,46 @@ CClientServer::~CClientServer(void)
 {
 	CloseHandle(m_evtThreadLanched);
 	CloseHandle(m_evtSvrToStop);
-	if(m_hListenThread != NULL)										//关闭监听线程
-	::CloseHandle(m_hListenThread);
+	//if(m_hListenThread != NULL)										//关闭监听线程
+	//::CloseHandle(m_hListenThread);
 	delete m_conn;
 }
 /**************************************************
+函数功能：静态变量初始化
+***************************************************/
+int CClientServer::listen = 0;
+/**************************************************
 函数功能：输入信息判断
 ***************************************************/
- CString CClientServer::DataCheck(CHAR * buffer)
+ CString CClientServer::DataCheck(CHAR * buffer,DWORD length)//, int len
  {
 	CString temp;
-	switch (buffer[0])
+	pDemoID pStruct;
+	unsigned long int ID;
+	char LightID[5];
+	char* temp1 = (char *)malloc(length);
+	memcpy(temp1,buffer,length);
+	pStruct = (pDemoID)temp1;
+// 	for (int i = 3; i < 9;++i)
+// 	{
+// 		LightID[i-3]=pStruct->ID[i];
+// 	}
+	ID = pStruct->lightID;
+
+	if (AddID(ID) != TRUE)
 	{
+		temp = "B1";
+	}
+	/*switch (buffer[0])
+	{
+	case 'B'://添加ID
+		ID = (long int)pStruct->ID;
+		if (AddID(ID) != TRUE)
+		{
+			temp = "B1";
+		}
+		else temp = "";
+		break;
 	case 'C': //创建新用户
 		if (this->CreateUser(buffer) == TRUE)
 		{
@@ -60,7 +88,8 @@ CClientServer::~CClientServer(void)
 	default:
 		temp ="";
 		break;
-	}
+	}*/
+	free(temp1);
 	return temp;
  }
 /********************************************
@@ -135,27 +164,40 @@ CClientServer::~CClientServer(void)
  /**************************************************
  函数功能：添加ID
  ***************************************************/
- BOOL CClientServer::AddID(CHAR* buffer)
+ BOOL CClientServer::AddID(unsigned long int &buffer)
  {
-	/*CString  temp;
-	for ()
-	{
-	}
-	switch (buffer[1])
-	{
-	case 'G':
-		
-		break;
-	case 'T':
-		
-		break;
-	case 'R':
-		
-		break;
-	case 'L':
-		
-		break;
-	}*/
+// 	CString  temp;
+// 	for (int i=2;i<10;++i)
+// 	{
+// 		temp += buffer[i];
+// 	}
+// 	switch (buffer[1])
+// 	{
+// 	case 'G':
+// 		if (AreaCommand.AddAreaID(temp) != TRUE)
+// 		{
+// 			return FALSE;
+// 		}
+// 		break;
+// 	case 'T':
+// 		if (TerminalCommand.AddTerminalID(temp) != TRUE)
+// 		{
+// 			return FALSE;
+// 		}
+// 		break;
+// 	case 'R':
+// 		if (RoadCommand.AddRoadID(temp) != TRUE)
+// 		{
+// 			return FALSE;
+// 		}
+// 		break;
+// 	case 'L':
+// 		if (LightCommand.AddLightID(temp) != TRUE)
+// 		{
+// 			return FALSE;
+// 		}
+// 		break;
+// 	}
 	 return TRUE;
  }
  /**************************************************
@@ -394,7 +436,6 @@ BOOL CClientServer::Start(int nPort)
 {
 	m_bServerStarted = TRUE;
 	Initialize_Socket(nPort);   //初始化套接字
-
 	//打开数据库连接
 	if(!m_conn->Open())
 	{
@@ -410,7 +451,9 @@ BOOL CClientServer::Start(int nPort)
 	TerminalCommand.m_cnn = m_conn;
 	TerminalRecordset.m_cnn = m_conn;
 	LightCommand.m_cnn = m_conn;
+	LightRecordset.m_cnn = m_conn;
 	RoadCommand.m_cnn = m_conn;
+	RoadRecordset.m_cnn = m_conn;
 	for (UINT i = 0; i < m_nSvrThreadNum; ++i)
 	{
 		m_hThreadList[i] = NULL;
@@ -510,6 +553,7 @@ DWORD WINAPI  CClientServer::_ListenThreadProc(LPVOID lpParam)
 			ClientServer->ConnListRemove(ClientServer->pClient);
 			continue;
 		}
+		listen = 1;
 	}
 	return TRUE;
 }
@@ -518,6 +562,10 @@ DWORD WINAPI  CClientServer::_ListenThreadProc(LPVOID lpParam)
  ********************************************/
 DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 {
+	while(!listen)
+	{
+		Sleep(100);
+	}
 	::CoInitialize(NULL);
 	CClientServer  *pIOCPServer = (CClientServer*)lpParam;
 	HANDLE hIOCP = pIOCPServer ->m_hCompletion;
@@ -592,6 +640,7 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 			}
 			continue;
 		}
+		//ZeroMemory(&lpPerIOData,sizeof(CIOCPBuffer));
 		lpPerIOData = (LPCIOCPBuffer)(pOverLapped);
 		/***************登录判断****************/
 		if (lpConnCtx->LogIn == FALSE)
@@ -659,8 +708,8 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 			GetDlgItemText(H_ServerDlg,IDC_EDIT1,strTemp_recv,BUFFER_SIZE);	
 			pIOCPServer->strRecv+=(CString)strTemp_recv;
 			SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strRecv);
-
-			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->wbuf.buf);
+			//pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->wbuf.buf);
+			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->data,dwIOSize);
 			if (pIOCPServer->strSend == "L0")
 			{
 				pIOCPServer->InitializeClient(lpPerIOData->wbuf.buf,buffer1,buffer2,buffer3);
@@ -674,6 +723,17 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 					pIOCPServer->ConnListRemove(lpConnCtx);
 					continue;
 				}
+
+			}
+			else if(pIOCPServer->strSend == "")
+			{
+				pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
+				nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
+				if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+				{
+					pIOCPServer->ConnListRemove(lpConnCtx);
+				}
+				break;
 			}
 			else
 			{
@@ -688,16 +748,6 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 					continue;
 				}
 			}
-			/*pIOCPServer->strSend = 
-			lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
-			lpPerIOData->wbuf.len=pIOCPServer->strSend.GetLength();
-			lpPerIOData->oper=SVR_IO_WRITE;
-			lpPerIOData->flags=0;
-			nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
-			if(nResult==SOCKET_ERROR && WSAGetLastError()!=ERROR_IO_PENDING)
-			{
-				pIOCPServer->ConnListRemove(lpConnCtx);
-			}*/
 			break;
 		default: break;
 		}
