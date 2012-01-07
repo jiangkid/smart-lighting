@@ -28,6 +28,43 @@ BOOL CTerminalCommand::AddTerminal(CString TerminalID, CString TerminalName)
 }
 
 //向Terminal表中添加一个新的ID
+BOOL CTerminalCommand::AddTerminalID(CString areaID,CString terminalID)
+{
+	CString terminalSQL;
+	CString areaSQL;
+	_RecordsetPtr pAreaRs;
+	_variant_t vIDArea;
+	long idArea=0;
+	int MaxID = GetMaxID();
+	++MaxID;
+
+	areaSQL.Format("SELECT * FROM Areas WHERE AreaID='%s'",areaID);
+	try
+	{
+		pAreaRs.CreateInstance("ADODB.RecordSet");
+		pAreaRs->Open((_variant_t)areaSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+	if(!pAreaRs->adoEOF)
+	{
+		vIDArea=pAreaRs->GetCollect(_variant_t((long)0)); 
+		if (vIDArea.vt!=VT_NULL)
+		{
+			idArea=vIDArea.lVal;        //与Terminals表建立一对多的关联字段IDArea的值
+		}
+		//pAreaRs->MoveNext();
+	}
+	terminalSQL.Format("Insert Into Terminals([ID],[TerminalID],[IDArea])Values(%d,'%s',%ld)",MaxID,terminalID,idArea);
+	if (!ExcuteSQL(terminalSQL))
+	{
+		return FALSE;
+	}
+	return TRUE;
+}
+
 BOOL CTerminalCommand::AddTerminalID(CString TerminalID)
 {
 	CString SQL;

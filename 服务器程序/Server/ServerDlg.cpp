@@ -170,6 +170,7 @@ void CServerDlg::OnBnClickedStart()
 	{
 		GetDlgItem(IDC_CSPort)->EnableWindow(FALSE);
 		GetDlgItem(IDC_GPRSPort)->EnableWindow(FALSE);
+		GetDlgItem(IDC_START)->EnableWindow(FALSE);
 		::MessageBox(NULL,"服务器开启成功！","提示",MB_OK);
 	}	
 }

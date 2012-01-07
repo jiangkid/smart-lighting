@@ -10,6 +10,7 @@ public:
 
 	BOOL AddTerminal(CString TerminalID, CString TerminalName);//,CString Roads
 	BOOL AddTerminalID(CString TerminalID);
+	BOOL AddTerminalID(CString areaID,CString terminalID);
 private:
 	int GetMaxID();
 };

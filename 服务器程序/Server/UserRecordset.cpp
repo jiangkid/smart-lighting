@@ -92,3 +92,41 @@ BOOL CUserRecordset::SetAreaName(CString UserName,CString AreaName)
 	}
 	return FALSE;
 }
+
+CString CUserRecordset::GetAllUserNameAndCount()
+{
+	CString userSQL;
+	_RecordsetPtr pUsreRs;
+	char count=0x00;
+	CString strCount;
+	CString userNameAndCount;
+	CString strUserName;
+	_variant_t vUserName;
+	userSQL.Format("Select * From Users");
+
+	try
+	{
+		pUsreRs.CreateInstance("ADODB.Recordset");
+		pUsreRs->Open((_variant_t)userSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+	while (!pUsreRs->adoEOF)
+	{
+		vUserName=pUsreRs->GetCollect("Name");
+		if (vUserName.vt!=NULL)
+		{
+			strUserName+="<";
+			strUserName+=(LPCTSTR)(_bstr_t)vUserName;
+			strUserName+=">";
+		}
+		count++;
+		pUsreRs->MoveNext();
+	}
+	//strCount.Format("%d",count);
+	userNameAndCount=count+strUserName;
+	userNameAndCount+="#";
+	return userNameAndCount;
+}

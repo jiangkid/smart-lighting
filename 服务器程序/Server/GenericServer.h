@@ -1,9 +1,4 @@
 #pragma once
-#define BUFFER_SIZE		1024*3    //I/O
-#define MAX_THREAD      4         //
-#define WAIT4THREAD_MILLISECS 3000         //表示线程A在等待线程B触发某事件对象时，最多只等待3秒钟
-#define QMAXSize  100
-
 #include "DBConnection.h"
 #include "AdminRecordset.h"
 #include "AdminCommand.h"
@@ -26,11 +21,20 @@
 #include "UserRecordset.h"
 #include "UserCommand.h"
 
+#define BUFFER_SIZE		1024*3    //I/O
+#define MAX_THREAD      4         //
+#define WAIT4THREAD_MILLISECS 3000         //表示线程A在等待线程B触发某事件对象时，最多只等待3秒钟
+#define QMAXSize  100
+#define HeadLen   sizeof(HDR)
+
+
+
 typedef enum
 {
 	SERVER_RUNNING,SERVER_STOP
 }ServerState;
-
+/******传输数据的报头结构体******/
+typedef struct _HEADER{	char dataCheck;	u_short dataLen;}HDR,*LPHDR;/******用户信息******/typedef struct _UserInfo{	char UserName[10];	char PassWord[12];	char Idetify;}USERINFO,*LPUSERINFO;
 /******消息结构体******/
 typedef struct _ThreadMessage
 {

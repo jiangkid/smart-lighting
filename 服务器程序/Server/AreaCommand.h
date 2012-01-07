@@ -10,7 +10,7 @@ public:
 
 	//向区域表中添加一条记录
 	BOOL AddArea(CString AreaID,CString AreaName);
-	BOOL AddAreaID(long int AreaID);
+	BOOL AddAreaID(CString AreaID);
 private:
 	int GetMaxID();
 

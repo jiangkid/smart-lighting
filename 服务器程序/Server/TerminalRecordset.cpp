@@ -139,5 +139,52 @@ CString CTerminalRecordset::GetRoadNamesByTerminalID(CString TerminalID)
 	pRs->Close();
 }
 
+//根据终端的ID得到该终端下所有路的ID和数目
+//
+CString CTerminalRecordset::GetRoadIDsAndCountByTerminalID(CString TerminalID)
+{
+	CString TerminalSQL;
+	CString RoadSQL;
+	CString strID;
+	CString strRoads;
+	char count=0;
+	//CString strCount;
+	int intID;
+	_variant_t vRoadID;
+	_RecordsetPtr pRs;
 
+	TerminalSQL.Format("Select * From Terminals Where [TerminalID]='%s'",TerminalID);
+	if (Open(TerminalSQL))
+	{
+		strID=GetAsString("ID");
+		intID=atoi(strID);
+	}
 
+	RoadSQL.Format("Select * From Roads Where IDTerminal=%d",intID);
+	try
+	{
+		pRs.CreateInstance("ADODB.RecordSet");
+		pRs->Open((_variant_t)RoadSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+	while (!pRs->adoEOF)
+	{
+		vRoadID=pRs->GetCollect("RoadID");
+		if (vRoadID.vt!=VT_NULL)
+		{
+			strRoads+="<";
+			strRoads+=(LPCTSTR)(_bstr_t)vRoadID;
+			strRoads+=">";
+		}
+		count++;
+		pRs->MoveNext();
+	}
+	//strCount.Format("%d",count);
+	strRoads=count+strRoads;
+	strRoads+="#";
+	return strRoads;
+	pRs->Close();
+}

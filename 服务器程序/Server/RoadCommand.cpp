@@ -44,6 +44,42 @@ BOOL CRoadCommand::AddRoadID(CString RoadID)
 
 }
 
+//向Road表中添加一个新的ID
+BOOL CRoadCommand::AddRoadID(CString terminalID,CString RoadID)
+{
+	CString RoadSQL;
+	CString terminalSQL;
+	_RecordsetPtr pTerminal;
+	_variant_t vIDTerminal;
+	long idRoad=0;
+	int MaxID = GetMaxID();
+	++MaxID;
+
+	terminalSQL.Format("SELECT * FROM Terminals WHERE TerminalID='%s'",terminalID);
+	try
+	{
+		pTerminal.CreateInstance("ADODB.RecordSet");
+		pTerminal->Open((_variant_t)terminalSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+	if(!pTerminal->adoEOF)
+	{
+		vIDTerminal=pTerminal->GetCollect(_variant_t((long)0)); 
+		if (vIDTerminal.vt!=VT_NULL)
+		{
+			idRoad=vIDTerminal.lVal;        //与Terminals表建立一对多的关联字段IDArea的值
+		}
+	}
+	RoadSQL.Format("Insert Into Roads([ID],[RoadID],[IDTerminal])Values(%d,'%s',%ld)",MaxID,RoadID,idRoad);
+	if (!ExcuteSQL(RoadSQL))
+	{
+		return FALSE;
+	}
+	return TRUE;
+}
 int CRoadCommand::GetMaxID()
 {
 	int nResult=0;

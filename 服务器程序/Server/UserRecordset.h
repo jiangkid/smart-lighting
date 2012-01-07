@@ -16,4 +16,6 @@ public:
 
 	//设置用户所管理的区域
 	BOOL SetAreaName(CString UserName,CString AreaName);
+	//获取所有用户名
+	CString GetAllUserNameAndCount();
 };
