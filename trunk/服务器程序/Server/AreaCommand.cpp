@@ -53,13 +53,14 @@ BOOL CAreaCommand::AddArea(CString AreaID, CString AreaName)
 
 //
 //向Areas这张表中添加一个新的ID
-BOOL CAreaCommand::AddAreaID(long int AreaIDH)
+BOOL CAreaCommand::AddAreaID(CString AreaID)
 {
 	CString SQL;
 	int MaxID = GetMaxID();
 	MaxID++;
-	int IDUser = 0;
-	SQL.Format("Insert Into Areas([ID],[AreaID],[IDUser])Values(%d,%ld,%d)",MaxID,AreaIDH,IDUser);
+	//int IDUser = 0;
+	//SQL.Format("Insert Into Areas([ID],[AreaID],[IDUser])Values(%d,\""+AreaID+"\",%d)",MaxID,AreaID,IDUser);
+	SQL.Format("Insert Into Areas([ID],[AreaID])Values(%d,\""+AreaID+"\")",MaxID);
 	if (!ExcuteSQL(SQL))
 	{
 		return FALSE;

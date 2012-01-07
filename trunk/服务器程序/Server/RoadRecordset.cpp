@@ -130,3 +130,53 @@ CString CRoadRecordset::GetLightIDsByRoadName(CString RoadName)
 	pRs->Close();
 
 }
+
+//根据路的ID获得灯的ID及其数目,格式为(count<LightID1><LightID2><LightID3>....<LightIDn>#)
+
+CString CRoadRecordset::GetLightIDsAndCountByRoadID(CString roadID)
+{
+	CString roadSQL;
+	CString lightSQL;
+	CString strID;
+	CString strLightIDs;
+	char count=0x00;
+	//CString strCount;
+	int intID;
+	_variant_t vLightID;
+	_RecordsetPtr pRs;
+
+	roadSQL.Format("Select * From Roads Where [RoadID]='%s'",roadID);
+	if (Open(roadSQL))
+	{
+		strID=GetAsString("ID");
+		intID=atoi(strID);
+	}
+
+	lightSQL.Format("Select * From Lights Where IDRoad=%d",intID);
+	try
+	{
+		pRs.CreateInstance("ADODB.RecordSet");
+		pRs->Open((_variant_t)lightSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+	while (!pRs->adoEOF)
+	{
+		vLightID=pRs->GetCollect("LightID");
+		if (vLightID.vt!=VT_NULL)
+		{
+			strLightIDs+="<";
+			strLightIDs+=(LPCTSTR)(_bstr_t)vLightID;
+			strLightIDs+=">";
+		}
+		count++;
+		pRs->MoveNext();
+	}
+	//strCount.Format("%d",count);
+	strLightIDs=count+strLightIDs;
+	strLightIDs+="#";
+	return strLightIDs;
+	pRs->Close();
+}

@@ -25,30 +25,13 @@ int CClientServer::listen = 0;
 /**************************************************
 函数功能：输入信息判断
 ***************************************************/
- CString CClientServer::DataCheck(CHAR * buffer,DWORD length)//, int len
+ CString CClientServer::DataCheck(CHAR * buffer)
  {
 	CString temp;
-	pDemoID pStruct;
-	unsigned long int ID;
-	char LightID[5];
-	char* temp1 = (char *)malloc(length);
-	memcpy(temp1,buffer,length);
-	pStruct = (pDemoID)temp1;
-// 	for (int i = 3; i < 9;++i)
-// 	{
-// 		LightID[i-3]=pStruct->ID[i];
-// 	}
-	ID = pStruct->lightID;
-
-	if (AddID(ID) != TRUE)
-	{
-		temp = "B1";
-	}
-	/*switch (buffer[0])
+	switch (buffer[0])
 	{
 	case 'B'://添加ID
-		ID = (long int)pStruct->ID;
-		if (AddID(ID) != TRUE)
+		if (AddID(buffer) != TRUE)
 		{
 			temp = "B1";
 		}
@@ -88,8 +71,7 @@ int CClientServer::listen = 0;
 	default:
 		temp ="";
 		break;
-	}*/
-	free(temp1);
+	}
 	return temp;
  }
 /********************************************
@@ -97,41 +79,34 @@ int CClientServer::listen = 0;
 ********************************************/
  BOOL CClientServer::LogIn(LPCIOCPContext  pContext)
  {
-	 CString  temp1,temp2,temp3;
-	 CString temp;
-	 CHAR  history[BUFFER_SIZE];
-	 CHAR *buffer = pContext->pPerIOData->wbuf.buf; 
-	 int  i=0;
-	  if (buffer[0] != 'I')
-	  {
-			return FALSE;
-	  }
-	  else
-	 {
-		 for (i =1;i<3; ++i)
-		 {
-			temp += buffer[i];
-		 }
-		for (i =3;buffer[i] != '+'; ++i)
-		{
-			temp1 += buffer[i];
-		}
-		++i;
-		for (int y=i; y <(i+6); ++y)
-		{
-			temp2 += buffer[y];
-		}
-	 }
-	if ((temp == "00") || (temp == "01"))
+	CString  username,password;
+	char IDentify;
+	CString temp;
+	char  *head = (char *)malloc(HeadLen);
+	LPHDR pHead;
+	memcpy(head,pContext->pPerIOData->data,HeadLen);
+	pHead = (LPHDR)head;
+	if (pHead->dataCheck != 'I')
 	{
-		if (temp == "00")
+		return FALSE;
+	}
+	char *body = (char *)malloc(pHead->dataLen);
+	memcpy(body,pContext->pPerIOData->data+HeadLen,pHead->dataLen);
+	LPUSERINFO UserInfo;
+	UserInfo = (LPUSERINFO)body;
+	username = UserInfo->UserName;
+	password = UserInfo->PassWord;
+	IDentify = UserInfo->Idetify;
+	if ((IDentify == '0') || (IDentify == '1'))
+	{
+		if (IDentify == '0')
 		{
-			temp3 = AdminRecordset.GetPswByAdminName(temp1);
+			temp = AdminRecordset.GetPswByAdminName(username);
 			AdminRecordset.Close();
 		}
 		else
 		{
-			temp3 = UserRecordset.GetPswByUserName(temp1);
+			temp = UserRecordset.GetPswByUserName(username);
 			UserRecordset.Close();
 		}
 	}
@@ -139,11 +114,11 @@ int CClientServer::listen = 0;
 	{
 		return FALSE;
 	}
-	if (::strcmp(temp2,temp3) != 0)
+	if (::strcmp(temp,password) != 0)
 	{
 		return FALSE;
 	}
-	  switch(temp[1])
+	  switch(IDentify)
 	  {
 	  case '0':
 				pContext->ID = TRUE;
@@ -152,52 +127,67 @@ int CClientServer::listen = 0;
 				pContext->ID =FALSE;
 				break;
 	  default:
-		  	  break;
+		  		break;
 	  }
 	/* GetDlgItemText(H_ServerDlg,IDC_EDIT1,history,BUFFER_SIZE);			
 	 temp1+="\r\n";
 	 temp1+=(CString)history;
 	 temp3+=temp1;
 	 SetDlgItemText(H_ServerDlg,IDC_EDIT1,temp3);*/
+	  free(head);
+	  free(body);
 	 return TRUE;
  }
  /**************************************************
  函数功能：添加ID
  ***************************************************/
- BOOL CClientServer::AddID(unsigned long int &buffer)
+ BOOL CClientServer::AddID(char *buffer)
  {
-// 	CString  temp;
-// 	for (int i=2;i<10;++i)
-// 	{
-// 		temp += buffer[i];
-// 	}
-// 	switch (buffer[1])
-// 	{
-// 	case 'G':
-// 		if (AreaCommand.AddAreaID(temp) != TRUE)
-// 		{
-// 			return FALSE;
-// 		}
-// 		break;
-// 	case 'T':
-// 		if (TerminalCommand.AddTerminalID(temp) != TRUE)
-// 		{
-// 			return FALSE;
-// 		}
-// 		break;
-// 	case 'R':
-// 		if (RoadCommand.AddRoadID(temp) != TRUE)
-// 		{
-// 			return FALSE;
-// 		}
-// 		break;
-// 	case 'L':
-// 		if (LightCommand.AddLightID(temp) != TRUE)
-// 		{
-// 			return FALSE;
-// 		}
-// 		break;
-// 	}
+	CString  temp,PrevID;
+	int i;
+	for (i=2;buffer[i]!='#';++i)
+	{
+		temp += buffer[i];
+	}
+	switch (buffer[1])
+	{
+	case 'G':
+		if (AreaCommand.AddAreaID(temp) != TRUE)
+		{
+			return FALSE;
+		}
+		break;
+	case 'T':
+		for (;i<7;++i)
+		{
+			PrevID += buffer[i];
+		}
+		if (TerminalCommand.AddTerminalID(PrevID,temp) != TRUE)
+		{
+			return FALSE;
+		}
+		break;
+	case 'R':
+		for (;i<9;++i)
+		{
+			PrevID += buffer[i];
+		}
+		if (RoadCommand.AddRoadID(PrevID,temp) != TRUE)
+		{
+			return FALSE;
+		}
+		break;
+	case 'L':
+		for (;i<11;++i)
+		{
+			PrevID += buffer[i];
+		}
+		if (LightCommand.AddLightID(PrevID,temp) != TRUE)
+		{
+			return FALSE;
+		}
+		break;
+	}
 	 return TRUE;
  }
  /**************************************************
@@ -316,17 +306,90 @@ BOOL CClientServer::ChangePassword(CHAR* buffer)
 	}
 	return TRUE;
 }
- /********************************************
-函数功能：区域设置
- ********************************************/
+/********************************************
+  函数功能：区域设置
+********************************************/
 CString  CClientServer::FieldSet(CHAR * buffer)
 {
-	CString temp,temp1,temp2;
+	CString temp,temp1,temp2,sendMessage;
+	char temp4;
 	int i = 0;
 	int y = 0;
 	switch(buffer[1])
 	{
-	case 'L':												//设置灯
+	case GET_USERNAME:
+		temp = UserRecordset.GetAllUserNameAndCount();
+		sendMessage = 'S';
+		temp4 = GET_USERNAME;
+		sendMessage += temp4;
+		if (temp != "")
+		{
+			sendMessage +='0';
+			sendMessage += temp;
+		}
+		else sendMessage += '1';  
+		break;
+	case GET_GPRSID:
+		temp = AreaRecordset.GetAllAreaIDAndCount();
+		sendMessage = 'S';
+		temp4 = GET_GPRSID;
+		sendMessage += temp4;
+		if (temp != "")
+		{
+			sendMessage +='0';
+			sendMessage += temp;
+		}
+		else sendMessage += '1';  
+		break;
+	case GET_TERMINALID:
+		for (i=4;buffer[i]!= '#'; ++i)
+		{
+			temp1 += buffer[i];
+		}
+		temp = AreaRecordset.GetTerminalIDsAndCountByAreaID(temp1);
+		sendMessage = 'S';
+		temp4 = GET_TERMINALID;
+		sendMessage += temp4;
+		if (temp != "")
+		{
+			sendMessage +='0';
+			sendMessage += temp;
+		}
+		else sendMessage += '1';  
+		break;
+	case GET_ROADID:
+		for (i=4;buffer[i]!= '#'; ++i)
+		{
+			temp1 += buffer[i];
+		}
+		temp = TerminalRecordset.GetRoadIDsAndCountByTerminalID(temp1);
+		sendMessage = 'S';
+		temp4 = GET_ROADID;
+		sendMessage += temp4;
+		if (temp != "")
+		{
+			sendMessage +='0';
+			sendMessage += temp;
+		}
+		else sendMessage += '1';  
+		break;
+	case GET_LIGHTID:
+		for (i=4;buffer[i]!= '#'; ++i)
+		{
+			temp1 += buffer[i];
+		}
+		temp = RoadRecordset.GetLightIDsAndCountByRoadID(temp1);
+		sendMessage = 'S';
+		temp4 = GET_LIGHTID;
+		sendMessage += temp4;
+		if (temp != "")
+		{
+			sendMessage +='0';
+			sendMessage += temp;
+		}
+		else sendMessage += '1';  
+		break;
+	case BIND_LIGHTID:												//设置灯
 		for (i=2;buffer[i] != '+'; ++i)
 		{
 			temp1 += buffer[i];
@@ -338,16 +401,14 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 		}
 		if (LightCommand.AddLight(temp1,temp2) == TRUE)
 		{
-			temp = "S60";
-			return temp;
+			sendMessage = "S60";
 		}
 		else
 		{
-			temp = "S61";
-			return temp;
+			sendMessage = "S61";
 		}
 		break;
-	case 'R':												//设置路0x37
+	case BIND_ROADID:												//设置路0x37
 		for (i=2;buffer[i] != '+'; ++i)
 		{
 			temp1 += buffer[i];
@@ -359,16 +420,14 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 		}
 		if (RoadCommand.AddRoad(temp1,temp2) == TRUE)
 		{
-			temp = "S70";
-			return temp;
+			sendMessage = "S70";
 		}
 		else
 		{
-			temp = "S71";
-			return temp;
+			sendMessage = "S71";
 		}
 		break;
-	case 'T':												//设置终端
+	case BIND_TERMINALID:												//设置终端
 		for (i=2;buffer[i] != '+'; ++i)
 		{
 			temp1 += buffer[i];
@@ -380,16 +439,14 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 		}
 		if (TerminalCommand.AddTerminal(temp1,temp2) == TRUE)
 		{
-			temp = "S80";
-			return temp;
+			sendMessage = "S80";
 		}
 		else
 		{
-			temp = "S81";
-			return temp;
+			sendMessage = "S81";
 		}
 		break;
-	case 'G':												//设置区域
+	case BIND_GPRSID:												//设置区域
 		for (i=2;buffer[i] != '+'; ++i)
 		{
 			temp1 += buffer[i];
@@ -401,20 +458,18 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 		}
 		if (AreaCommand.AddArea(temp1,temp2) == TRUE)
 		{
-			temp = "S90";
-			return temp;
+			sendMessage = "S90";
 		}
 		else
 		{
-			temp = "S91";
-			return temp;
+			sendMessage = "S91";
 		}
 		break;
 	default:
-		temp = "";
+		sendMessage = "";
 		break;
 	}
-	return temp;
+	return sendMessage;
 }
  /********************************************
 函数功能：获取灯的状态
@@ -709,7 +764,7 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 			pIOCPServer->strRecv+=(CString)strTemp_recv;
 			SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strRecv);
 			//pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->wbuf.buf);
-			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->data,dwIOSize);
+			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->data);
 			if (pIOCPServer->strSend == "L0")
 			{
 				pIOCPServer->InitializeClient(lpPerIOData->wbuf.buf,buffer1,buffer2,buffer3);
@@ -723,7 +778,6 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 					pIOCPServer->ConnListRemove(lpConnCtx);
 					continue;
 				}
-
 			}
 			else if(pIOCPServer->strSend == "")
 			{
@@ -741,6 +795,10 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 				lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
 				lpPerIOData->wbuf.len=pIOCPServer->strSend.GetLength();
 				lpPerIOData->flags=0;
+				GetDlgItemText(H_ServerDlg,IDC_EDIT1,strTemp_recv,BUFFER_SIZE);	
+				pIOCPServer->strSend+="\r\n";
+				pIOCPServer->strSend+=(CString)strTemp_recv;
+				SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strSend);
 				nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
 				if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
 				{

@@ -19,6 +19,8 @@ public:
 
 	//根据区域的ID来获取该区域下的终端名称
 	CString GetTerminalNamesByAreaID(CString AreaID);
-
-
+	/********函数功能：获得所有的区域ID*********/
+	CString GetAllAreaIDAndCount();
+	//根据区域的ID来获取该区域下的终端ID和终端数目
+	CString GetTerminalIDsAndCountByAreaID(CString AreaID);
 };
