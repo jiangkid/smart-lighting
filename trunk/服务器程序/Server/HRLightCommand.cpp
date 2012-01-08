@@ -45,8 +45,6 @@ BOOL CHRLightCommand::AddHistoryRecordOfLight(CString Name,CString Time,BOOL Lig
 	CString SQL;
 	CString strStatus;
 	int MaxID = GetMaxID();
-	MaxID++;
-
 	//在Access中,对于"是/否"类型的字段,-1表示"是"，0表示"否"
 	if (LightStatus)
 	{
@@ -56,7 +54,6 @@ BOOL CHRLightCommand::AddHistoryRecordOfLight(CString Name,CString Time,BOOL Lig
 	{
 		strStatus="0";
 	}
-
 	SQL.Format("INSERT INTO HistoryRecordOfLight([HistoryRecOfLightID],[Time],[Status],[Name]) VALUES(%d,%s,%s,%s)",MaxID,Time,strStatus,Name);
 	if (!ExcuteSQL(SQL))
 	{

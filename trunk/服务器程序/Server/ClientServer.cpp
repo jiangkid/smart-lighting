@@ -25,9 +25,11 @@ int CClientServer::listen = 0;
 /**************************************************
 函数功能：输入信息判断
 ***************************************************/
- CString CClientServer::DataCheck(CHAR * buffer)
+ CString CClientServer::DataCheck(CHAR * buffer,int strlen)
  {
 	CString temp;
+	char * buffer_trans = (char *)malloc(strlen);
+	ZeroMemory(buffer_trans,strlen);
 	switch (buffer[0])
 	{
 	case 'B'://添加ID
@@ -63,7 +65,8 @@ int CClientServer::listen = 0;
 		else temp = "M1";
 		break;
 	case 'N':  
-		this->InQueue(QlistCtG,buffer);			//传输命令
+		memcpy(buffer_trans,buffer,strlen);
+		this->InQueue(QlistCtG,buffer_trans,strlen);			//传输命令
 		break;
 	case 'S':									//创建区域
 		temp = this->FieldSet(buffer);
@@ -72,6 +75,7 @@ int CClientServer::listen = 0;
 		temp ="";
 		break;
 	}
+	free(buffer_trans);
 	return temp;
  }
 /********************************************
@@ -190,30 +194,19 @@ int CClientServer::listen = 0;
 	}
 	 return TRUE;
  }
+
  /**************************************************
  函数功能：初始化
  ***************************************************/
- BOOL CClientServer::InitializeClient(CHAR* buffer,CString &x,CString &y,CString &z)
+ BOOL CClientServer::InitializeClient(CHAR* buffer,CString &Area,CString &Termial,CString &Road,CString &Light)
  {
-	//LPCIOCPBuffer lpPerIOData = new CIOCPBuffer;
 	int nResult;
+	CString returnMenu;
 	CString buffer1,User,AreaName,AreaID,TermialName,TermialID,RoadName,RoadID;
-	for (int i=1;buffer[i]!='#';++i)
-	{
-		User +=buffer[i];
-	}
-	AreaName = UserRecordset.GetAreaNameByUserName(User);
-	AreaID = AreaRecordset.GetAreaIDByAreaName(AreaName);
-	AreaName += '+';
-	AreaName += AreaID;
-	x="L0G<";
-	x+=AreaName;
-	x+=">#";
-	/**/
-//	AreaID = AreaRecordset.GetAreaIDByAreaName(AreaName);
-//	TermialID = AreaRecordset.GetTerminalIDsByAreaID(AreaID);
-//	TermialName = AreaRecordset.GetTerminalsByAreaName(AreaName);
-	
+	Area = AreaRecordset.GetAllAreaAndCount();
+	Termial = TerminalRecordset.GetAllTerminalsAndCount();
+	Road = RoadRecordset.GetAllRoadsAndCount();
+	Light = LightRecordset.GetAllLightsAndCount();
 	return TRUE;
  }
 /**************************************************
@@ -311,7 +304,7 @@ BOOL CClientServer::ChangePassword(CHAR* buffer)
 ********************************************/
 CString  CClientServer::FieldSet(CHAR * buffer)
 {
-	CString temp,temp1,temp2,sendMessage;
+	CString temp,ID,CallName,UserName,sendMessage;
 	char temp4;
 	int i = 0;
 	int y = 0;
@@ -344,9 +337,9 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 	case GET_TERMINALID:
 		for (i=4;buffer[i]!= '#'; ++i)
 		{
-			temp1 += buffer[i];
+			ID += buffer[i];
 		}
-		temp = AreaRecordset.GetTerminalIDsAndCountByAreaID(temp1);
+		temp = AreaRecordset.GetTerminalIDsAndCountByAreaID(ID);
 		sendMessage = 'S';
 		temp4 = GET_TERMINALID;
 		sendMessage += temp4;
@@ -360,9 +353,9 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 	case GET_ROADID:
 		for (i=4;buffer[i]!= '#'; ++i)
 		{
-			temp1 += buffer[i];
+			ID += buffer[i];
 		}
-		temp = TerminalRecordset.GetRoadIDsAndCountByTerminalID(temp1);
+		temp = TerminalRecordset.GetRoadIDsAndCountByTerminalID(ID);
 		sendMessage = 'S';
 		temp4 = GET_ROADID;
 		sendMessage += temp4;
@@ -376,9 +369,9 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 	case GET_LIGHTID:
 		for (i=4;buffer[i]!= '#'; ++i)
 		{
-			temp1 += buffer[i];
+			ID += buffer[i];
 		}
-		temp = RoadRecordset.GetLightIDsAndCountByRoadID(temp1);
+		temp = RoadRecordset.GetLightIDsAndCountByRoadID(ID);
 		sendMessage = 'S';
 		temp4 = GET_LIGHTID;
 		sendMessage += temp4;
@@ -392,14 +385,14 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 	case BIND_LIGHTID:												//设置灯
 		for (i=2;buffer[i] != '+'; ++i)
 		{
-			temp1 += buffer[i];
+			ID += buffer[i];
 		}
 		++i; 
 		for (y = i;buffer[y] != '#';y++)
 		{
-			temp2 += buffer[y];
+			CallName += buffer[y];
 		}
-		if (LightCommand.AddLight(temp1,temp2) == TRUE)
+		if (LightRecordset.SetLightName(ID,CallName) == TRUE)
 		{
 			sendMessage = "S60";
 		}
@@ -411,14 +404,14 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 	case BIND_ROADID:												//设置路0x37
 		for (i=2;buffer[i] != '+'; ++i)
 		{
-			temp1 += buffer[i];
+			ID += buffer[i];
 		}
 		++i; 
 		for (y = i;buffer[y] != '#';y++)
 		{
-			temp2 += buffer[y];
+			CallName += buffer[y];
 		}
-		if (RoadCommand.AddRoad(temp1,temp2) == TRUE)
+		if (RoadRecordset.SetRoadName(ID,CallName) == TRUE)
 		{
 			sendMessage = "S70";
 		}
@@ -430,14 +423,14 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 	case BIND_TERMINALID:												//设置终端
 		for (i=2;buffer[i] != '+'; ++i)
 		{
-			temp1 += buffer[i];
+			ID += buffer[i];
 		}
 		++i; 
 		for (y = i;buffer[y] != '#';y++)
 		{
-			temp2 += buffer[y];
+			CallName += buffer[y];
 		}
-		if (TerminalCommand.AddTerminal(temp1,temp2) == TRUE)
+		if (TerminalRecordset.SetTerminalName(ID,CallName) == TRUE)
 		{
 			sendMessage = "S80";
 		}
@@ -449,14 +442,19 @@ CString  CClientServer::FieldSet(CHAR * buffer)
 	case BIND_GPRSID:												//设置区域
 		for (i=2;buffer[i] != '+'; ++i)
 		{
-			temp1 += buffer[i];
+			ID += buffer[i];
 		}
 		++i; 
-		for (y = i;buffer[y] != '#';y++)
+		for (;buffer[i] != '+';i++)
 		{
-			temp2 += buffer[y];
+			CallName += buffer[i];
 		}
-		if (AreaCommand.AddArea(temp1,temp2) == TRUE)
+		++i; 
+		for (;buffer[i] != '#';i++)
+		{
+			UserName += buffer[i];
+		}
+		if (AreaRecordset.SetAreaNameAndIDUser(ID,CallName,UserName) == TRUE)
 		{
 			sendMessage = "S90";
 		}
@@ -631,14 +629,18 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 	LPCIOCPContext lpConnCtx;
 	sockaddr_in addrAccept;
 	int nResult;
-	CString buffer1,buffer2,buffer3;
-	char strTemp_send[BUFFER_SIZE];
-	char strTemp_recv[BUFFER_SIZE];
+	int length;
+	CString buffer1;
+	CString Area,Termial,Road,Light;
+	char show[BUFFER_SIZE];
+	char strTemp_send[3096];
+	char strTemp_recv[3096];
 	while (1)
 	{
 		if  (QlistGtC->front != QlistGtC->rear)
 		{
-			buffer1 = pIOCPServer->OutQueue(QlistGtC);
+			length = 0;
+			buffer1 = pIOCPServer->OutQueue(QlistGtC, length);
 			if (buffer1 == "error")
 			{
 				continue;
@@ -757,26 +759,85 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 		case SVR_IO_READ:
 			pIOCPServer->strRecv = "";
 			pIOCPServer->strSend = "";
-			pIOCPServer->strRecv.Format(("%s send message : "),inet_ntoa(lpConnCtx->addrAccept.sin_addr)) ;//= lpPerIOData->wbuf.buf inet_ntoa(lpConnCtx->addrAccept.sin_addr)
+			pIOCPServer->strRecv.Format(("%s send message : "),inet_ntoa(lpConnCtx->addrAccept.sin_addr));
+			/*GetDlgItemText(H_ServerDlg,IDC_EDIT1,strTemp_recv,BUFFER_SIZE);	
+			memcpy(show,pIOCPServer->strRecv,sizeof(pIOCPServer->strRecv));
+			memcpy(show+sizeof(pIOCPServer->strRecv),lpPerIOData->data,dwIOSize);
+ 			memcpy(show+sizeof(pIOCPServer->strRecv)+dwIOSize,"\r\n",2);
+ 			memcpy(show+sizeof(pIOCPServer->strRecv)+dwIOSize+2,strTemp_recv,sizeof(strTemp_recv));
+			memcpy(show,lpPerIOData->data,dwIOSize);
+			memcpy(show+dwIOSize,"\r\n",2);
+			memcpy(show+dwIOSize+2,strTemp_recv,sizeof(strTemp_recv));
+			SetDlgItemText(H_ServerDlg,IDC_EDIT1,show);		*/	
 			pIOCPServer->strRecv += lpPerIOData->wbuf.buf;
-		    pIOCPServer->strRecv += "\r\n";
-			GetDlgItemText(H_ServerDlg,IDC_EDIT1,strTemp_recv,BUFFER_SIZE);	
+ 		    pIOCPServer->strRecv += "\r\n";
+ 			GetDlgItemText(H_ServerDlg,IDC_EDIT1,strTemp_recv,BUFFER_SIZE);	
 			pIOCPServer->strRecv+=(CString)strTemp_recv;
-			SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strRecv);
-			//pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->wbuf.buf);
-			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->data);
+ 			SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strRecv);
+			pIOCPServer->strSend = pIOCPServer->DataCheck(lpPerIOData->data,dwIOSize);
 			if (pIOCPServer->strSend == "L0")
 			{
-				pIOCPServer->InitializeClient(lpPerIOData->wbuf.buf,buffer1,buffer2,buffer3);
+				pIOCPServer->InitializeClient(lpPerIOData->wbuf.buf,Area,Termial,Road,Light);
 				pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_WRITE);
-				lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
-				lpPerIOData->wbuf.len=buffer1.GetLength();
-				lpPerIOData->flags=0;
-				nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
-				if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+				if ((Area != "")&&(Termial != "")&&(Road != "")&&(Light != ""))
 				{
-					pIOCPServer->ConnListRemove(lpConnCtx);
-					continue;
+					buffer1 = "L0G";
+					buffer1 += Area;
+					lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
+					lpPerIOData->wbuf.len = buffer1.GetLength();
+					lpPerIOData->flags = 0;
+					nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+					if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+					{
+						pIOCPServer->ConnListRemove(lpConnCtx);
+						continue;
+					}
+					buffer1 = "L0T";
+					buffer1 += Termial;
+					lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
+					lpPerIOData->wbuf.len = buffer1.GetLength();
+					lpPerIOData->flags = 0;
+					nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+					if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+					{
+						pIOCPServer->ConnListRemove(lpConnCtx);
+						continue;
+					}
+					buffer1 = "L0R";
+					buffer1 += Road;
+					lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
+					lpPerIOData->wbuf.len = buffer1.GetLength();
+					lpPerIOData->flags = 0;
+					nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+					if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+					{
+						pIOCPServer->ConnListRemove(lpConnCtx);
+						continue;
+					}
+					buffer1 = "L0L";
+					buffer1 += Light;
+					lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
+					lpPerIOData->wbuf.len = buffer1.GetLength();
+					lpPerIOData->flags = 0;
+					nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+					if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+					{
+						pIOCPServer->ConnListRemove(lpConnCtx);
+						continue;
+					}
+				}
+				else
+				{
+					buffer1 = "L1G";
+					lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
+					lpPerIOData->wbuf.len = buffer1.GetLength();
+					lpPerIOData->flags = 0;
+					nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
+					if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+					{
+						pIOCPServer->ConnListRemove(lpConnCtx);
+						continue;
+					}
 				}
 			}
 			else if(pIOCPServer->strSend == "")
@@ -795,16 +856,13 @@ DWORD WINAPI  CClientServer::_WorkerThreadProc(LPVOID lpParam)
 				lpPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)pIOCPServer->strSend;
 				lpPerIOData->wbuf.len=pIOCPServer->strSend.GetLength();
 				lpPerIOData->flags=0;
-				GetDlgItemText(H_ServerDlg,IDC_EDIT1,strTemp_recv,BUFFER_SIZE);	
-				pIOCPServer->strSend+="\r\n";
-				pIOCPServer->strSend+=(CString)strTemp_recv;
-				SetDlgItemText(H_ServerDlg,IDC_EDIT1,pIOCPServer->strSend);
 				nResult=WSASend(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,lpPerIOData->flags,&(lpPerIOData->OverLapped),NULL);
 				if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
 				{
 					pIOCPServer->ConnListRemove(lpConnCtx);
 					continue;
 				}
+				ZeroMemory(lpConnCtx->pPerIOData->data,sizeof(lpConnCtx->pPerIOData->data));
 			}
 			break;
 		default: break;

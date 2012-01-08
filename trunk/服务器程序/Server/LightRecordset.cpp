@@ -125,3 +125,91 @@ int CLightRecordset::GetGroupNum(CString LightID)
 	}
 	return NULL;
 }
+
+/************************************************************************
+功能:返回所有灯的名称、ID及其所属灯的ID和灯的数目
+返回格式:0x00-0xFF<灯1的名称>{灯1的ID}{所属路的ID}......<灯n的名称>{灯n的ID}{所属路的ID}#
+	 /************************************************************************/
+
+	 CString CLightRecordset::GetAllLightsAndCount()
+   {
+	   CString lightSQL;
+	   CString roadSQL;
+	   CString allLights;
+	   _RecordsetPtr pLightRs;
+	   _RecordsetPtr pRoadRs;
+	   _variant_t vLightName;
+	   _variant_t vLightID;
+	   _variant_t vIDRoad;
+	   _variant_t vRoadID;
+	   CString strRoadID;
+	   int intIDRoad=0;
+	   char count=0x00;    //记录数目
+
+	   //打开Lights表
+	   lightSQL="Select * From Lights";
+	   try
+	   {
+		   pLightRs.CreateInstance("ADODB.Recordset");
+		   pLightRs->Open((_variant_t)lightSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	   }
+	   catch(_com_error&e)
+	   {
+		   AfxMessageBox(e.Description());
+	   }
+
+	   while (!pLightRs->adoEOF)
+	   {
+		   vLightName=pLightRs->GetCollect("LightName");   //LightName字段的值
+		   if (vLightName.vt!=NULL)
+		   {
+			   allLights+="<";
+			   allLights+=(LPCTSTR)(_bstr_t)vLightName;
+			   allLights+=">";
+		   }
+
+		   vLightID=pLightRs->GetCollect("LightID");     //LightID字段的值
+		   if (vLightID.vt!=NULL)
+		   {
+			   allLights+="{";
+			   allLights+=(LPCTSTR)(_bstr_t)vRoadID;
+			   allLights+="}";
+		   }
+
+		   vIDRoad=pLightRs->GetCollect("IDRoad");         //IDRoad字段的值
+		   if(vIDRoad.vt!=NULL)
+		   {
+			   intIDRoad=vIDRoad.intVal;
+		   } 
+
+		   //取得Roads表中ID为与Road关联的IDRoad的记录集
+		   roadSQL.Format("Select * From Roads Where [ID] = %d",intIDRoad);
+		   try
+		   {
+			   pRoadRs.CreateInstance("ADODB.Recordset");
+			   pRoadRs->Open((_variant_t)roadSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+		   }
+		   catch(_com_error&e)
+		   {
+			   AfxMessageBox(e.Description());
+		   }
+
+		   if(!pRoadRs->adoEOF)
+		   {
+			   vRoadID=pRoadRs->GetCollect("RoadID");   //TerminalID字段的值
+			   if (vRoadID.vt!=NULL)
+			   {
+				   allLights+="(";
+				   allLights+=(LPCTSTR)(_bstr_t)vRoadID;
+				   allLights+=")";
+			   }
+		   }
+		   count++;
+		   pLightRs->MoveNext();
+	   }
+	   pLightRs->Close();
+	   pRoadRs->Close();
+	   allLights=count+allLights;
+	   allLights+="#";
+	   return allLights;
+   }

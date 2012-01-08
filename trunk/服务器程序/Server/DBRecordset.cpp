@@ -104,3 +104,13 @@ void CDBRecordset::Update()
 	m_pRs->Update();
 }
 
+void CDBRecordset::SetAsInt(CString fieldName,int intValue)
+{
+	CString strValue;
+	strValue.Format("%d",intValue);
+	BSTR bstrValue=strValue.AllocSysString();
+	ASSERT(!IsBOF()&&!IsEOF());
+	m_pRs->Fields->Item[_variant_t(fieldName)]->Value=bstrValue;
+	m_pRs->Update();
+	SysFreeString(bstrValue);
+}

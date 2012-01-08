@@ -18,6 +18,8 @@ public:
 	void MoveNext();    //移动到后一条记录
 	void MoveLast();     //移动到最后一条记录
 	void MoveFirst();    //移动到第一条记录
+	//设置FieldName指定字段的值
+	void SetAsInt(CString fieldName,int intValue); 
 	//数据库连接对象
 	CDBConnection *m_cnn;
 

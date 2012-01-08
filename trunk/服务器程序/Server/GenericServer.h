@@ -21,7 +21,7 @@
 #include "UserRecordset.h"
 #include "UserCommand.h"
 
-#define BUFFER_SIZE		1024*3    //I/O
+#define BUFFER_SIZE		1024*4    //I/O
 #define MAX_THREAD      4         //
 #define WAIT4THREAD_MILLISECS 3000         //表示线程A在等待线程B触发某事件对象时，最多只等待3秒钟
 #define QMAXSize  100
@@ -34,12 +34,24 @@ typedef enum
 	SERVER_RUNNING,SERVER_STOP
 }ServerState;
 /******传输数据的报头结构体******/
-typedef struct _HEADER{	char dataCheck;	u_short dataLen;}HDR,*LPHDR;/******用户信息******/typedef struct _UserInfo{	char UserName[10];	char PassWord[12];	char Idetify;}USERINFO,*LPUSERINFO;
+typedef struct _HEADER
+{
+	char dataCheck;
+	u_short dataLen;
+}HDR,*LPHDR;
+/******用户信息******/
+typedef struct _UserInfo
+{
+	char UserName[10];
+	char PassWord[12];
+	char Idetify;
+}USERINFO,*LPUSERINFO;
 /******消息结构体******/
 typedef struct _ThreadMessage
 {
 	char sData[BUFFER_SIZE];
-	struct _ThreadMessage *pnext;					//所在队列的结束节点
+	struct _ThreadMessage *pnext;//所在队列的结束节点
+	int  strlen;
 }ThreadMessage,*LPThreadMessage;
 
 /**********消息队列*************/
@@ -71,7 +83,7 @@ typedef struct _OverLappedEx
 {
 	OVERLAPPED OverLapped;
 	WSABUF     wbuf;                              //I/O操作的数据对象
-	char       data[BUFFER_SIZE];           //实际的数据缓冲区
+	char  data[BUFFER_SIZE];           //实际的数据缓冲区
 	IO_OPER    oper;                                //用于标志I/O操作的类型，IO_OPER枚举型，可以是SVR_IO_READ或者是SVR_IO_WRITE     
 	DWORD      flags;                               //用于设定或者返回I/O操作的标志
 }CIOCPBuffer,*LPCIOCPBuffer;
@@ -79,13 +91,14 @@ typedef struct _OverLappedEx
 //完成键结构体，单句柄数据，对应每个服务套接口—每个连接
 typedef struct _CONN_CTX
 {
-	SOCKET                   sockAccept;                 //该连接的服务器端服务套接口
+	SOCKET            sockAccept;                 //该连接的服务器端服务套接口
 	SOCKADDR_IN       addrAccept;
-	LPCIOCPBuffer        pPerIOData;           //指向该连接的I/O操作信息
-	struct         _CONN_CTX *pPrec;              //用于形成服务器当前所有连接信息的双向链表，
-	struct         _CONN_CTX *pNext;              //分别指向链表中的前一个节点和后一个节点
-	BOOL       LogIn;
-	BOOL       ID;
+	LPCIOCPBuffer     pPerIOData;              //指向该连接的I/O操作信息
+	struct            _CONN_CTX *pPrec;              //用于形成服务器当前所有连接信息的双向链表，
+	struct            _CONN_CTX *pNext;              //分别指向链表中的前一个节点和后一个节点
+	BOOL			  LogIn;
+	BOOL			  ID;
+	char			  Identify[10];
 	_CONN_CTX() {pPerIOData = (LPCIOCPBuffer)malloc(sizeof(CIOCPBuffer));};
 	~_CONN_CTX(){free(pPerIOData);};
 }CIOCPContext,*LPCIOCPContext;
@@ -122,8 +135,9 @@ public:
 
 	static BOOL InitQueue();
 	BOOL DestroyQueue(LPQlist Qlist);
-	BOOL InQueue(LPQlist Qlist,CHAR * buffer);
-	CString OutQueue(LPQlist Qlist);
+	BOOL InQueue(LPQlist Qlist,CHAR * buffer,int lenth);
+	char* OutQueue(LPQlist Qlist,int &length);
+	char* Translation_ID(char* buffer, int Length);
 	static LPQlist  QlistCtG; //客户端到GPRS的队列
 	static LPQlist  QlistGtC; //GPRS到客户端的队列
 	

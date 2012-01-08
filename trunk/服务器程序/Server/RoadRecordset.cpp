@@ -167,9 +167,9 @@ CString CRoadRecordset::GetLightIDsAndCountByRoadID(CString roadID)
 		vLightID=pRs->GetCollect("LightID");
 		if (vLightID.vt!=VT_NULL)
 		{
-			strLightIDs+="<";
+			//strLightIDs+="<";
 			strLightIDs+=(LPCTSTR)(_bstr_t)vLightID;
-			strLightIDs+=">";
+			//strLightIDs+=">";
 		}
 		count++;
 		pRs->MoveNext();
@@ -179,4 +179,140 @@ CString CRoadRecordset::GetLightIDsAndCountByRoadID(CString roadID)
 	strLightIDs+="#";
 	return strLightIDs;
 	pRs->Close();
+}
+
+/************************************************************************/
+/* 功能:返回所有路的名称、ID及其所属终端的ID和路的数目
+返回格式:0x00-0xFF<路1的名称>{路1的ID}{所属终端的ID}......<路n的名称>{路n的ID}{所属终端的ID}#*/
+/************************************************************************/
+
+CString CRoadRecordset::GetAllRoadsAndCount()
+{
+	CString roadSQL;
+	CString terminalSQL;
+	CString allRoads;
+	_RecordsetPtr pRoadRs;
+	_RecordsetPtr pTerminalRs;
+	_variant_t vRoadName;
+	_variant_t vRoadID;
+	_variant_t vIDTerminal;
+	_variant_t vTerminalID;
+	CString strAreaID;
+	int intIDTerminal=0;
+	char count=0x00;    //记录数目
+
+	//打开Roads表
+	roadSQL="Select * From Roads";
+	try
+	{
+		pRoadRs.CreateInstance("ADODB.Recordset");
+		pRoadRs->Open((_variant_t)roadSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+
+	while (!pRoadRs->adoEOF)
+	{
+		vRoadName=pRoadRs->GetCollect("RoadName");   //RoadName字段的值
+		if (vRoadName.vt!=NULL)
+		{
+			allRoads+="<";
+			allRoads+=(LPCTSTR)(_bstr_t)vRoadName;
+			allRoads+=">";
+		}
+
+		vRoadID=pRoadRs->GetCollect("RoadID");     //RoadID字段的值
+		if (vRoadID.vt!=NULL)
+		{
+			allRoads+="{";
+			allRoads+=(LPCTSTR)(_bstr_t)vRoadID;
+			allRoads+="}";
+		}
+
+		vIDTerminal=pRoadRs->GetCollect("IDTerminal");         //IDArea字段的值
+		if(vIDTerminal.vt!=NULL)
+		{
+			intIDTerminal=vIDTerminal.intVal;
+		} 
+
+		//取得Terminals表中ID为与Road关联的IDTerminal的记录集
+		terminalSQL.Format("Select * From Terminals Where [ID] = %d",intIDTerminal);
+		try
+		{
+			pTerminalRs.CreateInstance("ADODB.Recordset");
+			pTerminalRs->Open((_variant_t)terminalSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+		}
+		catch(_com_error&e)
+		{
+			AfxMessageBox(e.Description());
+		}
+
+		if(!pTerminalRs->adoEOF)
+		{
+			vTerminalID=pTerminalRs->GetCollect("TerminalID");   //TerminalID字段的值
+			if (vTerminalID.vt!=NULL)
+			{
+				allRoads+="(";
+				allRoads+=(LPCTSTR)(_bstr_t)vTerminalID;
+				allRoads+=")";
+			}
+		}
+		count++;
+		pRoadRs->MoveNext();
+	}
+	pTerminalRs->Close();
+	pRoadRs->Close();
+	allRoads=count+allRoads;
+	allRoads+="#";
+	return allRoads;
+}
+
+/************************************************************************/
+/* 功能: 设置指定路的名称并将它和指定的终端建立一对多的关系*/
+/*
+参数  指定路:roadID  设定名称:roadName  指定区域:terminalID
+*/
+/************************************************************************/
+
+BOOL CRoadRecordset::SetRoadNameAndIDTerminal(CString roadID, CString roadName, CString terminalID)
+{
+	CString roadSQL;
+	CString terminalSQL;
+	_RecordsetPtr pTerminalRs;
+	_variant_t vID;
+	int intID;
+
+	//打开Terminals表中TerminalID为指定值(terminalID)的记录
+	terminalSQL.Format("Select * From Terminals Where TerminalID='%s'",terminalID);
+	try
+	{
+		pTerminalRs.CreateInstance("ADODB.RecordSet");
+		pTerminalRs->Open((_variant_t)terminalSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+
+	if (!pTerminalRs->adoEOF)
+	{
+		vID=pTerminalRs->GetCollect("ID");  //与Terminal建立一对多关系的IDArea值
+		intID=vID.intVal;
+	}
+	else
+		return FALSE;
+
+	//打开Roads表中RoadID为指定值(RoadID)的记录
+	roadSQL.Format("Select * From Roads Where RoadID='%s'",roadID);
+	if(Open(roadSQL))
+	{
+		SetAsString("RoadName",roadName);  //设置终端的名称
+		SetAsInt("IDTerminal",intID);                  //设置与Areas关联的IDArea值,以此绑定
+		return TRUE;
+	}
+	else
+		return FALSE;
+
 }

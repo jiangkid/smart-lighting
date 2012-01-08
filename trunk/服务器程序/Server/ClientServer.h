@@ -21,16 +21,16 @@ public:
 	/*****开始服务：状态变量初始化、socket创建与绑定、完成端口创建与关联*****/
 	BOOL Start(int nPort);
 	BOOL StopServer();
-
+	
 	/****通信协议数据处理函数****/
 	CString  FieldSet(CHAR * buffer);
 	BOOL LogIn(LPCIOCPContext  pContext);   //登录检测函数
-	CString DataCheck(CHAR * buffer);   //传输过来的数据判断
+	CString DataCheck(CHAR * buffer,int strlen);   //传输过来的数据判断
 	BOOL CreateUser(CHAR * buffer);
 	BOOL DeleteUser(CHAR * buffer);
 	CString  GetLedStatus(CHAR* buffer);
 	BOOL ChangePassword(CHAR* buffer);
-	BOOL InitializeClient(CHAR* buffer,CString &x,CString &y,CString &z);
+	BOOL InitializeClient(CHAR* buffer,CString &Area,CString &Termial,CString &Road,CString &Light);
 	BOOL AddID(char *buffer);
 
 	HANDLE m_evtSvrToStop;                      //用于管理线程停止服务器

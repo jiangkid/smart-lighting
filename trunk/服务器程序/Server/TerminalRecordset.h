@@ -26,4 +26,10 @@ public:
 	//根据终端的ID来获取终端下所有路的ID和数目
 	CString GetRoadIDsAndCountByTerminalID(CString TerminalID);
 
+	//得到所有的终端的ID和名称及其所属区域的ID和终端的数目
+	CString GetAllTerminalsAndCount();
+
+	//设置指定终端的名称并将它和指定的区域建立一对多的关系
+	BOOL SetTerminalNameAndIDArea(CString terminalID,CString terminalName,CString areaID);
+
 }; 

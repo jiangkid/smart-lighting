@@ -66,6 +66,7 @@ BEGIN_MESSAGE_MAP(CServerDlg, CDialog)
 	ON_BN_CLICKED(IDC_Clear, &CServerDlg::OnBnClickedClear)
 	ON_BN_CLICKED(IDC_END, &CServerDlg::OnBnClickedEnd)
 	ON_BN_CLICKED(IDC_STOP, &CServerDlg::OnBnClickedStop)
+	ON_BN_CLICKED(IDC_BUTTON1, &CServerDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -193,5 +194,38 @@ void CServerDlg::OnBnClickedEnd()
 
 void CServerDlg::OnBnClickedStop()
 {
+	
+}
+
+void CServerDlg::OnBnClickedButton1()
+{
+// 	char buffer[16] = {'F','1','3','2','3','0','3','0','3','1','3','1','3','3','3','3'};
+// 	char buffer1[8];
+// 	CString temp;
+// 	
+// 	for (int i=0, y=0; i<16; ++i)
+// 	{
+// 		y = i/2;
+// 		buffer1[y] += buffer[i];
+// 	}
+// 	char c[8] ;
+// 	for (int i=0;i<8;++i)
+// 	{
+// 		sscanf(buffer1[i],"%2x",&c[i]);
+// 	}
+	//char c[8]={};
+// 	int nCount(0);
+// 	int i,j;
+// 	for (i=0;i<Length/2;i++)
+// 	{
+// 		CString temp="";
+// 		for (j=nCount*2;j<nCount*2+2;j++)
+// 		{
+// 			temp+=buff[j];
+// 		}
+// 		sscanf(temp,"%x",&c[nCount]);
+// 		nCount++;
+// 	}
+// 	return c;
 	
 }
