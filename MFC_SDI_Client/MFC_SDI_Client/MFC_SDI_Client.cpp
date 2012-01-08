@@ -88,28 +88,29 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 //这是代码区 有用的
 	//while(!m_InitTrue)
 	//{
- // 		while (!m_return)
- // 			{
- // 				CLoginDlg dlg;
- // 				if (dlg.DoModal()==IDCANCEL)
- // 				{
- // 					return false;
- // 					break;
- // 				}
- // 				else
- // 				{
- // 					GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
- // 					m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
- // 					strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
- // 					h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
- //					Sleep(500);
- // 				}
- // 			}
+  		//while (!m_return)
+  		//	{
+  		//		CLoginDlg dlg;
+  		//		if (dlg.DoModal()==IDCANCEL)
+  		//		{
+  		//			return false;
+  		//			break;
+  		//		}
+  		//		else
+  		//		{
+  		//			GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+  		//			m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+  		//			strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
+  		//			h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+ 			//		Sleep(500);
+  		//		}
+  		//	}
 	//	if (m_WaitDlg.DoModal()==IDOK)
 	//	{
 	//			m_return =false;
 	//			closesocket(m_ConnectSock);
 	//			TerminateThread(h1,0);
+	//			AfxMessageBox(_T("初始化失败，请重新打开！"));
 	//	}
 	//	else
 // 		{
@@ -119,9 +120,9 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 		//		
 	//}
 //测试代码
-  	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-  	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-  	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+  	//GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+  	//m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+  	//h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
  		//if (m_WaitDlg.DoModal()==IDOK)
  		//	m_return==FALSE;
 	// 标准初始化

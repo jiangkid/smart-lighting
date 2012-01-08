@@ -38,12 +38,20 @@ END_MESSAGE_MAP()
 
 // CTestDlg message handlers
 
+//char* CTestDlg::CStringTOChar(char* buffer, int Length)
+//{
+//	char buff[8];//	int nCount=0;//	int i,j;//	for (i=0;i<Length/2;i++)//	{//		CString temp="";//		for (j=nCount*2;j<nCount*2+2;j++)//		{//			temp+=buffer[j];//		}//		sscanf(temp,"%2X",&buff[nCount]);//		nCount++;//	}//	return buff;
+//}
 void CTestDlg::OnBnClickedButton2()
 {
 	// TODO: Add your control notification handler code here
 	unsigned char buffer[30]={'N',0x2F,0x43,0x2F,0x01,
 		'0','1','0','1','0','1','0','1','0','1','0','1','0','1','0','1',
 		0x0A,0xA1,0xB1,0x00,0x00,0x00,0x00,0x00,0xCC};
+/*	char buff[16]={'0','1','0','1','0','1','0','1','0','1','0','1','0','1','0','1'};*/
+// 	char *buffer2;
+// 	int length=16;
+// 	buffer2=CStringTOChar(buff,length);
 	send(theApp.m_ConnectSock,(char*)buffer,30,0);
 }
 
