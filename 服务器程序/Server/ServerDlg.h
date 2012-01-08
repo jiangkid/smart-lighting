@@ -40,6 +40,8 @@ public:
 	DECLARE_MESSAGE_MAP()
 
 	
+public:
+	afx_msg void OnBnClickedButton1();
 };
 
 extern HWND H_ServerDlg;

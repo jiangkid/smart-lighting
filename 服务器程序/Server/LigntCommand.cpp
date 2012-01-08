@@ -30,7 +30,6 @@ BOOL CLightCommand::AddLightID(CString RoadID,CString LightID)
 	_variant_t vIDRoad;
 	long idLight=0;
 	int MaxID = GetMaxID();
-	++MaxID;
 
 	RoadSQL.Format("SELECT * FROM Roads WHERE RoadID='%s'",RoadID);
 	try

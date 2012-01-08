@@ -127,8 +127,8 @@ LPCIOCPContext CGenericServer::AllocateContext(SOCKET s, SOCKADDR_IN  addraccept
 	pContext->sockAccept=s;
 	pContext->LogIn = FALSE;
 	pContext->ID = FALSE;
+	ZeroMemory(pContext->Identify,sizeof(pContext->Identify));
 	ZeroMemory(pContext->pPerIOData,sizeof(CIOCPBuffer));
-
 	pContext->pPerIOData->OverLapped.hEvent=NULL;
 	pContext->pPerIOData->OverLapped.Internal=0;
 	pContext->pPerIOData->OverLapped.InternalHigh=0;
@@ -288,7 +288,7 @@ void CGenericServer::ConnListClear()
  }
 
  /******* 将消息添加到队列中******/
- BOOL CGenericServer::InQueue(LPQlist Qlist,CHAR * buffer )
+ BOOL CGenericServer::InQueue(LPQlist Qlist,CHAR * buffer,int lenth)
  {	
 	EnterCriticalSection(&TMSection);
 	LPThreadMessage Messagebuf;
@@ -298,7 +298,9 @@ void CGenericServer::ConnListClear()
 	 return FALSE;
 	}
 	memset(Messagebuf,'\0',sizeof(ThreadMessage));
-	strcpy_s(Messagebuf->sData,buffer);
+	//strcpy_s(Messagebuf->sData,buffer);
+	memcpy(Messagebuf->sData,buffer,lenth);
+	Messagebuf->strlen = lenth;
 	Messagebuf->pnext = NULL;
 	Qlist->rear->pnext = Messagebuf;
 	Qlist->rear = Messagebuf; 
@@ -307,9 +309,10 @@ void CGenericServer::ConnListClear()
  }
 
   /******* 将消息从队列中移除******/
-CString CGenericServer::OutQueue(LPQlist Qlist)
+char* CGenericServer::OutQueue(LPQlist Qlist,int &length)
 {
-	CString temp;
+	char temp[BUFFER_SIZE];
+	//char * temp = malloc(length);
 	if ((Qlist->front == Qlist->rear) )
 	{
 		return "error";
@@ -317,7 +320,11 @@ CString CGenericServer::OutQueue(LPQlist Qlist)
 	EnterCriticalSection(&TMSection);
   	LPThreadMessage pItem;
 	pItem = Qlist->front->pnext;
-	temp = pItem->sData;
+	ZeroMemory(temp,BUFFER_SIZE);
+	length = pItem->strlen;
+	memcpy(temp,pItem->sData,length);
+	//temp = pItem->sData;
+	
 	Qlist->front->pnext = pItem->pnext;
 	/*char recvt[BUFFER_SIZE];
 	GetDlgItemText(H_ServerDlg,IDC_EDIT2,recvt,BUFFER_SIZE);		
@@ -387,4 +394,25 @@ CString CGenericServer::GetPswByAdminName(CString AdminName)
 	m_pRecordset=NULL;
 	m_pConnection->Close();
 	m_pConnection = NULL;
+}
+ /********************************************
+函数功能：将16byte的char型ID转换为8byte的char型ID
+ ********************************************/
+char* CGenericServer::Translation_ID(char* buffer, int Length)
+{
+	char c[8];
+	int nCount = 0;
+	CString temp;
+	int i,j;
+	for (i=0;i<Length/2;i++)
+	{
+		CString temp="";
+		for (j=nCount*2;j<nCount*2+2;j++)
+		{
+			temp+=buffer[j];
+		}
+		sscanf(temp,"%2x",&c[nCount]);
+		nCount++;
+	}
+	return c;
 }

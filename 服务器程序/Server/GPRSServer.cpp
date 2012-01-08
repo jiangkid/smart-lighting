@@ -57,6 +57,10 @@ SOCKET CGPRSServer::m_sAccept = 0;
 //
 BOOL CGPRSServer::StartServer(int nPort)
 {
+// 	char buffer[16] ={'F','1','3','2','3','0','3','0','3','1','3','1','3','3','3','3'};
+// 	int length = 16;
+// 	char *temp;
+// 	temp = Translation_ID(buffer,length);
 	m_bServerStarted = TRUE;
 	Initialize_Socket(nPort);   //初始化套接字
 	//打开数据库连接
@@ -211,79 +215,19 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 		Sleep(100);
 	}
 	CGPRSServer  *pIOCPServer = (CGPRSServer*)pParam;
-	HANDLE hIOCP = pIOCPServer ->m_hCompletion;
-
-/////////////////测试部分/////////////////////////////////////////////////
-	CUserRecordset m_UserRS;
-	CUserCommand m_UserCmd;
-	CHRLightCommand m_HRLightCmd;
-	CAdminRecordset m_AdminRst;
-	CHRRoadCommand m_HRRoadCmd;
-	CHRTerminalCommand m_HRTerminalCmd;
-	CLightRecordset m_LightRs;
-	CWarningInfoRecordset m_WarningInfoRs;
-	CWarningInfoCommand m_WarningInfoCmd;
-	CTerminalRecordset m_TerminalRs;
-	CRoadRecordset m_RoadRs;
-	CHROperationCommand m_HROperationCmd;
-	CHROperationRecordset m_HROperationRs;
-	CHRLightRecordset m_HRLightRs;
-	CAdminCommand m_AdminCmd;
-	CAreaCommand m_AreaCmd;
-	CAreaRecordset m_AreaRs;
-
-	m_HRLightCmd.m_cnn=pIOCPServer->m_conn;
-	m_AdminRst.m_cnn=pIOCPServer->m_conn;
-	m_HRRoadCmd.m_cnn=pIOCPServer->m_conn;
-	m_HRTerminalCmd.m_cnn=pIOCPServer->m_conn;
-	m_UserCmd.m_cnn=pIOCPServer->m_conn;
-	m_LightRs.m_cnn=pIOCPServer->m_conn;
-	m_UserRS.m_cnn=pIOCPServer->m_conn;
-	m_WarningInfoRs.m_cnn=pIOCPServer->m_conn;
-	m_WarningInfoCmd.m_cnn=pIOCPServer->m_conn;
-	m_TerminalRs.m_cnn=pIOCPServer->m_conn;
-	m_RoadRs.m_cnn=pIOCPServer->m_conn;
-	m_HROperationCmd.m_cnn=pIOCPServer->m_conn;
-	m_HROperationRs.m_cnn=pIOCPServer->m_conn;
-	m_HRLightRs.m_cnn=pIOCPServer->m_conn;
-	m_AdminCmd.m_cnn=pIOCPServer->m_conn;
-	m_AreaCmd.m_cnn=pIOCPServer->m_conn;
-	m_AreaRs.m_cnn=pIOCPServer->m_conn;
-//////////////////////////////////////////////////////////////////////////////
-
-	
+	HANDLE hIOCP = pIOCPServer ->m_hCompletion;	
 	BOOL bSucess = false;
 	DWORD dwIOSize;
 	LPCIOCPBuffer lpPerIOData = new CIOCPBuffer;
 	ZeroMemory(lpPerIOData,sizeof(CIOCPBuffer));
 	LPOVERLAPPED pOverLapped;
 	LPCIOCPContext lpConnCtx;
-	int nResult;
+	int nResult = 0;
+	int length = 0;
 	CString buffer1;
 	CString temp1;
-
-
-	//////////////////////////测试/////////////////////////////////
-	CString tempArea;
-	CString tempName = "丁亮";
-	CString tempPsw;
-//	CString tempArea;
-	CString tempAreaName="杭州";
-	CString tempWarningInfo;
-	CString tempTerminalName;
-	CString tempRoadName;
-	int tempGroupNum;
-	CString str_tempGroupNum;
-	CString temLightName;
-	CString tempLightStatus;
-	CString tempOprationRecord;
-	CString tempLightRecord;
-	CString tempRoads;
-	CString tempAdminPsw;
-	////////////////////////////////////////////////////////////////
-
-
 	sockaddr_in addrAccept;
+	char *recv;
 	char strTemp_send[BUFFER_SIZE];
 	char strTemp_recv[BUFFER_SIZE];
 	ZeroMemory(&strTemp_recv,sizeof(strTemp_recv));
@@ -291,19 +235,19 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 
 	while (1)
 	{
-		//发送三次心跳消息,若远程终端没有响应,则服务端移除此连接
-
-		/*
+		//发送三次心跳消息,若远程终端没有响应,则服务端移除此连接		
 		if  (QlistCtG->front != QlistCtG->rear)
 		{
-			buffer1 = pIOCPServer->OutQueue(QlistCtG);
+			length = 0;
+			recv = pIOCPServer->OutQueue(QlistCtG,length);
 			if (buffer1 == "error")
 			{
 				continue;
 			}
+			
 			pIOCPServer->InitializeBuffer(lpPerIOData,SVR_IO_WRITE );
-			pIOCPServer->pClient->pPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)buffer1;
-			pIOCPServer->pClient->pPerIOData->wbuf.len = buffer1.GetLength();
+			pIOCPServer->pClient->pPerIOData->wbuf.buf = recv;
+			pIOCPServer->pClient->pPerIOData->wbuf.len = length;
 			pIOCPServer->pClient->pPerIOData->oper = SVR_IO_WRITE;
 			pIOCPServer->pClient->pPerIOData->flags = 0;
 			nResult=WSASend(pIOCPServer->m_sAccept, 
@@ -321,76 +265,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 			buffer1 += "\r\n";
 			buffer1 += strTemp_send;
 			SetDlgItemText(H_ServerDlg,IDC_EDIT2, buffer1);
-			
-		}*/
-/*		m_UserRS.m_cnn=pIOCPServer->m_conn;*/
-
-		/////////////////////////测试通过部分//////////////////////////////////////////////
-//		m_HRLightCmd.AddHistoryRecordOfLight("1990",0);
-//		tempArea=m_UserRS.GetAreaNameByUserName(tempName);
-//		m_UserRS.Close();
-//		tempPsw=m_AdminRst.GetPswByAdminName(tempName);
-//		m_HRRoadCmd.AddHistoryRecordOfRoad("1990",0);
-//		m_HRTerminalCmd.AddHistoryRecordOfTerminal(10,"1","1","1","1","1","1","1","1","1","1","1","1");
-//		m_UserCmd.ChangeUserName("dingliang","丁亮");
-//		m_UserCmd.DeleteUser("丁亮");
-//		m_UserCmd.NewUser("张三","111111","杭州电子科技大学");
-//		m_UserCmd.ChangeUserArea("dl","杭电");
-//		m_UserCmd.ChangeUserPsw("张三","123456789");
-//		tempArea=m_UserRS.GetAreaNameByUserName(tempName);
-//		tempPsw=m_UserRS.GetPswByUserName(tempName);
-//		m_UserRS.SetAreaName("丁亮",tempAreaName);
-//		m_WarningInfoCmd.AddWarningIfo(1001,"12/24/2011 12:00:00","1","灯坏了");
-//		tempWarningInfo=m_WarningInfoRs.GetWaringInfo("2011-12-14 12:00:00","2011-12-29 12:00:00");
-//		m_TerminalRs.SetTerminalName(1,"丁亮");
-//		tempTerminalName=m_TerminalRs.GetTerminalName(1);
-//		m_RoadRs.SetRoadName(1,"杭州电子科技大学");
-//		tempRoadName=m_RoadRs.GetRoadName(1);
-//		tempGroupNum=m_LightRs.GetGroupNum(3);
-//		str_tempGroupNum.Format("%d",tempGroupNum);
-//		temLightName=m_LightRs.GetLightName(2);
-//		tempLightStatus=m_LightRs.GetLightStatus(3);
-//		m_LightRs.SetGoupNum(1,1000);
-//		m_LightRs.SetLightName(0,"1000号灯");
-//		m_LightRs.SetLightStatus(3,1);
-//		m_HROperationCmd.AddOperationRecord("2011-12-26 12:00:00","关闭1000号灯");
-//		tempOprationRecord=m_HROperationRs.GetOpertionRecord("2011-12-14 12:00:00","2011-12-29 12:00:00");
-//		 tempLightRecord=m_HRLightRs.GetLightRecord("2号灯");
-//		m_AdminCmd.ChangeAdminPsw("丁亮","123456789");
-//		m_AdminCmd.DeleteAdmin("吴红生");
-//		m_AdminCmd.NewAdmin("dingliang","1234567890");
-//		m_AreaCmd.AddArea("10000000","下沙","一号路，二号路，三号路");
-//		m_AreaRs.SetAreaByAreaID("10000000","高沙","三号路,四号路,五号路");
-//		tempRoads=m_AreaRs.GetTerminalsByAreaName("高沙");
-//		tempAdminPsw=m_AdminRst.GetPswByAdminName("丁亮");
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
- 		pIOCPServer->InitializeBuffer(lpPerIOData,SVR_IO_WRITE );
- 		pIOCPServer->pClient->pPerIOData->wbuf.buf = (LPTSTR)(LPCTSTR)tempRoads;
- 		pIOCPServer->pClient->pPerIOData->wbuf.len =tempRoads.GetLength();
- 		pIOCPServer->pClient->pPerIOData->oper = SVR_IO_WRITE;
- 		pIOCPServer->pClient->pPerIOData->flags = 0;
- 		nResult=WSASend(pIOCPServer->m_sAccept, 
- 			&(pIOCPServer->pClient->pPerIOData->wbuf), 
- 			1, 
- 			NULL,
-			pIOCPServer->pClient->pPerIOData->flags,
- 			&(pIOCPServer->pClient->pPerIOData->OverLapped),
-			NULL);
- 		if((nResult==SOCKET_ERROR) && (WSAGetLastError()!=ERROR_IO_PENDING))
- 		{
-			MessageBox(NULL, "GPRS发送数据失败", "提示", MB_OK);
-		}
-		//////////////////////////////////////////测试部分///////////////////////////////
-		m_AdminRst.Close();
-		m_UserRS.Close();
-		m_TerminalRs.Close();
-		m_RoadRs.Close();
-		m_LightRs.Close();
-		m_AreaRs.Close();
-		
-		////////////////////////////////////////////////////////////////////////////////////
-		
+		}		
  		Sleep(100);
  		bSucess = GetQueuedCompletionStatus(hIOCP,
  			&dwIOSize,
@@ -413,7 +288,8 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
  
  		if (!bSucess||(bSucess&&(dwIOSize==0)))
  		{
- 			if ((lpConnCtx->sockAccept != INVALID_SOCKET)/*&&(lpConnCtx->LogIn == TRUE || lpConnCtx->LogIn == FALSE)*/)
+			/***************此处存在bug****************/
+ 			if ((lpConnCtx->sockAccept != INVALID_SOCKET)&&((lpConnCtx->pPerIOData->oper == SVR_IO_READ)||(lpConnCtx->pPerIOData->oper == SVR_IO_WRITE)))
  			{
  				addrAccept = lpConnCtx->addrAccept;
  				pIOCPServer->ConnListRemove(lpConnCtx);
@@ -447,7 +323,7 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
  			pIOCPServer->strRecv+=(CString)strTemp_recv;
  			SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strRecv);
  			
- 			pIOCPServer->InQueue(QlistGtC,lpPerIOData->wbuf.buf);
+ 			pIOCPServer->InQueue(QlistGtC,lpPerIOData->wbuf.buf,dwIOSize);
  			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
  			nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
  			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)

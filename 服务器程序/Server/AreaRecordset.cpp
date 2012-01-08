@@ -153,9 +153,9 @@ CString CAreaRecordset::GetAllAreaIDAndCount()
 		vAreaID=pAreaRs->GetCollect("AreaID");
 		if (vAreaID.vt!=NULL)
 		{
-			strAreaID+="<";
+			//strAreaID+="<";
 			strAreaID+=(LPCTSTR)(_bstr_t)vAreaID;
-			strAreaID+=">";
+			//strAreaID+=">";
 		}
 		count++;
 		pAreaRs->MoveNext();
@@ -202,9 +202,9 @@ CString CAreaRecordset::GetTerminalIDsAndCountByAreaID(CString AreaID)
 		vTerminalID=pRs->GetCollect("TerminalID");
 		if (vTerminalID.vt!=VT_NULL)
 		{
-			strTerminalIDs+="<";
+			//strTerminalIDs+="<";
 			strTerminalIDs+=(LPCTSTR)(_bstr_t)vTerminalID;
-			strTerminalIDs+=">";
+			//strTerminalIDs+=">";
 		}
 		count++;
 		pRs->MoveNext();
@@ -216,3 +216,108 @@ CString CAreaRecordset::GetTerminalIDsAndCountByAreaID(CString AreaID)
 
 }
 
+//根据区域的ID(areaID)设置区域的名称(areaName)并将它与指定的用户(userName)建立关系
+//
+BOOL CAreaRecordset::SetAreaNameAndIDUser(CString areaID,CString areaName,CString userName)
+{
+	CString userSQL;
+	CString areaSQL;
+	_RecordsetPtr pUserRs;
+	_RecordsetPtr pAreaRs;
+
+	_variant_t vID;
+	int idUser;
+
+	userSQL.Format("Select * From Users Where Name= '%s'",userName);
+	areaSQL.Format("Select * From Areas Where AreaID='%s'",areaID);
+
+	try
+	{
+		pUserRs.CreateInstance("ADODB.RecordSet");
+		pUserRs->Open((_variant_t)userSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+		return FALSE;
+	}
+
+	//获得Users表中Name为userName的ID字段的值
+	try
+	{
+		if (!pUserRs->adoEOF)
+		{
+			vID=pUserRs->GetCollect("ID");
+			if (vID.vt!=NULL)
+			{
+				idUser=vID.intVal;
+			}
+		}
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+		return FALSE;
+	}
+	pUserRs->Close();
+	pUserRs=NULL;
+
+	if (Open(areaSQL))
+	{
+		SetAsString("AreaName",areaName);
+		SetAsInt("IDUser",idUser);
+		return TRUE;
+	}
+	return TRUE;
+}
+/************************************************************************************
+功能:获得所有的区域的ID和名称及其数量
+返回的格式:0x00-0xFF<名称1>{01}<名称2>{01}.......<名称n>{0n}#
+*************************************************************************************/
+CString CAreaRecordset::GetAllAreaAndCount()
+{
+	CString areaSQL;
+	CString allAreas;
+	_variant_t vAreaName;
+	_variant_t vAreaID;
+	char count=0x00;
+	_RecordsetPtr pAreaRs;
+
+	areaSQL.Format("Select * From Areas");
+
+	//打开Areas表
+	try
+	{
+		pAreaRs.CreateInstance("ADODB.Recordset");
+		pAreaRs->Open((_variant_t)areaSQL,_variant_t((IDispatch*)m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdText);
+	}
+	catch(_com_error&e)
+	{
+		AfxMessageBox(e.Description());
+	}
+
+	while (!pAreaRs->adoEOF)
+	{
+		vAreaName=pAreaRs->GetCollect("AreaName");   //获得AreaName字段的值
+		if (vAreaName.vt!=NULL)
+		{
+			allAreas+="<";
+			allAreas+=(LPCTSTR)(_bstr_t)vAreaName;
+			allAreas+=">";
+		}
+		vAreaID=pAreaRs->GetCollect("AreaID");     //获得AreaID字段的值
+		if (vAreaID.vt!=NULL)
+		{
+			allAreas+="{";
+			allAreas+=(LPCTSTR)(_bstr_t)vAreaID;
+			allAreas+="}";
+		}
+		count++;
+		pAreaRs->MoveNext();
+	}
+	pAreaRs->Close();
+
+	allAreas=count+allAreas;
+	allAreas+="#";
+	return allAreas;
+}

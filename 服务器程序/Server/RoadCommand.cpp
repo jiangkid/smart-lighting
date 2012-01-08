@@ -53,7 +53,7 @@ BOOL CRoadCommand::AddRoadID(CString terminalID,CString RoadID)
 	_variant_t vIDTerminal;
 	long idRoad=0;
 	int MaxID = GetMaxID();
-	++MaxID;
+	
 
 	terminalSQL.Format("SELECT * FROM Terminals WHERE TerminalID='%s'",terminalID);
 	try

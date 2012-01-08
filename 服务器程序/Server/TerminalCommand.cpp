@@ -36,7 +36,7 @@ BOOL CTerminalCommand::AddTerminalID(CString areaID,CString terminalID)
 	_variant_t vIDArea;
 	long idArea=0;
 	int MaxID = GetMaxID();
-	++MaxID;
+	//++MaxID;
 
 	areaSQL.Format("SELECT * FROM Areas WHERE AreaID='%s'",areaID);
 	try

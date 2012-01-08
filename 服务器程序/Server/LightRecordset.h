@@ -25,4 +25,7 @@ public:
 
 	//根据ID来设置灯的组号
 	BOOL SetGoupNum(CString LightID,int GroupNum);
+
+	////得到所有灯的ID,名称及其所属路的ID和全部灯的数量
+	CString GetAllLightsAndCount();
 };
