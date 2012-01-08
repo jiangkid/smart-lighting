@@ -41,3 +41,16 @@ void CGTRLView::Dump(CDumpContext& dc) const
 
 
 // CGTRLView message handlers
+
+int CGTRLView::GetTNum(LPGInfo wGtInfo)
+{
+	int m_GTnum(0);
+	for (int i=0;i<m_InitInfo.TNum;i++)
+	{
+		if (m_InitInfo.m_InitTInfo[i].GID==wGtInfo->GID)
+		{
+			m_GTnum++;
+		}
+	}
+	return m_GTnum;
+}

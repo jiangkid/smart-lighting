@@ -6,10 +6,12 @@
 
 HDR hdr;
 USERINFO userInfo[9];
+IintInfo m_InitInfo;
 bool BGTrue = false;
 bool BTTrue = false;
 bool BRTrue = false;
 bool BLTrue = false;
+
 BOOL SOCKET_Select(SOCKET hSocket, int nTimeOut, BOOL bRead)
 {
 	fd_set fdset;
@@ -105,6 +107,10 @@ __Error_End:
 	closesocket(pChatRoom->m_ConnectSock);
 	return TRUE;
 }
+/************************************************************************************
+功能:判断用户登录是否成功
+返回的格式:I 0/1#
+*************************************************************************************/
 void ChenkLogin(char* buff,int nRecvLength)
 {
 	char checkBuf[3];
@@ -125,6 +131,10 @@ void ChenkLogin(char* buff,int nRecvLength)
 			TerminateThread(theApp.h1,-1);
 		}
 }
+/************************************************************************************
+功能:判断创建用户是否成功
+返回的格式:C 0/1#
+*************************************************************************************/
 void ChenkSet(char* buff,int nRecvLength)
 {
 	char checkBuf[3];
@@ -142,6 +152,10 @@ void ChenkSet(char* buff,int nRecvLength)
 			AfxMessageBox(_T("此次操作不成功"));
 		}
 }
+/************************************************************************************
+功能:判断修改用户密码是否成功
+返回的格式:M 0/1#
+*************************************************************************************/
 void ChenkModify(char* buff,int nRecvLength)
 {
 	char checkBuf[3];
@@ -158,6 +172,10 @@ void ChenkModify(char* buff,int nRecvLength)
 		AfxMessageBox(_T("修改密码失败，请重新操作！"));
 	}
 }
+/************************************************************************************
+功能:判断BGTRLID与信息绑定是否成功
+返回的格式:S Ox30-0x39 0/1 0x00-0xFF(表示个数)+ID#
+*************************************************************************************/
 void ChenkGetGID(char* buff,int nRecvLength)
 {
 	if (buff[0]=='S'&&buff[1]==0x30 && buff[2]=='1')
@@ -240,10 +258,10 @@ void ChenkGetGID(char* buff,int nRecvLength)
 		theApp.m_NumInfo.UserNum=buff[3];
 		int n(0);
 		for (int i=4;buff[i]!='#';i++)
-		{	
-			int m(0);
+		{				
 			if (buff[i]=='<')
 			{
+				int m(0);
 				n++;
 				for(;buff[i+1]!='>';i++)
 				{
@@ -287,6 +305,10 @@ void ChenkGetGID(char* buff,int nRecvLength)
 	}
 
 }
+/************************************************************************************
+功能:发送用户登录信息
+返回的格式：2个结构体（头结构+用户信息结构）
+*************************************************************************************/
 void SendUserInfo(LPHDR hdr,LPUSERINFO userInfo)
 {
 	hdr->dataCheck='I';
@@ -298,9 +320,13 @@ void SendUserInfo(LPHDR hdr,LPUSERINFO userInfo)
 	int nRet = send(theApp.m_ConnectSock, m_buf, HEADLEN + hdr->dataLen, 0);
 	if (SOCKET_ERROR == nRet )
 	{
-		AfxMessageBox(_T("SendPacket数据失败。"));
+		AfxMessageBox(_T("SendUserInfo数据失败。"));
 	}
 }
+/************************************************************************************
+功能:判断BGTRL 获取ID失败
+返回的格式:BG/T/L/R 1+ID#
+*************************************************************************************/
 void ChenkBGTRL(char* buff,int nRecvLength)
 {
 	if (buff[0]=='B'&&buff[1]=='G'&&buff[2]=='1')
@@ -324,6 +350,15 @@ void ChenkBGTRL(char* buff,int nRecvLength)
 		AfxMessageBox(_T("添加LID失败，请重新操作！"));
 	}
 }
+/************************************************************************************
+初始化获取函数
+功能:获得所有的区域的ID和名称及其数量
+返回的格式:L G O/1 0x00-0xFF<名称1>{01}<名称2>{01}.......<名称n>{0n}#
+功能:获得所有的终端的ID和名称及其数量
+返回的格式:L T O/1 0x00-0xFF<名称1>{01}<名称2>{0101}.......<名称n>{0n01}#
+功能:获得所有的路的ID和名称及其数量
+返回的格式:L R O/1 0x00-0xFF<名称1>{01}<名称2>{010101}.......<名称n>{0n0101}#
+*************************************************************************************/
 void ChenkInitInfo(char* buff,int nRecvLength)
 {
 	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
@@ -334,16 +369,138 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 	}
 	if (buff[0]=='L'&&buff[1]=='G'&&buff[2]=='1')
 	{
+		m_InitInfo.GNum=buff[3];
+		int nGCount(0);
+		for (int i=4;buff[i]!='#';i++)
+		{
+			if(buff[i]=='<')
+			{
+				int m(0);
+				for (;buff[i+1]!='>';i++)
+				{
+					m_InitInfo.m_InitGInfo[nGCount].GName[m]=buff[i+1];
+					m++;
+				}
+				i+=1;
+			}
+			if (buff[i]=='{')
+			{
+				int n(0);
+				for (;buff[i+1]!='}';i++)
+				{
+					m_InitInfo.m_InitGInfo[nGCount].GID[n]=buff[i+1];
+					n++;
+				}
+				i+=1;
+				nGCount++;
+			}
 
+		}	
 	}
-
-
-
-
-
-// 	if (buff[0]=='L')
-// 	{
-// 		HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
-// 		SendMessage(m_wnd,WM_CLOSE,0,0);
-// 	}
+	if (buff[0]=='L'&&buff[1]=='T'&&buff[2]=='0')
+	{
+		theApp.m_InitTrue=true;
+		SendMessage(m_wnd,WM_CLOSE,0,0);
+	}
+	if (buff[0]=='L'&&buff[1]=='T'&&buff[2]=='1')
+	{
+		m_InitInfo.TNum=buff[3];
+		int nTCount(0);
+		for (int i=4;buff[i]!='#';i++)
+		{
+			if (buff[i]=='<')
+			{
+				int m(0);
+				for (;buff[i+1]!='>';i++)
+				{
+					m_InitInfo.m_InitTInfo[nTCount].TName[m]=buff[i+1];
+					m++;
+				}
+			}
+			if (buff[i]=='{')
+			{
+				int n(0);
+				for (;buff[i+1]!='}';i++)
+				{
+					m_InitInfo.m_InitTInfo[nTCount].TID[n]=buff[i+1];
+					n++;
+				}
+			}
+			if (buff[i]=='(')
+			{
+				int k(0);
+				for (;buff[i+1]!=')';i++)
+				{
+					m_InitInfo.m_InitTInfo[nTCount].GID[k]=buff[i+1];
+					k++;
+				}
+				nTCount++;
+			}
+		
+		}
+	}
+	if (buff[0]=='L'&&buff[1]=='R'&&buff[2]=='0')
+	{
+		theApp.m_InitTrue=true;
+		SendMessage(m_wnd,WM_CLOSE,0,0);
+	}
+	if (buff[0]=='L'&&buff[1]=='R'&&buff[2]=='1')
+	{
+		m_InitInfo.RNum=buff[3];
+		int nRCount(0);
+		for (int i=4;buff[i]!='#';i++)
+		{
+			if (buff[i]=='<')
+			{
+				int m(0);
+				for (;buff[i+1]=='>';i++)
+				{
+					m_InitInfo.m_InitRInfo[nRCount].RName[m]=buff[i+1];
+					m++;
+				}
+			}
+			if (buff[i]=='{')
+			{
+				int n(0);
+				for (;buff[i+1]=='}';i++)
+				{
+					m_InitInfo.m_InitRInfo[nRCount].RID[n]=buff[i+1];
+					n++;
+				}
+			}
+			if (buff[i]=='(')
+			{
+				int k(0);
+				for (;buff[i+1]==')';i++)
+				{
+					m_InitInfo.m_InitRInfo[nRCount].TID[k]=buff[i+1];
+					k++;
+				}
+				nRCount++;
+			}
+		}
+	}
 }
+/************************************************************************************
+ 功能:char-cstring 封装函数
+*************************************************************************************/
+//CString CHARTOCSTring(unsigned char* str,int nLength)
+//{
+//	CString strShow=_T("");
+//	LPTSTR p;
+//	TCHAR szText[300];
+//	ZeroMemory(szText, 300);
+//	p = szText;
+//	for (int i = 0; i< nLength; i++)
+//	{
+//		p+= wsprintf(p, "%.2X", str[i]);  //这部分为关键部分
+//	}
+//	strShow.Format(_T("%s"), szText);
+//	return strShow;
+//}
+/************************************************************************************
+函数功能：将16byte的char型ID转换为8byte的char型ID
+*************************************************************************************/
+//char* CStringTOChar(unsigned char* buffer, int Length)
+//{
+//		char buff[8];//		int nCount=0;//		int i,j;//		for (i=0;i<Length/2;i++)//		{//			CString temp="";//			for (j=nCount*2;j<nCount*2+2;j++)//			{//				temp+=buffer[j];//			}//			sscanf(temp,"%2X",&buff[nCount]);//			nCount++;//		}//		return buff;//}
