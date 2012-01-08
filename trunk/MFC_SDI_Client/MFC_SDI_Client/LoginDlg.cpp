@@ -47,6 +47,7 @@ void CLoginDlg::OnBnClickedOk()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData(true);
+	//theApp.h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
 	CMFC_SDI_ClientApp *pTheApp =(CMFC_SDI_ClientApp*)AfxGetApp();	
 	ZeroMemory(&userInfo[0],sizeof(USERINFO));
 	int i = m_ComboBox.GetCurSel();	

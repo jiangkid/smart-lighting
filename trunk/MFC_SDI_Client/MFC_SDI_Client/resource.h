@@ -24,6 +24,8 @@
 #define IDD_Set                         314
 #define IDD_MainSet                     315
 #define IDD_DIALOG1                     316
+#define IDD_WaitDlg                     316
+#define IDD_TEST                        317
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -63,6 +65,11 @@
 #define IDC_COM_UserName                1036
 #define IDC_STATIC_INIT                 1037
 #define IDC_BUTTON2                     1038
+#define IDC_BUTTON3                     1039
+#define IDC_BUTTON4                     1040
+#define IDC_BUTTON5                     1041
+#define IDC_BUTTON6                     1042
+#define IDC_BUTTON7                     1043
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -75,14 +82,15 @@
 #define ID_32780                        32780
 #define ID_CONNECTAgaign                32781
 #define ID_CAgain                       32782
+#define ID_32783                        32783
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        317
-#define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1039
+#define _APS_NEXT_RESOURCE_VALUE        318
+#define _APS_NEXT_COMMAND_VALUE         32784
+#define _APS_NEXT_CONTROL_VALUE         1041
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

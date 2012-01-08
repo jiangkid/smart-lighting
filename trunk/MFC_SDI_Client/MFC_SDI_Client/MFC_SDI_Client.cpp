@@ -12,7 +12,7 @@
 #include "MFC_SDI_ClientView.h"
 #include "SetG.h"
 #include "Modify.h"
-#include "WaitApp.h"
+#include "TestDlg.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -30,6 +30,7 @@ BEGIN_MESSAGE_MAP(CMFC_SDI_ClientApp, CWinAppEx)
 	ON_COMMAND(ID_Modify, &CMFC_SDI_ClientApp::OnModify)
 	ON_COMMAND(ID_MainSet, &CMFC_SDI_ClientApp::OnMainSet)
 	ON_COMMAND(ID_CAgain, &CMFC_SDI_ClientApp::OnCagain)
+	ON_COMMAND(ID_32783, &CMFC_SDI_ClientApp::On32783)
 END_MESSAGE_MAP()
 
 
@@ -37,12 +38,12 @@ END_MESSAGE_MAP()
 
 CMFC_SDI_ClientApp::CMFC_SDI_ClientApp()
 : logintrue(false)
-, m_port(0)
+/*, m_port(0)*/
 , m_return(false)
 , settrue(false)
 ,m_InitTrue(false)
 {
-	memset(m_ip,0,sizeof(m_ip));
+//	memset(m_ip,0,sizeof(m_ip));
 	m_bHiColorIcons = TRUE;
 	h1=NULL;
 
@@ -85,48 +86,44 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	}
 	AfxEnableControlContainer();
 //这是代码区 有用的
- 	
-		//while (!m_return)
-		//{
-		//	CLoginDlg dlg;
-		//	if (dlg.DoModal()==IDCANCEL)
-		//	{
-		//		return false;
-		//		break;
-		//	}
-		//	else
-		//	{
-		//		GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-		//		m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-		//		strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
-		//		h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-		//	}
-		//	Sleep(500);
-	//}			
-
-		while (!m_return)
-		{
-			CLoginDlg dlg;
-			if (dlg.DoModal()==IDCANCEL)
-			{
-				return false;
-				break;
-			}
-			else
-			{
-				GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-				m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-				strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
-				h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-			}
-			Sleep(500);
-		}
-	
-// 	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-// 	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-// 	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-	
-	
+	//while(!m_InitTrue)
+	//{
+ // 		while (!m_return)
+ // 			{
+ // 				CLoginDlg dlg;
+ // 				if (dlg.DoModal()==IDCANCEL)
+ // 				{
+ // 					return false;
+ // 					break;
+ // 				}
+ // 				else
+ // 				{
+ // 					GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+ // 					m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+ // 					strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
+ // 					h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+ //					Sleep(500);
+ // 				}
+ // 			}
+	//	if (m_WaitDlg.DoModal()==IDOK)
+	//	{
+	//			m_return =false;
+	//			closesocket(m_ConnectSock);
+	//			TerminateThread(h1,0);
+	//	}
+	//	else
+// 		{
+// 			AfxMessageBox(_T("初始化失败，请重新打开！"));
+// 			return false;
+// 		}
+		//		
+	//}
+//测试代码
+  	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+  	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+  	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+ 		//if (m_WaitDlg.DoModal()==IDOK)
+ 		//	m_return==FALSE;
 	// 标准初始化
 	 //如果未使用这些功能并希望减小
 	// 最终可执行文件的大小，则应移除下列
@@ -277,4 +274,11 @@ void CMFC_SDI_ClientApp::OnCagain()
 {
 	// TODO: Add your command handler code here
 	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+}
+
+void CMFC_SDI_ClientApp::On32783()
+{
+	// TODO: Add your command handler code here
+	CTestDlg dlg;
+	dlg.DoModal();
 }

@@ -133,7 +133,7 @@ void CSetG::OnBnClickedRadiog()
 // 	send(pTheApp->m_ConnectSock,(char*)strG.GetBuffer(),strG.GetLength()*sizeof(TCHAR),0);
 	char buff[2]={'S',0x30};
 	send(pTheApp->m_ConnectSock,buff,2,0);
-	Sleep(500*pTheApp->m_NumInfo.GNum);
+	Sleep(1000);
 	for (int i=0;i<pTheApp->m_NumInfo.GNum;i++)
 	{
 		CString str;
@@ -174,7 +174,7 @@ void CSetG::OnBnClickedRadiot()
 	strT+="#";
 	send(pTheApp->m_ConnectSock,(char*)strT.GetBuffer(),strT.GetLength()*sizeof(TCHAR),0);
 	//send(pTheApp->m_ConnectSock,buff,2,0);
-	Sleep(500*pTheApp->m_NumInfo.TNum);
+	Sleep(1000);
 	for (int i=0;i<pTheApp->m_NumInfo.TNum;i++)
 	{
 		CString str;
@@ -217,7 +217,7 @@ void CSetG::OnBnClickedRadior()
 	strR+="#";
 	send(pTheApp->m_ConnectSock,(char*)strR.GetBuffer(),strR.GetLength()*sizeof(TCHAR),0);
 	//send(pTheApp->m_ConnectSock,buff,2,0);
-	Sleep(500*pTheApp->m_NumInfo.RNum);
+	Sleep(1000);
 	for (int i=0;i<pTheApp->m_NumInfo.RNum;i++)
 	{
 		CString str;
@@ -262,7 +262,7 @@ void CSetG::OnBnClickedRadiol()
 	strL+="#";
 	send(pTheApp->m_ConnectSock,(char*)strL.GetBuffer(),strL.GetLength()*sizeof(TCHAR),0);
 	//send(pTheApp->m_ConnectSock,buff,2,0);
-	Sleep(200*pTheApp->m_NumInfo.LNum);
+	Sleep(1000);
 	for (int i=0;i<pTheApp->m_NumInfo.LNum;i++)
 	{
 		CString str;
@@ -270,6 +270,7 @@ void CSetG::OnBnClickedRadiol()
 		m_ComL.InsertString(i,str);
 		//m_ComL.InsertString(i,ShowMessage(pTheApp->m_LInfo[i].LID,8));
 	}
+/*	Sleep(5000);*/
 	CheckRadioButton(IDC_RADIOG,IDC_RADIOL,IDC_RADIOL);
 	UpdateData(true);
 	EnableWindow(IDC_GName,true);
@@ -324,7 +325,7 @@ void CSetG::OnBnClickedBtnGset()
 		str+=userInfo[nRetUser+1].UserName;
 		str+="#";
 		send(pTheApp->m_ConnectSock,(char*)str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
-		Sleep(500);
+		Sleep(1000);
 	}
 }
 
@@ -349,7 +350,7 @@ void CSetG::OnBnClickedBtnTset()
 		str+=m_TName;
 		str+="#";
 		send(pTheApp->m_ConnectSock,(char*)str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
-		Sleep(500);
+		Sleep(1000);
 	}
 }
 
@@ -374,7 +375,7 @@ void CSetG::OnBnClickedBtnRset()
 		str+=m_RName;
 		str+="#";
 		send(pTheApp->m_ConnectSock,(char*)str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
-		Sleep(500);
+		Sleep(1000);
 	}
 }
 
@@ -399,6 +400,6 @@ void CSetG::OnBnClickedBtnLset()
 		str+=m_LName;
 		str+="#";
 		send(pTheApp->m_ConnectSock,(char*)str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
-		Sleep(500);
+		Sleep(1000);
 	}
 }
