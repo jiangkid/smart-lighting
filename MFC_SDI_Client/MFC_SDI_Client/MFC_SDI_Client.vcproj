@@ -262,11 +262,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\ViewView.cpp"
+				RelativePath=".\TestDlg.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\WaitApp.cpp"
+				RelativePath=".\ViewView.cpp"
 				>
 			</File>
 			<File
@@ -352,11 +352,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ViewView.h"
+				RelativePath=".\TestDlg.h"
 				>
 			</File>
 			<File
-				RelativePath=".\WaitApp.h"
+				RelativePath=".\ViewView.h"
 				>
 			</File>
 			<File

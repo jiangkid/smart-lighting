@@ -13,6 +13,7 @@
 #include "ClietSocket.h"
 #include "SetNewUser.h"
 #include "MainSetDlg.h"
+#include "WaitDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 
@@ -35,7 +36,7 @@ public:
 	RInfo m_RInfo[196];
 	LInfo m_LInfo[4096];
 	NumInfo m_NumInfo;
-	LPDemo demo;
+	CWaitDlg m_WaitDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();
@@ -55,6 +56,8 @@ public:
 	afx_msg void OnMainSet();
 	afx_msg void OnCagain();
 	private:
+public:
+	afx_msg void On32783();
 };
 
 extern CMFC_SDI_ClientApp theApp;

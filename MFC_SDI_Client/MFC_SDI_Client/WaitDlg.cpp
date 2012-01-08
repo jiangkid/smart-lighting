@@ -40,12 +40,8 @@ END_MESSAGE_MAP()
 BOOL CWaitDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
-	// TODO:  Add extra initialization here
 	SetDlgItemText(IDC_STATIC_INIT,"登入成功，正在初始化。。。。。。。");
-	//m_Sure.ShowWindow(SW_HIDE);
 	SetDlgItemText(IDC_BUTTON1,"取消");
-	SetTimer(1,5000,0);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -53,24 +49,12 @@ BOOL CWaitDlg::OnInitDialog()
 void CWaitDlg::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
-	CString str;
-	GetDlgItemText(IDC_BUTTON1,str);
-	if (str=="取消")
-	{
-		OnCancel();
-	}
-	else if (str=="确定")
-	{
-		OnOK();
-		theApp.logintrue=true;
-	}
-
+	OnOK();
 }
 
 void CWaitDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: Add your message handler code here and/or call default
-	UpdateData(true);
 	CDialog::OnTimer(nIDEvent);
 }
 

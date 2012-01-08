@@ -64,15 +64,6 @@ typedef struct _NumInfo//LµÄÐÅÏ¢
 	INT RNum;
 	INT LNum;
 }NumInfo,*LPNumInfo;
-typedef struct _Demo
-{
-	HDR mHdr;
-	char strName[20];
-	unsigned char GID;
-	unsigned char TID;
-	unsigned char RID;
-	unsigned long int LID; 
-}Demo,*LPDemo;
 
 extern HDR hdr;
 extern USERINFO userInfo[9];
@@ -86,6 +77,7 @@ void ChenkSet(char* buff,int nRecvLength);
 void ChenkModify(char* buff,int nRecvLength);
 void ChenkGetGID(char* buff,int nRecvLength);
 void ChenkBGTRL(char* buff,int nRecvLength);
+void ChenkInitInfo(char* buff,int nRecvLength);
 void SendUserInfo(LPHDR hdr,LPUSERINFO userInfo);
 DWORD WINAPI ConnectThreadFunc(LPVOID pParam);
 BOOL SOCKET_Select(SOCKET hSocket, int nTimeOut = 100, BOOL bRead = FALSE);

@@ -84,6 +84,9 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					case 'S':
 						ChenkGetGID(szBuf,iRet);
 						break;
+					case 'L':
+						ChenkInitInfo(szBuf,iRet);
+						break;
 					default:
 						break;
 					}
@@ -320,4 +323,27 @@ void ChenkBGTRL(char* buff,int nRecvLength)
 		BLTrue = true;
 		AfxMessageBox(_T("添加LID失败，请重新操作！"));
 	}
+}
+void ChenkInitInfo(char* buff,int nRecvLength)
+{
+	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
+	if (buff[0]=='L'&&buff[1]=='G'&&buff[2]=='0')
+	{
+		theApp.m_InitTrue=true;
+		SendMessage(m_wnd,WM_CLOSE,0,0);
+	}
+	if (buff[0]=='L'&&buff[1]=='G'&&buff[2]=='1')
+	{
+
+	}
+
+
+
+
+
+// 	if (buff[0]=='L')
+// 	{
+// 		HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
+// 		SendMessage(m_wnd,WM_CLOSE,0,0);
+// 	}
 }

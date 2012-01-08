@@ -13,7 +13,7 @@ public:
 	virtual ~CWaitDlg();
 
 // Dialog Data
-	enum { IDD = IDD_DIALOG1 };
+	enum { IDD = IDD_WaitDlg };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
