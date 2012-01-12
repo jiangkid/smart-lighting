@@ -1,0 +1,4 @@
+--cpu Cortex-M3 "..\output\stm32f10x.o" "..\output\test.o" "..\output\delay.o" "..\output\sys.o" "..\output\usart.o" "..\output\12864.o" "..\output\checkdisp.o" "..\output\checkfunc.o" "..\output\disp.o" "..\output\eeprom.o" "..\output\func.o" "..\output\gprs.o" "..\output\key.o" "..\output\rtc.o" "..\output\setdisp.o" "..\output\setfunc.o" "..\output\timer.o" "..\output\usartx.o" "..\output\beep.o" "..\output\led.o" "..\output\zigbeefunc.o" "..\output\gprsfunc.o" --strict --scatter "..\OUTPUT\test.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\test.map" -o "..\OUTPUT\test.axf"
