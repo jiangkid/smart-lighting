@@ -1,5 +1,6 @@
 #pragma once
-
+#include "BtnST.h"
+#include "BCMenu.h"
 
 // CLightView view
 
@@ -12,6 +13,7 @@ protected:
 	virtual ~CLightView();
 
 public:
+	CButtonST *p_MyBut[9];
 	virtual void OnDraw(CDC* pDC);      // overridden to draw this view
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -22,6 +24,16 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnMyButton1();
+	afx_msg void OnMyButton2();
+	afx_msg void OnMyButton3();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	void OnLightShow();
+	CButtonST* NewMyButton(int nID, CRect rect , int nStyle);
+	void ChangeButton(void);
+	void ChangeSecondButton(void);
 };
 
 

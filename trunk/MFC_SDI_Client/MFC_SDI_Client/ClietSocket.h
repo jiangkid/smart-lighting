@@ -29,8 +29,8 @@ typedef struct _GInfo//G的信息
 typedef struct _TInfo//T的信息
 {
 	char    TName[40];
-	char    GID[2];
 	char    TID[4];
+	char    GID[2];
 	INT     TCurrent;
 	INT     TVoltage;
 	BOOL    TStatus;
@@ -39,8 +39,8 @@ typedef struct _TInfo//T的信息
 typedef struct _RInfo//R的信息
 {
 	char    RName[40];
-	char    TID[4];
 	char    RID[6];
+	char    TID[4];
 	INT     RCurrent;
 	INT     RVoltage;
 	BOOL    RStatus;
@@ -52,7 +52,8 @@ typedef struct _LInfo//L的信息
 	char    LID[16];
 	INT     LCurrent;
 	INT     LVoltage;
-	BOOL    LStatus;
+	char    LMainStatus[1];
+	char    LSecondStatus[1];
 }LInfo,*LPLInfo;
 
 typedef struct _NumInfo//L的信息
@@ -74,9 +75,28 @@ typedef struct _IintInfo//L的信息
 	RInfo m_InitRInfo[255];
 }IintInfo,*LPIintInfo;
 
+typedef struct _TreeInfo//L的信息
+{
+	char GID[2];
+	char TID[4];
+	char RID[6];
+}TreeInfo,*LPTreeInfo;
+typedef struct _BackInfo//L的信息
+{
+	char BeginBuffer[2];
+	char Judge[1];
+	char Type[1];
+	char LID[16];
+	char Order[1];
+	char ActiveType[1];
+	char CheckData[4];
+	char EndBuffer[1];
+}BackInfo,*LPBackInfo;
+
 extern HDR hdr;				//全局包体
 extern USERINFO userInfo[9];//全局用户信息（要动态，在想办法解决）
 extern IintInfo m_InitInfo; //初始化信息
+extern LInfo    m_InitLInfo;
 extern bool BGTrue;
 extern bool BTTrue;
 extern bool BRTrue;
@@ -106,6 +126,12 @@ void ChenkBGTRL(char* buff,int nRecvLength);
 功能:接收初始化信息
 *************************************************************************************/
 void ChenkInitInfo(char* buff,int nRecvLength);
+/************************************************************************************
+功能:接收返回信息
+*************************************************************************************/
+
+void CheckBack(char* buff,int nRecvLength);
+
 /************************************************************************************
 功能:发送用户登录信息
 *************************************************************************************/

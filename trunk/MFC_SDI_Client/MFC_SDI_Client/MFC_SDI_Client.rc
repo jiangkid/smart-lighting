@@ -75,6 +75,11 @@ END
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\MFC_SDI_Client.ico"
 IDR_MFC_SDI_ClientTYPE  ICON                    "res\\MFC_SDI_ClientDoc.ico"
+IDI_CK                  ICON                    "ico\\100.ico"
+IDI_BASE_INFO           ICON                    "ico\\101.ico"
+IDI_INPUT               ICON                    "ico\\103.ico"
+IDI_LIGHT_ON            ICON                    "E:\\³ÌÐò\\GMail\\smart-lighting\\MFC_SDI_Client\\MFC_SDI_Client\\ico\\Lamp1.ico"
+IDI_LIGHT_OFF           ICON                    "ico\\Lamp2.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -585,6 +590,13 @@ END
 STRINGTABLE 
 BEGIN
     IDS_EDIT_MENU           "±à¼­"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_BTN_MAIN             "Ö÷µÆ"
+    ID_BTN_ELSE             "¸¨µÆ"
+    ID_BTN_DOUBLE           "Ë«µÆ"
 END
 
 #endif    // Chinese (P.R.C.) resources

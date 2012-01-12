@@ -2,6 +2,9 @@
 // Microsoft Visual C++ generated include file.
 // Used by MFC_SDI_Client.rc
 //
+#define ID_BTN_MAIN                     1
+#define ID_BTN_ELSE                     2
+#define ID_BTN_DOUBLE                   3
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
 #define IDP_SOCKETS_INIT_FAILED         104
@@ -26,6 +29,14 @@
 #define IDD_DIALOG1                     316
 #define IDD_WaitDlg                     316
 #define IDD_TEST                        317
+#define IDI_ICON1                       319
+#define IDI_CK                          319
+#define IDI_ICON2                       320
+#define IDI_BASE_INFO                   320
+#define IDI_ICON3                       321
+#define IDI_INPUT                       321
+#define IDI_LIGHT_ON                    324
+#define IDI_LIGHT_OFF                   327
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -88,7 +99,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        318
+#define _APS_NEXT_RESOURCE_VALUE        328
 #define _APS_NEXT_COMMAND_VALUE         32784
 #define _APS_NEXT_CONTROL_VALUE         1041
 #define _APS_NEXT_SYMED_VALUE           310
