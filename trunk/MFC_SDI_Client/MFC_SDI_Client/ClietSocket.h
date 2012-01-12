@@ -130,7 +130,7 @@ void ChenkInitInfo(char* buff,int nRecvLength);
 功能:接收返回信息
 *************************************************************************************/
 
-void CheckBack(char* buff,int nRecvLength);
+void CheckBack(unsigned char* buff,int nRecvLength);
 
 /************************************************************************************
 功能:发送用户登录信息

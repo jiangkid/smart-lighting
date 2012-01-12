@@ -32,8 +32,13 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	void OnLightShow();
 	CButtonST* NewMyButton(int nID, CRect rect , int nStyle);
-	void ChangeButton(void);
-	void ChangeSecondButton(void);
+	void ChangeButtonOn(void);
+	void ChangeSecondButtonOn(void);
+	void ChangeDoubleOn(void);
+	void ChangeButtonOff(void);
+	void ChangeSecondButtonOff(void);
+	void ChangeDoubleOff(void);
+
 };
 
 
