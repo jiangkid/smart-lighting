@@ -309,7 +309,8 @@ void CSetG::OnBnClickedBtnGset()
 	int nRet(-1),nRetUser(-1);
 	CString str=_T("");
 	char buff[2]={'S',0x39};
-	str+=buff;
+	str+=buff[0];
+	str+=buff[1];
 	nRet=m_ComG.GetCurSel();
 	nRetUser=m_UserNameSet.GetCurSel();
 	if (m_GName=="" || nRet==-1)
@@ -318,7 +319,8 @@ void CSetG::OnBnClickedBtnGset()
 	}
 	else 
 	{
-		str+=pTheApp->m_GInfo[nRet].GID;
+		str+=pTheApp->m_GInfo[nRet].GID[0];
+		str+=pTheApp->m_GInfo[nRet].GID[1];
 		str+="+";
 		str+=m_GName;
 		str+="+";
@@ -336,7 +338,8 @@ void CSetG::OnBnClickedBtnTset()
 	int nRetT(-1);
 	CString str=_T("");
 	char buff[2]={'S',0x38};
-	str+=buff;
+	str+=buff[0];
+	str+=buff[1];
 	nRetT=m_ComT.GetCurSel();
 	//nRetUser=m_UserNameSet.GetCurSel();
 	if (nRetT==-1 || m_TName=="")
@@ -345,7 +348,10 @@ void CSetG::OnBnClickedBtnTset()
 	}
 	else 
 	{
-		str+=pTheApp->m_TInfo[nRetT].TID;
+		str+=pTheApp->m_TInfo[nRetT].TID[0];
+		str+=pTheApp->m_TInfo[nRetT].TID[1];
+		str+=pTheApp->m_TInfo[nRetT].TID[2];
+		str+=pTheApp->m_TInfo[nRetT].TID[3];
 		str+="+";
 		str+=m_TName;
 		str+="#";
@@ -361,7 +367,8 @@ void CSetG::OnBnClickedBtnRset()
 	int nRetR(-1);
 	CString str=_T("");
 	char buff[2]={'S',0x37};
-	str+=buff;
+	str+=buff[0];
+	str+=buff[1];
 	nRetR=m_ComR.GetCurSel();
 	//nRetUser=m_UserNameSet.GetCurSel();
 	if (nRetR==-1 || m_RName=="")
@@ -370,7 +377,12 @@ void CSetG::OnBnClickedBtnRset()
 	}
 	else 
 	{
-		str+=pTheApp->m_RInfo[nRetR].RID;
+		str+=pTheApp->m_RInfo[nRetR].RID[0];
+		str+=pTheApp->m_RInfo[nRetR].RID[1];
+		str+=pTheApp->m_RInfo[nRetR].RID[2];
+		str+=pTheApp->m_RInfo[nRetR].RID[3];
+		str+=pTheApp->m_RInfo[nRetR].RID[4];
+		str+=pTheApp->m_RInfo[nRetR].RID[5];
 		str+="+";
 		str+=m_RName;
 		str+="#";
@@ -386,7 +398,8 @@ void CSetG::OnBnClickedBtnLset()
 	int nRetL(-1);
 	CString str=_T("");
 	char buff[2]={'S',0x36};
-	str+=buff;
+	str+=buff[0];
+	str+=buff[1];
 	nRetL=m_ComL.GetCurSel();
 	//nRetUser=m_UserNameSet.GetCurSel();
 	if (nRetL==-1 || m_LName=="")
@@ -395,7 +408,10 @@ void CSetG::OnBnClickedBtnLset()
 	}
 	else 
 	{
-		str+=pTheApp->m_LInfo[nRetL].LID;
+		for (int i=0;i<16;i++)
+		{
+			str+=pTheApp->m_LInfo[nRetL].LID[i];
+		}
 		str+="+";
 		str+=m_LName;
 		str+="#";

@@ -2,11 +2,14 @@
 #include "stdafx.h"
 #include "MFC_SDI_Client.h"
 #include "ClietSocket.h"
-
+#include "LightView.h"
+#include "MainFrm.h"
+#include "GTRLView.h"
 
 HDR hdr;
 USERINFO userInfo[9];
 IintInfo m_InitInfo;
+LInfo    m_InitLInfo;
 bool BGTrue = false;
 bool BTTrue = false;
 bool BRTrue = false;
@@ -89,16 +92,21 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					case 'L':
 						ChenkInitInfo(szBuf,iRet);
 						break;
+					case 0x2F:
+						CheckBack(szBuf,iRet);
+						break;
 					default:
 						break;
 					}
 				}
 			else
-			{
+				{
+				HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
+				SendMessage(m_wnd,WM_CLOSE,0,0);
 				AfxMessageBox(_T("服务器已经关闭！"));
 				TerminateThread(theApp.h1,0);
 				break;
-			}
+				}
 		}
 		Sleep(500);
 	}
@@ -350,25 +358,23 @@ void ChenkBGTRL(char* buff,int nRecvLength)
 		AfxMessageBox(_T("添加LID失败，请重新操作！"));
 	}
 }
-/************************************************************************************
-初始化获取函数
-功能:获得所有的区域的ID和名称及其数量
-返回的格式:L G O/1 0x00-0xFF<名称1>{01}<名称2>{01}.......<名称n>{0n}#
-功能:获得所有的终端的ID和名称及其数量
-返回的格式:L T O/1 0x00-0xFF<名称1>{01}<名称2>{0101}.......<名称n>{0n01}#
-功能:获得所有的路的ID和名称及其数量
-返回的格式:L R O/1 0x00-0xFF<名称1>{01}<名称2>{010101}.......<名称n>{0n0101}#
-*************************************************************************************/
 void ChenkInitInfo(char* buff,int nRecvLength)
 {
+	
 	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
-	if (buff[0]=='L'&&buff[1]=='G'&&buff[2]=='0')
+	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='L')
 	{
-		theApp.m_InitTrue=true;
 		SendMessage(m_wnd,WM_CLOSE,0,0);
 	}
-	if (buff[0]=='L'&&buff[1]=='G'&&buff[2]=='1')
+	if (buff[0]=='L'&&buff[1]=='1')
 	{
+		theApp.m_InitTrue=true;
+		//SendMessage(m_wnd,WM_CLOSE,0,0);
+		SendMessage(m_wnd,WM_DESTROY,0,0);
+	}
+	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='G')
+	{
+		ZeroMemory(&m_InitInfo.GNum,sizeof(int));
 		m_InitInfo.GNum=buff[3];
 		int nGCount(0);
 		for (int i=4;buff[i]!='#';i++)
@@ -394,16 +400,13 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 				i+=1;
 				nGCount++;
 			}
-
-		}	
+		}
+		char buffer[3]={'L','T','#'};
+		send(theApp.m_ConnectSock,buffer,3,0);
 	}
-	if (buff[0]=='L'&&buff[1]=='T'&&buff[2]=='0')
+	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='T')
 	{
-		theApp.m_InitTrue=true;
-		SendMessage(m_wnd,WM_CLOSE,0,0);
-	}
-	if (buff[0]=='L'&&buff[1]=='T'&&buff[2]=='1')
-	{
+		ZeroMemory(&m_InitInfo.TNum,sizeof(int));
 		m_InitInfo.TNum=buff[3];
 		int nTCount(0);
 		for (int i=4;buff[i]!='#';i++)
@@ -416,6 +419,7 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 					m_InitInfo.m_InitTInfo[nTCount].TName[m]=buff[i+1];
 					m++;
 				}
+				i+=1;
 			}
 			if (buff[i]=='{')
 			{
@@ -425,6 +429,7 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 					m_InitInfo.m_InitTInfo[nTCount].TID[n]=buff[i+1];
 					n++;
 				}
+				i+=1;
 			}
 			if (buff[i]=='(')
 			{
@@ -434,18 +439,16 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 					m_InitInfo.m_InitTInfo[nTCount].GID[k]=buff[i+1];
 					k++;
 				}
+				i+=1;
 				nTCount++;
 			}
-		
 		}
+		char buffer[3]={'L','R','#'};
+		send(theApp.m_ConnectSock,buffer,3,0);
 	}
-	if (buff[0]=='L'&&buff[1]=='R'&&buff[2]=='0')
+	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='R')
 	{
-		theApp.m_InitTrue=true;
-		SendMessage(m_wnd,WM_CLOSE,0,0);
-	}
-	if (buff[0]=='L'&&buff[1]=='R'&&buff[2]=='1')
-	{
+		ZeroMemory(&m_InitInfo.RNum,sizeof(int));
 		m_InitInfo.RNum=buff[3];
 		int nRCount(0);
 		for (int i=4;buff[i]!='#';i++)
@@ -453,54 +456,44 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 			if (buff[i]=='<')
 			{
 				int m(0);
-				for (;buff[i+1]=='>';i++)
+				for (;buff[i+1]!='>';i++)
 				{
 					m_InitInfo.m_InitRInfo[nRCount].RName[m]=buff[i+1];
 					m++;
 				}
+				i+=1;
 			}
 			if (buff[i]=='{')
 			{
 				int n(0);
-				for (;buff[i+1]=='}';i++)
+				for (;buff[i+1]!='}';i++)
 				{
 					m_InitInfo.m_InitRInfo[nRCount].RID[n]=buff[i+1];
 					n++;
 				}
+				i+=1;
 			}
 			if (buff[i]=='(')
 			{
 				int k(0);
-				for (;buff[i+1]==')';i++)
+				for (;buff[i+1]!=')';i++)
 				{
 					m_InitInfo.m_InitRInfo[nRCount].TID[k]=buff[i+1];
 					k++;
 				}
+				i+=1;
 				nRCount++;
 			}
 		}
+		SendMessage(m_wnd,WM_CLOSE,0,0);
 	}
-}
-/************************************************************************************
- 功能:char-cstring 封装函数
-*************************************************************************************/
-//CString CHARTOCSTring(unsigned char* str,int nLength)
-//{
-//	CString strShow=_T("");
-//	LPTSTR p;
-//	TCHAR szText[300];
-//	ZeroMemory(szText, 300);
-//	p = szText;
-//	for (int i = 0; i< nLength; i++)
-//	{
-//		p+= wsprintf(p, "%.2X", str[i]);  //这部分为关键部分
-//	}
-//	strShow.Format(_T("%s"), szText);
-//	return strShow;
-//}
-/************************************************************************************
-函数功能：将16byte的char型ID转换为8byte的char型ID
-*************************************************************************************/
-//char* CStringTOChar(unsigned char* buffer, int Length)
-//{
-//		char buff[8];//		int nCount=0;//		int i,j;//		for (i=0;i<Length/2;i++)//		{//			CString temp="";//			for (j=nCount*2;j<nCount*2+2;j++)//			{//				temp+=buffer[j];//			}//			sscanf(temp,"%2X",&buff[nCount]);//			nCount++;//		}//		return buff;//}
+}void CheckBack(char* buff,int nRecvLength){	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();	CLightView* m_light;	ZeroMemory(&m_InitLInfo,sizeof(LInfo));
+	int m=0;
+	for (int i=4;i<20;i++)
+	{
+		m_InitLInfo.LID[m]=buff[i];
+		m++;
+	}	if (0x31 == buff[2])
+	{
+		AfxMessageBox(_T("操作失败！"));
+	}}
