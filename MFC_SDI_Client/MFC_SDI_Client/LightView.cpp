@@ -217,32 +217,45 @@ CButtonST* CLightView::NewMyButton(int nID, CRect rect , int nStyle)
 	return p_Button;
 }
 
-void CLightView::ChangeButton(void)
+void CLightView::ChangeButtonOn(void)
 {
-	if (m_InitLInfo.LMainStatus[0]==0x00)
-	{
-		m_InitLInfo.LMainStatus[0]=0x01;
-		p_MyBut[0]->SetIcon(IDI_LIGHT_ON);
-	}
-	else
-	{
-		m_InitLInfo.LMainStatus[0]=0x00;
-		p_MyBut[0]->SetIcon(IDI_LIGHT_OFF);
-	}
+	p_MyBut[0]->SetIcon(IDI_LIGHT_ON);
+	m_InitLInfo.LMainStatus[0]=0x01;
 	UpdateWindow();
 }
 
-void CLightView::ChangeSecondButton(void)
+void CLightView::ChangeSecondButtonOn(void)
 {
-	if (m_InitLInfo.LSecondStatus[0]==0x00)
-	{
+	p_MyBut[1]->SetIcon(IDI_LIGHT_ON);
+	m_InitLInfo.LSecondStatus[0]=0x01;
+	UpdateWindow();
+}
+
+void CLightView::ChangeDoubleOn(void)
+{
 		m_InitLInfo.LSecondStatus[0]=0x01;
+		m_InitLInfo.LMainStatus[0]=0x01;
+		p_MyBut[0]->SetIcon(IDI_LIGHT_ON);
 		p_MyBut[1]->SetIcon(IDI_LIGHT_ON);
-	}
-	else
-	{
-		m_InitLInfo.LSecondStatus[0]=0x00;
-		p_MyBut[1]->SetIcon(IDI_LIGHT_OFF);
-	}
+		UpdateWindow();
+}
+void CLightView::ChangeButtonOff(void)
+{
+	p_MyBut[0]->SetIcon(IDI_LIGHT_OFF);
+	m_InitLInfo.LMainStatus[0]=0x00;
+	UpdateWindow();
+}
+void CLightView::ChangeSecondButtonOff(void)
+{
+	p_MyBut[1]->SetIcon(IDI_LIGHT_OFF);
+	m_InitLInfo.LSecondStatus[0]=0x00;
+	UpdateWindow();
+}
+void CLightView::ChangeDoubleOff(void)
+{
+	p_MyBut[1]->SetIcon(IDI_LIGHT_OFF);
+	m_InitLInfo.LSecondStatus[0]=0x00;
+	p_MyBut[0]->SetIcon(IDI_LIGHT_OFF);
+	m_InitLInfo.LMainStatus[0]=0x00;
 	UpdateWindow();
 }
