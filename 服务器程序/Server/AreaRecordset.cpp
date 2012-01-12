@@ -151,7 +151,7 @@ CString CAreaRecordset::GetAllAreaIDAndCount()
 	while (!pAreaRs->adoEOF)
 	{
 		vAreaID=pAreaRs->GetCollect("AreaID");
-		if (vAreaID.vt!=NULL)
+		if (vAreaID.vt!=VT_NULL)
 		{
 			//strAreaID+="<";
 			strAreaID+=(LPCTSTR)(_bstr_t)vAreaID;
@@ -160,6 +160,7 @@ CString CAreaRecordset::GetAllAreaIDAndCount()
 		count++;
 		pAreaRs->MoveNext();
 	}
+	pAreaRs->Close();
 	AreaIDAndCount=count+strAreaID;
 	AreaIDAndCount+="#";
 	return AreaIDAndCount;
@@ -248,7 +249,7 @@ BOOL CAreaRecordset::SetAreaNameAndIDUser(CString areaID,CString areaName,CStrin
 		if (!pUserRs->adoEOF)
 		{
 			vID=pUserRs->GetCollect("ID");
-			if (vID.vt!=NULL)
+			if (vID.vt!=VT_NULL)
 			{
 				idUser=vID.intVal;
 			}
@@ -261,14 +262,13 @@ BOOL CAreaRecordset::SetAreaNameAndIDUser(CString areaID,CString areaName,CStrin
 	}
 	pUserRs->Close();
 	pUserRs=NULL;
-
 	if (Open(areaSQL))
 	{
 		SetAsString("AreaName",areaName);
 		SetAsInt("IDUser",idUser);
 		return TRUE;
 	}
-	return TRUE;
+	return FALSE;
 }
 /************************************************************************************
 功能:获得所有的区域的ID和名称及其数量
@@ -294,19 +294,21 @@ CString CAreaRecordset::GetAllAreaAndCount()
 	catch(_com_error&e)
 	{
 		AfxMessageBox(e.Description());
+		allAreas = "";
+		return allAreas;
 	}
 
 	while (!pAreaRs->adoEOF)
 	{
-		vAreaName=pAreaRs->GetCollect("AreaName");   //获得AreaName字段的值
-		if (vAreaName.vt!=NULL)
+		vAreaName = pAreaRs->GetCollect("AreaName");   //获得AreaName字段的值
+		if ((vAreaName.vt != VT_NULL)&&(vAreaName.vt != VT_EMPTY))
 		{
 			allAreas+="<";
 			allAreas+=(LPCTSTR)(_bstr_t)vAreaName;
 			allAreas+=">";
 		}
 		vAreaID=pAreaRs->GetCollect("AreaID");     //获得AreaID字段的值
-		if (vAreaID.vt!=NULL)
+		if ((vAreaID.vt != VT_NULL)&&(vAreaID.vt != VT_EMPTY))
 		{
 			allAreas+="{";
 			allAreas+=(LPCTSTR)(_bstr_t)vAreaID;
@@ -316,7 +318,6 @@ CString CAreaRecordset::GetAllAreaAndCount()
 		pAreaRs->MoveNext();
 	}
 	pAreaRs->Close();
-
 	allAreas=count+allAreas;
 	allAreas+="#";
 	return allAreas;

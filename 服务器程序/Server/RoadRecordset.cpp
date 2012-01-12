@@ -22,7 +22,7 @@ BOOL CRoadRecordset::SetRoadName(CString RoadID,CString RoadName)
 	SQL.Format("Select * From  Roads Where [RoadID] = '%s'",RoadID);
 	if (Open(SQL))
 	{
-		SetAsString("Name",RoadName);
+		SetAsString("RoadName",RoadName);
 		return TRUE;
 	}
 	return FALSE;
@@ -216,7 +216,7 @@ CString CRoadRecordset::GetAllRoadsAndCount()
 	while (!pRoadRs->adoEOF)
 	{
 		vRoadName=pRoadRs->GetCollect("RoadName");   //RoadName字段的值
-		if (vRoadName.vt!=NULL)
+		if ((vRoadName.vt != VT_NULL)&&(vRoadName.vt != VT_EMPTY))
 		{
 			allRoads+="<";
 			allRoads+=(LPCTSTR)(_bstr_t)vRoadName;
@@ -224,7 +224,7 @@ CString CRoadRecordset::GetAllRoadsAndCount()
 		}
 
 		vRoadID=pRoadRs->GetCollect("RoadID");     //RoadID字段的值
-		if (vRoadID.vt!=NULL)
+		if (vRoadID.vt!=VT_NULL)
 		{
 			allRoads+="{";
 			allRoads+=(LPCTSTR)(_bstr_t)vRoadID;
@@ -232,7 +232,7 @@ CString CRoadRecordset::GetAllRoadsAndCount()
 		}
 
 		vIDTerminal=pRoadRs->GetCollect("IDTerminal");         //IDArea字段的值
-		if(vIDTerminal.vt!=NULL)
+		if((vIDTerminal.vt != VT_NULL)&&(vIDTerminal.vt != VT_EMPTY))
 		{
 			intIDTerminal=vIDTerminal.intVal;
 		} 
@@ -252,7 +252,7 @@ CString CRoadRecordset::GetAllRoadsAndCount()
 		if(!pTerminalRs->adoEOF)
 		{
 			vTerminalID=pTerminalRs->GetCollect("TerminalID");   //TerminalID字段的值
-			if (vTerminalID.vt!=NULL)
+			if ((vTerminalID.vt != VT_NULL)&&(vTerminalID.vt != VT_EMPTY))
 			{
 				allRoads+="(";
 				allRoads+=(LPCTSTR)(_bstr_t)vTerminalID;
@@ -261,8 +261,9 @@ CString CRoadRecordset::GetAllRoadsAndCount()
 		}
 		count++;
 		pRoadRs->MoveNext();
+		pTerminalRs->Close();
 	}
-	pTerminalRs->Close();
+	
 	pRoadRs->Close();
 	allRoads=count+allRoads;
 	allRoads+="#";

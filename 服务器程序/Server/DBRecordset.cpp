@@ -21,14 +21,14 @@ BOOL CDBRecordset::Open(CString SQL)
 	try
 	{
 		m_pRs->Open(_variant_t(SQL),_variant_t(m_cnn->m_pConn,true),adOpenStatic,adLockOptimistic,adCmdUnknown);
-		m_Actived = TRUE;                       
-		return TRUE;
+		m_Actived = TRUE;                     
 	}
 	catch(_com_error &e)
 	{
 		::AfxMessageBox(e.ErrorMessage());
 		return FALSE;
 	}
+	return TRUE;
 }
 
 void CDBRecordset::MoveFirst()
@@ -90,10 +90,9 @@ void CDBRecordset::Close()
 
 void CDBRecordset::SetAsString(CString FieldName,CString strValue)
 {
-	ASSERT(!IsBOF()&&!IsEOF());
-	
+//	ASSERT(!IsBOF()&&!IsEOF());	
 	BSTR bstrValue=strValue.AllocSysString();
-	m_pRs->Fields->Item[_variant_t(FieldName)]->Value = bstrValue;
+	m_pRs->Fields->Item[_variant_t(FieldName)]->Value = bstrValue;//ÓÐ´íÎó
 	m_pRs->Update();
 	SysFreeString(bstrValue);
 }
