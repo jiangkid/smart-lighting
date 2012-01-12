@@ -11,6 +11,7 @@ public:
 
 	BOOL StartServer(int nPort);
 	BOOL StopServer();
+	BOOL LogIn(LPCIOCPContext  pContext);
 	static int listen;
 	static SOCKET m_sAccept;
 	CDBConnection *m_conn;

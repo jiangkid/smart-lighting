@@ -138,6 +138,7 @@ public:
 	BOOL InQueue(LPQlist Qlist,CHAR * buffer,int lenth);
 	char* OutQueue(LPQlist Qlist,int &length);
 	char* Translation_ID(char* buffer, int Length);
+	char *CharToCString(char* str, int nLength);//将8byte的char型ID转换为16byte的char型ID
 	static LPQlist  QlistCtG; //客户端到GPRS的队列
 	static LPQlist  QlistGtC; //GPRS到客户端的队列
 	

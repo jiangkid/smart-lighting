@@ -401,6 +401,7 @@ CString CGenericServer::GetPswByAdminName(CString AdminName)
 char* CGenericServer::Translation_ID(char* buffer, int Length)
 {
 	char c[8];
+	ZeroMemory(c,8);
 	int nCount = 0;
 	CString temp;
 	int i,j;
@@ -409,10 +410,27 @@ char* CGenericServer::Translation_ID(char* buffer, int Length)
 		CString temp="";
 		for (j=nCount*2;j<nCount*2+2;j++)
 		{
-			temp+=buffer[j];
+			temp+=buffer[j+5];
 		}
 		sscanf(temp,"%2x",&c[nCount]);
 		nCount++;
 	}
 	return c;
+}
+ /********************************************
+函数功能：将8byte的char型ID转换为16byte的char型ID
+ ********************************************/
+char *CGenericServer::CharToCString(char* str, int nLength)
+{
+	//CString strShow=_T("");
+	LPTSTR p;
+	CHAR szText[16];
+	ZeroMemory(szText, 16);
+	p = szText;
+	for (int i = 0; i< nLength; i++)
+	{
+		p+= wsprintf(p, "%.2X", str[i]);  //这部分为关键部分
+	}
+	//strShow.Format(_T("%s"), szText);
+	return szText;
 }

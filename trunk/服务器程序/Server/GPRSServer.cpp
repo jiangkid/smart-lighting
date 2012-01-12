@@ -4,30 +4,6 @@
 #include <process.h>
 #include "ServerDlg.h"
 
-//////////////////////测试/////////////////////////////
-#include "HRLightCommand.h" 
-#include "AdminRecordset.h"
-#include "HRRoadCommand.h"
-#include "HRTerminalCommand.h"
-#include"UserCommand.h "
-#include "LightRecordset.h"
-#include "WarningInfoCommand.h"
-#include "WarningInfoRecordset.h"
-#include "WarningInfoCommand.h"
-#include "TerminalRecordset.h"
-#include "RoadRecordset.h"
-#include "LightRecordset.h"
-#include "HROperation.h"
-#include "HROperationRecordset.h"
-#include "HRLightRecordset.h"
-#include "AdminCommand.h"
-#include "AreaCommand.h"
-#include "AreaRecordset.h"
-//////////////////////////////////////////////////////
-
-//CGPRSServer    _GPRSServer;
-//CGPRSServer   *pGprsServer = &_GPRSServer;
-
 CGPRSServer::CGPRSServer(void)
 {
 	m_conn =new CDBConnection;
@@ -50,6 +26,26 @@ CGPRSServer::~CGPRSServer(void)
 	DeleteCriticalSection(&m_CriticalSection);
 	delete m_conn;
 }
+/********************************************
+   函数功能：用户登录验证
+********************************************/
+ BOOL CGPRSServer::LogIn(LPCIOCPContext  pContext)
+ {
+	CString str;
+	LPTSTR p ;
+	//char data4 = 0xCC;
+	p = pContext->Identify;
+	if ((pContext->pPerIOData->data[0]==0x2F)&&(pContext->pPerIOData->data[1]==0x2F)&&(pContext->pPerIOData->data[2]==0x2F)&&((pContext->pPerIOData->data[4] + 256)==0xCC))
+	{
+		ZeroMemory(pContext->Identify,10);
+		wsprintf(p, "%.2X", pContext->pPerIOData->data[3]);
+		//str.Format("%s",pContext->Identify);
+		return TRUE;
+	}
+	else
+		return FALSE;
+ }
+
 int CGPRSServer::listen = 0;
 SOCKET CGPRSServer::m_sAccept = 0;
 //
@@ -224,18 +220,27 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 	LPCIOCPContext lpConnCtx;
 	int nResult = 0;
 	int length = 0;
+	int IDlength = 16;
 	CString buffer1;
 	CString temp1;
 	sockaddr_in addrAccept;
-	char *recv;
+	char *recv, *IDchar;
 	char strTemp_send[BUFFER_SIZE];
 	char strTemp_recv[BUFFER_SIZE];
+	char strTemp_ID[21];
+	char strTemp_IDGTC[27];
+	char strTemp_IDG[8];
+	char strTemp_IDC[16];
 	ZeroMemory(&strTemp_recv,sizeof(strTemp_recv));
 	ZeroMemory(&strTemp_send,sizeof(strTemp_send));
 
 	while (1)
 	{
-		//发送三次心跳消息,若远程终端没有响应,则服务端移除此连接		
+ 		bSucess = GetQueuedCompletionStatus(hIOCP,
+ 			&dwIOSize,
+ 			(LPDWORD)&lpConnCtx,
+ 			&pOverLapped,
+ 			500);    
 		if  (QlistCtG->front != QlistCtG->rear)
 		{
 			length = 0;
@@ -244,34 +249,59 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
 			{
 				continue;
 			}
-			
+			ZeroMemory(strTemp_send,BUFFER_SIZE);
+			memcpy(strTemp_send,recv,length);
+			recv = NULL;
+			for (int i = 1; i < 5; ++i)
+			{
+				strTemp_ID[i-1] = strTemp_send[i];
+			}
+			switch(strTemp_send[4])
+			{
+			case 0x01:
+				IDlength = 16;
+				IDchar = pIOCPServer->Translation_ID(strTemp_send,IDlength);
+				memcpy(strTemp_ID+4,IDchar,8);
+				for (int i = 21; i < 30;++i)
+				{
+					strTemp_ID[i-9] = strTemp_send[i];
+				}
+				break;
+			case 0x02:
+				ZeroMemory(strTemp_IDG,8);
+				memcpy(strTemp_ID+4,strTemp_IDG,8);
+				for (int i = 21; i < 30;++i)
+				{
+					strTemp_ID[i-9] = strTemp_send[i];
+				}
+				break;
+			default:
+				break;
+			}
 			pIOCPServer->InitializeBuffer(lpPerIOData,SVR_IO_WRITE );
-			pIOCPServer->pClient->pPerIOData->wbuf.buf = recv;
-			pIOCPServer->pClient->pPerIOData->wbuf.len = length;
+			pIOCPServer->pClient->pPerIOData->wbuf.buf = strTemp_ID;
+			pIOCPServer->pClient->pPerIOData->wbuf.len = 21;
 			pIOCPServer->pClient->pPerIOData->oper = SVR_IO_WRITE;
 			pIOCPServer->pClient->pPerIOData->flags = 0;
-			nResult=WSASend(pIOCPServer->m_sAccept, 
-				&(pIOCPServer->pClient->pPerIOData->wbuf), 
-				1, 
-				NULL,
-				pIOCPServer->pClient->pPerIOData->flags,
-				&(pIOCPServer->pClient->pPerIOData->OverLapped),
-				NULL);
-			if((nResult==SOCKET_ERROR) && (WSAGetLastError()!=ERROR_IO_PENDING))
+			if (pIOCPServer->m_sAccept != INVALID_SOCKET)
 			{
-				MessageBox(NULL, "GPRS发送数据失败", "提示", MB_OK);
+				nResult=WSASend(pIOCPServer->m_sAccept, 
+					&(pIOCPServer->pClient->pPerIOData->wbuf), 
+					1, 
+					NULL,
+					pIOCPServer->pClient->pPerIOData->flags,
+					&(pIOCPServer->pClient->pPerIOData->OverLapped),
+					NULL);
+				if((nResult==SOCKET_ERROR) && (WSAGetLastError()!=ERROR_IO_PENDING))
+				{
+					MessageBox(NULL, "GPRS发送数据失败", "提示", MB_OK);
+				}
 			}
 			GetDlgItemText(H_ServerDlg,IDC_EDIT2,strTemp_send,BUFFER_SIZE);
 			buffer1 += "\r\n";
 			buffer1 += strTemp_send;
 			SetDlgItemText(H_ServerDlg,IDC_EDIT2, buffer1);
-		}		
- 		Sleep(100);
- 		bSucess = GetQueuedCompletionStatus(hIOCP,
- 			&dwIOSize,
- 			(LPDWORD)&lpConnCtx,
- 			&pOverLapped,
- 			500);    
+		}	
  		if ((!bSucess) &&(GetLastError() ==  WAIT_TIMEOUT))
  		{
  			continue;
@@ -284,12 +314,12 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
  		{
  			::ExitThread(0);
  		}
+		//ZeroMemory(lpPerIOData,sizeof(CIOCPBuffer));
  		lpPerIOData = (LPCIOCPBuffer)(pOverLapped);
- 
+		
  		if (!bSucess||(bSucess&&(dwIOSize==0)))
  		{
-			/***************此处存在bug****************/
- 			if ((lpConnCtx->sockAccept != INVALID_SOCKET)&&((lpConnCtx->pPerIOData->oper == SVR_IO_READ)||(lpConnCtx->pPerIOData->oper == SVR_IO_WRITE)))
+			if ((lpConnCtx->sockAccept != INVALID_SOCKET)&&(lpConnCtx->LogIn == TRUE || lpConnCtx->LogIn == FALSE))
  			{
  				addrAccept = lpConnCtx->addrAccept;
  				pIOCPServer->ConnListRemove(lpConnCtx);
@@ -300,6 +330,35 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
  			}			
  			continue;
  		}
+		/***************登录判断****************/
+		if (lpConnCtx->LogIn == FALSE)
+		{
+			if (lpPerIOData->oper == SVR_IO_READ)
+			{
+				if ((pIOCPServer->LogIn(lpConnCtx)) == TRUE)  //登录成功
+				{
+					lpConnCtx->LogIn = TRUE;
+					pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
+					nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
+					if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)
+					{
+						pIOCPServer->ConnListRemove(lpConnCtx);
+					}
+					ZeroMemory(lpPerIOData->data,sizeof(lpPerIOData->data));
+					continue;
+				}
+				else 
+				{
+					pIOCPServer->ConnListRemove(lpConnCtx); //此处有bug，若客户端登陆，而线程通信产生请求，会出错  
+					continue;
+				}
+			} 
+			else
+			{
+				pIOCPServer->ConnListRemove(lpConnCtx);
+				continue;
+			}	
+		}	
  		switch(lpPerIOData->oper)
  		{
  		case SVR_IO_WRITE:
@@ -313,7 +372,6 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
  			{
  				pIOCPServer->ConnListRemove(lpConnCtx);
  			}
-
  			break;
  
  		case SVR_IO_READ:
@@ -322,8 +380,25 @@ DWORD WINAPI CGPRSServer::ServiceThread(LPVOID pParam)
  			pIOCPServer->strRecv += "\r\n";
  			pIOCPServer->strRecv+=(CString)strTemp_recv;
  			SetDlgItemText(H_ServerDlg,IDC_EDIT2,pIOCPServer->strRecv);
- 			
- 			pIOCPServer->InQueue(QlistGtC,lpPerIOData->wbuf.buf,dwIOSize);
+ 			if ((lpPerIOData->data[0] == 0x2F)&&(dwIOSize == 19))
+ 			{
+				for (int i = 4;i<12;++i)
+				{
+					strTemp_IDG[i-4] = lpPerIOData->data[i];
+				}
+				IDchar = pIOCPServer->CharToCString(strTemp_IDG,8);
+				memcpy(strTemp_IDC,IDchar,16);
+				ZeroMemory(strTemp_ID,21);
+				ZeroMemory(strTemp_IDGTC,sizeof(strTemp_IDGTC));
+				memcpy(strTemp_ID,lpPerIOData->data,21);				
+				memcpy(strTemp_IDGTC,lpPerIOData->data,4);
+				memcpy(strTemp_IDGTC+4,strTemp_IDC,16);
+				for (int i = 0;i<7;++i)
+				{
+					strTemp_IDGTC[20+i] = strTemp_ID[12+i];
+				}
+				pIOCPServer->InQueue(QlistGtC,strTemp_IDGTC,sizeof(strTemp_IDGTC));
+ 			}
  			pIOCPServer->InitializeBuffer(lpPerIOData, SVR_IO_READ);
  			nResult=WSARecv(lpConnCtx->sockAccept,&(lpPerIOData->wbuf),1,NULL,&(lpPerIOData->flags),&(lpPerIOData->OverLapped),NULL);
  			if (nResult == SOCKET_ERROR&&WSAGetLastError()!=ERROR_IO_PENDING)

@@ -55,7 +55,6 @@ BOOL CTerminalCommand::AddTerminalID(CString areaID,CString terminalID)
 		{
 			idArea=vIDArea.lVal;        //与Terminals表建立一对多的关联字段IDArea的值
 		}
-		//pAreaRs->MoveNext();
 	}
 	terminalSQL.Format("Insert Into Terminals([ID],[TerminalID],[IDArea])Values(%d,'%s',%ld)",MaxID,terminalID,idArea);
 	if (!ExcuteSQL(terminalSQL))

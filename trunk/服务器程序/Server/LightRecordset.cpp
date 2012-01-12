@@ -67,7 +67,7 @@ BOOL CLightRecordset::SetLightName(CString LightID,CString LightName)
 
 	if (Open(SQL))
 	{
-		SetAsString("Name",LightName);
+		SetAsString("LightName",LightName);
 		return TRUE;
 	}
 	return FALSE;
@@ -161,7 +161,7 @@ int CLightRecordset::GetGroupNum(CString LightID)
 	   while (!pLightRs->adoEOF)
 	   {
 		   vLightName=pLightRs->GetCollect("LightName");   //LightName字段的值
-		   if (vLightName.vt!=NULL)
+		   if ((vLightName.vt != VT_NULL)&&(vLightName.vt != VT_EMPTY))
 		   {
 			   allLights+="<";
 			   allLights+=(LPCTSTR)(_bstr_t)vLightName;
@@ -169,7 +169,7 @@ int CLightRecordset::GetGroupNum(CString LightID)
 		   }
 
 		   vLightID=pLightRs->GetCollect("LightID");     //LightID字段的值
-		   if (vLightID.vt!=NULL)
+		   if ((vLightID.vt != VT_NULL)&&(vLightID.vt != VT_EMPTY))
 		   {
 			   allLights+="{";
 			   allLights+=(LPCTSTR)(_bstr_t)vRoadID;
@@ -177,7 +177,7 @@ int CLightRecordset::GetGroupNum(CString LightID)
 		   }
 
 		   vIDRoad=pLightRs->GetCollect("IDRoad");         //IDRoad字段的值
-		   if(vIDRoad.vt!=NULL)
+		   if(vIDRoad.vt!=VT_NULL)
 		   {
 			   intIDRoad=vIDRoad.intVal;
 		   } 
@@ -197,7 +197,7 @@ int CLightRecordset::GetGroupNum(CString LightID)
 		   if(!pRoadRs->adoEOF)
 		   {
 			   vRoadID=pRoadRs->GetCollect("RoadID");   //TerminalID字段的值
-			   if (vRoadID.vt!=NULL)
+			   if (vRoadID.vt!=VT_NULL)
 			   {
 				   allLights+="(";
 				   allLights+=(LPCTSTR)(_bstr_t)vRoadID;

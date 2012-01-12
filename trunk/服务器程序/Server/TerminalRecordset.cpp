@@ -24,10 +24,10 @@ BOOL CTerminalRecordset::LoadTerminalData()
 BOOL CTerminalRecordset::SetTerminalName(CString TerminalID,CString TerminalName)
 {
 	CString SQL;
-	SQL.Format("Select * From  Terminals Where [TerminalID] = %s",TerminalID);
+	SQL.Format("Select * From  Terminals Where [TerminalID] = '%s'",TerminalID);
 	if (Open(SQL))
 	{
-		SetAsString("Name",TerminalName);
+		SetAsString("TerminalName",TerminalName);
 		return TRUE;
 	}
 	return FALSE;
@@ -224,7 +224,7 @@ CString CTerminalRecordset::GetAllTerminalsAndCount()
 	while (!pTerminalRs->adoEOF)
 	{
 		vTerminalName=pTerminalRs->GetCollect("TerminalName");   //TerminalName字段的值
-		if (vTerminalName.vt!=NULL)
+		if ((vTerminalName.vt != VT_NULL)&&(vTerminalName.vt != VT_EMPTY))
 		{
 			allTerminals+="<";
 			allTerminals+=(LPCTSTR)(_bstr_t)vTerminalName;
@@ -232,7 +232,7 @@ CString CTerminalRecordset::GetAllTerminalsAndCount()
 		}
 
 		vTerminalID=pTerminalRs->GetCollect("TerminalID");     //TerminalID字段的值
-		if (vTerminalID.vt!=NULL)
+		if ((vTerminalID.vt != VT_NULL)&&(vTerminalID.vt != VT_EMPTY))
 		{
 			allTerminals+="{";
 			allTerminals+=(LPCTSTR)(_bstr_t)vTerminalID;
@@ -240,7 +240,7 @@ CString CTerminalRecordset::GetAllTerminalsAndCount()
 		}
 
 		vIDArea=pTerminalRs->GetCollect("IDArea");         //IDArea字段的值
-		if(vIDArea.vt!=NULL)
+		if((vIDArea.vt != VT_NULL)&&(vIDArea.vt != VT_EMPTY))
 		{
 			intIDArea=vIDArea.intVal;
 		} 
@@ -260,7 +260,7 @@ CString CTerminalRecordset::GetAllTerminalsAndCount()
 		if(!pAreaRS->adoEOF)
 		{
 			vAreaID=pAreaRS->GetCollect("AreaID");   //AreaID字段的值
-			if (vAreaID.vt!=NULL)
+			if ((vAreaID.vt != VT_NULL)&&(vAreaID.vt != VT_EMPTY))
 			{
 				allTerminals+="(";
 				allTerminals+=(LPCTSTR)(_bstr_t)vAreaID;
