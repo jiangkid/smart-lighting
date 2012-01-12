@@ -93,7 +93,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 						ChenkInitInfo(szBuf,iRet);
 						break;
 					case 0x2F:
-						CheckBack(szBuf,iRet);
+						CheckBack((unsigned char*)szBuf,iRet);
 						break;
 					default:
 						break;
@@ -487,13 +487,53 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		}
 		SendMessage(m_wnd,WM_CLOSE,0,0);
 	}
-}void CheckBack(char* buff,int nRecvLength){	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();	CLightView* m_light;	ZeroMemory(&m_InitLInfo,sizeof(LInfo));
+}
+
+void CheckBack(unsigned char* buff,int nRecvLength)
+{
+	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
+	CLightView* m_light;
+
+	ZeroMemory(&m_InitLInfo,sizeof(LInfo));
 	int m=0;
 	for (int i=4;i<20;i++)
 	{
 		m_InitLInfo.LID[m]=buff[i];
 		m++;
-	}	if (0x31 == buff[2])
+	}
+	if (0x31 == buff[2])
 	{
 		AfxMessageBox(_T("²Ù×÷Ê§°Ü£¡"));
-	}}
+		return;
+	}
+		if ((buff[20]==0xA3)&&(buff[21]==0xBD))
+		{
+			m_InitLInfo.LMainStatus[0]=buff[23];
+			m_InitLInfo.LSecondStatus[0]=buff[25];
+			SendMessage(m_wnd,WM_CLOSE,0,0);
+		}
+		if ((buff[20]==0xA1)&&(buff[21]==0xB1))
+		{
+			m_light->ChangeButtonOn();
+		}
+		if ((buff[20]==0xA3)&&(buff[21]==0xB1))
+		{
+			m_light->ChangeSecondButtonOn();
+		}
+		if ((buff[20]==0xA2)&&(buff[21]==0xB1))
+		{
+			m_light->ChangeSecondButtonOn();
+		}
+		if ((buff[20]==0xA1)&&(buff[21]==0xB2))
+		{
+			m_light->ChangeButtonOff();
+		}
+		if ((buff[20]==0xA3)&&(buff[21]==0xB2))
+		{
+			m_light->ChangeSecondButtonOff();
+		}
+		if ((buff[20]==0xA2)&&(buff[21]==0xB2))
+		{
+			m_light->ChangeSecondButtonOff();
+		}
+}
