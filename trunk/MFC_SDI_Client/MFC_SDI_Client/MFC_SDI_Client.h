@@ -14,6 +14,7 @@
 #include "SetNewUser.h"
 #include "MainSetDlg.h"
 #include "WaitDlg.h"
+#include "LightView.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 
@@ -37,6 +38,7 @@ public:
 	LInfo m_LInfo[4096];
 	NumInfo m_NumInfo;
 	CWaitDlg m_WaitDlg;
+	CLightView *m_light;
 // 重写
 public:
 	virtual BOOL InitInstance();

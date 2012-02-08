@@ -5,7 +5,7 @@
 #include "LightView.h"
 #include "MainFrm.h"
 #include "GTRLView.h"
-
+#include "MFC_SDI_ClientDoc.h"
 HDR hdr;
 USERINFO userInfo[9];
 IintInfo m_InitInfo;
@@ -14,6 +14,7 @@ bool BGTrue = false;
 bool BTTrue = false;
 bool BRTrue = false;
 bool BLTrue = false;
+extern CMFC_SDI_ClientApp theApp;
 
 BOOL SOCKET_Select(SOCKET hSocket, int nTimeOut, BOOL bRead)
 {
@@ -492,8 +493,13 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 void CheckBack(unsigned char* buff,int nRecvLength)
 {
 	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
-	CLightView* m_light;
-
+// 	POSITION curTemplatePos = theApp.GetFirstDocTemplatePosition();
+// 	CDocTemplate *m_doc=theApp.GetNextDocTemplate(curTemplatePos); 
+// 	curTemplatePos=m_doc->GetFirstDocPosition();
+// 	CMFC_SDI_ClientDoc *m_pdoc=(CMFC_SDI_ClientDoc*)m_doc->GetNextDoc(curTemplatePos);
+// 	curTemplatePos=m_pdoc->GetFirstViewPosition();
+// 	CLightView *m_light=(CLightView*)m_pdoc->GetNextView(curTemplatePos);
+	
 	ZeroMemory(&m_InitLInfo,sizeof(LInfo));
 	int m=0;
 	for (int i=4;i<20;i++)
@@ -506,34 +512,34 @@ void CheckBack(unsigned char* buff,int nRecvLength)
 		AfxMessageBox(_T("²Ù×÷Ê§°Ü£¡"));
 		return;
 	}
-		if ((buff[20]==0xA3)&&(buff[21]==0xBD))
-		{
-			m_InitLInfo.LMainStatus[0]=buff[23];
-			m_InitLInfo.LSecondStatus[0]=buff[25];
-			SendMessage(m_wnd,WM_CLOSE,0,0);
-		}
-		if ((buff[20]==0xA1)&&(buff[21]==0xB1))
-		{
-			m_light->ChangeButtonOn();
-		}
-		if ((buff[20]==0xA3)&&(buff[21]==0xB1))
-		{
-			m_light->ChangeSecondButtonOn();
-		}
-		if ((buff[20]==0xA2)&&(buff[21]==0xB1))
-		{
-			m_light->ChangeSecondButtonOn();
-		}
-		if ((buff[20]==0xA1)&&(buff[21]==0xB2))
-		{
-			m_light->ChangeButtonOff();
-		}
-		if ((buff[20]==0xA3)&&(buff[21]==0xB2))
-		{
-			m_light->ChangeSecondButtonOff();
-		}
-		if ((buff[20]==0xA2)&&(buff[21]==0xB2))
-		{
-			m_light->ChangeSecondButtonOff();
-		}
+	if ((buff[20]==0xA3)&&(buff[21]==0xBD))
+	{
+		m_InitLInfo.LMainStatus[0]=buff[23];
+		m_InitLInfo.LSecondStatus[0]=buff[25];
+		SendMessage(m_wnd,WM_CLOSE,0,0);
+	}
+	if ((buff[20]==0xA1)&&(buff[21]==0xB1))
+	{
+		theApp.m_light->ChangeButtonOn();
+	}
+	if ((buff[20]==0xA3)&&(buff[21]==0xB1))
+	{
+		theApp.m_light->ChangeSecondButtonOn();
+	}
+	if ((buff[20]==0xA2)&&(buff[21]==0xB1))
+	{
+		theApp.m_light->ChangeSecondButtonOn();
+	}
+	if ((buff[20]==0xA1)&&(buff[21]==0xB2))
+	{
+		theApp.m_light->ChangeButtonOff();
+	}
+	if ((buff[20]==0xA3)&&(buff[21]==0xB2))
+	{
+		theApp.m_light->ChangeSecondButtonOff();
+	}
+	if ((buff[20]==0xA2)&&(buff[21]==0xB2))
+	{
+		theApp.m_light->ChangeSecondButtonOff();
+	}
 }
