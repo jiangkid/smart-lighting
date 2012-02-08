@@ -60,25 +60,8 @@ int CLightView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	// TODO:  Add your specialized creation code here
-// 	mybutton1.Create(_T("我的按钮1"),WS_CHILD|WS_VISIBLE|BS_PUSHBUTTON,
-// 		CRect(20,20,52,52), this, 1);
-// 	//mybutton1.SubclassDlgItem(1,this);
-// 	mybutton1.SetIcon(IDI_LIGHT_ON,IDI_LIGHT_OFF);
-// 	mybutton1.DrawBorder(false);
-// 	mybutton1.SetTooltipText(_T("主灯"));
-// 	mybutton2.Create(_T("我的按钮2"),WS_CHILD|WS_VISIBLE|BS_PUSHBUTTON,
-// 		CRect(20+32,20,52+32,52), this, 2);
-// 	mybutton2.SetIcon(IDI_LIGHT_OFF);
-// 	mybutton2.DrawBorder(false);
-// 	//mybutton2.SetFlat(false);
-// 	mybutton2.SetTooltipText(_T("辅灯"));
-// 	mybutton3.Create(_T("我的按钮3"),WS_CHILD|WS_VISIBLE|BS_PUSHBUTTON,
-// 		CRect(20,20+32,84,72),this,3);
-// 	mybutton3.ShowWindow(SW_SHOW);
-// 	mybutton3.SetTooltipText(_T("双灯"));
-	
-
+	CMFC_SDI_ClientApp *pApp=(CMFC_SDI_ClientApp*)AfxGetApp();
+	pApp->m_light=this;
 	return 0;
 }
 
@@ -221,35 +204,35 @@ void CLightView::ChangeButtonOn(void)
 {
 	p_MyBut[0]->SetIcon(IDI_LIGHT_ON);
 	m_InitLInfo.LMainStatus[0]=0x01;
-	UpdateWindow();
+	//UpdateWindow(true);
 }
 
 void CLightView::ChangeSecondButtonOn(void)
 {
 	p_MyBut[1]->SetIcon(IDI_LIGHT_ON);
 	m_InitLInfo.LSecondStatus[0]=0x01;
-	UpdateWindow();
+	//UpdateWindow(true);
 }
 
 void CLightView::ChangeDoubleOn(void)
 {
-		m_InitLInfo.LSecondStatus[0]=0x01;
-		m_InitLInfo.LMainStatus[0]=0x01;
-		p_MyBut[0]->SetIcon(IDI_LIGHT_ON);
-		p_MyBut[1]->SetIcon(IDI_LIGHT_ON);
-		UpdateWindow();
+	m_InitLInfo.LSecondStatus[0]=0x01;
+	m_InitLInfo.LMainStatus[0]=0x01;
+	p_MyBut[0]->SetIcon(IDI_LIGHT_ON);
+	p_MyBut[1]->SetIcon(IDI_LIGHT_ON);
+	//UpdateWindow(true);
 }
 void CLightView::ChangeButtonOff(void)
 {
 	p_MyBut[0]->SetIcon(IDI_LIGHT_OFF);
 	m_InitLInfo.LMainStatus[0]=0x00;
-	UpdateWindow();
+	//UpdateWindow(true);
 }
 void CLightView::ChangeSecondButtonOff(void)
 {
 	p_MyBut[1]->SetIcon(IDI_LIGHT_OFF);
 	m_InitLInfo.LSecondStatus[0]=0x00;
-	UpdateWindow();
+	//UpdateWindow(true);
 }
 void CLightView::ChangeDoubleOff(void)
 {
@@ -257,5 +240,5 @@ void CLightView::ChangeDoubleOff(void)
 	m_InitLInfo.LSecondStatus[0]=0x00;
 	p_MyBut[0]->SetIcon(IDI_LIGHT_OFF);
 	m_InitLInfo.LMainStatus[0]=0x00;
-	UpdateWindow();
+	//UpdateWindow(true);
 }
