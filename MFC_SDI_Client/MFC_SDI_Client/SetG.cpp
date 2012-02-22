@@ -245,13 +245,10 @@ void CSetG::OnBnClickedRadiol()
 {
 	// TODO: Add your control notification handler code here
 	m_ComL.ResetContent();
-// 	UpdateData(true);
-// 	CheckRadioButton(IDC_RADIOG,IDC_RADIOL,IDC_RADIOL);
 	int nRetR = m_ComR.GetCurSel();
 	if (nRetR==-1)
 	{
 		AfxMessageBox("请选择要绑定的支路");
-		//CheckRadioButton(IDC_RADIOG,IDC_RADIOL,IDC_RADIOG);
 		((CButton*)GetDlgItem(IDC_RADIOL))->SetCheck(0);
 		return;
 	}

@@ -4,7 +4,8 @@
 
 #pragma once
 #include "afxext.h"
-
+#include "ClassView.h"
+#include "FileView.h"
 class CCoolBar;
 class CMainFrame : public CFrameWndEx
 {
@@ -37,6 +38,8 @@ protected:  // 控件条嵌入成员
 	CMFCToolBar       m_wndToolBar;
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
+	CFileView         m_wndFileView;
+	CClassView        m_wndClassView;
 
 // 生成的消息映射函数
 protected:
@@ -48,10 +51,15 @@ protected:
 public:
 	CSplitterWnd m_wndSplitter;
 protected:
-	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
 public:
 	bool m_bSplitted;
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	BOOL CreateDockingWindows();
+	void SetDockingWindowIcons(BOOL bHiColorIcons);
+protected:
+	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
+public:
+	afx_msg void OnClose();
 };
 
 

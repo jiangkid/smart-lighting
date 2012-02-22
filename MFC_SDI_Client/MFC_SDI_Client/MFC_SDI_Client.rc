@@ -76,50 +76,88 @@ END
 IDR_MAINFRAME           ICON                    "res\\MFC_SDI_Client.ico"
 IDR_MFC_SDI_ClientTYPE  ICON                    "res\\MFC_SDI_ClientDoc.ico"
 IDI_CK                  ICON                    "ico\\100.ico"
-IDI_BASE_INFO           ICON                    "ico\\101.ico"
 IDI_INPUT               ICON                    "ico\\103.ico"
 IDI_LIGHT_ON            ICON                    "ico\\Lamp1.ico"
 IDI_LIGHT_OFF           ICON                    "ico\\Lamp2.ico"
+IDI_FILE_VIEW           ICON                    "res\\file_view.ico"
+IDI_FILE_VIEW_HC        ICON                    "res\\file_view_hc.ico"
+IDI_CLASS_VIEW          ICON                    "res\\class_view.ico"
+IDI_CLASS_VIEW_HC       ICON                    "res\\class_view_hc.ico"
+IDI_ICON4               ICON                    "res\\kfm_home.ico"
+IDI_ICON5               ICON                    "res\\dsuiext.dll_28.ico"
+IDI_ICON6               ICON                    "res\\explorer.exe_0.ico"
+IDI_ICON7               ICON                    "res\\msoeres.dll_18.ico"
+IDI_ICON8               ICON                    "res\\newgame.ico"
+IDI_ICON9               ICON                    "res\\World.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
-IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
+IDB_CLASS_VIEW          BITMAP                  "res\\classview.bmp"
+IDB_CLASS_VIEW_24       BITMAP                  "res\\classview_hc.bmp"
+IDB_FILE_VIEW           BITMAP                  "res\\explorer.bmp"
+IDB_EXPLORER_24         BITMAP                  "res\\explorer_hc.bmp"
+IDB_FILE_VIEW_24        BITMAP                  "res\\fileview_hc.bmp"
+IDB_SORT_24             BITMAP                  "res\\sort_hc.bmp"
+IDR_EXPLORER            BITMAP                  "res\\bmp00001.bmp"
+IDB_BITMAP1             BITMAP                  "res\\Cmd.bmp"
+IDB_BITMAP2             BITMAP                  "res\\Process.bmp"
+IDB_BITMAP3             BITMAP                  "res\\recycle.bmp"
+IDB_BITMAP4             BITMAP                  "res\\Screen.bmp"
+IDB_BITMAP5             BITMAP                  "res\\Setting.bmp"
+IDB_BITMAP6             BITMAP                  "res\\About.bmp"
+IDB_BITMAP7             BITMAP                  "res\\camera.bmp"
+IDB_BITMAP8             BITMAP                  "res\\File_Manager.bmp"
+IDR_MAINFRAME           BITMAP                  "res\\Test.bmp"
+IDR_MAINFRAME_256       BITMAP                  "F:\\MFC_SDI_Client\\MFC_SDI_Client\\res\\mainfram1.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Toolbar
 //
 
-IDR_MAINFRAME TOOLBAR  16, 16
+IDR_MAINFRAME TOOLBAR  32, 32
 BEGIN
-    BUTTON      ID_FILE_NEW
-    BUTTON      ID_FILE_OPEN
-    BUTTON      ID_FILE_SAVE
-    SEPARATOR
-    BUTTON      ID_EDIT_CUT
-    BUTTON      ID_EDIT_COPY
-    BUTTON      ID_EDIT_PASTE
-    SEPARATOR
-    BUTTON      ID_FILE_PRINT
     BUTTON      ID_APP_ABOUT
+    SEPARATOR
+    BUTTON      ID_1
+    SEPARATOR
+    BUTTON      ID_2
+    SEPARATOR
+    BUTTON      ID_3
+    SEPARATOR
+    BUTTON      ID_4
+    SEPARATOR
+    BUTTON      ID_5
+    SEPARATOR
+    BUTTON      ID_6
+    SEPARATOR
+    BUTTON      ID_7
+    SEPARATOR
+    BUTTON      ID_8
 END
 
-IDR_MAINFRAME_256 TOOLBAR  16, 16
+IDR_MAINFRAME_256 TOOLBAR  32, 32
 BEGIN
-    BUTTON      ID_FILE_NEW
-    BUTTON      ID_FILE_OPEN
-    BUTTON      ID_FILE_SAVE
-    SEPARATOR
-    BUTTON      ID_EDIT_CUT
-    BUTTON      ID_EDIT_COPY
-    BUTTON      ID_EDIT_PASTE
-    SEPARATOR
-    BUTTON      ID_FILE_PRINT
     BUTTON      ID_APP_ABOUT
+    SEPARATOR
+    BUTTON      ID_1
+    SEPARATOR
+    BUTTON      ID_2
+    SEPARATOR
+    BUTTON      ID_3
+    SEPARATOR
+    BUTTON      ID_4
+    SEPARATOR
+    BUTTON      ID_5
+    SEPARATOR
+    BUTTON      ID_6
+    SEPARATOR
+    BUTTON      ID_7
+    SEPARATOR
+    BUTTON      ID_8
 END
 
 
@@ -145,13 +183,29 @@ BEGIN
     BEGIN
         MENUITEM "配置主终端",                       ID_MainSet
     END
-    POPUP "帮助(&H)"
+    POPUP "视图"
     BEGIN
-        MENUITEM "关于 MFC_SDI_Client(&A)...",    ID_APP_ABOUT
+        POPUP "工具栏和停靠窗口(&T)"
+        BEGIN
+            MENUITEM "<占位符>",                       ID_VIEW_TOOLBAR
+        END
+        MENUITEM "状态栏(&S)",                     ID_VIEW_STATUS_BAR
     END
     POPUP "测试"
     BEGIN
         MENUITEM "TEST",                        ID_32783
+        MENUITEM "1",                           ID_1
+        MENUITEM "ID_2",                        ID_2
+        MENUITEM "ID_3",                        ID_3
+        MENUITEM "ID_4",                        ID_4
+        MENUITEM "ID_5",                        ID_5
+        MENUITEM "ID_6",                        ID_6
+        MENUITEM "ID_7",                        ID_7
+        MENUITEM "ID_1",                        ID_8
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "关于 MFC_SDI_Client(&A)...",    ID_APP_ABOUT
     END
 END
 
@@ -162,6 +216,51 @@ BEGIN
         MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
         MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
         MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
+    END
+END
+
+IDR_POPUP_SORT MENU 
+BEGIN
+    POPUP "排序"
+    BEGIN
+        MENUITEM "按字母排序",                       ID_32790
+    END
+END
+
+IDR_POPUP_GPRS MENU 
+BEGIN
+    POPUP "GPRS管理"
+    BEGIN
+        MENUITEM "对GPRS操作",                     ID_OPEN_G
+        MENUITEM "1",                           ID_32792
+        MENUITEM "2",                           ID_32793
+        MENUITEM "3",                           ID_32794
+        MENUITEM "4",                           65535
+    END
+END
+
+IDR_POPUP_T MENU 
+BEGIN
+    POPUP "T管理"
+    BEGIN
+        MENUITEM "对此终端操作",                      ID_T32796
+    END
+END
+
+IDR_POPUP_R MENU 
+BEGIN
+    POPUP "R管理"
+    BEGIN
+        MENUITEM "打开",                          ID_OPEN_R
+        MENUITEM "对此路操作",                       ID_R_WORK
+    END
+END
+
+IDR_POPMENU MENU 
+BEGIN
+    POPUP "单灯操作"
+    BEGIN
+        MENUITEM "删除全部",                        ID_32799
     END
 END
 
@@ -313,7 +412,7 @@ BEGIN
     EDITTEXT        IDC_LNum,94,79,65,13,ES_AUTOHSCROLL
     PUSHBUTTON      "生成地址",IDC_BTN_GetID,93,95,63,13
     PUSHBUTTON      "保存地址",IDC_BTN_Save,93,111,62,14
-    EDITTEXT        IDC_EDIT7,167,16,291,243,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | WS_VSCROLL
+    EDITTEXT        IDC_EDIT7,167,16,291,243,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL
     PUSHBUTTON      "Demo",IDC_BUTTON1,69,167,48,13
 END
 
@@ -333,12 +432,79 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,205,162,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,259,162,50,14
-    PUSHBUTTON      "主灯开",IDC_BUTTON2,67,42,53,14
-    PUSHBUTTON      "辅灯开",IDC_BUTTON3,132,42,57,14
-    PUSHBUTTON      "双灯开",IDC_BUTTON4,196,41,51,13
-    PUSHBUTTON      "主灯关",IDC_BUTTON5,67,73,53,14
-    PUSHBUTTON      "辅灯关",IDC_BUTTON6,131,74,57,14
-    PUSHBUTTON      "双灯关",IDC_BUTTON7,197,72,51,15
+    PUSHBUTTON      "主灯开",IDC_BUTTON2,59,106,53,14
+    PUSHBUTTON      "辅灯开",IDC_BUTTON3,115,105,57,14
+    PUSHBUTTON      "双灯开",IDC_BUTTON4,181,107,51,13
+    PUSHBUTTON      "主灯关",IDC_BUTTON5,57,127,53,14
+    PUSHBUTTON      "辅灯关",IDC_BUTTON6,116,127,57,14
+    PUSHBUTTON      "双灯关",IDC_BUTTON7,181,126,51,15
+    PUSHBUTTON      "发送",IDC_BUTTON1,248,74,44,14
+    CTEXT           "m_First",IDC_STATIC,61,15,45,13
+    EDITTEXT        IDC_FIRST,105,15,101,12,ES_AUTOHSCROLL
+    CTEXT           "ID",IDC_STATIC,69,36,27,11
+    EDITTEXT        IDC_ID,105,34,101,12,ES_AUTOHSCROLL
+    CTEXT           "命令分类",IDC_STATIC,211,14,33,11
+    CTEXT           "命令对象",IDC_STATIC,211,26,33,9
+    CTEXT           "动作类型",IDC_STATIC,211,40,33,9
+    EDITTEXT        IDC_Type,249,14,41,9,ES_AUTOHSCROLL
+    EDITTEXT        IDC_order,249,26,41,9,ES_AUTOHSCROLL
+    EDITTEXT        IDC_active,249,39,41,9,ES_AUTOHSCROLL
+    EDITTEXT        IDC_activeType,227,57,65,11,ES_AUTOHSCROLL
+    CTEXT           "动作要求",IDC_STATIC,188,59,35,10
+    CTEXT           "头",IDC_STATIC,19,18,19,11
+    EDITTEXT        IDC_EDIT1,39,17,29,10,ES_AUTOHSCROLL
+    PUSHBUTTON      "Button8",IDC_BUTTON8,261,124,32,19
+END
+
+IDD_DoRWorkDlg DIALOGEX 0, 0, 316, 180
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "路的操作"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,53,159,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,191,159,50,14
+    GROUPBOX        "路的信息",IDC_STATIC,7,14,302,44
+    CTEXT           "路名",IDC_STATIC,19,26,42,10
+    EDITTEXT        IDC_RName,53,24,92,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "路ID",IDC_STATIC,156,26,25,10
+    EDITTEXT        IDC_RID,184,24,92,12,ES_AUTOHSCROLL | ES_READONLY
+END
+
+IDD_GWork DIALOGEX 0, 0, 316, 177
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,53,128,44,14
+    PUSHBUTTON      "Cancel",IDCANCEL,179,136,50,14
+    GROUPBOX        "Static",IDC_STATIC,7,7,302,83
+    CTEXT           "第一级名字",IDC_STATIC,23,25,48,11
+    CTEXT           "第一级ID",IDC_STATIC,166,25,48,11
+    EDITTEXT        IDC_GName,79,25,62,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_GID,215,25,62,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "TEST",IDC_BUTTON1,53,103,44,16
+END
+
+IDD_GroupWork DIALOGEX 0, 0, 316, 180
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,139,148,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,205,149,50,14
+    GROUPBOX        "创建组",IDC_STATIC,24,15,268,28
+    CTEXT           "组号",IDC_STATIC,30,26,29,10
+    EDITTEXT        IDC_GroupNum,61,26,27,11,ES_AUTOHSCROLL
+    CTEXT           "组名称",IDC_STATIC,96,26,33,11
+    EDITTEXT        IDC_GroupName,133,25,109,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定",IDC_GroupOK,245,25,38,14
+END
+
+IDD_DIALOG2 DIALOGEX 0, 0, 185, 148
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CTEXT           "正在获取信息，请稍后.....",IDC_STATIC_1,7,62,171,10
 END
 
 
@@ -460,6 +626,38 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 176
     END
+
+    IDD_DoRWorkDlg, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_GWork, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_GroupWork, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 178
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -498,63 +696,8 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_FILE_NEW             "创建新文档\n新建"
-    ID_FILE_OPEN            "打开现有文档\n打开"
-    ID_FILE_CLOSE           "关闭活动文档\n关闭"
-    ID_FILE_SAVE            "保存活动文档\n保存"
-    ID_FILE_SAVE_AS         "用新名称保存活动文档\n另存为"
-END
-
-STRINGTABLE 
-BEGIN
     ID_APP_ABOUT            "显示程序信息、版本号和版权\n关于"
     ID_APP_EXIT             "退出应用程序；提示保存文档\n退出"
-END
-
-STRINGTABLE 
-BEGIN
-    ID_FILE_MRU_FILE1       "打开此文档"
-    ID_FILE_MRU_FILE2       "打开此文档"
-    ID_FILE_MRU_FILE3       "打开此文档"
-    ID_FILE_MRU_FILE4       "打开此文档"
-    ID_FILE_MRU_FILE5       "打开此文档"
-    ID_FILE_MRU_FILE6       "打开此文档"
-    ID_FILE_MRU_FILE7       "打开此文档"
-    ID_FILE_MRU_FILE8       "打开此文档"
-    ID_FILE_MRU_FILE9       "打开此文档"
-    ID_FILE_MRU_FILE10      "打开此文档"
-    ID_FILE_MRU_FILE11      "打开此文档"
-    ID_FILE_MRU_FILE12      "打开此文档"
-    ID_FILE_MRU_FILE13      "打开此文档"
-    ID_FILE_MRU_FILE14      "打开此文档"
-    ID_FILE_MRU_FILE15      "打开此文档"
-    ID_FILE_MRU_FILE16      "打开此文档"
-END
-
-STRINGTABLE 
-BEGIN
-    ID_NEXT_PANE            "切换到下一个窗格\n下一窗格"
-    ID_PREV_PANE            "切换回上一个窗格\n上一窗格"
-END
-
-STRINGTABLE 
-BEGIN
-    ID_WINDOW_SPLIT         "将活动窗口拆分为多个窗格\n拆分"
-END
-
-STRINGTABLE 
-BEGIN
-    ID_EDIT_CLEAR           "清除选定内容\n清除"
-    ID_EDIT_CLEAR_ALL       "清除全部内容\n全部清除"
-    ID_EDIT_COPY            "复制选定内容并将其放到剪贴板上\n复制"
-    ID_EDIT_CUT             "剪切选定内容并将其放到剪贴板上\n剪切"
-    ID_EDIT_FIND            "查找指定的文本\n查找"
-    ID_EDIT_PASTE           "插入剪贴板内容\n粘贴"
-    ID_EDIT_REPEAT          "重复上一操作\n重复"
-    ID_EDIT_REPLACE         "用其他文本替换特定的文本\n替换"
-    ID_EDIT_SELECT_ALL      "选定整个文档\n全选"
-    ID_EDIT_UNDO            "撤消上一操作\n撤消"
-    ID_EDIT_REDO            "恢复上次撤消的操作\n重做"
 END
 
 STRINGTABLE 
@@ -589,6 +732,7 @@ END
 
 STRINGTABLE 
 BEGIN
+    IDS_EXPLORER            "资源管理器"
     IDS_EDIT_MENU           "编辑"
 END
 
@@ -597,6 +741,12 @@ BEGIN
     ID_BTN_MAIN             "主灯"
     ID_BTN_ELSE             "辅灯"
     ID_BTN_DOUBLE           "双灯"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_FILE_VIEW           "区域视图"
+    IDS_CLASS_VIEW          "组视图"
 END
 
 #endif    // Chinese (P.R.C.) resources

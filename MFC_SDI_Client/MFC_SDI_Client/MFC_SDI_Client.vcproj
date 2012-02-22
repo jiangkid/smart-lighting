@@ -194,15 +194,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ClassView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ClietSocket.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CVView.cpp"
+				RelativePath=".\CVListView.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GTRLView.cpp"
+				RelativePath=".\DoGWorkDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DoRWorkDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FileView.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GroupWorkDlg.cpp"
 				>
 			</File>
 			<File
@@ -210,7 +226,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\LightView.cpp"
+				RelativePath=".\LightListView.cpp"
 				>
 			</File>
 			<File
@@ -274,7 +290,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ViewView.cpp"
+				RelativePath=".\ViewTree.cpp"
 				>
 			</File>
 			<File
@@ -282,7 +298,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\WarningView.cpp"
+				RelativePath=".\WaitForInfoDlg.cpp"
 				>
 			</File>
 		</Filter>
@@ -300,15 +316,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ClassView.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ClietSocket.h"
 				>
 			</File>
 			<File
-				RelativePath=".\CVView.h"
+				RelativePath=".\CVListView.h"
 				>
 			</File>
 			<File
-				RelativePath=".\GTRLView.h"
+				RelativePath=".\DoGWorkDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DoRWorkDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FileView.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GroupWorkDlg.h"
 				>
 			</File>
 			<File
@@ -316,7 +348,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\LightView.h"
+				RelativePath=".\LightListView.h"
 				>
 			</File>
 			<File
@@ -372,7 +404,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ViewView.h"
+				RelativePath=".\ViewTree.h"
 				>
 			</File>
 			<File
@@ -380,7 +412,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\WarningView.h"
+				RelativePath=".\WaitForInfoDlg.h"
 				>
 			</File>
 		</Filter>
@@ -402,6 +434,98 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\5245-cameleonhelp-buddylivepapillon.png"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5248-cameleonhelp-buddylivefille.png"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5252-cameleonhelp-buddylivegray.png"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5253-cameleonhelp-buddylivefrance.png"
+				>
+			</File>
+			<File
+				RelativePath=".\res\About.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\base_inf.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bmp00001.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bmp00002.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\camera.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\class_view.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\class_view_hc.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\classview.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\classview_hc.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Cmd.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\dsuiext.dll_28.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\explorer.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\explorer.exe_0.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\explorer_hc.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\File_Manager.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\file_view.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\file_view_hc.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fileview.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fileview_hc.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\icon1.ico"
 				>
 			</File>
@@ -414,11 +538,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\icon5.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\kfm_home.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\ico\Lamp1.ico"
 				>
 			</File>
 			<File
 				RelativePath=".\ico\Lamp2.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\mainfram.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\mainfram1.bmp"
 				>
 			</File>
 			<File
@@ -438,7 +578,47 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\msoeres.dll_18.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\newgame.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Process.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\recycle.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Screen.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Setting.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\sort.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\sort_hc.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Test.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\Toolbar.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\toolbar1.bmp"
 				>
 			</File>
 			<File
@@ -447,6 +627,18 @@
 			</File>
 			<File
 				RelativePath=".\UserImages.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\World.ico"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="SkinPPLIB"
+			>
+			<File
+				RelativePath=".\SkinPPLIB\SkinPPWTL.h"
 				>
 			</File>
 		</Filter>
