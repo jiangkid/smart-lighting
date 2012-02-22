@@ -14,10 +14,12 @@
 #include "SetNewUser.h"
 #include "MainSetDlg.h"
 #include "WaitDlg.h"
-#include "LightView.h"
+#include "FileView.h"
+#include "LightListView.h"
+#include "CVListView.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
-
+class CFileView;
 class CMFC_SDI_ClientApp : public CWinAppEx
 {
 public:
@@ -36,9 +38,14 @@ public:
 	TInfo m_TInfo[32];
 	RInfo m_RInfo[196];
 	LInfo m_LInfo[4096];
+	ZigbeeInfo* m_ZigbeeInfo[512];
+	U8  m_lightPack[LENTH*1000];//包的缓冲大小定义成30K
 	NumInfo m_NumInfo;
 	CWaitDlg m_WaitDlg;
-	CLightView *m_light;
+	CFileView *m_pFileView;
+	CLightListView *m_pLightListView;
+	CCVListView *m_pCVListView;
+//	CLightView *m_light;
 // 重写
 public:
 	virtual BOOL InitInstance();
@@ -60,6 +67,7 @@ public:
 	private:
 public:
 	afx_msg void On32783();
+	virtual int ExitInstance();
 };
 
 extern CMFC_SDI_ClientApp theApp;

@@ -26,4 +26,7 @@ public:
 	afx_msg void OnBnClickedButton6();
 	afx_msg void OnBnClickedButton7();
 //	char *CTestDlg::CStringTOChar(char* buffer, int Length);
+	char *CTestDlg::Translation_ID(char* buffer, int Length);
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton8();
 };

@@ -4,10 +4,8 @@
 
 #include "stdafx.h"
 #include "MFC_SDI_Client.h"
-#include "GTRLView.h"
 #include "MFC_SDI_ClientDoc.h"
 #include "MFC_SDI_ClientView.h"
-#include "LightView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -93,28 +91,11 @@ int CMFC_SDI_ClientView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
-
-	if (!m_wndSplitter.CreateStatic(this, 1, 2))
-		return FALSE;
-
-	CCreateContext *pContext = (CCreateContext *)lpCreateStruct->lpCreateParams;
-	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CGTRLView), CSize(100, 100), pContext) ||
-		!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CLightView), CSize(0, 0), pContext))
-	{
-		m_wndSplitter.DestroyWindow();
-		return FALSE;
-	}
-
 	return TRUE;
 }
 
 void CMFC_SDI_ClientView::OnSize(UINT nType, int cx, int cy)
 {
 	CView::OnSize(nType, cx, cy);
-	int width = cx/7;
-	m_wndSplitter.MoveWindow(-2, -2, cx, cy+3);
-	m_wndSplitter.SetColumnInfo(0, width, 0);
-	m_wndSplitter.SetColumnInfo(1, cx-width, 0);
-	m_wndSplitter.RecalcLayout();
 	// TODO: Add your message handler code here
 }

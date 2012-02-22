@@ -23,8 +23,8 @@
 BEGIN_MESSAGE_MAP(CMFC_SDI_ClientApp, CWinAppEx)
 	ON_COMMAND(ID_APP_ABOUT, &CMFC_SDI_ClientApp::OnAppAbout)
 	// 基于文件的标准文档命令
-	ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
-	ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
+//	ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
+//	ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
 	ON_COMMAND(ID_SETUSER, &CMFC_SDI_ClientApp::OnSetuser)
 	ON_COMMAND(ID_SetG, &CMFC_SDI_ClientApp::OnSetg)
 	ON_COMMAND(ID_Modify, &CMFC_SDI_ClientApp::OnModify)
@@ -86,43 +86,43 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	}
 	AfxEnableControlContainer();
 //这是代码区 有用的
-//  	while(!m_InitTrue)
-//  	{
-//    		while (!m_return)
-//    			{
-//    				CLoginDlg dlg;
-//    				if (dlg.DoModal()==IDCANCEL)
-//    				{
-//    					return false;
-//    					break;
-//    				}
-//    				else
-//    				{
-//    					GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-//    					m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-//    					strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
-//    					h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-//   					Sleep(500);
-//    				}
-//    			}
-//  			char a[3]={'L','G','#'};
-//  			send(m_ConnectSock,a,3,0);
-//  			if (m_WaitDlg.DoModal()==IDOK)
-//  			{
-//  					m_return =false;
-//  					closesocket(m_ConnectSock);
-//  					TerminateThread(h1,0);
-//  					AfxMessageBox(_T("初始化失败，请重新打开！"));
-//  			}
-//  			else 
-//  				m_InitTrue=true;
-//  		}
+ 	while(!m_InitTrue)
+ 	{
+   		while (!m_return)
+   			{
+   				CLoginDlg dlg;
+   				if (dlg.DoModal()==IDCANCEL)
+   				{
+   					return false;
+   					break;
+   				}
+   				else
+   				{
+   					GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+   					m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+   					strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
+   					h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+  					Sleep(500);
+   				}
+   			}
+ 			char a[3]={'L','G','#'};
+ 			send(m_ConnectSock,a,3,0);
+ 			if (m_WaitDlg.DoModal()==IDOK)
+ 			{
+ 					m_return =false;
+ 					closesocket(m_ConnectSock);
+ 					TerminateThread(h1,0);
+ 					AfxMessageBox(_T("初始化失败，请重新打开！"));
+ 			}
+ 			else 
+ 				m_InitTrue=true;
+ 		}
 /*测试代码*/
-    	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-    	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-    	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
- 		if (m_WaitDlg.DoModal()==IDCANCEL)
- 			m_return=FALSE;
+//     	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+//     	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+//     	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+//  		if (m_WaitDlg.DoModal()==IDCANCEL)
+//  			m_return=FALSE;
 	// 标准初始化
 	 //如果未使用这些功能并希望减小
 	// 最终可执行文件的大小，则应移除下列
@@ -170,6 +170,8 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
+
+	//skinppLoadSkin(_T("vladstudio.ssk"));
 	// 仅当具有后缀时才调用 DragAcceptFiles
 	//  在 SDI 应用程序中，这应在 ProcessShellCommand 之后发生
 	return TRUE;
@@ -273,4 +275,12 @@ void CMFC_SDI_ClientApp::On32783()
 	// TODO: Add your command handler code here
 	CTestDlg dlg;
 	dlg.DoModal();
+}
+
+int CMFC_SDI_ClientApp::ExitInstance()
+{
+	// TODO: Add your specialized code here and/or call the base class
+	//skinppExitSkin();
+	//closesocket(m_ConnectSock);
+	return CWinAppEx::ExitInstance();
 }

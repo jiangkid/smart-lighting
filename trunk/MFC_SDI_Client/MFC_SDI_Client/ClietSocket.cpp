@@ -2,14 +2,11 @@
 #include "stdafx.h"
 #include "MFC_SDI_Client.h"
 #include "ClietSocket.h"
-#include "LightView.h"
 #include "MainFrm.h"
-#include "GTRLView.h"
 #include "MFC_SDI_ClientDoc.h"
 HDR hdr;
 USERINFO userInfo[9];
 IintInfo m_InitInfo;
-LInfo    m_InitLInfo;
 bool BGTrue = false;
 bool BTTrue = false;
 bool BRTrue = false;
@@ -96,17 +93,27 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					case 0x2F:
 						CheckBack((unsigned char*)szBuf,iRet);
 						break;
+					case 'Z':
+						UnpackLightInfo(szBuf,iRet);
+						break;
+					case 'N':
+						//UnpackLightInfo(szBuf,iRet);
+						if (szBuf[1]=='1')
+						{
+							AfxMessageBox(_T("信息发送不成功！"));
+						}
+						break;
 					default:
 						break;
 					}
 				}
 			else
 				{
-				HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
-				SendMessage(m_wnd,WM_CLOSE,0,0);
-				AfxMessageBox(_T("服务器已经关闭！"));
-				TerminateThread(theApp.h1,0);
-				break;
+					HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
+					SendMessage(m_wnd,WM_CLOSE,0,0);
+					AfxMessageBox(_T("服务器已经关闭！"));
+					TerminateThread(theApp.h1,0);
+					break;
 				}
 		}
 		Sleep(500);
@@ -260,7 +267,7 @@ void ChenkGetGID(char* buff,int nRecvLength)
 	}
 	if (buff[0]=='S'&&buff[1]==0x29 && buff[2]=='1')
 	{
-		AfxMessageBox(_T("获取用户名，请关闭窗口重新获取！"));
+		AfxMessageBox(_T("获取用户名失败，请关闭窗口重新获取！"));
 	}
 	else if (buff[0]=='S'&&buff[1]==0x29 && buff[2]=='0')
 	{
@@ -320,7 +327,7 @@ void ChenkGetGID(char* buff,int nRecvLength)
 *************************************************************************************/
 void SendUserInfo(LPHDR hdr,LPUSERINFO userInfo)
 {
-	hdr->dataCheck='I';
+	hdr->dataCheck[0]='I';
 	hdr->dataLen=(u_short)sizeof(USERINFO);
 	char m_buf[MAX_BUF_SIZE];
 	ZeroMemory(m_buf,MAX_BUF_SIZE);
@@ -366,13 +373,17 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='L')
 	{
 		SendMessage(m_wnd,WM_CLOSE,0,0);
+		AfxMessageBox(_T("第一次登入请设置！"));
 	}
 	if (buff[0]=='L'&&buff[1]=='1')
 	{
 		theApp.m_InitTrue=true;
-		//SendMessage(m_wnd,WM_CLOSE,0,0);
 		SendMessage(m_wnd,WM_DESTROY,0,0);
 	}
+// 	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='N')
+// 	{
+// 		
+// 	}
 	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='G')
 	{
 		ZeroMemory(&m_InitInfo.GNum,sizeof(int));
@@ -487,59 +498,85 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 			}
 		}
 		SendMessage(m_wnd,WM_CLOSE,0,0);
+		Sleep(500);
 	}
 }
 
 void CheckBack(unsigned char* buff,int nRecvLength)
 {
 	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
-// 	POSITION curTemplatePos = theApp.GetFirstDocTemplatePosition();
-// 	CDocTemplate *m_doc=theApp.GetNextDocTemplate(curTemplatePos); 
-// 	curTemplatePos=m_doc->GetFirstDocPosition();
-// 	CMFC_SDI_ClientDoc *m_pdoc=(CMFC_SDI_ClientDoc*)m_doc->GetNextDoc(curTemplatePos);
-// 	curTemplatePos=m_pdoc->GetFirstViewPosition();
-// 	CLightView *m_light=(CLightView*)m_pdoc->GetNextView(curTemplatePos);
-	
-	ZeroMemory(&m_InitLInfo,sizeof(LInfo));
-	int m=0;
-	for (int i=4;i<20;i++)
+}
+void SendContrlInfo(LPHDR hdr,LPConTrlInfo contrlInfo)
+{
+	hdr->dataCheck[0]='N';
+	hdr->dataLen=(u_short)sizeof(ConTrlInfo);
+	char m_buf[MAX_BUF_SIZE];
+	ZeroMemory(m_buf,MAX_BUF_SIZE);
+	memcpy(m_buf, (char*)hdr, HEADLEN);	
+	memcpy(m_buf + HEADLEN, (char*)contrlInfo, sizeof(ConTrlInfo));
+	int nRet = send(theApp.m_ConnectSock, m_buf, HEADLEN + hdr->dataLen, 0);
+	if (SOCKET_ERROR == nRet )
 	{
-		m_InitLInfo.LID[m]=buff[i];
-		m++;
+		AfxMessageBox(_T("SendUserInfo数据失败。"));
 	}
-	if (0x31 == buff[2])
+}
+void SendContrlInfo1(LPHDR hdr,LPConTrlInfo contrlInfo)
+{
+	hdr->dataLen=(u_short)sizeof(ConTrlInfo);
+	char m_buf[MAX_BUF_SIZE];
+	ZeroMemory(m_buf,MAX_BUF_SIZE);
+	memcpy(m_buf, (char*)hdr, HEADLEN);	
+	memcpy(m_buf + HEADLEN, (char*)contrlInfo, sizeof(ConTrlInfo));
+	int nRet = send(theApp.m_ConnectSock, m_buf, HEADLEN + hdr->dataLen, 0);
+	if (SOCKET_ERROR == nRet )
 	{
-		AfxMessageBox(_T("操作失败！"));
-		return;
+		AfxMessageBox(_T("SendUserInfo数据失败。"));
 	}
-	if ((buff[20]==0xA3)&&(buff[21]==0xBD))
+}
+static int nRetPack(0);
+void UnpackLightInfo(char* buffer, int Length)
+{
+	nRetPack++;	
+	int i,j;
+	i=buffer[1];
+	j=buffer[2];
+	if (nRetPack<i)
+	{		
+		if (buffer[2]==buffer[1])
+		{
+			memcpy(theApp.m_lightPack,buffer+3,Length-3);
+		}
+		else
+			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
+
+	}
+	else
 	{
-		m_InitLInfo.LMainStatus[0]=buff[23];
-		m_InitLInfo.LSecondStatus[0]=buff[25];
-		SendMessage(m_wnd,WM_CLOSE,0,0);
+		if (buffer[2]==buffer[1])
+		{
+			memcpy(theApp.m_lightPack,buffer+3,Length-3);
+		}
+		else
+			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
+		//nRetPack++;
+		TranslateLInfo(theApp.m_lightPack);
 	}
-	if ((buff[20]==0xA1)&&(buff[21]==0xB1))
+		
+		
+}
+void TranslateLInfo(U8* buffer)
+{
+	nRetPack=0;
+	int nHigh,nLower,j,nLCount;
+	nHigh=buffer[0];
+	nLower=buffer[1];
+	nLCount=nHigh*255+nLower;
+	for (int i=0;i<nLCount;i++)
 	{
-		theApp.m_light->ChangeButtonOn();
+		theApp.m_ZigbeeInfo[i]=(ZigbeeInfo*)malloc(LENTH);
+		ZeroMemory(theApp.m_ZigbeeInfo[i],LENTH);
+		memcpy(theApp.m_ZigbeeInfo[i],buffer+i*LENTH+2,LENTH);
 	}
-	if ((buff[20]==0xA3)&&(buff[21]==0xB1))
-	{
-		theApp.m_light->ChangeSecondButtonOn();
-	}
-	if ((buff[20]==0xA2)&&(buff[21]==0xB1))
-	{
-		theApp.m_light->ChangeSecondButtonOn();
-	}
-	if ((buff[20]==0xA1)&&(buff[21]==0xB2))
-	{
-		theApp.m_light->ChangeButtonOff();
-	}
-	if ((buff[20]==0xA3)&&(buff[21]==0xB2))
-	{
-		theApp.m_light->ChangeSecondButtonOff();
-	}
-	if ((buff[20]==0xA2)&&(buff[21]==0xB2))
-	{
-		theApp.m_light->ChangeSecondButtonOff();
-	}
+	theApp.m_pLightListView->LightToView(nLCount);
+	ZeroMemory(theApp.m_lightPack,1000*LENTH);
 }

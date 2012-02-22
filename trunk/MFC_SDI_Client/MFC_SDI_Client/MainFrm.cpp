@@ -5,11 +5,9 @@
 #include "stdafx.h"
 #include "MFC_SDI_Client.h"
 #include "MainFrm.h"
-#include "CVView.h"
-#include "GTRLView.h"
 #include "MFC_SDI_ClientView.h"
-#include "WarningView.h"
-#include "ViewView.h"
+#include "LightListView.h"
+#include "CVListView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -27,6 +25,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_VIEW_CUSTOMIZE, &CMainFrame::OnViewCustomize)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_WM_SIZE()
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -68,85 +67,85 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
 
 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
-		!m_wndToolBar.LoadToolBar(theApp.m_bHiColorIcons ? IDR_MAINFRAME_256 : IDR_MAINFRAME))
+		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
 	{
 		TRACE0("未能创建工具栏\n");
 		return -1;      // 未能创建
 	}
-
 	CString strToolBarName;
 	bNameValid = strToolBarName.LoadString(IDS_TOOLBAR_STANDARD);
 	ASSERT(bNameValid);
 	m_wndToolBar.SetWindowText(strToolBarName);
-
 	CString strCustomize;
 	bNameValid = strCustomize.LoadString(IDS_TOOLBAR_CUSTOMIZE);
 	ASSERT(bNameValid);
 	m_wndToolBar.EnableCustomizeButton(TRUE, ID_VIEW_CUSTOMIZE, strCustomize);
-
-
 	// 允许用户定义的工具栏操作:
 	InitUserToolbars(NULL, uiFirstUserToolBarId, uiLastUserToolBarId);
-
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("未能创建状态栏\n");
 		return -1;      // 未能创建
 	}
-
-
-
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
-
 	// TODO: 如果您不希望工具栏和菜单栏可停靠，请删除这五行
 	m_wndMenuBar.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
-
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndMenuBar);
 	DockPane(&m_wndToolBar);
-
-
-
 	// 启用 Visual Studio 2005 样式停靠窗口行为
 	CDockingManager::SetDockingMode(DT_SMART);
 	// 启用 Visual Studio 2005 样式停靠窗口自动隐藏行为
 	EnableAutoHidePanes(CBRS_ALIGN_ANY);
-
+	//创建停靠窗口
+	if (!CreateDockingWindows())
+	{
+		TRACE0("未能创建停靠窗口\n");
+		return -1;
+	}
+	m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
+	//m_wndClassView.EnableDocking(CBRS_ALIGN_ANY);
+	DockPane(&m_wndFileView);
+	//CDockablePane* pTabbedBar = NULL;
+	//m_wndClassView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar);
 	// 启用工具栏和停靠窗口菜单替换
 	EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
-
 	// 启用快速(按住 Alt 拖动)工具栏自定义
-	CMFCToolBar::EnableQuickCustomization();
-
+ 	CMFCToolBar::EnableQuickCustomization();
 	if (CMFCToolBar::GetUserImages() == NULL)
 	{
 		// 加载用户定义的工具栏图像
-		if (m_UserImages.Load(_T(".\\UserImages.bmp")))
+		if (m_UserImages.Load(_T(".\\ToolbarNULL.bmp")))
 		{
-			m_UserImages.SetImageSize(CSize(16, 16), FALSE);
+			m_UserImages.SetImageSize(CSize(16,16), FALSE);
+			CMFCToolBar::SetSizes(CSize(16,16), CSize(16,16));
 			CMFCToolBar::SetUserImages(&m_UserImages);
 		}
 	}
+	CSize btSize;
+	btSize=CMFCToolBar::GetMenuButtonSize();
+	CMFCToolBar::SetMenuSizes(CSize(32,24), CSize(7,7)); 
 
 	// 启用菜单个性化(最近使用的命令)
 	// TODO: 定义您自己的基本命令，确保每个下拉菜单至少有一个基本命令。
-	CList<UINT, UINT> lstBasicCommands;
+//	CList<UINT, UINT> lstBasicCommands;
 
-	lstBasicCommands.AddTail(ID_FILE_NEW);
-	lstBasicCommands.AddTail(ID_FILE_OPEN);
-	lstBasicCommands.AddTail(ID_FILE_SAVE);
-	lstBasicCommands.AddTail(ID_FILE_PRINT);
-	lstBasicCommands.AddTail(ID_APP_EXIT);
-	lstBasicCommands.AddTail(ID_EDIT_CUT);
-	lstBasicCommands.AddTail(ID_EDIT_PASTE);
-	lstBasicCommands.AddTail(ID_EDIT_UNDO);
-	lstBasicCommands.AddTail(ID_APP_ABOUT);
-	lstBasicCommands.AddTail(ID_VIEW_STATUS_BAR);
-	lstBasicCommands.AddTail(ID_VIEW_TOOLBAR);
+// 	lstBasicCommands.AddTail(ID_FILE_NEW);
+// 	lstBasicCommands.AddTail(ID_FILE_OPEN);
+// 	lstBasicCommands.AddTail(ID_FILE_SAVE);
+// 	lstBasicCommands.AddTail(ID_FILE_PRINT);
+// 	lstBasicCommands.AddTail(ID_APP_EXIT);
+// 	lstBasicCommands.AddTail(ID_EDIT_CUT);
+// 	lstBasicCommands.AddTail(ID_EDIT_PASTE);
+// 	lstBasicCommands.AddTail(ID_EDIT_UNDO);
+// 	lstBasicCommands.AddTail(ID_APP_ABOUT);
+// 	lstBasicCommands.AddTail(ID_VIEW_STATUS_BAR);
+// 	lstBasicCommands.AddTail(ID_VIEW_TOOLBAR);
 
-	CMFCToolBar::SetBasicCommands(lstBasicCommands);
-
+//	CMFCToolBar::SetBasicCommands(lstBasicCommands);
+	UINT IDArray[] ={ID_APP_ABOUT,0,ID_1,0,ID_2,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0,ID_8};
+	m_wndToolBar.SetButtons(IDArray, 17); 
 	return 0;
 }
 
@@ -232,15 +231,63 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 	return TRUE;
 }
 
+void CMainFrame::OnSize(UINT nType, int cx, int cy)
+{
+	CFrameWndEx::OnSize(nType, cx, cy);
+	if (m_bSplitted && cx > 0 && cy > 0) {
+		int height = cy/2;
+		m_wndSplitter.SetRowInfo(0, cy-height, 0);
+		m_wndSplitter.SetRowInfo(1, height, 0);
+		m_wndSplitter.RecalcLayout();
+	}
+	// TODO: Add your message handler code here
+}
 
+BOOL CMainFrame::CreateDockingWindows()
+{
+	BOOL bNameValid;
+
+	// 创建类视图
+// 	CString strClassView;
+// 	bNameValid = strClassView.LoadString(IDS_CLASS_VIEW);
+// 	ASSERT(bNameValid);
+// 	if (!m_wndClassView.Create(strClassView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_CLASSVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
+// 	{
+// 		TRACE0("未能创建“类视图”窗口\n");
+// 		return FALSE; // 未能创建
+// 	}
+
+	// 创建文件视图
+	CString strFileView;
+	bNameValid = strFileView.LoadString(IDS_FILE_VIEW);
+	ASSERT(bNameValid);
+	if (!m_wndFileView.Create(strFileView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_FILEVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT| CBRS_FLOAT_MULTI))
+	{
+		TRACE0("未能创建“文件视图”窗口\n");
+		return FALSE; // 未能创建
+	}
+
+	SetDockingWindowIcons(theApp.m_bHiColorIcons);
+	return TRUE;
+}
+
+void CMainFrame::SetDockingWindowIcons(BOOL bHiColorIcons)
+{
+	HICON hFileViewIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_FILE_VIEW_HC : IDI_FILE_VIEW), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
+	m_wndFileView.SetIcon(hFileViewIcon, FALSE);
+
+//	HICON hClassViewIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_CLASS_VIEW_HC : IDI_CLASS_VIEW), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
+//	m_wndClassView.SetIcon(hClassViewIcon, FALSE);
+
+}
 BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	if (!m_wndSplitter.CreateStatic(this,2,1))
-	return FALSE;
+		return FALSE;
 
-	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMFC_SDI_ClientView), CSize(0, 260), pContext) ||
-		!m_wndSplitter.CreateView(1, 0, RUNTIME_CLASS(CViewView), CSize(0, 0), pContext))
+	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CLightListView), CSize(0, 260), pContext) ||
+		!m_wndSplitter.CreateView(1, 0, RUNTIME_CLASS(CCVListView), CSize(0, 0), pContext))
 	{
 		m_wndSplitter.DestroyWindow();
 		return FALSE;
@@ -251,15 +298,12 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	return CFrameWndEx::OnCreateClient(lpcs, pContext);
 }
 
-void CMainFrame::OnSize(UINT nType, int cx, int cy)
+void CMainFrame::OnClose()
 {
-	CFrameWndEx::OnSize(nType, cx, cy);
-	if (m_bSplitted && cx > 0 && cy > 0) {
-		int height = cy/3;
-		m_wndSplitter.SetRowInfo(0, cy-height, 0);
-		m_wndSplitter.SetRowInfo(1, height, 0);
-		m_wndSplitter.RecalcLayout();
+	// TODO: Add your message handler code here and/or call default
+	if (AfxMessageBox(_T("你确定要关闭智能路灯控制系统吗?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
+	{
+		CFrameWndEx::OnClose();
+	}	
 
-	}
-	// TODO: Add your message handler code here
 }
