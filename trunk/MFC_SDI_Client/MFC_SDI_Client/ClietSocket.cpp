@@ -129,17 +129,17 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 						}
 						if (szBuf[1]==0x31)
 						{
-							UpdataZigbeeCurrentInfo(szBuf,iRet);
+							UpdataRoadStatusInfo(szBuf,iRet);
 							break;
 						}
-						if (szBuf[2]==0x33)
+						if (szBuf[1]==0x33)
 						{
 							UpdataRoadCurrentInfo(szBuf,iRet);//路的电流
 							break;
 						}
 						if (szBuf[1]==0x34)//路的状态
 						{
-							UpdataRoadCurrentInfo(szBuf,iRet);
+							UpdataRoadStatusInfo(szBuf,iRet);
 							break;
 						}
 				default:
@@ -156,7 +156,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					break;
 				}
 		}
-		Sleep(500);
+		Sleep(100);
 	}
 
 __Error_End:
@@ -850,6 +850,52 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 				}
 			}
 		break;
+	case 0x32:
+		if (pGetRInfo->m_ActiveType[0]==0x12)
+		{
+			for (int l=0;l<theApp.m_pRoadView->nCount;l++)
+			{
+				CString str2=_T("");
+				CString str3=_T("");
+				for (int k(0);k<6;k++)
+				{
+					str2+=theApp.m_RoadListInfo[l]->m_RoadID[k];
+				}
+				for (int j(0);j<4;j++)
+				{
+					str3+=pGetRInfo->m_ID[j];
+				}
+				str3+=CharToCString(&pGetRInfo->m_CheckData[3],1);
+				if (strcmp(str2,str3)==0)
+				{
+					theApp.m_RoadListInfo[l]->m_RoadStatus=false;
+				}
+				theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+			}
+		}
+		if (pGetRInfo->m_ActiveType[0]==0x13)
+		{
+			for (int l=0;l<theApp.m_pRoadView->nCount;l++)
+			{
+				CString str2=_T("");
+				CString str3=_T("");
+				for (int k(0);k<6;k++)
+				{
+					str2+=theApp.m_RoadListInfo[l]->m_RoadID[k];
+				}
+				for (int j(0);j<4;j++)
+				{
+					str3+=pGetRInfo->m_ID[j];
+				}
+				str3+=CharToCString(&pGetRInfo->m_CheckData[3],1);
+				if (strcmp(str2,str3)==0)
+				{
+					theApp.m_RoadListInfo[l]->m_RoadStatus=true;
+				}
+				theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+			}
+		}
+		break;
 	default:
 		break;
 		}
@@ -937,7 +983,7 @@ void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 				break;
 			}
 				
-			free(pGetRInfo);
+			//free(pGetRInfo);
 		}
 }
 void UpdataRoadStatusInfo(char* buff,int nRecvLength)
@@ -959,10 +1005,10 @@ void UpdataRoadStatusInfo(char* buff,int nRecvLength)
 				str1+=pGetRInfo->m_ID[i];
 			}
 			str1+="0";
-			for (int l=1;l<9;l++)
+			for (int l=0;l<8;l++)
 			{
-				char c=pGetRInfo->m_CheckData[4]&(l<<0x01);
-				str.Format("%s%d",str1,l);
+				char c=pGetRInfo->m_CheckData[3]&(0x01<<l);
+				str.Format("%s%d",str1,l+1);
 				for (int n=0;n<theApp.m_pRoadView->nCount;n++)
 				{
 					CString str2=_T("");
@@ -970,17 +1016,20 @@ void UpdataRoadStatusInfo(char* buff,int nRecvLength)
 					{
 						str2+=theApp.m_RoadListInfo[n]->m_RoadID[m];
 					}
-					if (strcmp(str1,str2)==0)
+					if (strcmp(str,str2)==0)
 					{
-						
 						if (c==0x00)
 						{
 							theApp.m_RoadListInfo[n]->m_RoadStatus=true;
+							theApp.m_RoadListInfo[n]->m_Update|=0x80;
+							theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
 						}
 						else
+						{
 							theApp.m_RoadListInfo[n]->m_RoadStatus=false;
-						theApp.m_RoadListInfo[n]->m_Update|=0x80;
-						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+							theApp.m_RoadListInfo[n]->m_Update|=0x80;
+							theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+						}
 					}
 					else 
 						return;

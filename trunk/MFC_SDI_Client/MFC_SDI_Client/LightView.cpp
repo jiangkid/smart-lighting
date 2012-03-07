@@ -57,6 +57,7 @@ void CLightView::LightToView(int nLCount)
 	nCount=nLCount;
 	for (int i=0;i<nLCount;i++)
 	{
+		theApp.m_ZigbeeInfo[i]->Update=0xC0;
 		CString strID=_T("");
 		CString strName=_T("");
 		CString strGID=_T("");
