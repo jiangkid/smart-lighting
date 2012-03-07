@@ -68,3 +68,18 @@ void CDoGWorkDlg::OnBnClickedButton1()
 // 	pGetRInfo->m_EndBuffer[1]=0xCC;
 // 	SendContrlInfo(&hdr,pGetRInfo);
 }
+
+void CDoGWorkDlg::OnCancel()
+{
+	// TODO: Add your specialized code here and/or call the base class
+	DestroyWindow();
+	//CDialog::OnCancel();
+}
+
+void CDoGWorkDlg::PostNcDestroy()
+{
+	// TODO: Add your specialized code here and/or call the base class
+	this->~CDoGWorkDlg();
+	free(this);
+	CDialog::PostNcDestroy();
+}

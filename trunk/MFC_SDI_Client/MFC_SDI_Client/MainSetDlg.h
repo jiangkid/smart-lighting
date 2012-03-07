@@ -28,4 +28,7 @@ public:
 	afx_msg void OnBnClickedBtnSave();
 	CString m_NewID;
 	CString CharToCString(unsigned char* str, int nLength);
+protected:
+	virtual void OnCancel();
+	virtual void PostNcDestroy();
 };

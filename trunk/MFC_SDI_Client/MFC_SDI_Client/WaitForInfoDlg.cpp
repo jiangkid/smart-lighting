@@ -52,7 +52,7 @@ BOOL CWaitForInfoDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
-	SetDlgItemText(IDC_STATIC_1,_T("正在获取信息，请稍后....."));
+	//SetDlgItemText(IDC_STATIC_1,_T("正在获取信息，请稍后....."));
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }

@@ -218,3 +218,17 @@ CString CMainSetDlg::CharToCString(unsigned char* str, int nLength)
 	strShow.Format(_T("%s"), szText);
 	return strShow;
 }
+
+void CMainSetDlg::OnCancel()
+{
+	// TODO: Add your specialized code here and/or call the base class
+	DestroyWindow();
+	//CDialog::OnCancel();
+}
+void CMainSetDlg::PostNcDestroy()
+{
+	// TODO: Add your specialized code here and/or call the base class
+	this->~CMainSetDlg();
+	free(this);
+	CDialog::PostNcDestroy();
+}

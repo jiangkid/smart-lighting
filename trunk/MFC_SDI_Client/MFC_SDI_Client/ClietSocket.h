@@ -1,10 +1,5 @@
 #pragma once
-
-#define MAX_BUF_SIZE 4096			//接收和发送缓存大小
-#define HEADLEN (sizeof(HDR))        //包头长度
-#define WM_TRAYICON_MSG (WM_USER+100)
-#define LENTH (sizeof(ZigbeeInfo))
-#define U8 unsigned char
+#include "stdafx.h"
 ////////包头//////
 typedef struct _HEADER
 {
@@ -24,9 +19,6 @@ typedef struct _GInfo//G的信息
 {
 	char    GName[20];
 	char    GID[2];
-	INT     GCurrent;
-	INT     GVoltage;
-	BOOL    GStatus;
 }GInfo,*LPGInfo;
 
 typedef struct _TInfo//T的信息
@@ -34,9 +26,6 @@ typedef struct _TInfo//T的信息
 	char    TName[40];
 	char    TID[4];
 	char    GID[2];
-	INT     TCurrent;
-	INT     TVoltage;
-	BOOL    TStatus;
 }TInfo,*LPTInfo;
 
 typedef struct _RInfo//R的信息
@@ -44,18 +33,27 @@ typedef struct _RInfo//R的信息
 	char    RName[40];
 	char    RID[6];
 	char    TID[4];
-	INT     RCurrent;
-	INT     RVoltage;
-	BOOL    RStatus;
 }RInfo,*RPRInfo;
+
+
+typedef struct _RoadInfo//R的信息
+{
+	char    RID[6];
+	bool    MainStatus;
+}RoadInfo,*LPRoadInfo;
 
 typedef struct _ZigbeeInfo//单节点的信息
 {
+	U8	  m_GID[2];
+	U8	  m_GName[20];
+	U8    m_TName[20];
+	U8    RName[20];  
 	U8    LID[16];
 	U8    LName[50];
 	bool  MainStatus;
 	bool  AssistStatus;
-//	BOOL    Update;
+	U8  Update;
+	float  current;
 }ZigbeeInfo,*LPZigbeeInfo;
 
 typedef struct _LInfo//单灯的信息
@@ -83,24 +81,24 @@ typedef struct _IintInfo//L的信息
 	RInfo m_InitRInfo[255];
 }IintInfo,*LPIintInfo;
 
+typedef struct _RoadListViewInfo
+{
+	U8 m_TernimalName[20];
+	U8 m_RoadName[20];
+	U8 m_RoadID[6];
+	bool m_RoadStatus;
+	U8 m_Update;
+	float nCurrent1;
+	float nCurrent2;
+	float nCurrent3;
+}RoadListViewInfo, *LPRoadListViewInfo;
+
 typedef struct _TreeInfo//Tree的信息
 {
 	char GID[2];
 	char TID[4];
 	char RID[6];
 }TreeInfo,*LPTreeInfo;
-
-typedef struct _BackInfo//back的信息
-{
-	char BeginBuffer[2];
-	char Judge[1];
-	char Type[1];
-	char LID[16];
-	char Order[1];
-	char ActiveType[1];
-	char CheckData[4];
-	char EndBuffer[1];
-}BackInfo,*LPBackInfo;
 
 typedef struct _ConTrlInfo//back的信息
 {
@@ -179,6 +177,38 @@ void SendContrlInfo1(LPHDR hdr,LPConTrlInfo contrlInfo);
 //***************************************************************/
 void UnpackLightInfo(char* buffer, int Length);
 //***************************************************************/
-//函数功能：将大于4096的文件信息解析
+//函数功能：将单路下所有灯的信息解析
 //***************************************************************/
 void TranslateLInfo(U8* buffer);
+//***************************************************************/
+//函数功能：将单终端下所有路信息解析
+//***************************************************************/
+void TranslateRInfo(U8* buffer,int Length);
+//***************************************************************/
+//函数功能：刷新树形结构
+//***************************************************************/
+void ChenkConnectAgain(char* buff,int nRecvLength);
+//***************************************************************/
+//函数功能：更新单灯的状态
+//***************************************************************/
+void UpdataZigbeeStatusInfo(char* buff,int nRecvLength);
+//***************************************************************/
+//函数功能：更新单灯电流的状态
+//***************************************************************/
+void UpdataZigbeeCurrentInfo(char* buff,int nRecvLength);
+//***************************************************************/
+//函数功能：更新单灯的状态
+//***************************************************************/
+void CheckCtrlBackInfo(char* buff,int nRecvLength);
+//***************************************************************/
+//函数功能：更新单路电流的状态
+//***************************************************************/
+void UpdataRoadCurrentInfo(char* buff,int nRecvLength);
+//***************************************************************/
+//函数功能：1变2
+//***************************************************************/
+CString CharToCString(unsigned char* str, int nLength);
+//***************************************************************/
+//函数功能：更新单路的状态
+//***************************************************************/
+void UpdataRoadStatusInfo(char* buff,int nRecvLength);

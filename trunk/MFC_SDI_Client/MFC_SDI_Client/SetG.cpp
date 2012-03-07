@@ -137,7 +137,11 @@ void CSetG::OnBnClickedRadiog()
 	for (int i=0;i<pTheApp->m_NumInfo.GNum;i++)
 	{
 		CString str;
-		str+=pTheApp->m_GInfo[i].GID;
+		for (int n=0;n<2;n++)
+		{
+			str+=pTheApp->m_GInfo[i].GID[n];
+		}
+		
 		m_ComG.InsertString(i,str);
 		//m_ComG.InsertString(i,ShowMessage(pTheApp->m_GInfo[i].GID,8));
 	}
@@ -177,8 +181,12 @@ void CSetG::OnBnClickedRadiot()
 	Sleep(1000);
 	for (int i=0;i<pTheApp->m_NumInfo.TNum;i++)
 	{
-		CString str;
-		str+=pTheApp->m_TInfo[i].TID;
+		CString str=_T("");
+		for (int n=0;n<4;n++)
+		{
+			str+=pTheApp->m_TInfo[i].TID[n];
+		}
+		
 		m_ComT.InsertString(i,str);
 		//m_ComT.InsertString(i,ShowMessage(pTheApp->m_TInfo[i].TID,8));
 	}
@@ -216,14 +224,15 @@ void CSetG::OnBnClickedRadior()
 	strR+=pTheApp->m_TInfo[nRetT].TID;
 	strR+="#";
 	send(pTheApp->m_ConnectSock,(char*)strR.GetBuffer(),strR.GetLength()*sizeof(TCHAR),0);
-	//send(pTheApp->m_ConnectSock,buff,2,0);
 	Sleep(1000);
 	for (int i=0;i<pTheApp->m_NumInfo.RNum;i++)
 	{
-		CString str;
-		str+=pTheApp->m_RInfo[i].RID;
+		CString str=_T("");
+		for (int n=0;n<6;n++)
+		{
+			str+=pTheApp->m_RInfo[i].RID[n];
+		}
 		m_ComR.InsertString(i,str);
-		//m_ComR.InsertString(i,ShowMessage(pTheApp->m_RInfo[i].RID,8));
 	}
 	CheckRadioButton(IDC_RADIOG,IDC_RADIOL,IDC_RADIOR);
 	UpdateData(true);
@@ -258,25 +267,25 @@ void CSetG::OnBnClickedRadiol()
 	strL+=pTheApp->m_RInfo[nRetR].RID;
 	strL+="#";
 	send(pTheApp->m_ConnectSock,(char*)strL.GetBuffer(),strL.GetLength()*sizeof(TCHAR),0);
-	//send(pTheApp->m_ConnectSock,buff,2,0);
 	Sleep(1000);
 	for (int i=0;i<pTheApp->m_NumInfo.LNum;i++)
 	{
-		CString str;
-		str+=pTheApp->m_LInfo[i].LID;
+		CString str=_T("");
+		for (int n=0;n<16;n++)
+		{
+			str+=pTheApp->m_LInfo[i].LID[n];
+		}
 		m_ComL.InsertString(i,str);
-		//m_ComL.InsertString(i,ShowMessage(pTheApp->m_LInfo[i].LID,8));
 	}
-/*	Sleep(5000);*/
 	CheckRadioButton(IDC_RADIOG,IDC_RADIOL,IDC_RADIOL);
 	UpdateData(true);
-	EnableWindow(IDC_GName,true);
-	EnableWindow(IDC_TName,true);
-	EnableWindow(IDC_RName,true);
+	EnableWindow(IDC_GName,FALSE);
+	EnableWindow(IDC_TName,FALSE);
+	EnableWindow(IDC_RName,FALSE);
 	EnableWindow(IDC_LName,true);	
-	EnableWindow(IDC_COM_GID,true);
-	EnableWindow(IDC_COM_TID,true);
-	EnableWindow(IDC_COM_RID,true);
+	EnableWindow(IDC_COM_GID,FALSE);
+	EnableWindow(IDC_COM_TID,FALSE);
+	EnableWindow(IDC_COM_RID,FALSE);
 	EnableWindow(IDC_COM_LID,true);
 	EnableWindow(IDC_BTN_GSET,FALSE);
 	EnableWindow(IDC_BTN_TSET,FALSE);

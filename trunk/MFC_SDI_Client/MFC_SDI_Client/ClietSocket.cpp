@@ -59,7 +59,10 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 	server.sin_port = htons(pChatRoom->m_port);
 	server.sin_addr.s_addr = inet_addr(pChatRoom->m_ip);
 	if ( connect(pChatRoom->m_ConnectSock, (struct sockaddr *)&server,  sizeof(struct sockaddr)) == SOCKET_ERROR ) {
-		AfxMessageBox(_T("连接失败，请重试！"));
+		{
+			AfxMessageBox(_T("连接失败，请重试！"));
+			theApp.m_connected=TRUE;
+		}
 		goto __Error_End;
 	}
 	SendUserInfo(&hdr,&userInfo[0]);
@@ -93,17 +96,53 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					case 0x2F:
 						CheckBack((unsigned char*)szBuf,iRet);
 						break;
+					case 'A':
+						ChenkConnectAgain(szBuf,iRet);
+						break;
 					case 'Z':
 						UnpackLightInfo(szBuf,iRet);
 						break;
 					case 'N':
-						//UnpackLightInfo(szBuf,iRet);
 						if (szBuf[1]=='1')
 						{
 							AfxMessageBox(_T("信息发送不成功！"));
+							break;
 						}
+						if (szBuf[1]=='0')
+						{
+							CheckCtrlBackInfo(szBuf,iRet);
+							break;
+						}					
+					case 'R':
+						if (szBuf[1]==0x31)
 						break;
-					default:
+						else
+						{
+							TranslateRInfo((U8*)szBuf,iRet);
+							break;
+						}
+					case 'W':
+						if (szBuf[1]==0x30)
+						{
+							UpdataZigbeeStatusInfo(szBuf,iRet);
+							break;
+						}
+						if (szBuf[1]==0x31)
+						{
+							UpdataZigbeeCurrentInfo(szBuf,iRet);
+							break;
+						}
+						if (szBuf[2]==0x33)
+						{
+							UpdataRoadCurrentInfo(szBuf,iRet);//路的电流
+							break;
+						}
+						if (szBuf[1]==0x34)//路的状态
+						{
+							UpdataRoadCurrentInfo(szBuf,iRet);
+							break;
+						}
+				default:
 						break;
 					}
 				}
@@ -112,6 +151,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
 					SendMessage(m_wnd,WM_CLOSE,0,0);
 					AfxMessageBox(_T("服务器已经关闭！"));
+					theApp.m_connected=TRUE;
 					TerminateThread(theApp.h1,0);
 					break;
 				}
@@ -237,7 +277,7 @@ void ChenkGetGID(char* buff,int nRecvLength)
 	else if (buff[0]=='S'&&buff[1]==0x32 && buff[2]=='0')
 	{
 		theApp.m_NumInfo.RNum=buff[3];
-		for (int i=0;i<(theApp.m_NumInfo.TNum);i++)
+		for (int i=0;i<(theApp.m_NumInfo.RNum);i++)
 		{	
 			int m=0;
 			for (int n=i*6+4;n<((i+1)*6+4);n++)
@@ -255,8 +295,10 @@ void ChenkGetGID(char* buff,int nRecvLength)
 	else if (buff[0]=='S'&&buff[1]==0x33 && buff[2]=='0')
 	{
 		theApp.m_NumInfo.LNum=buff[3];
+		
 		for (int i=0;i<(theApp.m_NumInfo.LNum);i++)
 		{	
+			ZeroMemory(&theApp.m_LInfo[i],sizeof(LInfo));
 			int m=0;
 			for (int n=i*16+4;n<((i+1)*16+4);n++)
 			{
@@ -380,10 +422,6 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		theApp.m_InitTrue=true;
 		SendMessage(m_wnd,WM_DESTROY,0,0);
 	}
-// 	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='N')
-// 	{
-// 		
-// 	}
 	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='G')
 	{
 		ZeroMemory(&m_InitInfo.GNum,sizeof(int));
@@ -520,6 +558,7 @@ void SendContrlInfo(LPHDR hdr,LPConTrlInfo contrlInfo)
 		AfxMessageBox(_T("SendUserInfo数据失败。"));
 	}
 }
+//Test测试用*******************//
 void SendContrlInfo1(LPHDR hdr,LPConTrlInfo contrlInfo)
 {
 	hdr->dataLen=(u_short)sizeof(ConTrlInfo);
@@ -548,7 +587,6 @@ void UnpackLightInfo(char* buffer, int Length)
 		}
 		else
 			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
-
 	}
 	else
 	{
@@ -558,16 +596,13 @@ void UnpackLightInfo(char* buffer, int Length)
 		}
 		else
 			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
-		//nRetPack++;
 		TranslateLInfo(theApp.m_lightPack);
 	}
-		
-		
 }
 void TranslateLInfo(U8* buffer)
 {
 	nRetPack=0;
-	int nHigh,nLower,j,nLCount;
+	int nHigh,nLower,nLCount;
 	nHigh=buffer[0];
 	nLower=buffer[1];
 	nLCount=nHigh*255+nLower;
@@ -579,4 +614,392 @@ void TranslateLInfo(U8* buffer)
 	}
 	theApp.m_pLightListView->LightToView(nLCount);
 	ZeroMemory(theApp.m_lightPack,1000*LENTH);
+}
+void TranslateRInfo(U8* buffer,int Length)
+{
+	int nLcont(0);
+	nLcont=buffer[1];
+	for (int i=0;i<nLcont;i++)
+	{
+		theApp.m_RoadListInfo[i]=(RoadListViewInfo*)malloc(RLENTH);
+		ZeroMemory(theApp.m_RoadListInfo[i],RLENTH);
+		memcpy(theApp.m_RoadListInfo[i],buffer+2+i*RLENTH,RLENTH);
+	}
+	theApp.m_pRoadView->RoadInfoToView(nLcont);
+	CMainFrame *pMain=(CMainFrame *)AfxGetApp()->m_pMainWnd;
+	pMain->StartTimer(1);
+}
+
+void ChenkConnectAgain(char* buff,int nRecvLength)
+{
+	//ZeroMemory(&m_InitInfo.GNum,sizeof(int));
+	ZeroMemory(&m_InitInfo.TNum,sizeof(int));
+	ZeroMemory(&m_InitInfo.RNum,sizeof(int));
+	theApp.m_pFileView->FillFileView();
+}
+void UpdataZigbeeStatusInfo(char* buff,int nRecvLength)
+{
+	CString str1=_T("");
+	if (buff[2]==0x30)
+	{
+		return;
+	}
+	else
+		if (buff[2]==0x31)
+		{
+			ConTrlInfo* pGetRInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+			ZeroMemory(pGetRInfo,sizeof(ConTrlInfo));
+			memcpy(pGetRInfo,buff+3,sizeof(ConTrlInfo));
+			for (int i=0;i<16;i++)
+			{
+				str1+=pGetRInfo->m_ID[i];
+			}
+			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+			{
+				CString str2=_T("");
+				for (int m=0;m<16;m++)
+				{
+					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+				}
+				if (strcmp(str1,str2)==0)
+				{
+					theApp.m_ZigbeeInfo[n]->Update|=0x80;
+					if (pGetRInfo->m_CheckData[1]==0x01&&pGetRInfo->m_CheckData[3]==0x01)
+					{
+						theApp.m_ZigbeeInfo[n]->MainStatus=true;
+						theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+					}else
+					if (pGetRInfo->m_CheckData[1]==0x00&&pGetRInfo->m_CheckData[3]==0x00)
+					{
+						theApp.m_ZigbeeInfo[n]->MainStatus=false;
+						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+					}else
+					if (pGetRInfo->m_CheckData[1]==0x01&&pGetRInfo->m_CheckData[3]==0x00)
+					{
+						theApp.m_ZigbeeInfo[n]->MainStatus=true;
+						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+					}else
+					if (pGetRInfo->m_CheckData[1]==0x00&&pGetRInfo->m_CheckData[3]==0x01)
+					{
+						theApp.m_ZigbeeInfo[n]->MainStatus=false;
+						theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+					}
+					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+				}
+			}
+			free(pGetRInfo);
+		}
+}
+void UpdataZigbeeCurrentInfo(char* buff,int nRecvLength)
+{
+	CString str1=_T("");
+	if (buff[2]==0x30)
+	{
+		return;
+	}
+	else
+		if (buff[2]==0x31)
+		{
+			ConTrlInfo* pGetRInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+			ZeroMemory(pGetRInfo,sizeof(ConTrlInfo));
+			memcpy(pGetRInfo,buff+3,sizeof(ConTrlInfo));
+			for (int i=0;i<16;i++)
+			{
+				str1+=pGetRInfo->m_ID[i];
+			}
+			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+			{
+				CString str2=_T("");
+				for (int m=0;m<16;m++)
+				{
+					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+				}
+				if (strcmp(str1,str2)==0)
+				{
+					theApp.m_ZigbeeInfo[n]->Update|=0x40;
+					float nCurrent=(pGetRInfo->m_CheckData[2]*256+pGetRInfo->m_CheckData[3])/1000;
+					theApp.m_ZigbeeInfo[n]->current=nCurrent;
+				}
+				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+			}
+			free(pGetRInfo);
+		}
+}
+void CheckCtrlBackInfo(char* buff,int nRecvLength)
+{
+	CString str1=_T("");
+	ConTrlInfo* pGetRInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo,sizeof(ConTrlInfo));
+	memcpy(pGetRInfo,buff+3,sizeof(ConTrlInfo));
+	for (int l=0;l<16;l++)
+	{
+		str1+=pGetRInfo->m_ID[l];
+	}
+	switch (pGetRInfo->m_OrderType[0])
+	{
+	case 0xA1:
+		
+		if (pGetRInfo->m_ActiveType[0]==0xB1)
+		{
+			theApp.m_DlgMainONStatus=true;
+			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+			{
+				CString str2=_T("");
+				for (int m=0;m<16;m++)
+				{
+					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+				}
+				if (strcmp(str1,str2)==0)
+				{
+					theApp.m_ZigbeeInfo[n]->MainStatus=true;
+				}
+				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+			}
+		}
+		else
+			if (pGetRInfo->m_ActiveType[0]==0xB2)
+			{
+				theApp.m_DlgMainOFFStatus=true;
+				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+				{
+					CString str2=_T("");
+					for (int m=0;m<16;m++)
+					{
+						str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_ZigbeeInfo[n]->MainStatus=false;
+					}
+					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+				}
+			}
+		break;
+	case 0xA2:
+		if (pGetRInfo->m_ActiveType[0]==0xB1)
+		{
+			theApp.m_DlgAssistONStatus=true;
+			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+			{
+				CString str2=_T("");
+				for (int m=0;m<16;m++)
+				{
+					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+				}
+				if (strcmp(str1,str2)==0)
+				{
+					theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+				}
+				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+			}
+		}
+		else
+			if (pGetRInfo->m_ActiveType[0]=0xB2)
+			{
+				theApp.m_DlgAssistOFFStatus=true;
+				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+				{
+					CString str2=_T("");
+					for (int m=0;m<16;m++)
+					{
+						str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+					}
+					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+			}
+		break;
+	case 0xA3:
+		if (pGetRInfo->m_ActiveType[0]==0xB1)
+		{
+			theApp.m_DlgDoubleONStatus=true;
+			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+			{
+				CString str2=_T("");
+				for (int m=0;m<16;m++)
+				{
+					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+				}
+				if (strcmp(str1,str2)==0)
+				{
+					theApp.m_ZigbeeInfo[n]->MainStatus=true;
+					theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+				}
+				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+			}
+		}
+		else
+			if (pGetRInfo->m_ActiveType[0]==0xB2)
+			{
+				theApp.m_DlgDoubleOFFStatus=true;
+				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+				{
+					CString str2=_T("");
+					for (int m=0;m<16;m++)
+					{
+						str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_ZigbeeInfo[n]->MainStatus=false;
+						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+					}
+					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+				}
+			}
+		break;
+	default:
+		break;
+		}
+	free(pGetRInfo);
+	}
+}
+
+void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
+{
+	CString str1=_T("");
+	CString str=_T("");
+	if (buff[2]==0x30)
+	{
+		return;
+	}
+	else
+		if (buff[2]==0x31)
+		{
+			ConTrlInfo* pGetRInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+			ZeroMemory(pGetRInfo,sizeof(ConTrlInfo));
+			memcpy(pGetRInfo,buff+3,sizeof(ConTrlInfo));
+			for (int i=0;i<4;i++)
+			{
+				str1+=pGetRInfo->m_ID[i];
+			}
+			str1+=CharToCString(&pGetRInfo->m_CheckData[0],1);
+			switch (pGetRInfo->m_CheckData[1])
+			{
+			case 0x01:
+				for (int n=0;n<theApp.m_pRoadView->nCount;n++)
+				{
+					CString str2=_T("");
+					for (int m=0;m<6;m++)
+					{
+						str2+=theApp.m_RoadListInfo[n]->m_RoadID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_RoadListInfo[n]->nCurrent1=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
+							->m_CheckData[3])/1000;
+						theApp.m_RoadListInfo[n]->m_Update|=0x40;
+						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+					}
+					else 
+						return;
+				}
+				break;
+			case 0x02:
+				for (int n=0;n<theApp.m_pRoadView->nCount;n++)
+				{
+					CString str2=_T("");
+					for (int m=0;m<6;m++)
+					{
+						str2+=theApp.m_RoadListInfo[n]->m_RoadID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_RoadListInfo[n]->nCurrent2=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
+							->m_CheckData[3])/1000;
+						theApp.m_RoadListInfo[n]->m_Update|=0x20;
+						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+					}
+					else 
+						return;
+				}
+				break;
+			case 0x03:
+				for (int n=0;n<theApp.m_pRoadView->nCount;n++)
+				{
+					CString str2=_T("");
+					for (int m=0;m<6;m++)
+					{
+						str2+=theApp.m_RoadListInfo[n]->m_RoadID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_RoadListInfo[n]->nCurrent3=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
+							->m_CheckData[3])/1000;
+						theApp.m_RoadListInfo[n]->m_Update|=0x10;
+						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+					}
+					else 
+						return;
+				}
+				break;
+			}
+				
+			free(pGetRInfo);
+		}
+}
+void UpdataRoadStatusInfo(char* buff,int nRecvLength)
+{
+	CString str1=_T("");
+	CString str=_T("");
+	if (buff[2]==0x30)
+	{
+		return;
+	}
+	else
+		if (buff[2]==0x31)
+		{
+			ConTrlInfo* pGetRInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+			ZeroMemory(pGetRInfo,sizeof(ConTrlInfo));
+			memcpy(pGetRInfo,buff+3,sizeof(ConTrlInfo));
+			for (int i=0;i<4;i++)
+			{
+				str1+=pGetRInfo->m_ID[i];
+			}
+			str1+="0";
+			for (int l=1;l<9;l++)
+			{
+				char c=pGetRInfo->m_CheckData[4]&(l<<0x01);
+				str.Format("%s%d",str1,l);
+				for (int n=0;n<theApp.m_pRoadView->nCount;n++)
+				{
+					CString str2=_T("");
+					for (int m=0;m<6;m++)
+					{
+						str2+=theApp.m_RoadListInfo[n]->m_RoadID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						
+						if (c==0x00)
+						{
+							theApp.m_RoadListInfo[n]->m_RoadStatus=true;
+						}
+						else
+							theApp.m_RoadListInfo[n]->m_RoadStatus=false;
+						theApp.m_RoadListInfo[n]->m_Update|=0x80;
+						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+					}
+					else 
+						return;
+				}
+			}
+			free(pGetRInfo);
+		}
+}
+CString CharToCString(unsigned char* str, int nLength)
+{
+	CString strShow=_T("");
+	LPTSTR p;
+	TCHAR szText[300];
+	ZeroMemory(szText, 300);
+	p = szText;
+	for (int i = 0; i< nLength; i++)
+	{
+		p+= wsprintf(p, "%.2X", str[i]);  //这部分为关键部分
+	}
+	strShow.Format(_T("%s"), szText);
+	return strShow;
 }

@@ -89,6 +89,7 @@ IDI_ICON6               ICON                    "res\\explorer.exe_0.ico"
 IDI_ICON7               ICON                    "res\\msoeres.dll_18.ico"
 IDI_ICON8               ICON                    "res\\newgame.ico"
 IDI_ICON9               ICON                    "res\\World.ico"
+IDI_ICON10              ICON                    "res\\icon10.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -112,6 +113,8 @@ IDB_BITMAP7             BITMAP                  "res\\camera.bmp"
 IDB_BITMAP8             BITMAP                  "res\\File_Manager.bmp"
 IDR_MAINFRAME           BITMAP                  "res\\Test.bmp"
 IDR_MAINFRAME_256       BITMAP                  "F:\\MFC_SDI_Client\\MFC_SDI_Client\\res\\mainfram1.bmp"
+IDB_BITMAP9             BITMAP                  "res\\ToolBar.bmp"
+IDR_TOOLBAR1            BITMAP                  "res\\toolbar1.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -160,6 +163,21 @@ BEGIN
     BUTTON      ID_8
 END
 
+IDR_TOOLBAR1 TOOLBAR  116, 100
+BEGIN
+    BUTTON      ID_BUTTON32833
+    SEPARATOR
+    BUTTON      ID_BUTTON32834
+    SEPARATOR
+    BUTTON      ID_BUTTON32835
+    SEPARATOR
+    BUTTON      ID_BUTTON32836
+    SEPARATOR
+    BUTTON      ID_BUTTON32837
+    SEPARATOR
+    BUTTON      ID_BUTTON32838
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -170,7 +188,7 @@ IDR_MAINFRAME MENU
 BEGIN
     POPUP "系统"
     BEGIN
-        MENUITEM "退出",                          ID_32771
+        MENUITEM "退出",                          ID_QUIT
         MENUITEM "重新连接",                        ID_CAgain
     END
     POPUP "管理"
@@ -178,6 +196,7 @@ BEGIN
         MENUITEM "创建新用户",                       ID_SETUSER
         MENUITEM "修改用户密码",                      ID_Modify
         MENUITEM "创建区域",                        ID_SetG
+        MENUITEM "用户管理",                        ID_UserControl
     END
     POPUP "配置"
     BEGIN
@@ -253,6 +272,12 @@ BEGIN
     BEGIN
         MENUITEM "打开",                          ID_OPEN_R
         MENUITEM "对此路操作",                       ID_R_WORK
+        MENUITEM "对此路双灯开",                      ID_R32848
+        MENUITEM "对此路双灯关",                      ID_R32849
+        MENUITEM "对此路主灯开",                      ID_R32850
+        MENUITEM "对此路主灯关",                      ID_R32851
+        MENUITEM "对此路辅灯开",                      ID_R32852
+        MENUITEM "对此路辅灯关",                      ID_R32853
     END
 END
 
@@ -261,6 +286,24 @@ BEGIN
     POPUP "单灯操作"
     BEGIN
         MENUITEM "删除全部",                        ID_32799
+    END
+END
+
+IDR_HIDEMENU MENU 
+BEGIN
+    POPUP "托盘Menu"
+    BEGIN
+        MENUITEM "打开主界面",                       ID_OPENEXE
+        MENUITEM "退出",                          ID_QUITEXE
+    END
+END
+
+IDR_List_Menu MENU 
+BEGIN
+    POPUP "LightListViwe"
+    BEGIN
+        MENUITEM "对单个状态更新",                     ID_Updata_Status
+        MENUITEM "对单个电流更新",                     ID_Updata_Current
     END
 END
 
@@ -420,9 +463,9 @@ IDD_WaitDlg DIALOGEX 0, 0, 259, 98
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CTEXT           "static",IDC_STATIC_INIT,56,20,137,11
     LTEXT           "初始化可能需要几分钟，请耐心等待",IDC_STATIC,57,38,134,11
     PUSHBUTTON      "确定",IDC_BUTTON1,95,57,46,17
+    CTEXT           "Static",IDC_STATIC_INIT,51,15,146,14
 END
 
 IDD_TEST DIALOGEX 0, 0, 316, 183
@@ -456,18 +499,22 @@ BEGIN
     PUSHBUTTON      "Button8",IDC_BUTTON8,261,124,32,19
 END
 
-IDD_DoRWorkDlg DIALOGEX 0, 0, 316, 180
+IDD_DoRWorkDlg DIALOGEX 0, 0, 387, 134
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "路的操作"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,53,159,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,191,159,50,14
-    GROUPBOX        "路的信息",IDC_STATIC,7,14,302,44
+    DEFPUSHBUTTON   "OK",IDOK,259,113,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,330,113,50,14
+    GROUPBOX        "路的信息",IDC_STATIC,7,14,373,32
     CTEXT           "路名",IDC_STATIC,19,26,42,10
     EDITTEXT        IDC_RName,53,24,92,12,ES_AUTOHSCROLL | ES_READONLY
-    CTEXT           "路ID",IDC_STATIC,156,26,25,10
-    EDITTEXT        IDC_RID,184,24,92,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "路ID",IDC_STATIC,149,26,25,10
+    EDITTEXT        IDC_RID,178,24,58,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "对此路关",IDC_BTN_Close,219,49,56,13
+    PUSHBUTTON      "对此路开",IDC_BTN_Open,324,48,56,13
+    CTEXT           "路的状态",IDC_STATIC,242,26,42,10
+    EDITTEXT        IDC_RName2,288,25,92,12,ES_AUTOHSCROLL | ES_READONLY
 END
 
 IDD_GWork DIALOGEX 0, 0, 316, 177
@@ -500,11 +547,69 @@ BEGIN
     PUSHBUTTON      "确定",IDC_GroupOK,245,25,38,14
 END
 
-IDD_DIALOG2 DIALOGEX 0, 0, 185, 148
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+IDD_VIEW_DLG DIALOGEX 0, 0, 646, 234
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CTEXT           "正在获取信息，请稍后.....",IDC_STATIC_1,7,62,171,10
+    CONTROL         "",IDC_VIEW_TAB,"SysTabControl32",0x0,3,1,639,231
+END
+
+IDD_DIALOG3 DIALOGEX 0, 0, 651, 218
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_Light_View,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_ALIGNLEFT | WS_BORDER,0,14,594,203,WS_EX_DLGMODALFRAME | WS_EX_STATICEDGE
+    PUSHBUTTON      "全选",IDC_BTN_ALL,1,0,42,13
+    PUSHBUTTON      "对未更新的进行更新",IDC_BTN_UPDATA,48,0,83,13
+END
+
+IDD_Roud_Info DIALOGEX 0, 0, 641, 218
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "全选",IDC_BUTTON1,1,0,37,12
+    PUSHBUTTON      "对未更新进行更新",IDC_Updata_ALL,44,0,72,12
+    PUSHBUTTON      "Button1",IDC_BUTTON10,133,1,37,12
+    PUSHBUTTON      "Button1",IDC_BUTTON11,185,2,37,12
+    CONTROL         "",IDC_R_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,0,12,595,205
+END
+
+IDD_User_CTRL DIALOGEX 0, 0, 465, 238
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "用户管理界面"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+IDD_LIGHT_DLG DIALOGEX 0, 0, 279, 156
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CTEXT           "路名",IDC_STATIC,7,17,34,10
+    EDITTEXT        IDC_RoadName,39,17,84,14,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "区域",IDC_STATIC,7,3,28,10
+    EDITTEXT        IDC_GName,39,1,84,15,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "灯名",IDC_STATIC,7,33,34,10
+    CTEXT           "灯ID",IDC_STATIC,7,47,34,10
+    EDITTEXT        IDC_LighteName,39,32,83,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_LightID,39,47,83,14,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "主灯状态",IDC_STATIC,7,63,35,12
+    CTEXT           "辅灯状态",IDC_STATIC,84,63,38,12
+    PUSHBUTTON      "Button1",IDC_BTN_MAINStatus,42,61,19,21
+    PUSHBUTTON      "Button1",IDC_BTN_ASSISTStatus,67,61,19,20
+    PUSHBUTTON      "Button1",IDC_BTN_MAIN,7,82,56,17
+    PUSHBUTTON      "Button1",IDC_BTN_ASSIST,65,82,57,17
+    PUSHBUTTON      "双灯开",IDC_BTN_DON,7,100,115,17
+    PUSHBUTTON      "双灯关",IDC_BTN_DOFF,7,118,115,17
+    EDITTEXT        IDC_Progress,28,139,94,16,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "执行进度",IDC_STATIC,7,137,20,17
+END
+
+IDD_GPRS_INFO DIALOGEX 0, 0, 360, 171
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
 END
 
 
@@ -630,9 +735,9 @@ BEGIN
     IDD_DoRWorkDlg, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 309
+        RIGHTMARGIN, 380
         TOPMARGIN, 7
-        BOTTOMMARGIN, 173
+        BOTTOMMARGIN, 127
     END
 
     IDD_GWork, DIALOG
@@ -651,12 +756,46 @@ BEGIN
         BOTTOMMARGIN, 173
     END
 
-    IDD_DIALOG2, DIALOG
+    IDD_VIEW_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 643
+        VERTGUIDE, 642
+        BOTTOMMARGIN, 232
+    END
+
+    IDD_DIALOG3, DIALOG
+    BEGIN
+        RIGHTMARGIN, 649
+        BOTTOMMARGIN, 217
+    END
+
+    IDD_Roud_Info, DIALOG
+    BEGIN
+        RIGHTMARGIN, 639
+        BOTTOMMARGIN, 217
+    END
+
+    IDD_User_CTRL, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 178
+        RIGHTMARGIN, 458
         TOPMARGIN, 7
-        BOTTOMMARGIN, 141
+        BOTTOMMARGIN, 231
+    END
+
+    IDD_LIGHT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        BOTTOMMARGIN, 155
+    END
+
+    IDD_GPRS_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 353
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 164
     END
 END
 #endif    // APSTUDIO_INVOKED

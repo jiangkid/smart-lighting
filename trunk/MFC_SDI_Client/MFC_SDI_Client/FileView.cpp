@@ -33,6 +33,12 @@ BEGIN_MESSAGE_MAP(CFileView, CDockablePane)
 	ON_COMMAND(ID_OPEN_R, &CFileView::OnOpenR)
 	ON_COMMAND(ID_OPEN_G, &CFileView::OnOpenG)
 	ON_WM_TIMER()
+	ON_COMMAND(ID_R32848, &CFileView::OnR32848)
+	ON_COMMAND(ID_R32849, &CFileView::OnR32849)
+	ON_COMMAND(ID_R32850, &CFileView::OnR32850)
+	ON_COMMAND(ID_R32851, &CFileView::OnR32851)
+	ON_COMMAND(ID_R32852, &CFileView::OnR32852)
+	ON_COMMAND(ID_R32853, &CFileView::OnR32853)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -42,7 +48,7 @@ int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CDockablePane::OnCreate(lpCreateStruct) == -1)
 		return -1;
-
+	theApp.m_pFileView=this;
 	CRect rectDummy;
 	rectDummy.SetRectEmpty();
 	// 创建视图:
@@ -96,6 +102,7 @@ void CFileView::OnSize(UINT nType, int cx, int cy)
 
 void CFileView::FillFileView()
 {
+	m_wndFileView.DeleteAllItems();
 	int i=0;
 	TV_INSERTSTRUCT tvRoot;//树根
 	TV_INSERTSTRUCT tvSecond;//树枝
@@ -160,12 +167,9 @@ void CFileView::FillFileView()
 						tvFour.item.lParam=(LPARAM)RData;
 						m_wndFileView.InsertItem (&tvFour);
 					}
-					//free(RData);
 				}
 			}
-			//free(TData);
 		}
-		//free(GData);
 	}
 	m_wndFileView.Expand(item_root,TVE_EXPAND);
 	DWORD dwStyle=GetWindowLong(m_wndFileView.m_hWnd ,GWL_STYLE);
@@ -198,7 +202,6 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 		if (hTreeItem != NULL)
 		{
 			pWndTree->SelectItem(hTreeItem);
-			//itemData = (TreeInfo *)pWndTree->GetItemData(hTreeItem);
 			if (pWndTree->GetItemData(hTreeItem)!=NULL)
 			{
 				itemData = (TreeInfo *)pWndTree->GetItemData(hTreeItem);
@@ -242,6 +245,7 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 			{
 				m_szTreeID+=itemData->TID[i];
 				TID[i]=itemData->TID[i];
+				theApp.TID[i+1]=itemData->TID[i];
 			}
 			pWndTree->SetFocus();
 			CMenu menu;   
@@ -254,6 +258,7 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 			itemData->RID[2] != 0x00 && itemData->RID[3]!=0x00 &&
 			itemData->RID[4] != 0x00 && itemData->RID[5]!=0x00)
 		{
+			ZeroMemory(theApp.TID,6);
 			for (int i(0);i<6;i++)
 			{
 				m_szTreeID+=itemData->RID[i];
@@ -267,7 +272,6 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 			pPopup->TrackPopupMenu(TPM_LEFTALIGN|TPM_LEFTBUTTON,point.x,point.y,this); 
 		}
 	}
-// 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EXPLORER, point.x, point.y, this, TRUE);
 }
 
 void CFileView::AdjustLayout()
@@ -307,19 +311,23 @@ void CFileView::OnSetFocus(CWnd* pOldWnd)
 void CFileView::OnRWork()
 {
 	// TODO: Add your command handler code here
-	CDoRWorkDlg dlg;
-	dlg.DoModal();
+// 	CDoRWorkDlg dlg;
+// 	dlg.DoModal();
+	Rdlg = (CDoRWorkDlg *)malloc(sizeof(CDoRWorkDlg));
+	Rdlg->CDoRWorkDlg::CDoRWorkDlg();
+	Rdlg->Create(IDD_DoRWorkDlg, this);
+	Rdlg->ShowWindow(SW_SHOW);
 }
 void CFileView::OnOpenR()
 {
 	// TODO: Add your command handler code here
 	ConTrlInfo* pGetRInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
 	ZeroMemory(pGetRInfo,sizeof(ConTrlInfo));
-	ZeroMemory(m_GetLightInfo,8);
+	ZeroMemory(m_GetLightInfo,9);
 	pGetRInfo->m_First[0]=0x2F;
 	pGetRInfo->m_First[1]=0x43;
 	pGetRInfo->m_First[2]=0x2F;
-	pGetRInfo->m_First[3]=0x7F;
+	pGetRInfo->m_First[3]=0x04;
 	m_GetLightInfo[0]='Z';
 	m_GetLightInfo[1]='0';
 	for (int i=0;i<6;i++)
@@ -327,7 +335,10 @@ void CFileView::OnOpenR()
 		pGetRInfo->m_ID[i]=RID[i];
 		m_GetLightInfo[i+2]=RID[i];
 	}
-	//pGetRInfo->m_OrderObject[];
+	for (int j=0;j<4;j++)
+	{
+		theApp.TID[j+1]=RID[j];
+	}
 	pGetRInfo->m_OrderType[0]=0x0A;
 	pGetRInfo->m_OrderObject[0]=0xA3;
 	pGetRInfo->m_ActiveType[0]=0xBD;
@@ -335,12 +346,198 @@ void CFileView::OnOpenR()
 	m_GetLightInfo[8]='#';
 	SendContrlInfo(&hdr,pGetRInfo);
  	Sleep(5000);
+
+	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
+	pGetRInfo1->m_First[0]=0x2F;
+	pGetRInfo1->m_First[1]=0x43;
+	pGetRInfo1->m_First[2]=0x2F;
+	pGetRInfo1->m_First[3]=0x04;
+	for (int n=0;n<6;n++)
+	{
+		pGetRInfo1->m_ID[n]=RID[n];
+	}
+	pGetRInfo1->m_OrderType[0]=0x0A;
+	pGetRInfo1->m_OrderObject[0]=0xAE;
+	pGetRInfo1->m_ActiveType[0]=0xBD;
+	pGetRInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetRInfo1);
+	Sleep(5000);
+
 	send(theApp.m_ConnectSock,(char*)m_GetLightInfo,9,0);
+	free(pGetRInfo1);
+	free(pGetRInfo);
 }
 
 void CFileView::OnOpenG()
 {
 	// TODO: Add your command handler code here
-	CDoGWorkDlg dlg;
-	dlg.DoModal();
+	pdlg = (CDoGWorkDlg *)malloc(sizeof(CDoGWorkDlg));
+	pdlg->CDoGWorkDlg::CDoGWorkDlg();
+	pdlg->Create(IDD_GWork, this);
+	pdlg->ShowWindow(SW_SHOW);
+}
+
+U8* CFileView::GPRSTranslationID(U8* buffer, int Length){	U8 c[1];	ZeroMemory(c,1);	int nCount = 0;	CString temp;	int i,j;	for (i=0;i<Length/2;i++)	{		CString temp="";		for (j=nCount*2;j<nCount*2+2;j++)		{			temp+=buffer[j];		}		sscanf(temp,"%2x",&c[nCount]);		nCount++;	}	return c;}
+void CFileView::OnR32848()//组双灯开
+{
+	// TODO: Add your command handler code here
+	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
+	pGetRInfo1->m_First[0]=0x2F;
+	pGetRInfo1->m_First[1]=0x43;
+	pGetRInfo1->m_First[2]=0x2F;
+	pGetRInfo1->m_First[3]=0x04;
+	for (int n=0;n<6;n++)
+	{
+		pGetRInfo1->m_ID[n]=RID[n];
+	}
+	pGetRInfo1->m_OrderType[0]=0x0A;
+	pGetRInfo1->m_OrderObject[0]=0xA3;
+	pGetRInfo1->m_ActiveType[0]=0xB1;
+	pGetRInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetRInfo1);
+	Sleep(5000);
+	for(int n=0;n<theApp.m_pLightListView->nCount;n++)
+	{
+		theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+		theApp.m_ZigbeeInfo[n]->MainStatus=true;
+		theApp.m_ZigbeeInfo[n]->Update|=0x80;
+	}
+	theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+}
+void CFileView::OnR32849()//组双灯关
+{
+	// TODO: Add your command handler code here
+	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
+	pGetRInfo1->m_First[0]=0x2F;
+	pGetRInfo1->m_First[1]=0x43;
+	pGetRInfo1->m_First[2]=0x2F;
+	pGetRInfo1->m_First[3]=0x04;
+	for (int n=0;n<6;n++)
+	{
+		pGetRInfo1->m_ID[n]=RID[n];
+	}
+	pGetRInfo1->m_OrderType[0]=0x0A;
+	pGetRInfo1->m_OrderObject[0]=0xA3;
+	pGetRInfo1->m_ActiveType[0]=0xB2;
+	pGetRInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetRInfo1);
+	Sleep(5000);
+	for(int n=0;n<theApp.m_pLightListView->nCount;n++)
+	{
+		theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+		theApp.m_ZigbeeInfo[n]->MainStatus=false;
+		theApp.m_ZigbeeInfo[n]->Update|=0x80;
+	}
+	theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+}
+void CFileView::OnR32850()//组主灯开
+{
+	// TODO: Add your command handler code here
+	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
+	pGetRInfo1->m_First[0]=0x2F;
+	pGetRInfo1->m_First[1]=0x43;
+	pGetRInfo1->m_First[2]=0x2F;
+	pGetRInfo1->m_First[3]=0x04;
+	for (int n=0;n<6;n++)
+	{
+		pGetRInfo1->m_ID[n]=RID[n];
+	}
+	pGetRInfo1->m_OrderType[0]=0x0A;
+	pGetRInfo1->m_OrderObject[0]=0xA2;
+	pGetRInfo1->m_ActiveType[0]=0xB1;
+	pGetRInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetRInfo1);
+	Sleep(5000);
+	for(int n=0;n<theApp.m_pLightListView->nCount;n++)
+	{
+		//theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+		theApp.m_ZigbeeInfo[n]->Update|=0x80;
+		theApp.m_ZigbeeInfo[n]->MainStatus=true;
+	}
+	theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+}
+void CFileView::OnR32851()//组主灯关
+{
+	// TODO: Add your command handler code here
+	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
+	pGetRInfo1->m_First[0]=0x2F;
+	pGetRInfo1->m_First[1]=0x43;
+	pGetRInfo1->m_First[2]=0x2F;
+	pGetRInfo1->m_First[3]=0x04;
+	for (int n=0;n<6;n++)
+	{
+		pGetRInfo1->m_ID[n]=RID[n];
+	}
+	pGetRInfo1->m_OrderType[0]=0x0A;
+	pGetRInfo1->m_OrderObject[0]=0xA2;
+	pGetRInfo1->m_ActiveType[0]=0xB2;
+	pGetRInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetRInfo1);
+	Sleep(5000);
+	for(int n=0;n<theApp.m_pLightListView->nCount;n++)
+	{
+		//theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+		theApp.m_ZigbeeInfo[n]->Update|=0x80;
+		theApp.m_ZigbeeInfo[n]->MainStatus=false;
+	}
+	theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+}
+void CFileView::OnR32852()//组辅灯开
+{
+	// TODO: Add your command handler code here
+	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
+	pGetRInfo1->m_First[0]=0x2F;
+	pGetRInfo1->m_First[1]=0x43;
+	pGetRInfo1->m_First[2]=0x2F;
+	pGetRInfo1->m_First[3]=0x04;
+	for (int n=0;n<6;n++)
+	{
+		pGetRInfo1->m_ID[n]=RID[n];
+	}
+	pGetRInfo1->m_OrderType[0]=0x0A;
+	pGetRInfo1->m_OrderObject[0]=0xA1;
+	pGetRInfo1->m_ActiveType[0]=0xB1;
+	pGetRInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetRInfo1);
+	Sleep(5000);
+	for(int n=0;n<theApp.m_pLightListView->nCount;n++)
+	{
+		theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+		theApp.m_ZigbeeInfo[n]->Update|=0x80;
+		//theApp.m_ZigbeeInfo[n]->MainStatus=true;
+	}
+	theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+}
+void CFileView::OnR32853()//组辅灯关
+{
+	// TODO: Add your command handler code here
+	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
+	pGetRInfo1->m_First[0]=0x2F;
+	pGetRInfo1->m_First[1]=0x43;
+	pGetRInfo1->m_First[2]=0x2F;
+	pGetRInfo1->m_First[3]=0x04;
+	for (int n=0;n<6;n++)
+	{
+		pGetRInfo1->m_ID[n]=RID[n];
+	}
+	pGetRInfo1->m_OrderType[0]=0x0A;
+	pGetRInfo1->m_OrderObject[0]=0xA1;
+	pGetRInfo1->m_ActiveType[0]=0xB2;
+	pGetRInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetRInfo1);
+	Sleep(5000);
+	for(int n=0;n<theApp.m_pLightListView->nCount;n++)
+	{
+		theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+		theApp.m_ZigbeeInfo[n]->Update|=0x80;
+		//theApp.m_ZigbeeInfo[n]->MainStatus=true;
+	}
+	theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
 }
