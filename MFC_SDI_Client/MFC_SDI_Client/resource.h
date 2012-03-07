@@ -145,7 +145,6 @@
 #define IDC_BUTTON1                     1030
 #define IDC_BTN_TSET                    1031
 #define IDC_Updata_ALL                  1031
-#define IDC_BUTTON9                     1031
 #define IDC_BTN_Open                    1031
 #define IDC_RADIOR                      1032
 #define IDC_BUTTON10                    1032
@@ -254,13 +253,21 @@
 #define ID_R32851                       32851
 #define ID_R32852                       32852
 #define ID_R32853                       32853
+#define ID_ROADMENU_32854               32854
+#define ID_ROADMENU_32855               32855
+#define ID_RC_Updata                    32856
+#define ID_RS_Updata                    32857
+#define ID_ROADMENU_32858               32858
+#define ID_ROADMENU_32859               32859
+#define ID_RC2_Updata                   32860
+#define ID_RC3_Updata                   32861
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        420
-#define _APS_NEXT_COMMAND_VALUE         32854
+#define _APS_NEXT_COMMAND_VALUE         32862
 #define _APS_NEXT_CONTROL_VALUE         1067
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

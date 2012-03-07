@@ -305,6 +305,13 @@ BEGIN
         MENUITEM "对单个状态更新",                     ID_Updata_Status
         MENUITEM "对单个电流更新",                     ID_Updata_Current
     END
+    POPUP "RoadMenu"
+    BEGIN
+        MENUITEM "对单路电流1更新",                    ID_RC_Updata
+        MENUITEM "对单路电流2更新",                    ID_RC2_Updata
+        MENUITEM "对单路电流3更新",                    ID_RC3_Updata
+        MENUITEM "对单个状态更新",                     ID_RS_Updata
+    END
 END
 
 

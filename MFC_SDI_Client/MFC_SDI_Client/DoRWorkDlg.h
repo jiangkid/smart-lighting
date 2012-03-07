@@ -24,8 +24,10 @@ public:
  	CString m_RName;
 	CString RID;
 	CString m_status;
+	CString m_szLID1;
 protected:
 	virtual void OnCancel();
 	virtual void PostNcDestroy();
-
+	afx_msg void OnBnClickedBtnAll();
+	afx_msg void OnBnClickedBtnAll11();
 };
