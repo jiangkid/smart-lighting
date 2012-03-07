@@ -18,8 +18,14 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+
 public:
 	virtual BOOL OnInitDialog();
-	CString m_RName;
+ 	CString m_RName;
 	CString RID;
+	CString m_status;
+protected:
+	virtual void OnCancel();
+	virtual void PostNcDestroy();
+
 };

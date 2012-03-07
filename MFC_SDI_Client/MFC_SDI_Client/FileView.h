@@ -1,11 +1,11 @@
-
 #pragma once
-
 #include "ViewTree.h"
 #include "DoRWorkDlg.h"
 #include "MFC_SDI_Client.h"
 #include "DoGWorkDlg.h"
 #include "WaitForInfoDlg.h"
+
+
 class CFileViewToolBar : public CMFCToolBar
 {
 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
@@ -24,7 +24,7 @@ public:
 
 	void AdjustLayout();
 	void FillFileView();
-	
+	U8* GPRSTranslationID(U8* buffer, int Length);
 //  Ù–‘
 protected:
 
@@ -51,6 +51,8 @@ protected:
 public:
 	CString m_szTreeName;
 	CString m_szTreeID;
+	CDoGWorkDlg* pdlg;
+	CDoRWorkDlg* Rdlg;
 	afx_msg void OnRWork();
 	afx_msg void OnOpenR();
 	U8	GID[2];
@@ -59,4 +61,10 @@ public:
 	U8  m_GetLightInfo[9]; 
 	afx_msg void OnOpenG();
 	CWaitForInfoDlg* dlg;
+	afx_msg void OnR32848();
+	afx_msg void OnR32849();
+	afx_msg void OnR32850();
+	afx_msg void OnR32851();
+	afx_msg void OnR32852();
+	afx_msg void OnR32853();
 };

@@ -218,6 +218,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GprsInfoCtrlDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GroupWorkDlg.cpp"
 				>
 			</File>
@@ -226,7 +230,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LightCtrlDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LightListView.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LightView.cpp"
 				>
 			</File>
 			<File
@@ -258,6 +270,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MySplitter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ReportCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RoudInfoView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SetG.cpp"
 				>
 			</File>
@@ -286,7 +310,19 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\TabListView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TestDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TrueColorToolBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserCtrDlg.cpp"
 				>
 			</File>
 			<File
@@ -340,6 +376,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GprsInfoCtrlDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GroupWorkDlg.h"
 				>
 			</File>
@@ -348,7 +388,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LightCtrlDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LightListView.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LightView.h"
 				>
 			</File>
 			<File
@@ -380,7 +428,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MySplitter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ReportCtrl.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RoudInfoView.h"
 				>
 			</File>
 			<File
@@ -396,11 +456,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TabListView.h"
+				>
+			</File>
+			<File
 				RelativePath=".\targetver.h"
 				>
 			</File>
 			<File
 				RelativePath=".\TestDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TrueColorToolBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserCtrDlg.h"
 				>
 			</File>
 			<File
@@ -530,15 +602,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\icon10.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\ico\icon4.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\ico\icon5.ico"
+				RelativePath=".\res\icon5.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\res\icon5.ico"
+				RelativePath=".\ico\icon5.ico"
 				>
 			</File>
 			<File

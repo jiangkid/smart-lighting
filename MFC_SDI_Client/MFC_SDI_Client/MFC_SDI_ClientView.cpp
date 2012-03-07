@@ -18,6 +18,7 @@ IMPLEMENT_DYNCREATE(CMFC_SDI_ClientView, CView)
 BEGIN_MESSAGE_MAP(CMFC_SDI_ClientView, CView)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
+	ON_WM_SIZING()
 END_MESSAGE_MAP()
 
 // CMFC_SDI_ClientView 构造/析构
@@ -83,19 +84,3 @@ CMFC_SDI_ClientDoc* CMFC_SDI_ClientView::GetDocument() const // 非调试版本是内联
 	return (CMFC_SDI_ClientDoc*)m_pDocument;
 }
 #endif //_DEBUG
-
-
-// CMFC_SDI_ClientView 消息处理程序
-
-int CMFC_SDI_ClientView::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-	if (CView::OnCreate(lpCreateStruct) == -1)
-		return -1;
-	return TRUE;
-}
-
-void CMFC_SDI_ClientView::OnSize(UINT nType, int cx, int cy)
-{
-	CView::OnSize(nType, cx, cy);
-	// TODO: Add your message handler code here
-}

@@ -28,25 +28,28 @@ BEGIN_MESSAGE_MAP(CMFC_SDI_ClientApp, CWinAppEx)
 	ON_COMMAND(ID_SETUSER, &CMFC_SDI_ClientApp::OnSetuser)
 	ON_COMMAND(ID_SetG, &CMFC_SDI_ClientApp::OnSetg)
 	ON_COMMAND(ID_Modify, &CMFC_SDI_ClientApp::OnModify)
-	ON_COMMAND(ID_MainSet, &CMFC_SDI_ClientApp::OnMainSet)
 	ON_COMMAND(ID_CAgain, &CMFC_SDI_ClientApp::OnCagain)
 	ON_COMMAND(ID_32783, &CMFC_SDI_ClientApp::On32783)
+	ON_UPDATE_COMMAND_UI(ID_CAgain, &CMFC_SDI_ClientApp::OnUpdateCagain)
 END_MESSAGE_MAP()
 
 
 // CMFC_SDI_ClientApp 构造
 
 CMFC_SDI_ClientApp::CMFC_SDI_ClientApp()
-: logintrue(false)
-/*, m_port(0)*/
-, m_return(false)
-, settrue(false)
-,m_InitTrue(false)
+: m_return(false)
+, m_InitTrue(false)
+, m_connected(false)
+, m_DlgMainONStatus(false)
+, m_DlgMainOFFStatus(false)
+, m_DlgAssistONStatus(false)
+, m_DlgAssistOFFStatus(false)
+, m_DlgDoubleONStatus(false)
+, m_DlgDoubleOFFStatus(false)
 {
-//	memset(m_ip,0,sizeof(m_ip));
 	m_bHiColorIcons = TRUE;
 	h1=NULL;
-
+	ZeroMemory(nStatus,4);
 	// TODO: 在此处添加构造代码，
 	// 将所有重要的初始化放置在 InitInstance 中
 }
@@ -118,11 +121,11 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
  				m_InitTrue=true;
  		}
 /*测试代码*/
-//     	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-//     	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-//     	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-//  		if (m_WaitDlg.DoModal()==IDCANCEL)
-//  			m_return=FALSE;
+    // 	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+    // 	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+    // 	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+  		//if (m_WaitDlg.DoModal()==IDCANCEL)
+  		//	m_return=FALSE;
 	// 标准初始化
 	 //如果未使用这些功能并希望减小
 	// 最终可执行文件的大小，则应移除下列
@@ -168,7 +171,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 		return FALSE;
 
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
-	m_pMainWnd->ShowWindow(SW_SHOW);
+	m_pMainWnd->ShowWindow(SW_NORMAL);
 	m_pMainWnd->UpdateWindow();
 
 	//skinppLoadSkin(_T("vladstudio.ssk"));
@@ -257,13 +260,6 @@ void CMFC_SDI_ClientApp::OnModify()
 	dlg.DoModal();
 }
 
-void CMFC_SDI_ClientApp::OnMainSet()
-{
-	// TODO: Add your command handler code here
-	CMainSetDlg dlg;
-	dlg.DoModal();
-}
-
 void CMFC_SDI_ClientApp::OnCagain()
 {
 	// TODO: Add your command handler code here
@@ -282,5 +278,17 @@ int CMFC_SDI_ClientApp::ExitInstance()
 	// TODO: Add your specialized code here and/or call the base class
 	//skinppExitSkin();
 	//closesocket(m_ConnectSock);
+
 	return CWinAppEx::ExitInstance();
+}
+
+void CMFC_SDI_ClientApp::OnUpdateCagain(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	if (m_connected)
+	{
+		pCmdUI->Enable(TRUE);
+	}
+	else
+		pCmdUI->Enable(FALSE);
 }

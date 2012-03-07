@@ -23,4 +23,7 @@ public:
 	CString m_GID;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButton1();
+protected:
+	virtual void OnCancel();
+	virtual void PostNcDestroy();
 };

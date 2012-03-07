@@ -1,44 +1,41 @@
 #pragma once
-#include "BtnST.h"
-#include "BCMenu.h"
+#include "afxcmn.h"
+#include "ReportCtrl.h"
+#include "LightCtrlDlg.h"
 
-// CLightView view
-
-class CLightView : public CView
+class CLightView : public CDialog
 {
-	DECLARE_DYNCREATE(CLightView)
+	DECLARE_DYNAMIC(CLightView)
 
-protected:
-	CLightView();           // protected constructor used by dynamic creation
+public:
+	CString m_szRName;
+	CString m_szLName;
+	CString m_szLID;
+	CString m_szLID1;
+	CString m_szGName;
+	CString m_szMainStatus;
+	CString m_szAssistStatus;
+	int     nCount;
+	CLightView(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CLightView();
 
-public:
-	CButtonST *p_MyBut[9];
-	virtual void OnDraw(CDC* pDC);      // overridden to draw this view
-#ifdef _DEBUG
-	virtual void AssertValid() const;
-#ifndef _WIN32_WCE
-	virtual void Dump(CDumpContext& dc) const;
-#endif
-#endif
+// Dialog Data
+	enum { IDD = IDD_DIALOG3 };
 
 protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnMyButton1();
-	afx_msg void OnMyButton2();
-	afx_msg void OnMyButton3();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	void OnLightShow();
-	CButtonST* NewMyButton(int nID, CRect rect , int nStyle);
-	void ChangeButtonOn(void);
-	void ChangeSecondButtonOn(void);
-	void ChangeDoubleOn(void);
-	void ChangeButtonOff(void);
-	void ChangeSecondButtonOff(void);
-	void ChangeDoubleOff(void);
-
+	virtual BOOL OnInitDialog();
+	CReportCtrl m_List;
+	void LightToView(int nLCount);
+	bool ItemdataProc(DWORD dwData, LPARAM lParam);
+	afx_msg void OnBnClickedBtnAll();
+	afx_msg void OnBnClickedBtnUpdata();
+	CLightCtrlDlg* pDlg;
+	afx_msg void OnNMDblclkLightView(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMRClickLightView(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnUpdataCurrent();
+	afx_msg void OnUpdataStatus();
 };
-
-

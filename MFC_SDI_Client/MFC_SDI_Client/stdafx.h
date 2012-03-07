@@ -41,7 +41,15 @@
 #include <afxcview.h>
 #include "SkinPPLIB/SkinPPWTL.h"
 
-
+#define MAX_BUF_SIZE 4096			//接收和发送缓存大小
+#define HEADLEN (sizeof(HDR))        //包头长度
+#define WM_TRAYICON_MSG (WM_USER+100)
+#define LENTH (sizeof(ZigbeeInfo))
+#define RLENTH (sizeof(RoadListViewInfo))
+#define U8 unsigned char
+#define ON  _T("开")
+#define OFF _T("关")
+#define UNUPDATA _T("未更新")
 
 
 

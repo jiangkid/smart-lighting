@@ -12,7 +12,6 @@ class CMFC_SDI_ClientView : public CView
 protected: // 仅从序列化创建
 	CMFC_SDI_ClientView();
 	DECLARE_DYNCREATE(CMFC_SDI_ClientView)
-
 // 属性
 public:
 	CMFC_SDI_ClientDoc* GetDocument() const;
@@ -43,9 +42,6 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
 public:
-	CSplitterWnd m_wndSplitter;
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 #ifndef _DEBUG  // MFC_SDI_ClientView.cpp 中的调试版本
