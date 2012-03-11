@@ -89,7 +89,7 @@ void CLightView::LightToView(int nLCount)
 		{
 			strTName+=theApp.m_ZigbeeInfo[i]->m_TName[p];
 		}
-		strCurrent.Format("%0.3fA",theApp.m_ZigbeeInfo[i]->current);
+		strCurrent.Format("%0.3fA",theApp.m_ZigbeeInfo[i]->current/1000);
 		if (theApp.m_ZigbeeInfo[i]->Update==0xC0)
 		{
 			if (theApp.m_ZigbeeInfo[i]->MainStatus && theApp.m_ZigbeeInfo[i]->AssistStatus)
@@ -305,10 +305,8 @@ void CLightView::OnNMRClickLightView(NMHDR *pNMHDR, LRESULT *pResult)
 		pSubMenu = menu.GetSubMenu(0); //获取第一个弹出菜单 
 		CPoint oPoint; //定义一个用于确定光标位置的位置
 		GetCursorPos(&oPoint); //获取当前光标的位置 
-		//在指定位置显示弹出菜单
-		m_szLID1=m_List.GetItemText(pNMItemActivate->iItem,5);
-		pSubMenu->TrackPopupMenu(TPM_LEFTALIGN, oPoint.x, oPoint.y, this); 
-
+		m_szLID1=m_List.GetItemText(pNMItemActivate->iItem,5);//在指定位置显示弹出菜单
+		pSubMenu->TrackPopupMenu(TPM_LEFTALIGN, oPoint.x, oPoint.y, this);
 	}
 	*pResult = 0;
 }
@@ -350,4 +348,116 @@ void CLightView::OnUpdataStatus()
 	SendContrlInfo(&hdr,pGetInfo);
 	Sleep(50);
 	free(pGetInfo);
+}
+void CLightView::UpdataOneLight(ZigbeeInfo* pGetInfo)
+{
+	CString str1=_T("");
+	for (int n=0;n<16;n++)
+	{
+		str1+=pGetInfo->LID[n];
+	}
+	int nRow = m_List.GetItemCount();
+	for (int i(0);i<nRow;i++)
+	{
+		CString m_strID=_T("");
+		m_strID=m_List.GetItemText(i,5);
+		if (strcmp(str1,m_strID)==0)
+		{
+			m_List.DeleteItem(i);
+			CString strID=_T("");
+			CString strName=_T("");
+			CString strGID=_T("");
+			CString strGName=_T("");
+			CString strTName=_T("");
+			CString strRName=_T("");
+			CString strCurrent=_T("");
+			for (int n=0;n<16;n++)
+			{
+				strID+=pGetInfo->LID[n];
+			}
+			for (int m=0;m<50;m++)
+			{
+				strName+=pGetInfo->LName[m];
+			}
+			for (int k=0;k<20;k++)
+			{
+				strRName+=pGetInfo->RName[k];
+			}
+			for (int l=0;l<2;l++)
+			{
+				strGID+=pGetInfo->m_GID[l];
+			}
+			for (int o=0;o<20;o++)
+			{
+				strGName+=pGetInfo->m_GName[o];
+			}
+			for (int p=0;p<20;p++)
+			{
+				strTName+=pGetInfo->m_TName[p];
+			}
+			strCurrent.Format("%0.3fA",pGetInfo->current/1000);
+			if (pGetInfo->Update==0xC0)
+			{
+				if (pGetInfo->MainStatus && pGetInfo->AssistStatus)
+				{
+					m_List.InsertItem(i,strGID,strGName,strTName,strRName,
+						strName,strID,ON,ON,strCurrent);
+				}
+				else
+					if (!pGetInfo->MainStatus && pGetInfo->AssistStatus)
+					{
+						m_List.InsertItem(i,strGID,strGName,strTName,strRName,
+							strName,strID,OFF,ON,strCurrent);
+					}
+					else
+						if (pGetInfo->MainStatus && !pGetInfo->AssistStatus)
+						{
+							m_List.InsertItem(i,strGID,strGName,strTName,
+								strRName,strName,strID,ON,OFF,strCurrent);
+						}
+						else
+							if (!pGetInfo->MainStatus && !pGetInfo->AssistStatus)
+							{
+								m_List.InsertItem(i,strGID,strGName,strTName,
+									strRName,strName,strID,OFF,OFF,strCurrent);
+							}
+			}
+			if (pGetInfo->Update==0x40)
+			{
+				m_List.InsertItem(i,strGID,strGName,strTName,
+					strRName,strName,strID,UNUPDATA,UNUPDATA,strCurrent);
+			}
+			if (pGetInfo->Update==0x00)
+			{
+				m_List.InsertItem(i,strGID,strGName,strTName,
+					strRName,strName,strID,UNUPDATA,UNUPDATA,UNUPDATA);
+			}
+			if (pGetInfo->Update==0x80)
+			{
+				if (pGetInfo->MainStatus && pGetInfo->AssistStatus)
+				{
+					m_List.InsertItem(i,strGID,strGName,strTName,strRName,
+						strName,strID,ON,ON,UNUPDATA);
+				}
+				else
+					if (!pGetInfo->MainStatus && pGetInfo->AssistStatus)
+					{
+						m_List.InsertItem(i,strGID,strGName,strTName,strRName,
+							strName,strID,OFF,ON,UNUPDATA);
+					}
+					else
+						if (pGetInfo->MainStatus && !pGetInfo->AssistStatus)
+						{
+							m_List.InsertItem(i,strGID,strGName,strTName,strRName,
+								strName,strID,ON,OFF,UNUPDATA);
+						}
+						else
+							if (!pGetInfo->MainStatus && !pGetInfo->AssistStatus)
+							{
+								m_List.InsertItem(i,strGID,strGName,strTName,strRName,
+									strName,strID,OFF,OFF,UNUPDATA);
+							}
+			}
+		}
+	}
 }

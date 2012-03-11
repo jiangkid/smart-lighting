@@ -31,10 +31,30 @@ END_MESSAGE_MAP()
 
 
 // CUserCtrDlg message handlers
-
-void CUserCtrDlg::OnOK()
+BOOL CUserCtrDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: Add your specialized code here and/or call the base class
+	if (pMsg->message==WM_KEYDOWN)
+	{
+		if (pMsg->wParam==VK_ESCAPE||pMsg->wParam==VK_RETURN)
+		{
+			return false;
+		}
+	}
+	return CDialog::PreTranslateMessage(pMsg);
+}
 
-	//CDialog::OnOK();
+void CUserCtrDlg::PostNcDestroy()
+{
+	// TODO: Add your specialized code here and/or call the base class
+	this->~CUserCtrDlg();
+	free(this);
+	CDialog::PostNcDestroy();
+}
+
+void CUserCtrDlg::OnCancel()
+{
+	// TODO: Add your specialized code here and/or call the base class
+	DestroyWindow();
+	//CDialog::OnCancel();
 }

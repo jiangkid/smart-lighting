@@ -9,7 +9,6 @@
 #include "LightListView.h"
 #include "CVListView.h"
 #include "TabListView.h"
-#include "UserCtrDlg.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -471,8 +470,11 @@ void CMainFrame::StartTimer(UINT_PTR nIDEvent)
 void CMainFrame::OnUsercontrol()
 {
 	// TODO: Add your command handler code here
-	CUserCtrDlg dlg;
-	dlg.DoModal();
+	Userdlg = (CUserCtrDlg *)malloc(sizeof(CUserCtrDlg));
+	Userdlg->CUserCtrDlg::CUserCtrDlg();
+	Userdlg->Create(IDD_User_CTRL, this);
+	Userdlg->CenterWindow();
+	Userdlg->ShowWindow(SW_SHOW);
 }
 
 void CMainFrame::OnMainset()
@@ -481,5 +483,6 @@ void CMainFrame::OnMainset()
 	Mdlg = (CMainSetDlg *)malloc(sizeof(CMainSetDlg));
 	Mdlg->CMainSetDlg::CMainSetDlg();
 	Mdlg->Create(IDD_MainSet, this);
+	Mdlg->CenterWindow();
 	Mdlg->ShowWindow(SW_SHOW);
 }
