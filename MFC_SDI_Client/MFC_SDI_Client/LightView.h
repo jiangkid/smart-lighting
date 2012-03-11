@@ -38,4 +38,5 @@ public:
 	afx_msg void OnNMRClickLightView(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnUpdataCurrent();
 	afx_msg void OnUpdataStatus();
+	void UpdataOneLight(ZigbeeInfo* pGetInfo);
 };

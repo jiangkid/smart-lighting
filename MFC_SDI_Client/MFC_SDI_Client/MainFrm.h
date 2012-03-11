@@ -8,6 +8,7 @@
 #include "FileView.h"
 #include "MySplitter.h"
 #include "TrueColorToolBar.h"
+#include "UserCtrDlg.h"
 #define MYWM_NOTIFYICON WM_USER+100
 class CCoolBar;
 class CMainFrame  : public CFrameWndEx
@@ -75,6 +76,7 @@ public:
 	afx_msg void OnUsercontrol();
 	afx_msg void OnMainset();
 	CMainSetDlg* Mdlg;
+	CUserCtrDlg* Userdlg;
 };
 
 

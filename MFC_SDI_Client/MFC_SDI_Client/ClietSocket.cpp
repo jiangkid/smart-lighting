@@ -684,7 +684,8 @@ void UpdataZigbeeStatusInfo(char* buff,int nRecvLength)
 						theApp.m_ZigbeeInfo[n]->MainStatus=false;
 						theApp.m_ZigbeeInfo[n]->AssistStatus=true;
 					}
-					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
+					//theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
 				}
 			}
 			free(pGetRInfo);
@@ -719,8 +720,9 @@ void UpdataZigbeeCurrentInfo(char* buff,int nRecvLength)
 					theApp.m_ZigbeeInfo[n]->Update|=0x40;
 					float nCurrent=(pGetRInfo->m_CheckData[2]*256+pGetRInfo->m_CheckData[3])/1000;
 					theApp.m_ZigbeeInfo[n]->current=nCurrent;
+					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 				}
-				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+				//theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
 			}
 			free(pGetRInfo);
 		}
@@ -753,7 +755,7 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 				{
 					theApp.m_ZigbeeInfo[n]->MainStatus=true;
 				}
-				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+				theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 			}
 		}
 		else
@@ -771,7 +773,7 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 					{
 						theApp.m_ZigbeeInfo[n]->MainStatus=false;
 					}
-					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 				}
 			}
 		break;
@@ -790,7 +792,7 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 				{
 					theApp.m_ZigbeeInfo[n]->AssistStatus=true;
 				}
-				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+				theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 			}
 		}
 		else
@@ -808,7 +810,7 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 					{
 						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
 					}
-					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 			}
 		break;
 	case 0xA3:
@@ -826,8 +828,8 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 				{
 					theApp.m_ZigbeeInfo[n]->MainStatus=true;
 					theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 				}
-				theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
 			}
 		}
 		else
@@ -845,8 +847,9 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 					{
 						theApp.m_ZigbeeInfo[n]->MainStatus=false;
 						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+						theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 					}
-					theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
+					//theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
 				}
 			}
 		break;

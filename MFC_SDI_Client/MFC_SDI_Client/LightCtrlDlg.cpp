@@ -64,7 +64,6 @@ BOOL CLightCtrlDlg::OnInitDialog()
 	{
 		m_MainStatus.SetIcon(IDI_LIGHT_OFF);
 		GetDlgItem(IDC_BTN_MAIN)->SetWindowText("主灯开");
-		//m_MainONOFF.SetDlgItemText(_T("主灯开"));
 	}
 		
 	if (strcmp(theApp.m_pLightListView->m_szAssistStatus,ON)==0)

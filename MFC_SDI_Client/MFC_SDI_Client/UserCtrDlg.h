@@ -18,5 +18,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
-	virtual void OnOK();
+public:
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+protected:
+	virtual void PostNcDestroy();
+	virtual void OnCancel();
 };
