@@ -1,6 +1,6 @@
 #pragma once
 #include "dbcommand.h"
-
+///////////////////////////////////////////////////
 class CAdminCommand :
 	public CDBCommand
 {
