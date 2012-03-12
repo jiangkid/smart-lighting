@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CMFC_SDI_ClientApp, CWinAppEx)
 	ON_COMMAND(ID_CAgain, &CMFC_SDI_ClientApp::OnCagain)
 	ON_COMMAND(ID_32783, &CMFC_SDI_ClientApp::On32783)
 	ON_UPDATE_COMMAND_UI(ID_CAgain, &CMFC_SDI_ClientApp::OnUpdateCagain)
+	ON_COMMAND(ID_RENEW, &CMFC_SDI_ClientApp::OnRenew)
 END_MESSAGE_MAP()
 
 
@@ -63,6 +64,9 @@ CMFC_SDI_ClientApp theApp;
 
 BOOL CMFC_SDI_ClientApp::InitInstance()
 {
+	CSplashWnd* pSplash = new CSplashWnd;
+	pSplash->ShowWindow(m_nCmdShow);
+	Sleep(2500);
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。否则，将无法创建窗口。
@@ -264,6 +268,17 @@ void CMFC_SDI_ClientApp::OnCagain()
 {
 	// TODO: Add your command handler code here
 	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+	Sleep(500);
+	if (m_return)
+	{
+		AfxMessageBox(_T("重连成功！"));
+		m_connected=false;
+	}
+	else
+	{
+		AfxMessageBox(_T("重连失败！"));
+		m_connected=true;
+	}
 }
 
 void CMFC_SDI_ClientApp::On32783()
@@ -291,4 +306,12 @@ void CMFC_SDI_ClientApp::OnUpdateCagain(CCmdUI *pCmdUI)
 	}
 	else
 		pCmdUI->Enable(FALSE);
+}
+
+void CMFC_SDI_ClientApp::OnRenew()
+{
+	// TODO: Add your command handler code here
+	char a[3]={'L','G','#'};
+	send(m_ConnectSock,a,3,0);
+	m_WaitDlg.DoModal();
 }

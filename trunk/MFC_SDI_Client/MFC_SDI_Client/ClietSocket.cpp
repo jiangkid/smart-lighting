@@ -62,6 +62,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 		{
 			AfxMessageBox(_T("连接失败，请重试！"));
 			theApp.m_connected=TRUE;
+			theApp.m_return=false;
 		}
 		goto __Error_End;
 	}
@@ -92,9 +93,6 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 						break;
 					case 'L':
 						ChenkInitInfo(szBuf,iRet);
-						break;
-					case 0x2F:
-						CheckBack((unsigned char*)szBuf,iRet);
 						break;
 					case 'A':
 						ChenkConnectAgain(szBuf,iRet);
@@ -129,7 +127,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 						}
 						if (szBuf[1]==0x31)
 						{
-							UpdataRoadStatusInfo(szBuf,iRet);
+							UpdataZigbeeCurrentInfo(szBuf,iRet);
 							break;
 						}
 						if (szBuf[1]==0x33)
@@ -152,6 +150,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					SendMessage(m_wnd,WM_CLOSE,0,0);
 					AfxMessageBox(_T("服务器已经关闭！"));
 					theApp.m_connected=TRUE;
+					theApp.m_return=false;
 					TerminateThread(theApp.h1,0);
 					break;
 				}
@@ -537,13 +536,10 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		}
 		SendMessage(m_wnd,WM_CLOSE,0,0);
 		Sleep(500);
+		theApp.m_pFileView->FillFileView();
 	}
 }
 
-void CheckBack(unsigned char* buff,int nRecvLength)
-{
-	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
-}
 void SendContrlInfo(LPHDR hdr,LPConTrlInfo contrlInfo)
 {
 	hdr->dataCheck[0]='N';
@@ -718,7 +714,7 @@ void UpdataZigbeeCurrentInfo(char* buff,int nRecvLength)
 				if (strcmp(str1,str2)==0)
 				{
 					theApp.m_ZigbeeInfo[n]->Update|=0x40;
-					float nCurrent=(pGetRInfo->m_CheckData[2]*256+pGetRInfo->m_CheckData[3])/1000;
+					float nCurrent=pGetRInfo->m_CheckData[2]*256+pGetRInfo->m_CheckData[3];
 					theApp.m_ZigbeeInfo[n]->current=nCurrent;
 					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 				}
@@ -938,9 +934,9 @@ void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 					if (strcmp(str1,str2)==0)
 					{
 						theApp.m_RoadListInfo[n]->nCurrent1=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
-							->m_CheckData[3])/1000;
+							->m_CheckData[3]);
 						theApp.m_RoadListInfo[n]->m_Update|=0x40;
-						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+						theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
 					}
 					else 
 						return;
@@ -957,9 +953,9 @@ void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 					if (strcmp(str1,str2)==0)
 					{
 						theApp.m_RoadListInfo[n]->nCurrent2=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
-							->m_CheckData[3])/1000;
+							->m_CheckData[3]);
 						theApp.m_RoadListInfo[n]->m_Update|=0x20;
-						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+						theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
 					}
 					else 
 						return;
@@ -976,17 +972,16 @@ void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 					if (strcmp(str1,str2)==0)
 					{
 						theApp.m_RoadListInfo[n]->nCurrent3=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
-							->m_CheckData[3])/1000;
+							->m_CheckData[3]);
 						theApp.m_RoadListInfo[n]->m_Update|=0x10;
-						theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+						theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
 					}
 					else 
 						return;
 				}
 				break;
 			}
-				
-			//free(pGetRInfo);
+		free(pGetRInfo);
 		}
 }
 void UpdataRoadStatusInfo(char* buff,int nRecvLength)
@@ -1025,20 +1020,20 @@ void UpdataRoadStatusInfo(char* buff,int nRecvLength)
 						{
 							theApp.m_RoadListInfo[n]->m_RoadStatus=true;
 							theApp.m_RoadListInfo[n]->m_Update|=0x80;
-							theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+							theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
 						}
 						else
 						{
 							theApp.m_RoadListInfo[n]->m_RoadStatus=false;
 							theApp.m_RoadListInfo[n]->m_Update|=0x80;
-							theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+							theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
 						}
 					}
 					else 
 						return;
 				}
 			}
-			free(pGetRInfo);
+		free(pGetRInfo);
 		}
 }
 CString CharToCString(unsigned char* str, int nLength)
