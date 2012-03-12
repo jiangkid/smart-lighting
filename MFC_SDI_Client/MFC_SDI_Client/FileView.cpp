@@ -72,23 +72,17 @@ int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndFileView.SetImageList(&m_FileViewImages,TVSIL_NORMAL);
 	m_wndFileView.SetBkColor (RGB(210,230,190));
 	m_wndFileView.SetImageList (&m_FileViewImages,TVSIL_NORMAL);
-
-	//m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_EXPLORER);
-	//m_wndToolBar.LoadToolBar(IDR_EXPLORER, 0, 0, TRUE /* 已锁定*/);
-
+// 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_EXPLORER);
+// 	m_wndToolBar.LoadToolBar(IDR_EXPLORER, 0, 0, TRUE /* 已锁定*/);
 	//OnChangeVisualStyle();
-
-	//m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
-
-	//m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() & ~(CBRS_GRIPPER | CBRS_SIZE_DYNAMIC | CBRS_BORDER_TOP | CBRS_BORDER_BOTTOM | CBRS_BORDER_LEFT | CBRS_BORDER_RIGHT));
-
-	//m_wndToolBar.SetOwner(this);
-
-	// 所有命令将通过此控件路由，而不是通过主框架路由:
-	//m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
-
-	// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
-	FillFileView();
+// 	m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
+// 	m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() & ~(CBRS_GRIPPER | CBRS_SIZE_DYNAMIC | CBRS_BORDER_TOP | CBRS_BORDER_BOTTOM | CBRS_BORDER_LEFT | CBRS_BORDER_RIGHT));
+// 	m_wndToolBar.SetOwner(this);
+// 所有命令将通过此控件路由，而不是通过主框架路由:
+//	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
+// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
+	
+//	FillFileView();
 	AdjustLayout();
 
 	return 0;
@@ -176,7 +170,6 @@ void CFileView::FillFileView()
 	dwStyle|=TVS_HASBUTTONS|TVS_HASLINES|TVS_LINESATROOT;
 	::SetWindowLong (m_wndFileView.m_hWnd ,GWL_STYLE,dwStyle);
 }
-
 void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	CTreeCtrl* pWndTree = (CTreeCtrl*) &m_wndFileView;
@@ -288,10 +281,10 @@ void CFileView::AdjustLayout()
 	m_wndFileView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + 1, rectClient.Width() - 2, rectClient.Height() - 2, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
-// void CFileView::OnProperties()
-// {
-// 	AfxMessageBox(_T("属性...."));
-// }
+//  void CFileView::OnProperties()
+//  {
+//  	AfxMessageBox(_T("属性...."));
+//  }
 
 void CFileView::OnPaint()
 {
@@ -311,8 +304,6 @@ void CFileView::OnSetFocus(CWnd* pOldWnd)
 void CFileView::OnRWork()
 {
 	// TODO: Add your command handler code here
-// 	CDoRWorkDlg dlg;
-// 	dlg.DoModal();
 	Rdlg = (CDoRWorkDlg *)malloc(sizeof(CDoRWorkDlg));
 	Rdlg->CDoRWorkDlg::CDoRWorkDlg();
 	Rdlg->Create(IDD_DoRWorkDlg, this);

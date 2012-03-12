@@ -38,7 +38,6 @@
 #define IDI_FILE_VIEW_HC                162
 #define IDI_CLASS_VIEW                  163
 #define IDI_CLASS_VIEW_HC               164
-#define IDR_EXPLORER                    169
 #define IDB_EXPLORER_24                 170
 #define IDB_SORT_24                     172
 #define IDR_POPUP_SORT                  173
@@ -99,13 +98,15 @@
 #define IDD_DIALOG3                     408
 #define IDD_Roud_Info                   409
 #define IDR_HIDEMENU                    410
-#define IDI_ICON10                      411
 #define IDD_User_CTRL                   412
 #define IDB_BITMAP9                     413
 #define IDR_TOOLBAR1                    414
 #define IDD_LIGHT_DLG                   416
 #define IDR_List_Menu                   418
 #define IDD_GPRS_INFO                   419
+#define IDB_SPLASH                      427
+#define IDR_TOOLBAR2                    428
+#define IDR_EXPLORER                    428
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -261,13 +262,16 @@
 #define ID_ROADMENU_32859               32859
 #define ID_RC2_Updata                   32860
 #define ID_RC3_Updata                   32861
+#define ID_BUTTON32865                  32865
+#define ID_32866                        32866
+#define ID_RENEW                        32867
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        420
-#define _APS_NEXT_COMMAND_VALUE         32862
+#define _APS_NEXT_RESOURCE_VALUE        430
+#define _APS_NEXT_COMMAND_VALUE         32868
 #define _APS_NEXT_CONTROL_VALUE         1067
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

@@ -64,9 +64,9 @@ void CRoudInfoView::RoadInfoToView(int nRCount)
 		CString strCurrent2=_T("");
 		CString strCurrent3=_T("");
  		CString strRID  =_T("");
-		strCurrent1.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent1);
-		strCurrent2.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent2);
-		strCurrent3.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent3);
+		strCurrent1.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent1/1000);
+		strCurrent2.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent2/1000);
+		strCurrent3.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent3/1000);
  		for (int n=0;n<20;n++)
  		{
  			strRName+=theApp.m_RoadListInfo[i]->m_RoadName[n];
@@ -867,4 +867,173 @@ void CRoudInfoView::OnRc3Updata()
 	SendContrlInfo(&hdr,pGetInfo2);
 	Sleep(500);
 	free(pGetInfo2);
+}
+void CRoudInfoView::UpdataOneRoad(RoadListViewInfo* pGetInfo)
+{
+	CString str1;
+	int nRow = m_List.GetItemCount();
+	for (int i=0;i<6;i++)
+	{
+		str1+=pGetInfo->m_RoadID[i];
+	}
+	
+	for (int n=0;n<nRow;n++)
+	{
+		CString str2=_T("");
+		str2=m_List.GetItemText(n,2);
+		if(strcmp(str1,str2)==0)
+		{
+			m_List.DeleteItem(n);
+			CString strTName=_T("");
+			CString strRName=_T("");
+			CString strCurrent1=_T("");
+			CString strCurrent2=_T("");
+			CString strCurrent3=_T("");
+			CString strRID  =_T("");
+			strCurrent1.Format("%0.3fA",pGetInfo->nCurrent1/1000);
+			strCurrent2.Format("%0.3fA",pGetInfo->nCurrent2/1000);
+			strCurrent3.Format("%0.3fA",pGetInfo->nCurrent3/1000);
+			for (int j=0;j<20;j++)
+			{
+				strRName+=pGetInfo->m_RoadName[j];
+			}
+			for (int m=0;m<20;m++)
+			{
+				strTName+=pGetInfo->m_TernimalName[m];
+			}
+			for(int k=0;k<6;k++)
+			{
+				strRID+=pGetInfo->m_RoadID[k];
+			}
+			switch (pGetInfo->m_Update)
+			{
+			case 0x10:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,UNUPDATA,UNUPDATA,strCurrent3);
+				break;
+			case 0x20:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,UNUPDATA,strCurrent2,UNUPDATA);
+				break;
+			case 0x30:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,UNUPDATA,strCurrent2,strCurrent3);
+				break;
+			case 0x40:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,strCurrent1,UNUPDATA,UNUPDATA);
+				break;
+			case 0x50:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,strCurrent1,UNUPDATA,strCurrent3);
+				break;
+			case 0x60:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,strCurrent1,strCurrent2,UNUPDATA);
+				break;
+			case 0x70:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,strCurrent1,strCurrent2,strCurrent3);
+				break;
+			case 0x80:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,UNUPDATA,UNUPDATA,UNUPDATA);
+				}
+				else
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						OFF,UNUPDATA,UNUPDATA,UNUPDATA);
+				}
+				break;
+			case 0x90:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,UNUPDATA,UNUPDATA,strCurrent3);
+				}
+				else
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						OFF,UNUPDATA,UNUPDATA,strCurrent3);
+				}
+				break;
+			case 0xA0:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,UNUPDATA,strCurrent2,UNUPDATA);
+				}
+				else
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						OFF,UNUPDATA,strCurrent2,UNUPDATA);
+				}
+				break;
+			case 0xB0:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,UNUPDATA,strCurrent2,strCurrent3);
+				}
+				else
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						OFF,UNUPDATA,strCurrent2,strCurrent3);
+				}
+				break;
+			case 0xC0:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,strCurrent1,UNUPDATA,UNUPDATA);
+				}
+				else
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						OFF,strCurrent1,UNUPDATA,UNUPDATA);
+				}
+				break;
+			case 0xD0:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,strCurrent1,UNUPDATA,strCurrent3);
+				}
+				else
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						OFF,strCurrent1,UNUPDATA,strCurrent3);
+				}
+				break;
+			case 0xE0:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,strCurrent1,strCurrent2,UNUPDATA);
+				}
+				else
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						OFF,strCurrent1,strCurrent2,UNUPDATA);
+				}
+				break;
+			case 0xF0:
+				if (pGetInfo->m_RoadStatus)
+				{
+					m_List.InsertItem(n,strTName,strRName,strRID,
+						ON,strCurrent1,strCurrent2,strCurrent3);
+				}
+				else
+				{
+					m_List.InsertItem(0,strTName,strRName,strRID,
+						OFF,strCurrent1,strCurrent2,strCurrent3);
+				}
+				break;
+			default:
+				break;
+				}
+		}
+	}
 }

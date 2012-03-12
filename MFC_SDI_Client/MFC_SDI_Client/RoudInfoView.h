@@ -29,6 +29,7 @@ public:
 	virtual BOOL OnInitDialog();
 	CReportCtrl m_List;
 	void RoadInfoToView(int nRCount);
+	void UpdataOneRoad(RoadListViewInfo* pGetInfo);
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedUpdataAll();
 	U8* GPRSTranslationID(U8* buffer, int Length);

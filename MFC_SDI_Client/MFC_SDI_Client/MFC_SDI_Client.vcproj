@@ -290,6 +290,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SplashWnd.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -452,6 +456,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SplashWnd.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
@@ -498,6 +506,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\10000434340537.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\ico\101.ico"
 				>
 			</File>
@@ -527,6 +539,10 @@
 			</File>
 			<File
 				RelativePath=".\res\base_inf.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bitmap10.bmp"
 				>
 			</File>
 			<File
@@ -695,6 +711,10 @@
 			</File>
 			<File
 				RelativePath=".\res\toolbar1.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\toolbar2.bmp"
 				>
 			</File>
 			<File

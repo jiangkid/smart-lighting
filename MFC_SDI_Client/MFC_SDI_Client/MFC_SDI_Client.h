@@ -20,6 +20,7 @@
 #include "TabListView.h"
 #include "LightView.h"
 #include "RoudInfoView.h"
+#include "SplashWnd.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -78,6 +79,7 @@ public:
 	bool m_DlgAssistOFFStatus;
 	bool m_DlgDoubleONStatus;
 	bool m_DlgDoubleOFFStatus;
+	afx_msg void OnRenew();
 };
 
 extern CMFC_SDI_ClientApp theApp;
