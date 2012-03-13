@@ -7,10 +7,6 @@
 HDR hdr;
 USERINFO userInfo[9];
 IintInfo m_InitInfo;
-bool BGTrue = false;
-bool BTTrue = false;
-bool BRTrue = false;
-bool BLTrue = false;
 extern CMFC_SDI_ClientApp theApp;
 
 BOOL SOCKET_Select(SOCKET hSocket, int nTimeOut, BOOL bRead)
@@ -388,23 +384,43 @@ void ChenkBGTRL(char* buff,int nRecvLength)
 {
 	if (buff[0]=='B'&&buff[1]=='G'&&buff[2]=='1')
 	{
-		BGTrue = true;
-		AfxMessageBox(_T("添加GID失败，请重新操作！"));
+		//AfxMessageBox(_T("添加GID失败，请重新操作！"));
+		CString str=_T("添加GPRSID失败，GPRSID：");
+		str+=buff[3];
+		str+=buff[4];
+		theApp.m_pMainSetDlg->ShowUpdatatMessage(str);
 	}
 	if (buff[0]=='B'&&buff[1]=='T'&&buff[2]=='1')
 	{
-		BTTrue = true;
-		AfxMessageBox(_T("添加TID失败，请重新操作！"));
+		//AfxMessageBox(_T("添加TID失败，请重新操作！"));
+		CString str=_T("添加终端ID失败，终端ID：");
+		str+=buff[3];
+		str+=buff[4];
+		str+=buff[5];
+		str+=buff[6];
+		theApp.m_pMainSetDlg->ShowUpdatatMessage(str);
 	}
 	if (buff[0]=='B'&&buff[1]=='R'&&buff[2]=='1')
 	{
-		BRTrue = true;
-		AfxMessageBox(_T("添加RID失败，请重新操作！"));
+		//AfxMessageBox(_T("添加RID失败，请重新操作！"));
+		CString str=_T("添加路ID失败，路ID：");
+		str+=buff[3];
+		str+=buff[4];
+		str+=buff[5];
+		str+=buff[6];
+		str+=buff[7];
+		str+=buff[8];
+		theApp.m_pMainSetDlg->ShowUpdatatMessage(str);
 	}
 	if (buff[0]=='B'&&buff[1]=='L'&&buff[2]=='1')
 	{
-		BLTrue = true;
-		AfxMessageBox(_T("添加LID失败，请重新操作！"));
+		//AfxMessageBox(_T("添加LID失败，请重新操作！"));
+		CString str=_T("添加单灯ID失败，灯ID：");
+		for (int i(0);i<16;i++)
+		{
+			str+=buff[i+3];
+		}
+		theApp.m_pMainSetDlg->ShowUpdatatMessage(str);
 	}
 }
 void ChenkInitInfo(char* buff,int nRecvLength)
@@ -1029,8 +1045,6 @@ void UpdataRoadStatusInfo(char* buff,int nRecvLength)
 							theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
 						}
 					}
-					else 
-						return;
 				}
 			}
 		free(pGetRInfo);
