@@ -28,6 +28,7 @@ void CSetNewUser::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CSetNewUser, CDialog)
 	ON_BN_CLICKED(IDOK, &CSetNewUser::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_BUTTON1, &CSetNewUser::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -56,4 +57,9 @@ void CSetNewUser::OnBnClickedOk()
 										strUserInfo.GetLength()*sizeof(TCHAR),0);
 		strUserInfo.ReleaseBuffer();
 	}
+}
+
+void CSetNewUser::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
 }
