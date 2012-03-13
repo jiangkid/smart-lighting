@@ -184,6 +184,11 @@
 #define IDC_BTN_DOFF                    1064
 #define IDC_Progress                    1065
 #define IDC_BTN_Close                   1066
+#define IDC_EDIT_TID                    1068
+#define IDC_EDIT_GID                    1069
+#define IDC_EDIT_RID                    1070
+#define IDC_EDIT_                       1071
+#define IDC_EDIT_LID                    1071
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -272,7 +277,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        430
 #define _APS_NEXT_COMMAND_VALUE         32868
-#define _APS_NEXT_CONTROL_VALUE         1067
+#define _APS_NEXT_CONTROL_VALUE         1069
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
