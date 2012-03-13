@@ -78,26 +78,19 @@ void CSetNewUser::OnBnClickedOk()
 				char *a="0";
 				strcat_s(stridentify,a);
 			}
-			if (1==nIndex)
+			if  (1==nIndex)
 			{
 				char *a="1";
 				strcat_s(stridentify,a);
-			} 
-			 
+			} 			 
 			strUserInfo.Format(_T("%s+%s+%s+%s#"),stridentify,strName,strPassWord1,strTelNum);
 			int iSend =send(pTheApp->m_ConnectSock,(char*)strUserInfo.GetBuffer(),
 				strUserInfo.GetLength()*sizeof(TCHAR),0);
 			strUserInfo.ReleaseBuffer();
 			AfxMessageBox(_T("信息已发送"));
-			
 		}
-		
 	}
 }
-
- 
- 
-
 void CSetNewUser::OnCbnSelchangeCombo1()
 {
 	 if (!IsBegin)
