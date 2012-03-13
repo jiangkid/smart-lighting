@@ -188,17 +188,12 @@ void ChenkLogin(char* buff,int nRecvLength)
 *************************************************************************************/
 void ChenkSet(char* buff,int nRecvLength)
 {
-	char checkBuf[3];
-	for (int i=0;i<nRecvLength;i++)
-	{
-		checkBuf[i]=buff[i];
-	}
-	if (buff[0]=='C'&&buff[1]=='1')
+	if (buff[0]=='C'&&buff[1]=='0')
 	{
 		AfxMessageBox("设置成功");
 	}
 	else
-		if (buff[0]=='C'&&buff[1]=='0')
+		if (buff[0]=='C'&&buff[1]=='1')
 		{
 			AfxMessageBox(_T("此次操作不成功"));
 		}
@@ -209,16 +204,11 @@ void ChenkSet(char* buff,int nRecvLength)
 *************************************************************************************/
 void ChenkModify(char* buff,int nRecvLength)
 {
-	char checkBuf[3];
-	for (int i=0;i<nRecvLength;i++)
-	{
-		checkBuf[i]=buff[i];
-	}
-	if (checkBuf[0]=='M' && checkBuf[1]=='0')
+	if (buff[0]=='M' && buff[1]=='0')
 	{
 		AfxMessageBox(_T("修改密码成功！"));
 	}
-	else if (checkBuf[0]=='M' && checkBuf[1]=='1')
+	else if (buff[0]=='M' && buff[1]=='1')
 	{
 		AfxMessageBox(_T("修改密码失败，请重新操作！"));
 	}
