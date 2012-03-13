@@ -122,6 +122,8 @@
 #define IDC_LNum                        1005
 #define IDC_order                       1005
 #define IDC_LightID                     1005
+#define IDC_SPassWord2                  1005
+#define IDC_TelNum                      1005
 #define IDC_active                      1006
 #define IDC_UserName                    1007
 #define IDC_FPassWord                   1008
@@ -184,11 +186,15 @@
 #define IDC_BTN_DOFF                    1064
 #define IDC_Progress                    1065
 #define IDC_BTN_Close                   1066
+<<<<<<< .mine
+#define IDC_COMBO1                      1067
+=======
 #define IDC_EDIT_TID                    1068
 #define IDC_EDIT_GID                    1069
 #define IDC_EDIT_RID                    1070
 #define IDC_EDIT_                       1071
 #define IDC_EDIT_LID                    1071
+>>>>>>> .r308
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -277,7 +283,11 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        430
 #define _APS_NEXT_COMMAND_VALUE         32868
+<<<<<<< .mine
+#define _APS_NEXT_CONTROL_VALUE         1068
+=======
 #define _APS_NEXT_CONTROL_VALUE         1069
+>>>>>>> .r308
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
