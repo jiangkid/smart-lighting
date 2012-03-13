@@ -21,6 +21,7 @@
 #include "LightView.h"
 #include "RoudInfoView.h"
 #include "SplashWnd.h"
+#include "MainSetDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -53,6 +54,7 @@ public:
 	CCVListView*		m_pCVListView;
 	CTabListView*		m_pTabListView;
 	CRoudInfoView*		m_pRoadView;
+	CMainSetDlg*        m_pMainSetDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();
