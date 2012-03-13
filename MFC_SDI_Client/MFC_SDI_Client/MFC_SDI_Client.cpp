@@ -64,12 +64,11 @@ CMFC_SDI_ClientApp theApp;
 
 BOOL CMFC_SDI_ClientApp::InitInstance()
 {
-	//启动画面
 // 	CSplashWnd* pSplash = new CSplashWnd;
 // 	pSplash->ShowWindow(m_nCmdShow);
 // 	Sleep(2500);
-	// 如果一个运行在 Windows XP 上的应用程序清单指定要
-	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
+	//如果一个运行在 Windows XP 上的应用程序清单指定要
+	//使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。否则，将无法创建窗口。
 	INITCOMMONCONTROLSEX InitCtrls;
 	InitCtrls.dwSize = sizeof(InitCtrls);
@@ -94,7 +93,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	}
 	AfxEnableControlContainer();
 //这是代码区 有用的
- 	while(!m_InitTrue)
+ 	 while(!m_InitTrue)
  	{
    		while (!m_return)
    			{
@@ -124,7 +123,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
  			}
  			else 
  				m_InitTrue=true;
- 		}
+ 		} 
 /*测试代码*/
     // 	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
     // 	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
