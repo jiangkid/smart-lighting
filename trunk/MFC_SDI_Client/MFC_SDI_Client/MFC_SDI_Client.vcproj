@@ -68,6 +68,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
+				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -626,11 +627,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\icon5.ico"
+				RelativePath=".\ico\icon5.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\ico\icon5.ico"
+				RelativePath=".\res\icon5.ico"
 				>
 			</File>
 			<File
