@@ -12,10 +12,15 @@ IMPLEMENT_DYNAMIC(CMainSetDlg, CDialog)
 CMainSetDlg::CMainSetDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CMainSetDlg::IDD, pParent)
 	, m_GNum(0)
-	, m_TNum(0)
-	, m_RNum(0)
+	, m_TNum(4)
+	, m_RNum(12)
 	, m_LNum(0)
 	, m_NewID(_T(""))
+	, m_gprsid(_T(""))
+	, m_tid(_T(""))
+	, m_roudid(_T(""))
+	, m_lightid(_T(""))
+	, m_error(_T(""))
 {
 
 }
@@ -32,12 +37,27 @@ void CMainSetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_RNum, m_RNum);
 	DDX_Text(pDX, IDC_LNum, m_LNum);
 	DDX_Text(pDX, IDC_EDIT7, m_NewID);
+	DDX_Text(pDX, IDC_EDIT_GID, m_gprsid);
+	DDV_MaxChars(pDX, m_gprsid, 2);
+	DDX_Text(pDX, IDC_EDIT_TID, m_tid);
+	DDV_MaxChars(pDX, m_tid, 4);
+	DDX_Text(pDX, IDC_EDIT_RID, m_roudid);
+	DDV_MaxChars(pDX, m_roudid, 6);
+	DDX_Text(pDX, IDC_EDIT_LID, m_lightid);
+	DDV_MaxChars(pDX, m_lightid, 16);
+	DDX_Text(pDX, IDC_EDIT2, m_error);
 }
 
 
 BEGIN_MESSAGE_MAP(CMainSetDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_GetID, &CMainSetDlg::OnBnClickedBtnGetid)
 	ON_BN_CLICKED(IDC_BTN_Save, &CMainSetDlg::OnBnClickedBtnSave)
+	ON_WM_CREATE()
+	ON_BN_CLICKED(IDC_BUTTON4, &CMainSetDlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON2, &CMainSetDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON5, &CMainSetDlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON6, &CMainSetDlg::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON3, &CMainSetDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -47,10 +67,6 @@ void CMainSetDlg::OnBnClickedBtnGetid()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData(true);
-	BGTrue = false;
-	BTTrue = false;
-	BRTrue = false;
-	BLTrue = false;
 	CEdit* pEdit =(CEdit*)GetDlgItem(IDC_EDIT7);
 	pEdit->SetLimitText(-1);
 	SetDlgItemText(IDC_EDIT7,"");
@@ -188,12 +204,21 @@ void CMainSetDlg::ShowMessage(unsigned char* pszMessage, int nLength,CString str
 	
 }
 
+void CMainSetDlg::ShowUpdatatMessage(CString str)
+{
+	CString strShow=_T("");
+	strShow.Format(_T("%s\r\n"),str);
+	CEdit* pEdit =(CEdit*)GetDlgItem(IDC_EDIT2);
+	//pEdit->SetFocus();
+	pEdit->SetSel(-1, -1);
+	pEdit->ReplaceSel(strShow);
+}
 void CMainSetDlg::OnBnClickedBtnSave()
 {
 	// TODO: Add your control notification handler code here
 	CTime time=CTime::GetCurrentTime();
 	CString str,strTime,str1;
-	strTime=time.Format("Save%Y-%m-%d_%H-%M-%S.txt");
+	strTime=time.Format("新IDSave%Y-%m-%d_%H-%M-%S.txt");
 	CFile file(strTime,CFile::modeCreate | CFile::modeWrite);
 	CArchive ar(&file,CArchive::store);
 
@@ -231,4 +256,100 @@ void CMainSetDlg::PostNcDestroy()
 	this->~CMainSetDlg();
 	free(this);
 	CDialog::PostNcDestroy();
+}
+int CMainSetDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CDialog::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  Add your specialized creation code here
+	theApp.m_pMainSetDlg=this;
+	return 0;
+}
+void CMainSetDlg::OnBnClickedButton4()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(true);
+	int nLength=m_gprsid.GetLength();
+	if (nLength!=2)
+	{
+		AfxMessageBox(_T("输入ID长度不对！"));
+	}
+	else
+	{
+		char c[2]={'B','G'};
+		CString str;
+		str.Format("%s%s#",c,m_gprsid);
+		send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
+	}
+}
+
+void CMainSetDlg::OnBnClickedButton2()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(true);
+	int nLength=m_tid.GetLength();
+	if (nLength!=4)
+	{
+		AfxMessageBox(_T("输入ID长度不对！"));
+	}
+	else
+	{
+		char c[2]={'B','T'};
+		CString str;
+		str.Format("%s%s#",c,m_tid);
+		send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
+	}
+}
+
+void CMainSetDlg::OnBnClickedButton5()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(true);
+	int nLength=m_roudid.GetLength();
+	if (nLength!=6)
+	{
+		AfxMessageBox(_T("输入ID长度不对！"));
+	}
+	else
+	{
+		char c[2]={'B','R'};
+		CString str;
+		str.Format("%s%s#",c,m_roudid);
+		send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
+	}
+}
+
+void CMainSetDlg::OnBnClickedButton6()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(true);
+	int nLength=m_lightid.GetLength();
+	if (nLength!=16)
+	{
+		AfxMessageBox(_T("输入ID长度不对！"));
+	}
+	else
+	{
+		char c[2]={'B','L'};
+		CString str;
+		str.Format("%s%s#",c,m_lightid);
+		send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
+	}
+}
+
+void CMainSetDlg::OnBnClickedButton3()
+{
+	// TODO: Add your control notification handler code here
+	CTime time=CTime::GetCurrentTime();
+	CString str,strTime,str1;
+	strTime=time.Format("错误Save%Y-%m-%d_%H-%M-%S.txt");
+	CFile file(strTime,CFile::modeCreate | CFile::modeWrite);
+	CArchive ar(&file,CArchive::store);
+
+	UpdateData();
+	str.Format("%s",m_error);
+	ar<<str;
+	str1.Format("错误信息数据保存在%s文件中",strTime);
+	AfxMessageBox(str1);
 }
