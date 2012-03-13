@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CSetNewUser dialog
@@ -20,5 +21,10 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
-	afx_msg void OnBnClickedButton1();
+	afx_msg void OnEnChangeUsername();
+	afx_msg void OnCbnSelchangeCombo1();
+	CComboBox m_ctrComboBox;
+	BOOL IsBegin;
+	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedCancel();
 };
