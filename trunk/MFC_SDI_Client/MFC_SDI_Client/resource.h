@@ -190,6 +190,8 @@
 #define IDC_EDIT_TID                    1068
 #define IDC_EDIT_GID                    1069
 #define IDC_EDIT_RID                    1070
+#define IDC_INFO_TAB                    1070
+#define IDC_GINFO_TAB                   1070
 #define IDC_EDIT_                       1071
 #define IDC_EDIT_LID                    1071
 #define ID_32771                        32771
@@ -280,8 +282,12 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        430
 #define _APS_NEXT_COMMAND_VALUE         32868
+<<<<<<< .mine
+#define _APS_NEXT_CONTROL_VALUE         1071
+=======
 //#define _APS_NEXT_CONTROL_VALUE         1068
 #define _APS_NEXT_CONTROL_VALUE         1069
+>>>>>>> .r319
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
