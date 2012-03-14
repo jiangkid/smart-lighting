@@ -101,6 +101,16 @@ typedef struct _TreeInfo//Tree的信息
 	char RID[6];
 }TreeInfo,*LPTreeInfo;
 
+typedef struct _GPRSInfo//GPRS基本信息
+{
+	U8 gID[2];
+	U8 gName[20];
+	U8 gArea[20];
+	U8 gTelephone[11];
+	U8 gTime[17];
+	U8 gLocation[20];
+}GPRSInfo,*LPGPRSInfo;
+
 typedef struct _ConTrlInfo//back的信息
 {
 	U8 m_First[4];
