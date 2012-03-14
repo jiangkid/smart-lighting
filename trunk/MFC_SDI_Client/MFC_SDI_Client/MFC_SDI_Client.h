@@ -15,7 +15,6 @@
 #include "MainSetDlg.h"
 #include "WaitDlg.h"
 #include "FileView.h"
-#include "LightListView.h"
 #include "CVListView.h"
 #include "TabListView.h"
 #include "LightView.h"
