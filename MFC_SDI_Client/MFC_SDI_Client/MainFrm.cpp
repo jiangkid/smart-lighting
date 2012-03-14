@@ -6,7 +6,6 @@
 #include "MFC_SDI_Client.h"
 #include "MainFrm.h"
 #include "MFC_SDI_ClientView.h"
-#include "LightListView.h"
 #include "CVListView.h"
 #include "TabListView.h"
 #ifdef _DEBUG

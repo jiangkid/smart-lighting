@@ -93,7 +93,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	}
 	AfxEnableControlContainer();
 //这是代码区 有用的
- 	 while(!m_InitTrue)
+ 	 /*while(!m_InitTrue)
  	{
    		while (!m_return)
    			{
@@ -123,7 +123,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
  			}
  			else 
  				m_InitTrue=true;
- 		} 
+ 		} */
 /*测试代码*/
     // 	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
     // 	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
