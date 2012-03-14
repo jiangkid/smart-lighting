@@ -1,6 +1,6 @@
 #pragma once
 #include "afxcmn.h"
-
+#include "GPRSLocaInfomation.h"
 // CGprsInfoCtrlDlg dialog
 
 class CGprsInfoCtrlDlg : public CDialog
@@ -22,5 +22,6 @@ public:
 	//CSize ItemSize;
 	virtual BOOL OnInitDialog();
 	CTabCtrl m_Tab;
+	CGPRSLocaInfomation* m_pGLocalVIew;
 	afx_msg void OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult);
 };

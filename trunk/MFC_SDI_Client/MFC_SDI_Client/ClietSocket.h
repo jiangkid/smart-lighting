@@ -219,3 +219,7 @@ CString CharToCString(unsigned char* str, int nLength);
 //函数功能：更新单路的状态
 //***************************************************************/
 void UpdataRoadStatusInfo(char* buff,int nRecvLength);
+//***************************************************************/
+//函数功能：GPRSIbfo信息
+//***************************************************************/
+void GPRSLocalInfo(char* buff,int nRecvLength);
