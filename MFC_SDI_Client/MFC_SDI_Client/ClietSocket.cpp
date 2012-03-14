@@ -136,6 +136,9 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 							UpdataRoadStatusInfo(szBuf,iRet);
 							break;
 						}
+					case 'G':
+						GPRSLocalInfo(szBuf,iRet);
+						break;
 				default:
 						break;
 					}
@@ -1053,4 +1056,14 @@ CString CharToCString(unsigned char* str, int nLength)
 	}
 	strShow.Format(_T("%s"), szText);
 	return strShow;
+}
+
+void GPRSLocalInfo(char* buff,int nRecvLength)
+{
+	GPRSInfo* pGetInfo=(GPRSInfo*)malloc(sizeof(GPRSInfo));
+	ZeroMemory(pGetInfo,sizeof(GPRSInfo));
+	memcpy(pGetInfo,buff+1,sizeof(GPRSInfo));
+	theApp.m_pLocalInfoDlg->ShowLocationInfo(pGetInfo);
+	Sleep(500);
+	free(pGetInfo);
 }

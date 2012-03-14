@@ -40,6 +40,14 @@ BOOL CGprsInfoCtrlDlg::OnInitDialog()
 	m_Tab.InsertItem(1,&tcItem);
 	tcItem.pszText = _T("ÏßÀÂÐÅÏ¢");
 	m_Tab.InsertItem(2,&tcItem);
+
+	m_pGLocalVIew = new CGPRSLocaInfomation();
+	m_pGLocalVIew->Create(IDD_GPRSLocal,&m_Tab);
+	CRect m_rect;
+	m_Tab.GetClientRect(m_rect);
+	m_rect.DeflateRect(0,20,0,0);
+	m_pGLocalVIew->MoveWindow(m_rect);
+	m_pGLocalVIew->ShowWindow(SW_SHOW);
 	// TODO:  Add extra initialization here
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
