@@ -1,5 +1,5 @@
 #pragma once
-
+#include "afxcmn.h"
 
 // CGprsInfoCtrlDlg dialog
 
@@ -18,4 +18,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+public:
+	//CSize ItemSize;
+	virtual BOOL OnInitDialog();
+	CTabCtrl m_Tab;
+	afx_msg void OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult);
 };
