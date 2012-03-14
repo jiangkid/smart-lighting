@@ -240,6 +240,8 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 				TID[i]=itemData->TID[i];
 				theApp.TID[i+1]=itemData->TID[i];
 			}
+			theApp.GID[1]=theApp.TID[1];
+			theApp.GID[2]=theApp.TID[2];
 			pWndTree->SetFocus();
 			CMenu menu;   
 			VERIFY(menu.LoadMenu(IDR_POPUP_T));   
