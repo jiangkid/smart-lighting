@@ -21,6 +21,7 @@
 #include "RoudInfoView.h"
 #include "SplashWnd.h"
 #include "MainSetDlg.h"
+#include "GPRSLocaInfomation.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -38,6 +39,7 @@ public:
 	bool m_connected;
 	HANDLE h1;
 	char TID[6];
+	char GID[4];
 	char nStatus[4];//托盘状态4种
 	GInfo m_GInfo[8];//GPRS个数8 GName GID
 	TInfo m_TInfo[32];//终端个数32 TName TID
@@ -54,6 +56,7 @@ public:
 	CTabListView*		m_pTabListView;
 	CRoudInfoView*		m_pRoadView;
 	CMainSetDlg*        m_pMainSetDlg;
+	CGPRSLocaInfomation*m_pLocalInfoDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();
