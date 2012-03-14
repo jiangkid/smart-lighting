@@ -27,6 +27,7 @@ void CGprsInfoCtrlDlg::DoDataExchange(CDataExchange* pDX)
 }
 // CGprsInfoCtrlDlg message handlers
 BEGIN_MESSAGE_MAP(CGprsInfoCtrlDlg, CDialog)
+	ON_NOTIFY(TCN_SELCHANGE, IDC_GINFO_TAB, &CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab)
 END_MESSAGE_MAP()
 BOOL CGprsInfoCtrlDlg::OnInitDialog()
 {
@@ -42,4 +43,20 @@ BOOL CGprsInfoCtrlDlg::OnInitDialog()
 	// TODO:  Add extra initialization here
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	// TODO: Add your control notification handler code here
+	int sel = m_Tab.GetCurFocus();
+	switch(sel)
+	{
+	case 1 :
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	}
+	*pResult = 0;
 }
