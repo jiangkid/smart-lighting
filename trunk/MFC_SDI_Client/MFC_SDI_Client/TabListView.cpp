@@ -64,6 +64,7 @@ void CTabListView::UpDateMainFrame(void)
  	m_Tab.InsertItem(0,_T("单节点信息"),0);
  	m_Tab.InsertItem(1,_T("单路信息"),1);
 	m_Tab.InsertItem(2,_T("区域信息"),2);
+	m_Tab.InsertItem(3,_T("电表信息"),2);
  	m_LightView = new CLightView();
  	m_LightView->Create(IDD_DIALOG3,&m_Tab);
  	CRect m_rect;
@@ -139,9 +140,18 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 		}
 		break;
 	case 2:
-		m_LightView->ShowWindow(SW_HIDE);
-		m_RoadView->ShowWindow(SW_HIDE);
-		m_GprsInfoView->ShowWindow(SW_SHOW);
+		{
+			m_LightView->ShowWindow(SW_HIDE);
+			m_RoadView->ShowWindow(SW_HIDE);
+			m_GprsInfoView->ShowWindow(SW_SHOW);
+		}
+		break;
+	case 3:
+		{
+			m_LightView->ShowWindow(SW_HIDE);
+			m_RoadView->ShowWindow(SW_HIDE);
+			m_GprsInfoView->ShowWindow(SW_HIDE);
+		}
 		break;
 	}
 	*pResult = 0;
