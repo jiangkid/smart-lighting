@@ -129,11 +129,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	 // CDockablePane* pTabbedBar = NULL; 
 	  //m_wndClassView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar); 
 	// 启用工具栏和停靠窗口菜单替换
-<<<<<<< .mine
+ 
  	// EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
-=======
+ 
  	 //EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
->>>>>>> .r345
+ 
 	// 启用快速(按住 Alt 拖动)工具栏自定义
  	CMFCToolBar::EnableQuickCustomization();
 	if (CMFCToolBar::GetUserImages() == NULL)
