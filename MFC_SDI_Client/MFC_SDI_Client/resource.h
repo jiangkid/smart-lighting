@@ -93,21 +93,32 @@
 #define IDB_BITMAP6                     378
 #define IDB_BITMAP7                     379
 #define IDB_BITMAP8                     380
-#define IDR_MAINFRAME_256               403
 #define IDD_VIEW_DLG                    407
 #define IDD_DIALOG3                     408
 #define IDD_Roud_Info                   409
 #define IDR_HIDEMENU                    410
 #define IDD_User_CTRL                   412
 #define IDB_BITMAP9                     413
-#define IDR_TOOLBAR1                    414
 #define IDD_LIGHT_DLG                   416
 #define IDR_List_Menu                   418
 #define IDD_GPRS_INFO                   419
 #define IDB_SPLASH                      427
 #define IDR_TOOLBAR2                    428
 #define IDR_EXPLORER                    428
+
+#define IDR_TOOLBAR6                    440
+#define ID_MYBAR                        440
+#define IDB_BITMAP11                    444
+#define IDR_MAINFRAME_256               450
+#define IDB_BITMAP12                    451
+#define IDI_ICON10                      454
+#define IDB_BITMAP10                    456
+#define ID_MYBAR_256                    457
+#define IDI_ICON11                      460
+#define IDI_ICON12                      461
+
 #define IDD_GPRSLocal                   430
+
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -254,11 +265,6 @@
 #define ID_32830                        32830
 #define ID_UserControl                  32831
 #define ID_BUTTON32833                  32833
-#define ID_BUTTON32834                  32834
-#define ID_BUTTON32835                  32835
-#define ID_BUTTON32836                  32836
-#define ID_BUTTON32837                  32837
-#define ID_BUTTON32838                  32838
 #define ID_LIGHTLISTVIWE_32842          32842
 #define ID_List_Menu                    32843
 #define ID_Updata                       32844
@@ -282,14 +288,28 @@
 #define ID_BUTTON32865                  32865
 #define ID_32866                        32866
 #define ID_RENEW                        32867
+#define IDR_RENEW                       32877
+#define ID_BUTTON32880                  32880
+#define ID_BUTTON32881                  32881
+#define ID_BUTTON32882                  32882
+#define ID_BUTTON32883                  32883
+#define ID_BUTTON32885                  32885
+#define ID_BUTTON32886                  32886
+#define ID_BUTTON32889                  32889
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
+<<<<<<< .mine
+#define _APS_NEXT_RESOURCE_VALUE        462
+#define _APS_NEXT_COMMAND_VALUE         32890
+#define _APS_NEXT_CONTROL_VALUE         1069
+=======
 #define _APS_NEXT_RESOURCE_VALUE        431
 #define _APS_NEXT_COMMAND_VALUE         32868
 #define _APS_NEXT_CONTROL_VALUE         1071
+>>>>>>> .r338
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
