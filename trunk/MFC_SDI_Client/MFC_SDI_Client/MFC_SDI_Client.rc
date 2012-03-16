@@ -115,11 +115,19 @@ IDB_BITMAP8             BITMAP                  "res\\File_Manager.bmp"
 IDB_BITMAP9             BITMAP                  "res\\ToolBar.bmp"
 IDB_SPLASH              BITMAP                  "res\\10000434340537.bmp"
 ID_MYBAR                BITMAP                  "res\\toolbar6.bmp"
+<<<<<<< .mine
+IDB_BITMAP11            BITMAP                  "res\\桌面\\刷新.bmp"
+=======
 //IDB_BITMAP11            BITMAP                  "res\\刷新.bmp"
+>>>>>>> .r351
 IDR_MAINFRAME           BITMAP                  "res\\toolbar1.bmp"
 IDR_MAINFRAME_256       BITMAP                  "res\\bmp00001.bmp"
 ID_5                    BITMAP                  "res\\bitmap12.bmp"
+<<<<<<< .mine
+IDB_BITMAP10            BITMAP                  "res\\重新连接.bmp"
+=======
 //IDB_BITMAP10            BITMAP                  "res\\重新连接.bmp"
+>>>>>>> .r351
 ID_MYBAR_256            BITMAP                  "res\\bmp00002.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -395,38 +403,52 @@ BEGIN
     EDITTEXT        IDC_SPassWord,75,68,50,12,ES_AUTOHSCROLL
 END
 
-IDD_Set DIALOGEX 0, 0, 308, 246
+IDD_Set DIALOGEX 0, 0, 478, 199
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Set区域界面"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    PUSHBUTTON      "取消设置",IDCANCEL,243,3,50,14
+    PUSHBUTTON      "取消设置",IDCANCEL,419,1,50,14
     CTEXT           "已有用户名",IDC_STATIC,4,5,47,10
     CTEXT           "区域ID",IDC_STATIC,22,46,24,8
     EDITTEXT        IDC_GName,53,29,65,12,ES_AUTOHSCROLL
     COMBOBOX        IDC_COM_GID,53,45,66,73,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CONTROL         "添加区域",IDC_RADIOG,"Button",BS_AUTORADIOBUTTON,7,30,44,10
-    PUSHBUTTON      "添加区域",IDC_BTN_GSET,83,223,37,14
+    PUSHBUTTON      "添加区域",IDC_BTN_GSET,78,163,37,14
     CTEXT           "终端ID",IDC_STATIC,147,46,24,8
     EDITTEXT        IDC_TName,178,28,113,12,ES_AUTOHSCROLL
     COMBOBOX        IDC_COM_TID,177,44,115,58,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CONTROL         "添加终端",IDC_RADIOT,"Button",BS_AUTORADIOBUTTON,131,30,43,10
-    PUSHBUTTON      "添加终端",IDC_BTN_TSET,227,60,37,14
-    CTEXT           "路段ID",IDC_STATIC,143,113,24,8
-    EDITTEXT        IDC_RName,175,96,115,12,ES_AUTOHSCROLL
-    COMBOBOX        IDC_COM_RID,174,111,117,130,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "添加路段",IDC_RADIOR,"Button",BS_AUTORADIOBUTTON,130,97,44,10
-    PUSHBUTTON      "添加路段",IDC_BTN_RSET,242,131,37,14
-    CTEXT           "区域ID",IDC_STATIC,141,185,24,8
-    EDITTEXT        IDC_LName,174,167,123,12,ES_AUTOHSCROLL
-    COMBOBOX        IDC_COM_LID,173,183,124,131,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "添加灯",IDC_RADIOL,"Button",BS_AUTORADIOBUTTON,131,169,39,10
-    PUSHBUTTON      "添加单灯",IDC_BTN_LSET,242,217,37,14
+    PUSHBUTTON      "添加终端",IDC_BTN_TSET,257,163,37,14
+    CTEXT           "路段ID",IDC_STATIC,317,44,24,8
+    EDITTEXT        IDC_RName,349,27,115,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COM_RID,347,42,117,130,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "添加路段",IDC_RADIOR,"Button",BS_AUTORADIOBUTTON,303,28,44,10
+    PUSHBUTTON      "添加路段",IDC_BTN_RSET,423,67,37,14
+    CTEXT           "区域ID",IDC_STATIC,313,126,24,8
+    EDITTEXT        IDC_LName,346,108,123,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COM_LID,345,124,124,131,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "添加灯",IDC_RADIOL,"Button",BS_AUTORADIOBUTTON,303,110,39,10
+    PUSHBUTTON      "添加单灯",IDC_BTN_LSET,426,163,37,14
     COMBOBOX        IDC_COM_UserName,53,4,61,80,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "添加区域设置",IDC_STATIC,4,18,119,222
-    GROUPBOX        "添加终端设置",IDC_STATIC,127,17,168,61
-    GROUPBOX        "添加路段设置",IDC_STATIC,128,83,167,68
-    GROUPBOX        "添加单灯设置",IDC_STATIC,129,156,172,83
+    GROUPBOX        "添加区域设置",IDC_STATIC,1,16,119,177
+    GROUPBOX        "添加终端设置",IDC_STATIC,127,17,168,175
+    GROUPBOX        "添加路段设置",IDC_STATIC,301,14,167,68
+    GROUPBOX        "添加单灯设置",IDC_STATIC,301,97,172,92
+    CTEXT           "GPRS(phone)",IDC_STATIC,8,68,44,8
+    CTEXT           "安装地点",IDC_STATIC,5,85,33,8
+    CTEXT           "安装时间",IDC_STATIC,3,117,33,8
+    EDITTEXT        IDC_GroupName,53,66,65,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_GArea,6,96,112,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_GDATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,37,115,80,12
+    EDITTEXT        IDC_GBusy,38,134,79,15,ES_MULTILINE | ES_WANTRETURN
+    CTEXT           "责任区",IDC_STATIC,7,141,25,8
+    CONTROL         "",IDC_TDATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,181,115,80,12
+    CTEXT           "安装时间",IDC_STATIC,142,116,33,8
+    CTEXT           "安装地点",IDC_STATIC,142,85,33,8
+    EDITTEXT        IDC_TArea,147,97,146,12,ES_AUTOHSCROLL
+    CTEXT           "责任区",IDC_STATIC,147,140,25,8
+    EDITTEXT        IDC_TBusy,181,134,79,15,ES_MULTILINE | ES_WANTRETURN
 END
 
 IDD_MainSet DIALOGEX 0, 0, 599, 273
@@ -727,8 +749,7 @@ BEGIN
 
     IDD_Set, DIALOG
     BEGIN
-        RIGHTMARGIN, 307
-        BOTTOMMARGIN, 245
+        BOTTOMMARGIN, 198
     END
 
     IDD_MainSet, DIALOG
