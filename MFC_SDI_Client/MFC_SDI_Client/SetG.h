@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "afxdtctl.h"
 
 
 // CSetG dialog
@@ -29,7 +30,6 @@ public:
 	afx_msg void OnBnClickedRadiot();
 	afx_msg void OnBnClickedRadior();
 	afx_msg void OnBnClickedRadiol();
-	CMFC_SDI_ClientApp * pTheApp;
 	CComboBox m_ComG;
 	CComboBox m_ComT;
 	CComboBox m_ComR;
@@ -43,4 +43,12 @@ public:
 	afx_msg void OnBnClickedBtnTset();
 	afx_msg void OnBnClickedBtnRset();
 	afx_msg void OnBnClickedBtnLset();
+	CString m_GPhoneNum;
+	CString m_GArea;
+	CDateTimeCtrl m_DataCtrl;
+	CString m_GBusy;
+	CDateTimeCtrl m_TTime;
+	CString m_TArea;
+	CString m_TBusy;
+	afx_msg void OnCbnSelchangeComTid();
 };
