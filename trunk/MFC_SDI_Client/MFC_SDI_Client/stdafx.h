@@ -46,6 +46,8 @@
 #define WM_TRAYICON_MSG (WM_USER+100)
 #define LENTH (sizeof(ZigbeeInfo))
 #define RLENTH (sizeof(RoadListViewInfo))
+#define GLENTH (sizeof(GPRSInfo))
+#define TLENTH (sizeof(TerminalInfo))
 #define U8 unsigned char
 #define ON  _T("¿ª")
 #define OFF _T("¹Ø")
