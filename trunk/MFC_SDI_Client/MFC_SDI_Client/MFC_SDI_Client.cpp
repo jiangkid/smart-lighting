@@ -64,9 +64,9 @@ CMFC_SDI_ClientApp theApp;
 
 BOOL CMFC_SDI_ClientApp::InitInstance()
 {
-// 	CSplashWnd* pSplash = new CSplashWnd;
-// 	pSplash->ShowWindow(m_nCmdShow);
-// 	Sleep(2500);
+//  	CSplashWnd* pSplash = new CSplashWnd;
+//  	pSplash->ShowWindow(m_nCmdShow);
+//// 	Sleep(2500);
 	//如果一个运行在 Windows XP 上的应用程序清单指定要
 	//使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。否则，将无法创建窗口。
@@ -202,6 +202,8 @@ protected:
 // 实现
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	/*afx_msg void OnUpdateCagain(CCmdUI *pCmdUI);*/
 };
 
 CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
@@ -214,6 +216,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
+	/*ON_UPDATE_COMMAND_UI(ID_CAgain, &CAboutDlg::OnUpdateCagain)*/
 END_MESSAGE_MAP()
 
 // 用于运行对话框的应用程序命令
@@ -315,3 +318,5 @@ void CMFC_SDI_ClientApp::OnRenew()
 	send(m_ConnectSock,a,3,0);
 	m_WaitDlg.DoModal();
 }
+
+ 
