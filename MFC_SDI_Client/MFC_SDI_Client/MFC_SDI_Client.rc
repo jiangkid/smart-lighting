@@ -89,6 +89,9 @@ IDI_ICON6               ICON                    "res\\explorer.exe_0.ico"
 IDI_ICON7               ICON                    "res\\msoeres.dll_18.ico"
 IDI_ICON8               ICON                    "res\\newgame.ico"
 IDI_ICON9               ICON                    "res\\World.ico"
+IDI_ICON10              ICON                    "res\\icon10.ico"
+IDI_ICON11              ICON                    "res\\icon11.ico"
+IDI_ICON12              ICON                    "res\\icon12.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -109,79 +112,46 @@ IDB_BITMAP5             BITMAP                  "res\\Setting.bmp"
 IDB_BITMAP6             BITMAP                  "res\\About.bmp"
 IDB_BITMAP7             BITMAP                  "res\\camera.bmp"
 IDB_BITMAP8             BITMAP                  "res\\File_Manager.bmp"
-IDR_MAINFRAME           BITMAP                  "res\\Test.bmp"
-IDR_MAINFRAME_256       BITMAP                  "res\\mainfram1.bmp"
 IDB_BITMAP9             BITMAP                  "res\\ToolBar.bmp"
-IDR_TOOLBAR1            BITMAP                  "res\\toolbar1.bmp"
 IDB_SPLASH              BITMAP                  "res\\10000434340537.bmp"
-IDR_EXPLORER            BITMAP                  "res\\toolbar2.bmp"
+ID_MYBAR                BITMAP                  "res\\toolbar6.bmp"
+IDB_BITMAP11            BITMAP                  "C:\\Documents and Settings\\Administrator\\桌面\\刷新.bmp"
+IDR_MAINFRAME           BITMAP                  "res\\toolbar1.bmp"
+IDR_MAINFRAME_256       BITMAP                  "res\\bmp00001.bmp"
+ID_5                    BITMAP                  "res\\bitmap12.bmp"
+IDB_BITMAP10            BITMAP                  "C:\\Documents and Settings\\Administrator\\桌面\\重新连接.bmp"
+ID_MYBAR_256            BITMAP                  "res\\bmp00002.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Toolbar
 //
 
-IDR_MAINFRAME TOOLBAR  32, 32
+ID_MYBAR TOOLBAR  15, 15
 BEGIN
+    BUTTON      ID_CAgain
+    BUTTON      ID_RENEW
+    SEPARATOR
     BUTTON      ID_APP_ABOUT
-    SEPARATOR
-    BUTTON      ID_1
-    SEPARATOR
-    BUTTON      ID_2
-    SEPARATOR
     BUTTON      ID_3
     SEPARATOR
-    BUTTON      ID_4
-    SEPARATOR
-    BUTTON      ID_5
-    SEPARATOR
-    BUTTON      ID_6
-    SEPARATOR
-    BUTTON      ID_7
-    SEPARATOR
-    BUTTON      ID_8
+    BUTTON      ID_BUTTON32889
 END
 
-IDR_MAINFRAME_256 TOOLBAR  32, 32
+IDR_MAINFRAME TOOLBAR  16, 15
 BEGIN
-    BUTTON      ID_APP_ABOUT
-    SEPARATOR
-    BUTTON      ID_1
-    SEPARATOR
-    BUTTON      ID_2
-    SEPARATOR
-    BUTTON      ID_3
-    SEPARATOR
-    BUTTON      ID_4
-    SEPARATOR
-    BUTTON      ID_5
-    SEPARATOR
-    BUTTON      ID_6
-    SEPARATOR
-    BUTTON      ID_7
-    SEPARATOR
-    BUTTON      ID_8
+    BUTTON      ID_BUTTON32880
+    BUTTON      ID_BUTTON32881
+    BUTTON      ID_BUTTON32885
 END
 
-IDR_TOOLBAR1 TOOLBAR  116, 100
+IDR_MAINFRAME_256 TOOLBAR  16, 15
 BEGIN
-    BUTTON      ID_BUTTON32833
-    SEPARATOR
-    BUTTON      ID_BUTTON32834
-    SEPARATOR
-    BUTTON      ID_BUTTON32835
-    SEPARATOR
-    BUTTON      ID_BUTTON32836
-    SEPARATOR
-    BUTTON      ID_BUTTON32837
-    SEPARATOR
-    BUTTON      ID_BUTTON32838
+    BUTTON      ID_BUTTON32882
+    BUTTON      ID_BUTTON32883
+    BUTTON      ID_BUTTON32886
 END
 
-IDR_EXPLORER TOOLBAR  16, 15
-BEGIN
-    BUTTON      ID_BUTTON32865
-END
 
 
 /////////////////////////////////////////////////////////////////////////////
