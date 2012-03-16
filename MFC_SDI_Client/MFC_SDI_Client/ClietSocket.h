@@ -105,11 +105,20 @@ typedef struct _GPRSInfo//GPRS基本信息
 {
 	U8 gID[2];
 	U8 gName[20];
-	U8 gArea[20];
+	U8 gArea[20];//责任区
 	U8 gTelephone[11];
 	U8 gTime[17];
-	U8 gLocation[20];
+	U8 gLocation[20];//安装地点
 }GPRSInfo,*LPGPRSInfo;
+
+typedef struct _TerminalInfo//Terminal基本信息
+{
+	U8 TID[4];
+	U8 TerminalName[20];
+	U8 TerminalLocation[20];//安装地点
+	U8 TerminalArea[20];//责任区
+	U8 TerminalTime[17];
+}TerminalInfo,*LPTerminalInfo;
 
 typedef struct _ConTrlInfo//back的信息
 {

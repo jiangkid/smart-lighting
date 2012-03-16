@@ -39,12 +39,13 @@ public:
 	bool m_connected;
 	HANDLE h1;
 	char TID[6];
-	char GID[4];
+	char GID[5];
 	char nStatus[4];//托盘状态4种
 	GInfo m_GInfo[8];//GPRS个数8 GName GID
 	TInfo m_TInfo[32];//终端个数32 TName TID
 	RInfo m_RInfo[196];//路的个数196 RName RID
 	LInfo m_LInfo[1024];//单灯个数1024 LName LID
+	TerminalInfo m_TerminalInfo[4];//1个GPRS下4个终端，最大
 	ZigbeeInfo* m_ZigbeeInfo[512];//一个节点的信息最大512个显示的信息
 	RoadListViewInfo*   m_RoadListInfo[8];//1个终端下最大8路的信息
 	U8  m_lightPack[LENTH*1000];//包的缓冲大小定义成30K
