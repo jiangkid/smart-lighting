@@ -238,10 +238,7 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 			{
 				m_szTreeID+=itemData->TID[i];
 				TID[i]=itemData->TID[i];
-				theApp.TID[i+1]=itemData->TID[i];
 			}
-			theApp.GID[1]=theApp.TID[1];
-			theApp.GID[2]=theApp.TID[2];
 			pWndTree->SetFocus();
 			CMenu menu;   
 			VERIFY(menu.LoadMenu(IDR_POPUP_T));   
@@ -259,6 +256,10 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 				m_szTreeID+=itemData->RID[i];
 				RID[i]=itemData->RID[i];
 			}
+			theApp.TID[1]=itemData->RID[0];
+			theApp.TID[2]=itemData->RID[1];
+			theApp.TID[3]=itemData->RID[2];
+			theApp.TID[4]=itemData->RID[3];
 			pWndTree->SetFocus();
 			CMenu menu;   
 			VERIFY(menu.LoadMenu(IDR_POPUP_R));   

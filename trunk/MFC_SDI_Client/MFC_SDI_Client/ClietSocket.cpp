@@ -1060,10 +1060,37 @@ CString CharToCString(unsigned char* str, int nLength)
 
 void GPRSLocalInfo(char* buff,int nRecvLength)
 {
-	GPRSInfo* pGetInfo=(GPRSInfo*)malloc(sizeof(GPRSInfo));
-	ZeroMemory(pGetInfo,sizeof(GPRSInfo));
-	memcpy(pGetInfo,buff+1,sizeof(GPRSInfo));
-	theApp.m_pLocalInfoDlg->ShowLocationInfo(pGetInfo);
-	Sleep(500);
-	free(pGetInfo);
+	GPRSInfo* pGetInfo=(GPRSInfo*)malloc(GLENTH);
+	ZeroMemory(pGetInfo,GLENTH);
+	TerminalInfo* pGetTInfo = (TerminalInfo*)malloc(TLENTH);
+	ZeroMemory(pGetTInfo,TLENTH);					
+	switch(buff[1])
+	{
+	case 0x30:
+		if (buff[2]==0x30)
+		{
+			memcpy(pGetInfo,buff+3,GLENTH);
+			theApp.m_pLocalInfoDlg->ShowLocationInfo(pGetInfo);	
+			Sleep(500);
+			free(pGetInfo);
+		}
+		else
+			AfxMessageBox(_T("获取GPRS基本信息错误"));
+		break;
+	case 0x31:
+		if(buff[2]==0x30)
+		{
+			int n=buff[3];
+			for (int i(0);i<n;i++)
+			{
+				memcpy(pGetTInfo,buff+3+i*TLENTH,TLENTH);
+				memcpy(&theApp.m_TerminalInfo[i],pGetTInfo,TLENTH);
+				ZeroMemory(pGetTInfo,TLENTH);
+			}
+			free(pGetTInfo);
+		}
+		break;
+	default:
+		break;
+	}
 }
