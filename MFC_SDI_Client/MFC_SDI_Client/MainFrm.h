@@ -39,7 +39,7 @@ public:
 
 protected:  // 控件条嵌入成员
 	CMFCMenuBar       m_wndMenuBar;
-	CMFCToolBar       m_wndToolBar;
+	
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
 	CFileView         m_wndFileView;
@@ -58,6 +58,7 @@ public:
 	LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 public:
 	bool m_bSplitted;
+	CMFCToolBar       m_wndToolBar;
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	BOOL CreateDockingWindows();
 	void SetDockingWindowIcons(BOOL bHiColorIcons);
@@ -77,6 +78,8 @@ public:
 	afx_msg void OnMainset();
 	CMainSetDlg* Mdlg;
 	CUserCtrDlg* Userdlg;
+	 
+ 
 };
 
 
