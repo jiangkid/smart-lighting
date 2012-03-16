@@ -115,11 +115,11 @@ IDB_BITMAP8             BITMAP                  "res\\File_Manager.bmp"
 IDB_BITMAP9             BITMAP                  "res\\ToolBar.bmp"
 IDB_SPLASH              BITMAP                  "res\\10000434340537.bmp"
 ID_MYBAR                BITMAP                  "res\\toolbar6.bmp"
-IDB_BITMAP11            BITMAP                  "C:\\Documents and Settings\\Administrator\\桌面\\刷新.bmp"
+//IDB_BITMAP11            BITMAP                  "res\\刷新.bmp"
 IDR_MAINFRAME           BITMAP                  "res\\toolbar1.bmp"
 IDR_MAINFRAME_256       BITMAP                  "res\\bmp00001.bmp"
 ID_5                    BITMAP                  "res\\bitmap12.bmp"
-IDB_BITMAP10            BITMAP                  "C:\\Documents and Settings\\Administrator\\桌面\\重新连接.bmp"
+//IDB_BITMAP10            BITMAP                  "res\\重新连接.bmp"
 ID_MYBAR_256            BITMAP                  "res\\bmp00002.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
