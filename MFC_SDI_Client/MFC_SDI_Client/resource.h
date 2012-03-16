@@ -139,7 +139,6 @@
 #define IDC_TelNum                      1005
 #define IDC_EDIT_GTIME                  1005
 #define IDC_active                      1006
-#define IDC_EDIT5                       1006
 #define IDC_EDIT_GLOCATION              1006
 #define IDC_UserName                    1007
 #define IDC_EDIT_GAREA                  1007
@@ -150,6 +149,11 @@
 #define IDC_RName                       1012
 #define IDC_LName                       1013
 #define IDC_RName2                      1014
+#define IDC_GArea                       1015
+#define IDC_TArea                       1016
+#define IDC_GBusy                       1017
+#define IDC_GBusy2                      1018
+#define IDC_TBusy                       1018
 #define IDC_COM_GID                     1019
 #define IDC_BTN_GetID                   1020
 #define IDC_COM_TID                     1020
@@ -212,6 +216,8 @@
 #define IDC_EDIT_GNAME                  1070
 #define IDC_EDIT_                       1071
 #define IDC_EDIT_LID                    1071
+#define IDC_GDATA                       1072
+#define IDC_TDATA                       1073
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -308,7 +314,7 @@
 =======
 #define _APS_NEXT_RESOURCE_VALUE        431
 #define _APS_NEXT_COMMAND_VALUE         32868
-#define _APS_NEXT_CONTROL_VALUE         1071
+#define _APS_NEXT_CONTROL_VALUE         1075
 >>>>>>> .r338
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
