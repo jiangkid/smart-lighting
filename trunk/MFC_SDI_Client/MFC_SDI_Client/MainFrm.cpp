@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_TIMER()
 	ON_COMMAND(ID_UserControl, &CMainFrame::OnUsercontrol)
 	ON_COMMAND(ID_MainSet, &CMainFrame::OnMainset)
+	//ON_COMMAND(ID_RENEW, &CMainFrame::OnRenew)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -67,26 +68,20 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("未能创建菜单栏\n");
 		return -1;      // 未能创建
 	}
+	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | 
+		WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | 
+		CBRS_FLYBY | CBRS_SIZE_DYNAMIC) || !m_wndToolBar.LoadToolBar(ID_MYBAR))
+	{
+		TRACE0("未能创建工具栏\n");
+		return -1;      // 未能创建
+	}
 
 	m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() | CBRS_SIZE_DYNAMIC | CBRS_TOOLTIPS | CBRS_FLYBY);
 
 	// 防止菜单栏在激活时获得焦点
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
-// 	if(!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD|WS_VISIBLE|CBRS_ALIGN_TOP|CBRS_GRIPPER|CBRS_TOOLTIPS, CRect(4, 4, 0, 0))
-// 		|| !m_wndToolBar.LoadToolBar(IDR_TOOLBAR1))
-// 	{
-// 		return FALSE;
-// 	}
-// 	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0);
-// 	m_wndToolBar.LoadTrueColorToolBar(116,IDB_BITMAP9);
-
-	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
-		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
-	{
-		TRACE0("未能创建工具栏\n");
-		return -1;      // 未能创建
-	}
 	CString strToolBarName;
+	m_wndToolBar.SetWindowText(strToolBarName);
 	bNameValid = strToolBarName.LoadString(IDS_TOOLBAR_STANDARD);
 	ASSERT(bNameValid);
 	m_wndToolBar.SetWindowText(strToolBarName);
@@ -94,8 +89,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	bNameValid = strCustomize.LoadString(IDS_TOOLBAR_CUSTOMIZE);
 	ASSERT(bNameValid);
 	m_wndToolBar.EnableCustomizeButton(TRUE, ID_VIEW_CUSTOMIZE, strCustomize);
-	// 允许用户定义的工具栏操作:
-	InitUserToolbars(NULL, uiFirstUserToolBarId, uiLastUserToolBarId);
+	 //允许用户定义的工具栏操作:
+	 InitUserToolbars(NULL, uiFirstUserToolBarId, uiLastUserToolBarId); 
+
+
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("未能创建状态栏\n");
@@ -103,11 +100,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
 	// TODO: 如果您不希望工具栏和菜单栏可停靠，请删除这五行
-	m_wndMenuBar.EnableDocking(CBRS_ALIGN_ANY);
+	m_wndMenuBar.EnableDocking(CBRS_ALIGN_ANY); 
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
-	EnableDocking(CBRS_ALIGN_ANY);
-	DockPane(&m_wndMenuBar);
+	EnableDocking(CBRS_ALIGN_ANY); 
+	DockPane(&m_wndMenuBar); 
 	DockPane(&m_wndToolBar);
+	//return 0;
+ 
 	// 启用 Visual Studio 2005 样式停靠窗口行为
 	CDockingManager::SetDockingMode(DT_SMART);
 	// 启用 Visual Studio 2005 样式停靠窗口自动隐藏行为
@@ -118,37 +117,42 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("未能创建停靠窗口\n");
 		return -1;
 	}
-	m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
-	//m_wndClassView.EnableDocking(CBRS_ALIGN_ANY);
-	DockPane(&m_wndFileView);
-	//CDockablePane* pTabbedBar = NULL;
-	//m_wndClassView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar);
+	 m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
+	 // m_wndClassView.EnableDocking(CBRS_ALIGN_ANY); 
+	 DockPane(&m_wndFileView);
+	 // CDockablePane* pTabbedBar = NULL; 
+	  //m_wndClassView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar); 
 	// 启用工具栏和停靠窗口菜单替换
-//	EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
+ 	 EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
 	// 启用快速(按住 Alt 拖动)工具栏自定义
  	CMFCToolBar::EnableQuickCustomization();
 	if (CMFCToolBar::GetUserImages() == NULL)
 	{
 		// 加载用户定义的工具栏图像
 		if (m_UserImages.Load(_T(".\\ToolbarNULL.bmp")))
-		{
-			m_UserImages.SetImageSize(CSize(16,16), FALSE);
-			CMFCToolBar::SetSizes(CSize(16,16), CSize(16,16));
+		{ 
+			m_UserImages.SetImageSize(CSize( 16, 16), FALSE);
+			CMFCToolBar::SetSizes(CSize(16, 16), CSize( 16, 16));
 			CMFCToolBar::SetUserImages(&m_UserImages);
 		}
 	}
-	CSize btSize;
-	btSize=CMFCToolBar::GetMenuButtonSize();
-	CMFCToolBar::SetMenuSizes(CSize(32,24), CSize(7,7)); 
+// 	CSize btSize;
+// 	btSize=CMFCToolBar::GetMenuButtonSize();
+// 	CMFCToolBar::SetMenuSizes(CSize(32,24), CSize(7,7)); 
 
 	// 启用菜单个性化(最近使用的命令)
 	// TODO: 定义您自己的基本命令，确保每个下拉菜单至少有一个基本命令。
-	UINT IDArray[] ={ID_APP_ABOUT,0,ID_1,0,ID_2,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0,ID_8};
-	m_wndToolBar.SetButtons(IDArray, 17); 
+	UINT IDArray[] ={ID_CAgain,0,ID_RENEW,0,ID_2,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0 ,ID_APP_ABOUT,0};
+	m_wndToolBar.SetButtons(IDArray,18); 
 	theApp.nStatus[3]=0x01;
-	TrayMessage(NIM_ADD,IDI_ICON4);
+	TrayMessage(NIM_ADD,IDI_ICON4); 
+	
 	return 0;
 }
+ 
+
+	
+ 
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -402,7 +406,7 @@ bool CMainFrame::TrayMessage(DWORD dwMessage,UINT nIDI_ICON)
 	m_tnid.uCallbackMessage=MYWM_NOTIFYICON;
 	CString szToolTip;
 	szToolTip=_T("智能路灯控制系统");
-	_tcscpy(m_tnid.szTip, szToolTip);
+	strcpy_s(m_tnid.szTip, szToolTip);
 	m_tnid.uID=IDR_MAINFRAME;
 	m_tnid.hBalloonIcon=AfxGetApp()->LoadIcon(IDI_ICON6);
 	HICON hIcon;
@@ -485,3 +489,8 @@ void CMainFrame::OnMainset()
 	Mdlg->CenterWindow();
 	Mdlg->ShowWindow(SW_SHOW);
 }
+
+//void CMainFrame::OnRenew()
+//{
+//	// TODO: Add your command handler code here
+//}
