@@ -42,6 +42,7 @@ BOOL CWaitDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 	SetDlgItemText(IDC_STATIC_INIT,"登入成功，正在初始化。。。。。。。");
 	SetDlgItemText(IDC_BUTTON1,"取消");
+	//theApp.m_WaitDlg=this;
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
