@@ -543,7 +543,7 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 				nRCount++;
 			}
 		}
-		SendMessage(m_wnd,WM_CLOSE,0,0);
+		::SendMessage(m_wnd,WM_CLOSE,0,0);
 		Sleep(500);
 		theApp.m_pFileView->FillFileView();
 	}
