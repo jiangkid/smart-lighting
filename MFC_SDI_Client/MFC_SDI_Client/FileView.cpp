@@ -46,9 +46,9 @@ END_MESSAGE_MAP()
 
 int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
+	theApp.m_pFileView=this;
 	if (CDockablePane::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	theApp.m_pFileView=this;
 	CRect rectDummy;
 	rectDummy.SetRectEmpty();
 	// ¥¥Ω® ”Õº:
