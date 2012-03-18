@@ -142,8 +142,11 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 	case 2:
 		{
 			theApp.GID[0]='G';
-			theApp.GID[3]='#';
-			send(theApp.m_ConnectSock,theApp.GID,4,0);
+			theApp.GID[1]=0x30;
+			theApp.GID[2]=theApp.TID[1];
+			theApp.GID[3]=theApp.TID[2];
+			theApp.GID[4]='#';
+			send(theApp.m_ConnectSock,theApp.GID,5,0);
 			m_LightView->ShowWindow(SW_HIDE);
 			m_RoadView->ShowWindow(SW_HIDE);
 			m_GprsInfoView->ShowWindow(SW_SHOW);
