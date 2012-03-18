@@ -40,6 +40,7 @@ public:
 protected:  // 控件条嵌入成员
 	CMFCMenuBar       m_wndMenuBar;
 	
+	CMFCToolBar       m_wndToolBar2;
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
 	CFileView         m_wndFileView;
@@ -78,8 +79,15 @@ public:
 	afx_msg void OnMainset();
 	CMainSetDlg* Mdlg;
 	CUserCtrDlg* Userdlg;
+<<<<<<< .mine
+	afx_msg void OnShowTool();
+	afx_msg void OnHideTool();
+	afx_msg void OnShowTree();
+	afx_msg void OnHideTree();
+=======
 	 
  
+>>>>>>> .r360
 };
 
 
