@@ -16,10 +16,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
-
 // CMFC_SDI_ClientApp
-
 BEGIN_MESSAGE_MAP(CMFC_SDI_ClientApp, CWinAppEx)
 	ON_COMMAND(ID_APP_ABOUT, &CMFC_SDI_ClientApp::OnAppAbout)
 	// 基于文件的标准文档命令
