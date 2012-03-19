@@ -18,8 +18,8 @@ CGPRSLocaInfomation::CGPRSLocaInfomation(CWnd* pParent /*=NULL*/)
 	, m_gprsarea(_T(""))
 	, m_gprslocation(_T(""))
 	, m_gprstime(_T(""))
+	,m_TerminalCount(0)
 {
-
 }
 
 CGPRSLocaInfomation::~CGPRSLocaInfomation()
@@ -90,4 +90,58 @@ BOOL CGPRSLocaInfomation::OnInitDialog()
 	// TODO:  Add extra initialization here
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+TerminalInfo* CGPRSLocaInfomation::GetSelTerminalInfo(void)
+{
+	POSITION pos_s;
+	CString str1=_T("");
+	pos_s=m_List_Terminal.GetFirstSelectedItemPosition();
+	if(!pos_s)
+	{
+		return NULL;
+	}
+	int item=m_List_Terminal.GetNextSelectedItem(pos_s);
+	str1=m_List_Terminal.GetItemText(item,0);
+	for(int i(0);i<m_TerminalCount;i++)
+	{
+		CString str2=_T("");
+		for (int m(0);m<4;m++)
+		{
+			str2+=theApp.m_TerminalInfo[i].TID[m];
+		}
+		if (strcmp(str1,str2)==0)
+		{
+			return &theApp.m_TerminalInfo[i];
+		}		
+	}
+	return NULL;
+}
+
+void CGPRSLocaInfomation::ShowTerminalInfo(int nTcount)
+{
+	m_List_Terminal.DeleteAllItems();
+	m_TerminalCount=nTcount;
+	for (int i(0);i<nTcount;i++)
+	{
+		CString strTerminalName=_T("");
+		CString strTerminalID=_T("");
+		CString strTerminalTime=_T("");
+		CString strTerminalLocation=_T("");
+		CString strTerminalArea=_T("");
+		for (int m(0);m<20;m++)
+		{
+			strTerminalName+=theApp.m_TerminalInfo[i].TerminalName[m];
+			strTerminalArea+=theApp.m_TerminalInfo[i].TerminalArea[m];
+			strTerminalLocation+=theApp.m_TerminalInfo[i].TerminalLocation[m];
+		}
+		for (int n(0);n<4;n++)
+		{
+			strTerminalID+=theApp.m_TerminalInfo[i].TID[n];
+		}
+		for (int j(0);j<17;j++)
+		{
+			strTerminalTime+=theApp.m_TerminalInfo[i].TerminalTime[j];
+		}
+		m_List_Terminal.InsertItem(i,strTerminalID,strTerminalName,strTerminalLocation,strTerminalArea,strTerminalTime);
+	}
 }
