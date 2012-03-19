@@ -48,6 +48,9 @@ CMFC_SDI_ClientApp::CMFC_SDI_ClientApp()
 	m_bHiColorIcons = TRUE;
 	h1=NULL;
 	ZeroMemory(nStatus,4);
+	nRCount=0;
+	//m_InitInfo=(IintInfo*)malloc(sizeof(IintInfo));
+	//ZeroMemory(m_InitInfo,sizeof(IintInfo));
 	// TODO: 在此处添加构造代码，
 	// 将所有重要的初始化放置在 InitInstance 中
 }
@@ -136,17 +139,13 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 	LoadStdProfileSettings(4);  // 加载标准 INI 文件选项(包括 MRU)
-
 	InitContextMenuManager();
-
 	InitKeyboardManager();
-
 	InitTooltipManager();
 	CMFCToolTipInfo ttParams;
 	ttParams.m_bVislManagerTheme = TRUE;
 	theApp.GetTooltipManager()->SetTooltipParams(AFX_TOOLTIP_TYPE_ALL,
 		RUNTIME_CLASS(CMFCToolTipCtrl), &ttParams);
-
 	// 注册应用程序的文档模板。文档模板
 	// 将用作文档、框架窗口和视图之间的连接
 	CSingleDocTemplate* pDocTemplate;
@@ -158,31 +157,21 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
-
-
-
 	// 分析标准外壳命令、DDE、打开文件操作的命令行
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
-
-
 	// 调度在命令行中指定的命令。如果
 	// 用 /RegServer、/Register、/Unregserver 或 /Unregister 启动应用程序，则返回 FALSE。
 	if (!ProcessShellCommand(cmdInfo))
-		return FALSE;
-
+	return FALSE;
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
-	m_pMainWnd->ShowWindow(SW_NORMAL);
+	m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
 	m_pMainWnd->UpdateWindow();
-
 	//skinppLoadSkin(_T("vladstudio.ssk"));
 	// 仅当具有后缀时才调用 DragAcceptFiles
 	//  在 SDI 应用程序中，这应在 ProcessShellCommand 之后发生
 	return TRUE;
 }
-
-
-
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialog
@@ -293,8 +282,18 @@ int CMFC_SDI_ClientApp::ExitInstance()
 	// TODO: Add your specialized code here and/or call the base class
 	//skinppExitSkin();
 	//closesocket(m_ConnectSock);
+	
+	if (nRCount!=0)
+	{
+		for (int i(0);i<nRCount;i++)
+		{
+			free(m_RoadListInfo[i]);
+		}
+	}
+	else
+		return CWinAppEx::ExitInstance();
 
-	return CWinAppEx::ExitInstance();
+	
 }
 
 void CMFC_SDI_ClientApp::OnUpdateCagain(CCmdUI *pCmdUI)

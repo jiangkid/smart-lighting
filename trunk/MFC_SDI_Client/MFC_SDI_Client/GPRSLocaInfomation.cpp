@@ -35,6 +35,7 @@ void CGPRSLocaInfomation::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_GAREA, m_gprsarea);
 	DDX_Text(pDX, IDC_EDIT_GLOCATION, m_gprslocation);
 	DDX_Text(pDX, IDC_EDIT_GTIME, m_gprstime);
+	DDX_Control(pDX, IDC_LIST_TERMINAL, m_List_Terminal);
 }
 
 
@@ -46,12 +47,30 @@ END_MESSAGE_MAP()
 
 void CGPRSLocaInfomation::ShowLocationInfo(GPRSInfo* pGetInfo)
 {
-	m_gprsid=pGetInfo->gID;
-	m_gprsarea=pGetInfo->gArea;
-	m_gprslocation=pGetInfo->gLocation;
-	m_gprsname=pGetInfo->gName;
-	m_gprsphone=pGetInfo->gTelephone;
-	m_gprstime=pGetInfo->gTime;
+	m_gprsid=_T("");
+	m_gprsarea=_T("");
+	m_gprslocation=_T("");
+	m_gprsname=_T("");
+	m_gprsphone=_T("");
+	m_gprstime=_T("");
+	for (int i(0);i<2;i++)
+	{
+		m_gprsid+=pGetInfo->gID[i];
+	}
+	for (int n(0);n<20;n++)
+	{
+		m_gprsarea+=pGetInfo->gArea[n];
+		m_gprslocation+=pGetInfo->gLocation[n];
+		m_gprsname+=pGetInfo->gName[n];
+	}
+	for (int u(0);u<11;u++)
+	{
+		m_gprsphone+=pGetInfo->gTelephone[u];
+	}
+	for (int o(0);o<17;o++)
+	{
+		m_gprstime+=pGetInfo->gTime[o];
+	}
 	SetDlgItemText(IDC_EDIT_GID,m_gprsid);
 	SetDlgItemText(IDC_EDIT_GLOCATION,m_gprslocation);
 	SetDlgItemText(IDC_EDIT_GNAME,m_gprsname);
@@ -65,9 +84,10 @@ void CGPRSLocaInfomation::ShowLocationInfo(GPRSInfo* pGetInfo)
 BOOL CGPRSLocaInfomation::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
-	// TODO:  Add extra initialization here
 	theApp.m_pLocalInfoDlg=this;
+	m_List_Terminal.SetHeadings("终端箱ID,80;终端箱名字,120;终端箱安装地点,120;责任区,120;安装时间,120;");
+	m_List_Terminal.SetGridLines(TRUE);
+	// TODO:  Add extra initialization here
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }

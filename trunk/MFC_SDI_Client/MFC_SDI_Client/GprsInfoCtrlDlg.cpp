@@ -48,6 +48,11 @@ BOOL CGprsInfoCtrlDlg::OnInitDialog()
 	m_rect.DeflateRect(0,20,0,0);
 	m_pGLocalVIew->MoveWindow(m_rect);
 	m_pGLocalVIew->ShowWindow(SW_SHOW);
+
+ 	m_RoadView = new CRoudInfoView();
+ 	m_RoadView->Create(IDD_Roud_Info,&m_Tab);
+ 	m_RoadView->MoveWindow(m_rect);
+ 	m_RoadView->ShowWindow(SW_HIDE);
 	// TODO:  Add extra initialization here
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -59,7 +64,49 @@ void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
 	int sel = m_Tab.GetCurFocus();
 	switch(sel)
 	{
+	case 0:
+		m_pGLocalVIew->ShowWindow(SW_SHOW);
+		m_RoadView->ShowWindow(SW_HIDE);
+		break;
 	case 1 :
+		{	
+			theApp.TID[0]='R';
+			theApp.TID[5]='#';
+			send(theApp.m_ConnectSock,theApp.TID,6,0);
+			Sleep(500);
+
+			m_pGLocalVIew->ShowWindow(SW_HIDE);
+			m_RoadView->ShowWindow(SW_SHOW);
+
+			ConTrlInfo* pGetInfo=(ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+			ZeroMemory(pGetInfo,sizeof(ConTrlInfo));
+			pGetInfo->m_First[0]=0x2F;
+			pGetInfo->m_First[1]=0x43;
+			pGetInfo->m_First[2]=0x2F;
+			pGetInfo->m_First[3]=0x01;
+			memcpy(pGetInfo->m_ID,theApp.TID+1,4);
+			pGetInfo->m_OrderType[0]=0x1A;
+			pGetInfo->m_OrderObject[0]=0x32;
+			pGetInfo->m_ActiveType[0]=0xBD;
+			pGetInfo->m_EndBuffer[1]=0xCC;
+			SendContrlInfo(&hdr,pGetInfo);
+			Sleep(500);
+			free(pGetInfo);
+			ConTrlInfo* pGetInfo1=(ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+			ZeroMemory(pGetInfo1,sizeof(ConTrlInfo));
+			pGetInfo1->m_First[0]=0x2F;
+			pGetInfo1->m_First[1]=0x43;
+			pGetInfo1->m_First[2]=0x2F;
+			pGetInfo1->m_First[3]=0x06;
+			memcpy(pGetInfo1->m_ID,theApp.TID+1,4);
+			pGetInfo1->m_OrderType[0]=0x1A;
+			pGetInfo1->m_OrderObject[0]=0x33;
+			pGetInfo1->m_ActiveType[0]=0xBD;
+			pGetInfo1->m_CheckData[0]=0xA0;
+			pGetInfo1->m_EndBuffer[1]=0xCC;
+			SendContrlInfo(&hdr,pGetInfo1);
+			free(pGetInfo1);
+		}
 		break;
 	case 2:
 		break;

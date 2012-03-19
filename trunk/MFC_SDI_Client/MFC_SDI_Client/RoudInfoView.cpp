@@ -82,126 +82,126 @@ void CRoudInfoView::RoadInfoToView(int nRCount)
 		switch (theApp.m_RoadListInfo[i]->m_Update)
 		{
 		case 0x10:
-			m_List.InsertItem(0,strTName,strRName,strRID,
+			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,UNUPDATA,UNUPDATA,strCurrent3);
 			break;
 		case 0x20:
-			m_List.InsertItem(0,strTName,strRName,strRID,
+			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,UNUPDATA,strCurrent2,UNUPDATA);
 			break;
 		case 0x30:
-			m_List.InsertItem(0,strTName,strRName,strRID,
+			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,UNUPDATA,strCurrent2,strCurrent3);
 			break;
 		case 0x40:
-			m_List.InsertItem(0,strTName,strRName,strRID,
+			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,strCurrent1,UNUPDATA,UNUPDATA);
 			break;
 		case 0x50:
-			m_List.InsertItem(0,strTName,strRName,strRID,
+			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,strCurrent1,UNUPDATA,strCurrent3);
 			break;
 		case 0x60:
-			m_List.InsertItem(0,strTName,strRName,strRID,
+			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,strCurrent1,strCurrent2,UNUPDATA);
 			break;
 		case 0x70:
-			m_List.InsertItem(0,strTName,strRName,strRID,
+			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,strCurrent1,strCurrent2,strCurrent3);
 			break;
 		case 0x80:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,UNUPDATA,UNUPDATA,UNUPDATA);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,UNUPDATA,UNUPDATA,UNUPDATA);
 			}
 			break;
 		case 0x90:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,UNUPDATA,UNUPDATA,strCurrent3);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,UNUPDATA,UNUPDATA,strCurrent3);
 			}
 			break;
 		case 0xA0:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,UNUPDATA,strCurrent2,UNUPDATA);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,UNUPDATA,strCurrent2,UNUPDATA);
 			}
 			break;
 		case 0xB0:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,UNUPDATA,strCurrent2,strCurrent3);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,UNUPDATA,strCurrent2,strCurrent3);
 			}
 			break;
 		case 0xC0:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,strCurrent1,UNUPDATA,UNUPDATA);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,strCurrent1,UNUPDATA,UNUPDATA);
 			}
 			break;
 		case 0xD0:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,strCurrent1,UNUPDATA,strCurrent3);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,strCurrent1,UNUPDATA,strCurrent3);
 			}
 			break;
 		case 0xE0:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,strCurrent1,strCurrent2,UNUPDATA);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,strCurrent1,strCurrent2,UNUPDATA);
 			}
 			break;
 		case 0xF0:
 			if (theApp.m_RoadListInfo[i]->m_RoadStatus)
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					ON,strCurrent1,strCurrent2,strCurrent3);
 			}
 			else
 			{
-				m_List.InsertItem(0,strTName,strRName,strRID,
+				m_List.InsertItem(i,strTName,strRName,strRID,
 					OFF,strCurrent1,strCurrent2,strCurrent3);
 			}
 			break;

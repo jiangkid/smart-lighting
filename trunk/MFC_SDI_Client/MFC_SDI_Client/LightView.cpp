@@ -94,61 +94,61 @@ void CLightView::LightToView(int nLCount)
 		{
 			if (theApp.m_ZigbeeInfo[i]->MainStatus && theApp.m_ZigbeeInfo[i]->AssistStatus)
 			{
-				m_List.InsertItem(0,strGID,strGName,strTName,strRName,
+				m_List.InsertItem(i,strGID,strGName,strTName,strRName,
 					strName,strID,ON,ON,strCurrent);
 			}
 			else
 				if (!theApp.m_ZigbeeInfo[i]->MainStatus && theApp.m_ZigbeeInfo[i]->AssistStatus)
 				{
-					m_List.InsertItem(0,strGID,strGName,strTName,strRName,
+					m_List.InsertItem(i,strGID,strGName,strTName,strRName,
 						strName,strID,OFF,ON,strCurrent);
 				}
 				else
 					if (theApp.m_ZigbeeInfo[i]->MainStatus && !theApp.m_ZigbeeInfo[i]->AssistStatus)
 					{
-						m_List.InsertItem(0,strGID,strGName,strTName,
+						m_List.InsertItem(i,strGID,strGName,strTName,
 							strRName,strName,strID,ON,OFF,strCurrent);
 					}
 					else
 						if (!theApp.m_ZigbeeInfo[i]->MainStatus && !theApp.m_ZigbeeInfo[i]->AssistStatus)
 						{
-							m_List.InsertItem(0,strGID,strGName,strTName,
+							m_List.InsertItem(i,strGID,strGName,strTName,
 								strRName,strName,strID,OFF,OFF,strCurrent);
 						}
 		}
 		if (theApp.m_ZigbeeInfo[i]->Update==0x40)
 		{
-			m_List.InsertItem(0,strGID,strGName,strTName,
+			m_List.InsertItem(i,strGID,strGName,strTName,
 				strRName,strName,strID,UNUPDATA,UNUPDATA,strCurrent);
 		}
 		if (theApp.m_ZigbeeInfo[i]->Update==0x00)
 		{
-			m_List.InsertItem(0,strGID,strGName,strTName,
+			m_List.InsertItem(i,strGID,strGName,strTName,
 				strRName,strName,strID,UNUPDATA,UNUPDATA,UNUPDATA);
 		}
 		if (theApp.m_ZigbeeInfo[i]->Update==0x80)
 		{
 			if (theApp.m_ZigbeeInfo[i]->MainStatus && theApp.m_ZigbeeInfo[i]->AssistStatus)
 			{
-				m_List.InsertItem(0,strGID,strGName,strTName,strRName,
+				m_List.InsertItem(i,strGID,strGName,strTName,strRName,
 					strName,strID,ON,ON,UNUPDATA);
 			}
 			else
 				if (!theApp.m_ZigbeeInfo[i]->MainStatus && theApp.m_ZigbeeInfo[i]->AssistStatus)
 				{
-					m_List.InsertItem(0,strGID,strGName,strTName,strRName,
+					m_List.InsertItem(i,strGID,strGName,strTName,strRName,
 						strName,strID,OFF,ON,UNUPDATA);
 				}
 				else
 					if (theApp.m_ZigbeeInfo[i]->MainStatus && !theApp.m_ZigbeeInfo[i]->AssistStatus)
 					{
-						m_List.InsertItem(0,strGID,strGName,strTName,strRName,
+						m_List.InsertItem(i,strGID,strGName,strTName,strRName,
 							strName,strID,ON,OFF,UNUPDATA);
 					}
 					else
 						if (!theApp.m_ZigbeeInfo[i]->MainStatus && !theApp.m_ZigbeeInfo[i]->AssistStatus)
 						{
-							m_List.InsertItem(0,strGID,strGName,strTName,strRName,
+							m_List.InsertItem(i,strGID,strGName,strTName,strRName,
 								strName,strID,OFF,OFF,UNUPDATA);
 						}
 		}

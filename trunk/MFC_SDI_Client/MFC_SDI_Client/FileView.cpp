@@ -339,7 +339,7 @@ void CFileView::OnOpenR()
 	pGetRInfo->m_EndBuffer[1]=0xCC;
 	m_GetLightInfo[8]='#';
 	SendContrlInfo(&hdr,pGetRInfo);
- 	Sleep(5000);
+ 	Sleep(500);
 
 	ConTrlInfo* pGetRInfo1 = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
 	ZeroMemory(pGetRInfo1,sizeof(ConTrlInfo));
@@ -356,7 +356,7 @@ void CFileView::OnOpenR()
 	pGetRInfo1->m_ActiveType[0]=0xBD;
 	pGetRInfo1->m_EndBuffer[1]=0xCC;
 	SendContrlInfo(&hdr,pGetRInfo1);
-	Sleep(5000);
+	Sleep(500);
 
 	send(theApp.m_ConnectSock,(char*)m_GetLightInfo,9,0);
 	free(pGetRInfo1);
