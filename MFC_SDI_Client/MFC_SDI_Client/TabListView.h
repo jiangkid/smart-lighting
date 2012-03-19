@@ -32,7 +32,6 @@ public:
 	void UpDateMainFrame(void);
 	CRect m_rect;
 	CLightView* m_LightView;
-	CRoudInfoView* m_RoadView;
 	CGprsInfoCtrlDlg* m_GprsInfoView;
 	afx_msg void OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult);
 };
