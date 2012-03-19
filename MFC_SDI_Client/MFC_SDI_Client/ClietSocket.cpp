@@ -4,6 +4,7 @@
 #include "ClietSocket.h"
 #include "MainFrm.h"
 #include "MFC_SDI_ClientDoc.h"
+
 HDR hdr;
 USERINFO userInfo[9];
 IintInfo m_InitInfo;
@@ -418,7 +419,6 @@ void ChenkBGTRL(char* buff,int nRecvLength)
 }
 void ChenkInitInfo(char* buff,int nRecvLength)
 {
-	
 	HWND m_wnd = theApp.m_WaitDlg.GetSafeHwnd();
 	if (buff[0]=='L'&&buff[1]=='0'&&buff[2]=='L')
 	{
@@ -435,8 +435,13 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		ZeroMemory(&m_InitInfo.GNum,sizeof(int));
 		m_InitInfo.GNum=buff[3];
 		int nGCount(0);
+		for(int y(0);y<m_InitInfo.GNum;y++)
+		{
+			ZeroMemory(&m_InitInfo.m_InitGInfo[y],sizeof(GInfo));
+		}	
 		for (int i=4;buff[i]!='#';i++)
 		{
+			
 			if(buff[i]=='<')
 			{
 				int m(0);
@@ -467,6 +472,10 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		ZeroMemory(&m_InitInfo.TNum,sizeof(int));
 		m_InitInfo.TNum=buff[3];
 		int nTCount(0);
+		for (int y(0);y<m_InitInfo.TNum;y++)
+		{
+			ZeroMemory(&m_InitInfo.m_InitTInfo[y],sizeof(TInfo));
+		}
 		for (int i=4;buff[i]!='#';i++)
 		{
 			if (buff[i]=='<')
@@ -509,6 +518,10 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		ZeroMemory(&m_InitInfo.RNum,sizeof(int));
 		m_InitInfo.RNum=buff[3];
 		int nRCount(0);
+		for (int y(0);y<m_InitInfo.RNum;y++)
+		{
+			ZeroMemory(&m_InitInfo.m_InitRInfo[y],sizeof(RInfo));
+		}
 		for (int i=4;buff[i]!='#';i++)
 		{
 			if (buff[i]=='<')
@@ -624,6 +637,7 @@ void TranslateRInfo(U8* buffer,int Length)
 {
 	int nLcont(0);
 	nLcont=buffer[1];
+	theApp.nRCount=buffer[1];
 	for (int i=0;i<nLcont;i++)
 	{
 		theApp.m_RoadListInfo[i]=(RoadListViewInfo*)malloc(RLENTH);
@@ -1066,7 +1080,7 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 	ZeroMemory(pGetTInfo,TLENTH);					
 	switch(buff[1])
 	{
-	case 0x30:
+	case 0x30://GPRS信息
 		if (buff[2]==0x30)
 		{
 			memcpy(pGetInfo,buff+3,GLENTH);
@@ -1077,7 +1091,7 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 		else
 			AfxMessageBox(_T("获取GPRS基本信息错误"));
 		break;
-	case 0x31:
+	case 0x31://终端信息
 		if(buff[2]==0x30)
 		{
 			int n=buff[3];

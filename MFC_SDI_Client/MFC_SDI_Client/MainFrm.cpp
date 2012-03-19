@@ -64,21 +64,15 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CFrameWndEx::OnCreate(lpCreateStruct) == -1)
 		return -1;
-
-	BOOL bNameValid;
-
+	//BOOL bNameValid;
 	if (!m_wndMenuBar.Create(this))
 	{
 		TRACE0("未能创建菜单栏\n");
 		return -1;      // 未能创建
 	}
-
-
 	m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() | CBRS_SIZE_DYNAMIC | CBRS_TOOLTIPS | CBRS_FLYBY);
-
 	// 防止菜单栏在激活时获得焦点
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
-
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("未能创建状态栏\n");
@@ -108,41 +102,28 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// CDockablePane* pTabbedBar = NULL; 
 	// m_wndClassView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar); 
 	// 启用工具栏和停靠窗口菜单替换
-<<<<<<< .mine
-=======
- 
- 	// EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
- 
->>>>>>> .r362
- 	 //EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
-<<<<<<< .mine
-
-=======
- 
->>>>>>> .r362
+	// EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
 	// 启用快速(按住 Alt 拖动)工具栏自定义
-
-//  	CMFCToolBar::EnableQuickCustomization();
-// 	if (CMFCToolBar::GetUserImages() == NULL)
-// 	{
-// 		// 加载用户定义的工具栏图像
-// 		if (m_UserImages.Load(_T(".\\ToolbarNULL.bmp")))
-// 		{ 
-// 			m_UserImages.SetImageSize(CSize( 16, 16), FALSE);
-// 			CMFCToolBar::SetSizes(CSize(16, 16), CSize( 16, 16));
-// 			CMFCToolBar::SetUserImages(&m_UserImages);
-// 		}
-// 	}
+	//  	CMFCToolBar::EnableQuickCustomization();
+	// 	if (CMFCToolBar::GetUserImages() == NULL)
+	// 	{
+	// 		// 加载用户定义的工具栏图像
+	// 		if (m_UserImages.Load(_T(".\\ToolbarNULL.bmp")))
+	// 		{ 
+	// 			m_UserImages.SetImageSize(CSize( 16, 16), FALSE);
+	// 			CMFCToolBar::SetSizes(CSize(16, 16), CSize( 16, 16));
+	// 			CMFCToolBar::SetUserImages(&m_UserImages);
+	// 		}
+	// 	}
 	// 启用菜单个性化(最近使用的命令)
 	// TODO: 定义您自己的基本命令，确保每个下拉菜单至少有一个基本命令。
-// 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | 
-// 		WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | 
-// 		CBRS_FLYBY | CBRS_SIZE_DYNAMIC) || !m_wndToolBar.LoadToolBar(ID_MYBAR))
-// 	{
-// 		TRACE0("未能创建工具栏\n");
-// 		return -1;      // 未能创建
-// 	}
-
+	// 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | 
+	// 		WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | 
+	// 		CBRS_FLYBY | CBRS_SIZE_DYNAMIC) || !m_wndToolBar.LoadToolBar(ID_MYBAR))
+	// 	{
+	// 		TRACE0("未能创建工具栏\n");
+	// 		return -1;      // 未能创建
+	// 	}
 	if(!m_wndToolBar2.CreateEx(this, TBSTYLE_FLAT, WS_CHILD |
 		WS_VISIBLE |CBRS_TOP |CBRS_GRIPPER |CBRS_TOOLTIPS |CBRS_FLYBY
 		|CBRS_SIZE_DYNAMIC) || !m_wndToolBar2.LoadToolBar(ID_MYBAR))
@@ -166,9 +147,9 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	if( !CFrameWndEx::PreCreateWindow(cs) )
 		return FALSE;
 	//cs.hMenu = NULL;//去掉菜单
-	cs.x=300;
-	cs.y=150;
-	cs.style&=~WS_MAXIMIZEBOX; //禁用按动最大化按钮 
+	//cs.x=300;
+	//cs.y=150;
+	//cs.style&=~WS_MAXIMIZEBOX; //禁用按动最大化按钮 
 	cs.style&=~WS_THICKFRAME;//禁止用户改变窗口大小
 	//cs.style&=~WS_MINIMIZEBOX;
 	// TODO: 在此处通过修改
@@ -317,11 +298,11 @@ void CMainFrame::OnClose()
 void CMainFrame::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 {
 	// TODO: Add your message handler code here and/or call default
-	lpMMI->ptMinTrackSize.x=1200;   
-	lpMMI->ptMinTrackSize.y=800;   
+	//lpMMI->ptMinTrackSize.x=1200;   
+	//lpMMI->ptMinTrackSize.y=800;   
 
-	lpMMI->ptMaxTrackSize.x=1200;   
-	lpMMI->ptMaxTrackSize.y=800;  
+	//lpMMI->ptMaxTrackSize.x=1200;   
+	//lpMMI->ptMaxTrackSize.y=800;  
 	CFrameWndEx::OnGetMinMaxInfo(lpMMI);
 }
 
