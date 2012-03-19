@@ -5,6 +5,7 @@
 #define ID_BTN_MAIN                     1
 #define ID_BTN_ELSE                     2
 #define ID_BTN_DOUBLE                   3
+#define IDS_STRING4                     4
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
 #define IDP_SOCKETS_INIT_FAILED         104
@@ -105,7 +106,7 @@
 #define IDB_SPLASH                      427
 #define IDR_TOOLBAR2                    428
 #define IDR_EXPLORER                    428
-
+#define IDD_GPRSLocal                   430
 #define IDR_TOOLBAR6                    440
 #define ID_MYBAR                        440
 #define IDB_BITMAP11                    444
@@ -116,9 +117,6 @@
 #define ID_MYBAR_256                    457
 #define IDI_ICON11                      460
 #define IDI_ICON12                      461
-
-#define IDD_GPRSLocal                   430
-
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -218,6 +216,8 @@
 #define IDC_EDIT_LID                    1071
 #define IDC_GDATA                       1072
 #define IDC_TDATA                       1073
+#define IDC_LIST1                       1075
+#define IDC_LIST_TERMINAL               1075
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -294,7 +294,18 @@
 #define ID_BUTTON32865                  32865
 #define ID_32866                        32866
 #define ID_RENEW                        32867
+#define ID_BUTTON32868                  32868
+#define ID_BUTTON32869                  32869
+#define ID_BUTTON32870                  32870
+#define ID_BUTTON32871                  32871
+#define ID_BUTTON32872                  32872
+#define ID_32873                        32873
+#define ID_SHOW_TOOL                    32874
+#define ID_32875                        32875
+#define ID_HIDE_TOOL                    32876
 #define IDR_RENEW                       32877
+#define ID_SHOW_TREE                    32877
+#define ID_HIDE_TREE                    32878
 #define ID_BUTTON32880                  32880
 #define ID_BUTTON32881                  32881
 #define ID_BUTTON32882                  32882
@@ -307,15 +318,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-<<<<<<< .mine
-#define _APS_NEXT_RESOURCE_VALUE        462
-#define _APS_NEXT_COMMAND_VALUE         32890
-#define _APS_NEXT_CONTROL_VALUE         1069
-=======
-#define _APS_NEXT_RESOURCE_VALUE        431
-#define _APS_NEXT_COMMAND_VALUE         32868
-#define _APS_NEXT_CONTROL_VALUE         1075
->>>>>>> .r338
+#define _APS_NEXT_RESOURCE_VALUE        433
+#define _APS_NEXT_COMMAND_VALUE         32879
+#define _APS_NEXT_CONTROL_VALUE         1076
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
