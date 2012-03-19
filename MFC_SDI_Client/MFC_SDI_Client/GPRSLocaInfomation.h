@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ReportCtrl.h"
 
 // CGPRSLocaInfomation dialog
 
@@ -27,4 +27,5 @@ public:
 	CString m_gprsarea;
 	CString m_gprslocation;
 	CString m_gprstime;
+	CReportCtrl m_List_Terminal;
 };

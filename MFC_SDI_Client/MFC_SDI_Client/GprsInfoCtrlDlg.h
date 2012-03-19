@@ -23,5 +23,6 @@ public:
 	virtual BOOL OnInitDialog();
 	CTabCtrl m_Tab;
 	CGPRSLocaInfomation* m_pGLocalVIew;
+	CRoudInfoView*       m_RoadView;
 	afx_msg void OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult);
 };
