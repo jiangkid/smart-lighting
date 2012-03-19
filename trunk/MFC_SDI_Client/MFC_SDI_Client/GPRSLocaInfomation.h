@@ -27,5 +27,8 @@ public:
 	CString m_gprsarea;
 	CString m_gprslocation;
 	CString m_gprstime;
+	int     m_TerminalCount;
 	CReportCtrl m_List_Terminal;
+	TerminalInfo* GetSelTerminalInfo(void);
+	void ShowTerminalInfo(int nTcount);
 };
