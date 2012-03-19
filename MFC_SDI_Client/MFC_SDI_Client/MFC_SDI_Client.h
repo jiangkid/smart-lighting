@@ -32,6 +32,7 @@ public:
 	HANDLE m_hConnectThred;	
 	SOCKET m_ConnectSock;
 	int	   m_port;//端口号
+	int    nRCount;
 	char   m_ip[20];//IP地址
 	CString strNamePass;
 	bool m_return;
@@ -47,7 +48,7 @@ public:
 	LInfo m_LInfo[1024];//单灯个数1024 LName LID
 	TerminalInfo m_TerminalInfo[4];//1个GPRS下4个终端，最大
 	ZigbeeInfo* m_ZigbeeInfo[512];//一个节点的信息最大512个显示的信息
-	RoadListViewInfo*   m_RoadListInfo[8];//1个终端下最大8路的信息
+	RoadListViewInfo*   m_RoadListInfo[12];//1个终端下最大8路的信息
 	U8  m_lightPack[LENTH*1000];//包的缓冲大小定义成30K
 	NumInfo m_NumInfo;
 	CWaitDlg			m_WaitDlg;
