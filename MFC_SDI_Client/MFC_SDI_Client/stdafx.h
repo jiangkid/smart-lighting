@@ -40,6 +40,9 @@
 #include <afxsock.h>            // MFC 套接字扩展
 #include <afxcview.h>
 #include "SkinPPLIB/SkinPPWTL.h"
+#include <afxdisp.h>
+#include <afxdisp.h>
+#include <afxdisp.h>
 
 #define MAX_BUF_SIZE 4096			//接收和发送缓存大小
 #define HEADLEN (sizeof(HDR))        //包头长度

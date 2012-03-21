@@ -15,7 +15,6 @@
 #include "MainSetDlg.h"
 #include "WaitDlg.h"
 #include "FileView.h"
-#include "CVListView.h"
 #include "TabListView.h"
 #include "LightView.h"
 #include "RoudInfoView.h"
@@ -54,7 +53,7 @@ public:
 	CWaitDlg			m_WaitDlg;
 	CFileView*			m_pFileView;
 	CLightView*			m_pLightListView;
-	CCVListView*		m_pCVListView;
+//	CCVListView*		m_pCVListView;
 	CTabListView*		m_pTabListView;
 	CRoudInfoView*		m_pRoadView;
 	CMainSetDlg*        m_pMainSetDlg;
