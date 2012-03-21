@@ -107,8 +107,12 @@
 #define IDR_TOOLBAR2                    428
 #define IDR_EXPLORER                    428
 #define IDD_GPRSLocal                   430
+
+#define IDD_MAP_VIEW                    434
+
 #define IDI_ICON13                      433
 #define IDI_ICON14                      434
+
 #define IDR_TOOLBAR6                    440
 #define ID_MYBAR                        440
 #define IDB_BITMAP11                    444
@@ -218,9 +222,15 @@
 #define IDC_EDIT_LID                    1071
 #define IDC_GDATA                       1072
 #define IDC_TDATA                       1073
+
+
 #define IDC_TAB1                        1075
 #define IDC_LIST1                       1075
+
 #define IDC_LIST_TERMINAL               1075
+#define IDC_BTN_GMODIFY                 1076
+#define IDC_EXPLORER1                   1083
+#define IDC_RADIO1                      1084
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -324,9 +334,14 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
+<<<<<<< .mine
+#define _APS_NEXT_RESOURCE_VALUE        437
+#define _APS_NEXT_COMMAND_VALUE         32879
+=======
 #define _APS_NEXT_RESOURCE_VALUE        435
 #define _APS_NEXT_COMMAND_VALUE         32884
-#define _APS_NEXT_CONTROL_VALUE         1076
+>>>>>>> .r389
+#define _APS_NEXT_CONTROL_VALUE         1085
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
