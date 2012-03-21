@@ -13,6 +13,8 @@
 #include "SetG.h"
 #include "Modify.h"
 #include "TestDlg.h"
+#include "CWebBrowser.h"
+#include "CWebBrowser2.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -131,7 +133,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
   		if (m_WaitDlg.DoModal()==IDCANCEL)
   			m_return=FALSE;*/
 	// 标准初始化
-	 //如果未使用这些功能并希望减小
+	// 如果未使用这些功能并希望减小
 	// 最终可执行文件的大小，则应移除下列
 	// 不需要的特定初始化例程
 	// 更改用于存储设置的注册表项
@@ -153,7 +155,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(CMFC_SDI_ClientDoc),
 		RUNTIME_CLASS(CMainFrame),       // 主 SDI 框架窗口
-		RUNTIME_CLASS(CMFC_SDI_ClientView));
+		RUNTIME_CLASS(CTabListView));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
@@ -292,8 +294,6 @@ int CMFC_SDI_ClientApp::ExitInstance()
 	}
 	else
 		return CWinAppEx::ExitInstance();
-
-	
 }
 
 void CMFC_SDI_ClientApp::OnUpdateCagain(CCmdUI *pCmdUI)

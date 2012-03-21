@@ -6,7 +6,6 @@
 #include "MFC_SDI_Client.h"
 #include "MainFrm.h"
 #include "MFC_SDI_ClientView.h"
-#include "CVListView.h"
 #include "TabListView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -36,8 +35,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_MainSet, &CMainFrame::OnMainset)
 	ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTW, 0, 0xFFFF, OnToolTipText)  //最新 
 	ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTA, 0, 0xFFFF, OnToolTipText)//最新
-
-	 
 	ON_COMMAND(ID_SHOW_TOOL, &CMainFrame::OnShowTool)
 	ON_COMMAND(ID_HIDE_TOOL, &CMainFrame::OnHideTool)
 	ON_COMMAND(ID_SHOW_TREE, &CMainFrame::OnShowTree)
@@ -144,7 +141,7 @@ BOOL CMainFrame::OnToolTipText(UINT,NMHDR* pNMHDR,LRESULT* pResult)
 		// idFrom为工具条的HWND     
 		nID=::GetDlgCtrlID((HWND)nID);   
 	}  
-	if   (nID!=0)   //不为分隔符   
+	if(nID!=0)   //不为分隔符   
 	{   
 		 
 		 	switch(nID)
@@ -152,25 +149,25 @@ BOOL CMainFrame::OnToolTipText(UINT,NMHDR* pNMHDR,LRESULT* pResult)
 			   case 1: 
                    strTipText.LoadString(ID_CAgain );
 				   break;
-			   case 3:
+			   case 2:
 				   strTipText.LoadString(ID_RENEW );
 				   break;
-			   case 5:
+			   case 3:
 				   strTipText.LoadString(ID_QUIT );
 				   break;
-			   case 7:
+			   case 4:
 				   strTipText.LoadString(ID_SETUSER );
 				   break;
-			   case 9:
+			   case 5:
 				   strTipText.LoadString(ID_Modify );
 				   break;
-			   case 11:
+			   case 6:
 				   strTipText.LoadString(ID_SetG);
 				   break;
-			   case 13:
+			   case 7:
 				   strTipText.LoadString(ID_UserControl);
 				   break;
-			   case 15:
+			   case 8:
 				   strTipText.LoadString(ID_MainSet);
 				   break;
 			   default:
@@ -332,16 +329,6 @@ void CMainFrame::SetDockingWindowIcons(BOOL bHiColorIcons)
 }
 BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
-	if (!m_wndSplitter.CreateStatic(this,2,1))
-		return FALSE;
-	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CTabListView), CSize(0,260),  pContext) ||
-		!m_wndSplitter.CreateView(1, 0, RUNTIME_CLASS(CCVListView), CSize(0,0), pContext))
-	{
-		m_wndSplitter.DestroyWindow();
-		return FALSE;
-	}
-	m_bSplitted = TRUE;
-	return TRUE; //注意
 	return CFrameWndEx::OnCreateClient(lpcs, pContext);
 }
 

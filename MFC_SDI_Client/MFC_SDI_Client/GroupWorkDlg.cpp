@@ -39,6 +39,5 @@ END_MESSAGE_MAP()
 void CGroupWorkDlg::OnBnClickedGroupok()
 {
 	// TODO: Add your control notification handler code here
-	UpdateData(true);
-	
+	UpdateData(true);	
 }
