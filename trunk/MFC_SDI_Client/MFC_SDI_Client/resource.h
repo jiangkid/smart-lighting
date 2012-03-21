@@ -112,11 +112,30 @@
 
 #define IDI_ICON13                      433
 #define IDI_ICON14                      434
+<<<<<<< .mine
+#define IDI_ICON15                      435
+#define IDI_ICON16                      436
+#define IDI_ICON17                      437
+#define IDI_ICON18                      438
+#define IDI_ICON19                      439
+=======
 
+>>>>>>> .r398
 #define IDR_TOOLBAR6                    440
 #define ID_MYBAR                        440
+#define IDI_ICON20                      440
+#define IDI_ICON21                      441
+#define IDI_ICON22                      442
+#define IDI_ICON23                      443
 #define IDB_BITMAP11                    444
+#define IDI_ICON24                      444
+#define IDI_ICON25                      445
+#define IDI_ICON26                      446
+#define IDI_ICON27                      447
+#define IDI_ICON28                      448
+#define IDI_ICON29                      449
 #define IDR_MAINFRAME_256               450
+#define IDI_ICON30                      450
 #define IDB_BITMAP12                    451
 #define IDI_ICON10                      454
 #define IDB_BITMAP10                    456
@@ -335,10 +354,14 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 <<<<<<< .mine
+#define _APS_NEXT_RESOURCE_VALUE        451
+=======
+<<<<<<< .mine
 #define _APS_NEXT_RESOURCE_VALUE        437
 #define _APS_NEXT_COMMAND_VALUE         32879
 =======
 #define _APS_NEXT_RESOURCE_VALUE        435
+>>>>>>> .r398
 #define _APS_NEXT_COMMAND_VALUE         32884
 >>>>>>> .r389
 #define _APS_NEXT_CONTROL_VALUE         1085
