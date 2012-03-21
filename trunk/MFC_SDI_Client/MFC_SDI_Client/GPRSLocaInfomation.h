@@ -1,6 +1,6 @@
 #pragma once
 #include "ReportCtrl.h"
-
+#include "SetG.h"
 // CGPRSLocaInfomation dialog
 
 class CGPRSLocaInfomation : public CDialog
@@ -31,4 +31,5 @@ public:
 	CReportCtrl m_List_Terminal;
 	TerminalInfo* GetSelTerminalInfo(void);
 	void ShowTerminalInfo(int nTcount);
+	afx_msg void OnBnClickedBtnGmodify();
 };
