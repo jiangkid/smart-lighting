@@ -107,6 +107,8 @@
 #define IDR_TOOLBAR2                    428
 #define IDR_EXPLORER                    428
 #define IDD_GPRSLocal                   430
+#define IDI_ICON13                      433
+#define IDI_ICON14                      434
 #define IDR_TOOLBAR6                    440
 #define ID_MYBAR                        440
 #define IDB_BITMAP11                    444
@@ -216,6 +218,7 @@
 #define IDC_EDIT_LID                    1071
 #define IDC_GDATA                       1072
 #define IDC_TDATA                       1073
+#define IDC_TAB1                        1075
 #define IDC_LIST1                       1075
 #define IDC_LIST_TERMINAL               1075
 #define ID_32771                        32771
@@ -299,7 +302,9 @@
 #define ID_BUTTON32870                  32870
 #define ID_BUTTON32871                  32871
 #define ID_BUTTON32872                  32872
+#define ID_BUTTON32873                  32873
 #define ID_32873                        32873
+#define ID_BUTTON32874                  32874
 #define ID_SHOW_TOOL                    32874
 #define ID_32875                        32875
 #define ID_HIDE_TOOL                    32876
@@ -310,6 +315,7 @@
 #define ID_BUTTON32881                  32881
 #define ID_BUTTON32882                  32882
 #define ID_BUTTON32883                  32883
+#define ID_BUTTON32884                  32883
 #define ID_BUTTON32885                  32885
 #define ID_BUTTON32886                  32886
 #define ID_BUTTON32889                  32889
@@ -318,8 +324,8 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        433
-#define _APS_NEXT_COMMAND_VALUE         32879
+#define _APS_NEXT_RESOURCE_VALUE        435
+#define _APS_NEXT_COMMAND_VALUE         32884
 #define _APS_NEXT_CONTROL_VALUE         1076
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
