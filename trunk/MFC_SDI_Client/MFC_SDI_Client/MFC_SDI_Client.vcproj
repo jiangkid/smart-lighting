@@ -203,7 +203,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CVListView.cpp"
+				RelativePath=".\CWebBrowser.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CWebBrowser2.cpp"
 				>
 			</File>
 			<File
@@ -239,10 +243,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\LightListView.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\LightView.cpp"
 				>
 			</File>
@@ -256,6 +256,10 @@
 			</File>
 			<File
 				RelativePath=".\MainSetDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MapViewDlg.cpp"
 				>
 			</File>
 			<File
@@ -346,6 +350,10 @@
 				RelativePath=".\WaitForInfoDlg.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\WebPage.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -369,7 +377,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CVListView.h"
+				RelativePath=".\CWebBrowser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CWebBrowser2.h"
 				>
 			</File>
 			<File
@@ -405,10 +417,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\LightListView.h"
-				>
-			</File>
-			<File
 				RelativePath=".\LightView.h"
 				>
 			</File>
@@ -422,6 +430,10 @@
 			</File>
 			<File
 				RelativePath=".\MainSetDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MapViewDlg.h"
 				>
 			</File>
 			<File
@@ -502,6 +514,10 @@
 			</File>
 			<File
 				RelativePath=".\WaitForInfoDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WebPage.h"
 				>
 			</File>
 		</Filter>
@@ -827,6 +843,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\toolbar6.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\UserImages.bmp"
 				>
 			</File>
@@ -860,6 +880,10 @@
 		<Global
 			Name="RESOURCE_FILE"
 			Value="MFC_SDI_Client.rc"
+		/>
+		<Global
+			Name="{8856F961-340A-11D0-A96B-00C04FD705A2}"
+			Value="CWebBrowser"
 		/>
 	</Globals>
 </VisualStudioProject>

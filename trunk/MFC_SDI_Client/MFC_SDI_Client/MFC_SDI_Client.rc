@@ -92,13 +92,6 @@ IDI_ICON9               ICON                    "res\\World.ico"
 IDI_ICON10              ICON                    "res\\icon10.ico"
 IDI_ICON13              ICON                    "res\\icon13.ico"
 IDI_ICON14              ICON                    "res\\icon14.ico"
-IDI_ICON24              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321015520853_easyicon_cn_16.ico"
-IDI_ICON25              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321023638605_easyicon_cn_16.ico"
-IDI_ICON26              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321024039442_easyicon_cn_16.ico"
-IDI_ICON27              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321024418163_easyicon_cn_16.ico"
-IDI_ICON28              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321025823340_easyicon_cn_16.ico"
-IDI_ICON29              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321031156517_easyicon_cn_16.ico"
-IDI_ICON30              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321031327201_easyicon_cn_16.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -578,31 +571,31 @@ BEGIN
     PUSHBUTTON      "确定",IDC_GroupOK,245,25,38,14
 END
 
-IDD_VIEW_DLG DIALOGEX 0, 0, 747, 241
+IDD_VIEW_DLG DIALOGEX 0, 0, 794, 443
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "",IDC_VIEW_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTISELECT,3,0,719,241
+    CONTROL         "",IDC_VIEW_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTISELECT,3,0,788,442
 END
 
-IDD_DIALOG3 DIALOGEX 0, 0, 716, 232
+IDD_DIALOG3 DIALOGEX 0, 0, 736, 419
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "",IDC_Light_View,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_ALIGNLEFT | WS_BORDER,2,13,616,218,WS_EX_DLGMODALFRAME | WS_EX_STATICEDGE
+    CONTROL         "",IDC_Light_View,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_ALIGNLEFT | WS_BORDER,0,15,712,403,WS_EX_DLGMODALFRAME | WS_EX_STATICEDGE
     PUSHBUTTON      "全选",IDC_BTN_ALL,1,0,42,13
     PUSHBUTTON      "对未更新的进行更新",IDC_BTN_UPDATA,48,0,83,13
 END
 
-IDD_Roud_Info DIALOGEX 0, 0, 641, 218
+IDD_Roud_Info DIALOGEX 0, 0, 655, 409
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    PUSHBUTTON      "全选",IDC_BUTTON1,1,0,37,12
-    PUSHBUTTON      "对未更新进行更新",IDC_Updata_ALL,44,0,72,12
-    PUSHBUTTON      "Button1",IDC_BUTTON10,133,1,37,12
-    PUSHBUTTON      "Button1",IDC_BUTTON11,185,2,37,12
-    CONTROL         "",IDC_R_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,0,12,595,205
+    PUSHBUTTON      "全选",IDC_BUTTON1,0,1,37,15
+    PUSHBUTTON      "对未更新进行更新",IDC_Updata_ALL,43,0,72,16
+    PUSHBUTTON      "Button1",IDC_BUTTON10,126,1,37,12
+    PUSHBUTTON      "Button1",IDC_BUTTON11,171,1,37,12
+    CONTROL         "",IDC_R_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,0,18,653,390
 END
 
 IDD_User_CTRL DIALOGEX 0, 0, 465, 238
@@ -637,14 +630,14 @@ BEGIN
     CTEXT           "执行进度",IDC_STATIC,7,137,20,17
 END
 
-IDD_GPRS_INFO DIALOGEX 0, 0, 801, 237
+IDD_GPRS_INFO DIALOGEX 0, 0, 801, 437
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "",IDC_GINFO_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTILINE | WS_BORDER | 0x8,0,0,801,234,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_GINFO_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTILINE | WS_BORDER | 0x8,0,0,801,434,WS_EX_CLIENTEDGE
 END
 
-IDD_GPRSLocal DIALOGEX 0, 0, 582, 236
+IDD_GPRSLocal DIALOGEX 0, 0, 578, 422
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
@@ -660,8 +653,19 @@ BEGIN
     EDITTEXT        IDC_EDIT_GLOCATION,181,30,54,12,ES_AUTOHSCROLL | ES_READONLY
     CTEXT           "GPRS责任区",IDC_STATIC,244,14,46,9
     EDITTEXT        IDC_EDIT_GAREA,297,13,58,12,ES_AUTOHSCROLL | ES_READONLY
-    CONTROL         "",IDC_LIST_TERMINAL,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,6,65,555,164
-    GROUPBOX        "这个GPRS下终端的信息",IDC_STATIC,0,50,566,179
+    CONTROL         "",IDC_LIST_TERMINAL,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,4,62,571,353
+    GROUPBOX        "这个GPRS下终端的信息",IDC_STATIC,0,49,578,366
+    PUSHBUTTON      "修改信息",IDC_BTN_GMODIFY,362,14,45,28
+END
+
+IDD_MAP_VIEW DIALOGEX 0, 0, 843, 429
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Button1",IDC_BUTTON1,724,46,54,19
+    EDITTEXT        IDC_EDIT1,719,79,74,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,719,97,74,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_EXPLORER1,"{8856F961-340A-11D0-A96B-00C04FD705A2}",WS_TABSTOP,2,1,709,427
 END
 
 
@@ -804,19 +808,19 @@ BEGIN
     IDD_VIEW_DLG, DIALOG
     BEGIN
         LEFTMARGIN, 3
-        RIGHTMARGIN, 744
+        RIGHTMARGIN, 791
     END
 
     IDD_DIALOG3, DIALOG
     BEGIN
-        RIGHTMARGIN, 713
-        BOTTOMMARGIN, 231
+        RIGHTMARGIN, 733
+        BOTTOMMARGIN, 232
     END
 
     IDD_Roud_Info, DIALOG
     BEGIN
-        RIGHTMARGIN, 639
-        BOTTOMMARGIN, 217
+        RIGHTMARGIN, 653
+        BOTTOMMARGIN, 408
     END
 
     IDD_User_CTRL, DIALOG
@@ -835,16 +839,41 @@ BEGIN
 
     IDD_GPRS_INFO, DIALOG
     BEGIN
-        BOTTOMMARGIN, 234
+        BOTTOMMARGIN, 434
     END
 
     IDD_GPRSLocal, DIALOG
     BEGIN
-        RIGHTMARGIN, 581
-        BOTTOMMARGIN, 229
+        BOTTOMMARGIN, 415
+    END
+
+    IDD_MAP_VIEW, DIALOG
+    BEGIN
+        RIGHTMARGIN, 840
     END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_MAP_VIEW DLGINIT
+BEGIN
+    IDC_EXPLORER1, 0x376, 160, 0
+0x0000, 0x0000, 0x004c, 0x0000, 0x6df8, 0x0000, 0x47ba, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x004c, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 
+0x0000, 0xd0e0, 0x0057, 0x3573, 0x11cf, 0x69ae, 0x0008, 0x2e2b, 0x6212, 
+0x0008, 0x0000, 0x0000, 0x0000, 0x004c, 0x0000, 0x1401, 0x0002, 0x0000, 
+0x0000, 0x00c0, 0x0000, 0x0000, 0x4600, 0x0080, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////
