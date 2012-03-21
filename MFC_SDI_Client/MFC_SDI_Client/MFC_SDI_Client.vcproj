@@ -223,6 +223,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GPRSLocaInfomation.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GroupWorkDlg.cpp"
 				>
 			</File>
@@ -382,6 +386,10 @@
 			</File>
 			<File
 				RelativePath=".\GprsInfoCtrlDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GPRSLocaInfomation.h"
 				>
 			</File>
 			<File
@@ -632,6 +640,14 @@
 			</File>
 			<File
 				RelativePath=".\res\icon12.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\icon13.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\icon14.ico"
 				>
 			</File>
 			<File
