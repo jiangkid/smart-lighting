@@ -39,18 +39,20 @@ public:
 
 protected:  // 控件条嵌入成员
 	CMFCMenuBar       m_wndMenuBar;
-	
+	CSize             NoTextButtonSize;
 	CMFCToolBar       m_wndToolBar2;
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
 	CFileView         m_wndFileView;
 	CClassView        m_wndClassView;
-
+    CImageList        m_ImagneList;
+   
 // 生成的消息映射函数
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnViewCustomize();
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
+	afx_msg BOOL   OnToolTipText(UINT,   NMHDR*   pNMHDR,   LRESULT*   pResult);
 	DECLARE_MESSAGE_MAP()
 
 public:
@@ -59,12 +61,16 @@ public:
 	LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 public:
 	bool m_bSplitted;
-	CMFCToolBar       m_wndToolBar;
+	
+	
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	BOOL CreateDockingWindows();
 	void SetDockingWindowIcons(BOOL bHiColorIcons);
 protected:
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
+	afx_msg void OnUpdateToolTexttips(CCmdUI* pCmdUI);
+	afx_msg void OnSettingChange(UINT uFlags, LPCTSTR lpszSection);
+	 
 public:
 	afx_msg void OnClose();
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO* lpMMI);
@@ -72,6 +78,8 @@ public:
 	afx_msg void OnOpenexe();
 	afx_msg void OnQuit();
 	bool TrayMessage(DWORD dwMessage,UINT nIDI_ICON=0);
+   
+	 
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	void StartTimer(UINT_PTR nIDEvent);
@@ -79,10 +87,15 @@ public:
 	afx_msg void OnMainset();
 	CMainSetDlg* Mdlg;
 	CUserCtrDlg* Userdlg;
+ 
+protected:
+
+	 
 	afx_msg void OnShowTool();
 	afx_msg void OnHideTool();
 	afx_msg void OnShowTree();
 	afx_msg void OnHideTree();
+
 };
 
 
