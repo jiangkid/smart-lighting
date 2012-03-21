@@ -511,6 +511,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath="..\..\..\..\..\..\桌面\1.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\ico\100.ico"
 				>
 			</File>
@@ -524,6 +528,58 @@
 			</File>
 			<File
 				RelativePath=".\ico\103.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321014634469_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321014839338_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321015520853_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321023638605_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321024039442_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321024418163_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321025823340_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321031156517_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321031327201_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321124732827_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321125049266_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321125222710_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\桌面\20120321125440417_easyicon_cn_16.ico"
 				>
 			</File>
 			<File
@@ -651,15 +707,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\icon15.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\ico\icon4.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\ico\icon5.ico"
+				RelativePath=".\res\icon5.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\res\icon5.ico"
+				RelativePath=".\ico\icon5.ico"
 				>
 			</File>
 			<File
