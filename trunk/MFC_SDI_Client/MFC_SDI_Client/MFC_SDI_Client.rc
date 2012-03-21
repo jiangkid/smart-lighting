@@ -92,6 +92,13 @@ IDI_ICON9               ICON                    "res\\World.ico"
 IDI_ICON10              ICON                    "res\\icon10.ico"
 IDI_ICON13              ICON                    "res\\icon13.ico"
 IDI_ICON14              ICON                    "res\\icon14.ico"
+IDI_ICON24              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321015520853_easyicon_cn_16.ico"
+IDI_ICON25              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321023638605_easyicon_cn_16.ico"
+IDI_ICON26              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321024039442_easyicon_cn_16.ico"
+IDI_ICON27              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321024418163_easyicon_cn_16.ico"
+IDI_ICON28              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321025823340_easyicon_cn_16.ico"
+IDI_ICON29              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321031156517_easyicon_cn_16.ico"
+IDI_ICON30              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120321031327201_easyicon_cn_16.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -124,7 +131,7 @@ ID_5                    BITMAP                  "res\\bitmap12.bmp"
 // Toolbar
 //
 
-ID_MYBAR TOOLBAR  70, 48
+ID_MYBAR TOOLBAR  16, 16
 BEGIN
     BUTTON      ID_CAgain
     SEPARATOR
