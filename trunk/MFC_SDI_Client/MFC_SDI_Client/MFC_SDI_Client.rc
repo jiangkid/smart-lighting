@@ -90,6 +90,8 @@ IDI_ICON7               ICON                    "res\\msoeres.dll_18.ico"
 IDI_ICON8               ICON                    "res\\newgame.ico"
 IDI_ICON9               ICON                    "res\\World.ico"
 IDI_ICON10              ICON                    "res\\icon10.ico"
+IDI_ICON13              ICON                    "res\\icon13.ico"
+IDI_ICON14              ICON                    "res\\icon14.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -122,25 +124,23 @@ ID_5                    BITMAP                  "res\\bitmap12.bmp"
 // Toolbar
 //
 
-ID_MYBAR TOOLBAR  15, 15
+ID_MYBAR TOOLBAR  70, 48
 BEGIN
     BUTTON      ID_CAgain
     SEPARATOR
     BUTTON      ID_RENEW
     SEPARATOR
-    BUTTON      ID_BUTTON32889
+    BUTTON      ID_QUIT
     SEPARATOR
-    BUTTON      ID_BUTTON32868
+    BUTTON      ID_SETUSER
     SEPARATOR
-    BUTTON      ID_BUTTON32869
+    BUTTON      ID_Modify
     SEPARATOR
-    BUTTON      ID_BUTTON32870
+    BUTTON      ID_SetG
     SEPARATOR
-    BUTTON      ID_BUTTON32871
+    BUTTON      ID_UserControl
     SEPARATOR
-    BUTTON      ID_BUTTON32872
-    SEPARATOR
-    BUTTON      ID_APP_ABOUT
+    BUTTON      ID_MainSet
 END
 
 IDR_MAINFRAME TOOLBAR  16, 15
@@ -327,7 +327,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSM
 CAPTION "关于 MFC_SDI_Client"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
     LTEXT           "MFC_SDI_Client，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2011",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
@@ -929,7 +929,33 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_RENEW                "更新"
+    ID_RENEW                "刷新\n刷新"
+    ID_BUTTON32868          "修改用户密码"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_SETUSER              "创建新用户\n添加新用户"
+    ID_SetG                 "创建区域\n创建一个新区域"
+    ID_Modify               "修改用户密码\n修改用户密码"
+    ID_MainSet              "配置主终端\n设备控制主终端"
+    ID_CAgain               "重新连接\n重新连接"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_OPEN_R               "打开路"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_QUIT                 "退出\n是否退出"
+    ID_UserControl          "用户管理\n用户管理"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_BUTTON32884          "配置主终端"
 END
 
 #endif    // Chinese (P.R.C.) resources
