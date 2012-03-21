@@ -40,6 +40,7 @@ void CGPRSLocaInfomation::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CGPRSLocaInfomation, CDialog)
+	ON_BN_CLICKED(IDC_BTN_GMODIFY, &CGPRSLocaInfomation::OnBnClickedBtnGmodify)
 END_MESSAGE_MAP()
 
 
@@ -144,4 +145,11 @@ void CGPRSLocaInfomation::ShowTerminalInfo(int nTcount)
 		}
 		m_List_Terminal.InsertItem(i,strTerminalID,strTerminalName,strTerminalLocation,strTerminalArea,strTerminalTime);
 	}
+}
+
+void CGPRSLocaInfomation::OnBnClickedBtnGmodify()
+{
+	// TODO: Add your control notification handler code here
+	CSetG dlg;
+	dlg.DoModal();
 }
