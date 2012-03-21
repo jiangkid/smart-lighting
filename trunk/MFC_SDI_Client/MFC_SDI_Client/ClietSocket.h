@@ -36,7 +36,6 @@ typedef struct _RInfo//R的信息
 	char    TID[4];
 }RInfo,*RPRInfo;
 
-
 typedef struct _RoadInfo//R的信息
 {
 	char    RID[6];
@@ -119,6 +118,15 @@ typedef struct _TerminalInfo//Terminal基本信息
 	U8 TerminalArea[20];//责任区
 	U8 TerminalTime[17];
 }TerminalInfo,*LPTerminalInfo;
+
+typedef struct _WarningInfo//警告信息
+{
+	U8 WarningType;
+	U8 ID[16];
+	U8 WarningTime[19];
+	U8 Name[20];
+	U8 Value[2];
+}WarningInfo,*LPWarningInfo;
 
 typedef struct _ConTrlInfo//back的信息
 {
