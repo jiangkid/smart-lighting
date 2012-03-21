@@ -140,6 +140,8 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					case 'G':
 						GPRSLocalInfo(szBuf,iRet);
 						break;
+					case 'X':	//¾¯¸æ
+						break;
 				default:
 						break;
 					}
@@ -1097,10 +1099,11 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 			int n=buff[3];
 			for (int i(0);i<n;i++)
 			{
-				memcpy(pGetTInfo,buff+3+i*TLENTH,TLENTH);
+				memcpy(pGetTInfo,buff+4+i*TLENTH,TLENTH);
 				memcpy(&theApp.m_TerminalInfo[i],pGetTInfo,TLENTH);
 				ZeroMemory(pGetTInfo,TLENTH);
 			}
+			theApp.m_pLocalInfoDlg->ShowTerminalInfo(n);
 			free(pGetTInfo);
 		}
 		break;
