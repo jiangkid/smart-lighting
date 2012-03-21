@@ -3,6 +3,7 @@
 #include "LightView.h"
 #include "RoudInfoView.h"
 #include "GprsInfoCtrlDlg.h"
+#include "MapViewDlg.h"
 // CTabListView form view
 
 class CTabListView : public CFormView
@@ -33,7 +34,9 @@ public:
 	CRect m_rect;
 	CLightView* m_LightView;
 	CGprsInfoCtrlDlg* m_GprsInfoView;
+	CMapViewDlg* m_pMapView;
 	afx_msg void OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult);
+	//CWebBrowser m_Browser1;
 };
 
 
