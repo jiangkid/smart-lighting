@@ -11,7 +11,8 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
+ 
+ 
 // CMainFrame
 
 IMPLEMENT_DYNCREATE(CMainFrame, CFrameWndEx)
@@ -33,12 +34,16 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_TIMER()
 	ON_COMMAND(ID_UserControl, &CMainFrame::OnUsercontrol)
 	ON_COMMAND(ID_MainSet, &CMainFrame::OnMainset)
-	//ON_COMMAND(ID_RENEW, &CMainFrame::OnRenew)
+	ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTW, 0, 0xFFFF, OnToolTipText)  //最新 
+	ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTA, 0, 0xFFFF, OnToolTipText)//最新
+
+	 
 	ON_COMMAND(ID_SHOW_TOOL, &CMainFrame::OnShowTool)
 	ON_COMMAND(ID_HIDE_TOOL, &CMainFrame::OnHideTool)
 	ON_COMMAND(ID_SHOW_TREE, &CMainFrame::OnShowTree)
 	ON_COMMAND(ID_HIDE_TREE, &CMainFrame::OnHideTree)
 END_MESSAGE_MAP()
+ 
 
 static UINT indicators[] =
 {
@@ -53,11 +58,12 @@ static UINT indicators[] =
 CMainFrame::CMainFrame()
 : m_bSplitted(false)
 {
-	// TODO: 在此添加成员初始化代码
+	 
 }
 
 CMainFrame::~CMainFrame()
 {
+	 
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -73,6 +79,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() | CBRS_SIZE_DYNAMIC | CBRS_TOOLTIPS | CBRS_FLYBY);
 	// 防止菜单栏在激活时获得焦点
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
+	 //允许用户定义的工具栏操作:
+	InitUserToolbars(NULL, uiFirstUserToolBarId, uiLastUserToolBarId); 
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("未能创建状态栏\n");
@@ -102,28 +110,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// CDockablePane* pTabbedBar = NULL; 
 	// m_wndClassView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar); 
 	// 启用工具栏和停靠窗口菜单替换
+
 	// EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
 	// 启用快速(按住 Alt 拖动)工具栏自定义
-	//  	CMFCToolBar::EnableQuickCustomization();
-	// 	if (CMFCToolBar::GetUserImages() == NULL)
-	// 	{
-	// 		// 加载用户定义的工具栏图像
-	// 		if (m_UserImages.Load(_T(".\\ToolbarNULL.bmp")))
-	// 		{ 
-	// 			m_UserImages.SetImageSize(CSize( 16, 16), FALSE);
-	// 			CMFCToolBar::SetSizes(CSize(16, 16), CSize( 16, 16));
-	// 			CMFCToolBar::SetUserImages(&m_UserImages);
-	// 		}
-	// 	}
-	// 启用菜单个性化(最近使用的命令)
-	// TODO: 定义您自己的基本命令，确保每个下拉菜单至少有一个基本命令。
-	// 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | 
-	// 		WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | 
-	// 		CBRS_FLYBY | CBRS_SIZE_DYNAMIC) || !m_wndToolBar.LoadToolBar(ID_MYBAR))
-	// 	{
-	// 		TRACE0("未能创建工具栏\n");
-	// 		return -1;      // 未能创建
-	// 	}
+
 	if(!m_wndToolBar2.CreateEx(this, TBSTYLE_FLAT, WS_CHILD |
 		WS_VISIBLE |CBRS_TOP |CBRS_GRIPPER |CBRS_TOOLTIPS |CBRS_FLYBY
 		|CBRS_SIZE_DYNAMIC) || !m_wndToolBar2.LoadToolBar(ID_MYBAR))
@@ -133,14 +123,92 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 	m_wndToolBar2.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndToolBar2);
-	m_wndToolBar2.ShowPane(TRUE,FALSE,TRUE);
-// 	UINT IDArray[] ={ID_CAgain,0,ID_RENEW,0,ID_2,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0 ,ID_APP_ABOUT,0};
-// 	m_wndToolBar.SetButtons(IDArray,18); 
-	theApp.nStatus[3]=0x01;
+	m_wndToolBar2.ShowPane(TRUE,FALSE,TRUE); 
+ /*	UINT IDArray[] ={ID_CAgain,0,ID_RENEW,0,ID_FILE_NEW,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0 ,ID_APP_ABOUT,0};
+ 	m_wndToolBar2.SetButtons(IDArray,18); */
+	 theApp.nStatus[3]=0x01;
 	TrayMessage(NIM_ADD,IDI_ICON4); 
-	
 	return 0;
 }
+BOOL CMainFrame::OnToolTipText(UINT,NMHDR* pNMHDR,LRESULT* pResult)   
+{   
+	ASSERT(pNMHDR->code==TTN_NEEDTEXTA||pNMHDR->code==TTN_NEEDTEXTW);  
+	//   UNICODE消息   
+	TOOLTIPTEXTA* pTTTA=(TOOLTIPTEXTA*)pNMHDR;   
+	TOOLTIPTEXTW* pTTTW=(TOOLTIPTEXTW*)pNMHDR;   
+	CString strTipText;   
+	UINT nID=pNMHDR->idFrom;  
+	if   (pNMHDR->code==TTN_NEEDTEXTA&&(pTTTA->uFlags &TTF_IDISHWND)||   
+		pNMHDR->code==TTN_NEEDTEXTW&&(pTTTW->uFlags&TTF_IDISHWND))   
+	{   
+		// idFrom为工具条的HWND     
+		nID=::GetDlgCtrlID((HWND)nID);   
+	}  
+	if   (nID!=0)   //不为分隔符   
+	{   
+		 
+		 	switch(nID)
+			{
+			   case 1: 
+                   strTipText.LoadString(ID_CAgain );
+				   break;
+			   case 3:
+				   strTipText.LoadString(ID_RENEW );
+				   break;
+			   case 5:
+				   strTipText.LoadString(ID_QUIT );
+				   break;
+			   case 7:
+				   strTipText.LoadString(ID_SETUSER );
+				   break;
+			   case 9:
+				   strTipText.LoadString(ID_Modify );
+				   break;
+			   case 11:
+				   strTipText.LoadString(ID_SetG);
+				   break;
+			   case 13:
+				   strTipText.LoadString(ID_UserControl);
+				   break;
+			   case 15:
+				   strTipText.LoadString(ID_MainSet);
+				   break;
+			   default:
+				   break;
+			}
+
+			 strTipText=strTipText.Mid(strTipText.Find('\n',0)+1);
+		 
+    #ifndef   _UNICODE   
+		if   (pNMHDR->code==TTN_NEEDTEXTA)   
+		{   
+			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
+		}   
+		else   
+		{   
+			_mbstowcsz(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
+		}   
+   #else   
+		if   (pNMHDR->code==TTN_NEEDTEXTA)   
+		{   
+			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
+		}   
+		else   
+		{   
+			lstrcpyn(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
+		}   
+   #endif  
+		*pResult   =   0;   
+		//   使工具条提示窗口在最上面   
+		::SetWindowPos(pNMHDR->hwndFrom,HWND_TOP,0,0,0,0,SWP_NOACTIVATE|   
+			SWP_NOSIZE|SWP_NOMOVE|SWP_NOOWNERZORDER);     
+		return   TRUE;   
+	}   
+	 
+}  
+
+
+  
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -238,15 +306,6 @@ BOOL CMainFrame::CreateDockingWindows()
 {
 	BOOL bNameValid;
 
-	// 创建类视图
-// 	CString strClassView;
-// 	bNameValid = strClassView.LoadString(IDS_CLASS_VIEW);
-// 	ASSERT(bNameValid);
-// 	if (!m_wndClassView.Create(strClassView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_CLASSVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
-// 	{
-// 		TRACE0("未能创建“类视图”窗口\n");
-// 		return FALSE; // 未能创建
-// 	}
 
 	// 创建文件视图
 	CString strFileView;
@@ -399,7 +458,7 @@ bool CMainFrame::TrayMessage(DWORD dwMessage,UINT nIDI_ICON)
 	hIcon=AfxGetApp()->LoadIcon(nIDI_ICON);
 	m_tnid.hIcon=hIcon;
 	if(hIcon)
-		::DestroyIcon(hIcon);
+	::DestroyIcon(hIcon);
 	return Shell_NotifyIcon(dwMessage,&m_tnid);
 }
 
@@ -475,11 +534,7 @@ void CMainFrame::OnMainset()
 	Mdlg->CenterWindow();
 	Mdlg->ShowWindow(SW_SHOW);
 }
-
-//void CMainFrame::OnRenew()
-//{
-//	// TODO: Add your command handler code here
-//}
+ 
 
 void CMainFrame::OnShowTool()
 {
