@@ -240,3 +240,7 @@ void UpdataRoadStatusInfo(char* buff,int nRecvLength);
 //函数功能：GPRSIbfo信息
 //***************************************************************/
 void GPRSLocalInfo(char* buff,int nRecvLength);
+//***************************************************************/
+//函数功能：WarningInfo信息
+//***************************************************************/
+void CheckWarningInfo(unsigned char* buff, int nLength);

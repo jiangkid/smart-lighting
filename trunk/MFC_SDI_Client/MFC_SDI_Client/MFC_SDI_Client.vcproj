@@ -351,6 +351,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\WarningDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\WebPage.cpp"
 				>
 			</File>
@@ -517,6 +521,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\WarningDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\WebPage.h"
 				>
 			</File>
@@ -676,6 +684,10 @@
 			</File>
 			<File
 				RelativePath=".\res\explorer_hc.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\FENGMIAN.bmp"
 				>
 			</File>
 			<File

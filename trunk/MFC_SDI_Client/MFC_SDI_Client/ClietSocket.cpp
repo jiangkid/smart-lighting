@@ -141,6 +141,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 						GPRSLocalInfo(szBuf,iRet);
 						break;
 					case 'X':	//警告
+						CheckWarningInfo((U8*)szBuf,iRet);
 						break;
 				default:
 						break;
@@ -170,23 +171,22 @@ __Error_End:
 *************************************************************************************/
 void ChenkLogin(char* buff,int nRecvLength)
 {
-	char checkBuf[3];
-	for (int i=0;i<nRecvLength;i++)
+	switch (buff[1])
 	{
-		checkBuf[i]=buff[i];
-	}
-	if (buff[0]=='I'&&buff[1]=='0')
-	{
+	case '0':
 		theApp.m_return=true;
-	}
-	else
-		if (buff[0]=='I'&&buff[1]=='1')
+		break;
+	case '1':
 		{
 			closesocket(theApp.m_ConnectSock);
 			AfxMessageBox(_T("用户名或者密码错误，请重新输入！"));
 			theApp.m_return=false;
-			TerminateThread(theApp.h1,-1);
+			//TerminateThread(theApp.h1,-1);
 		}
+		break;
+	default:
+		break;
+	}
 }
 /************************************************************************************
 功能:判断创建用户是否成功
@@ -194,15 +194,20 @@ void ChenkLogin(char* buff,int nRecvLength)
 *************************************************************************************/
 void ChenkSet(char* buff,int nRecvLength)
 {
-	if (buff[0]=='C'&&buff[1]=='0')
+	switch (buff[1])
 	{
+	case '0':
 		AfxMessageBox("设置成功");
+		break;
+	case '1':
+		AfxMessageBox(_T("此次操作不成功，原因：没有存入数据库"));
+		break;
+	case '2':
+		AfxMessageBox(_T("此次操作不成功，原因：数据库已存在该用户"));
+		break;
+	default:
+		break;
 	}
-	else
-		if (buff[0]=='C'&&buff[1]=='1')
-		{
-			AfxMessageBox(_T("此次操作不成功"));
-		}
 }
 /************************************************************************************
 功能:判断修改用户密码是否成功
@@ -1106,6 +1111,23 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 			theApp.m_pLocalInfoDlg->ShowTerminalInfo(n);
 			free(pGetTInfo);
 		}
+		break;
+	default:
+		break;
+	}
+}
+
+void CheckWarningInfo(unsigned char* buff, int nLength)
+{
+	WarningInfo* pWarningInfo=(WarningInfo*)malloc(sizeof(WarningInfo));
+	ZeroMemory(pWarningInfo,sizeof(WarningInfo));
+	switch(buff[1])
+	{
+	case 0x30:
+		theApp.nWarningCount++;
+		memcpy(pWarningInfo,buff+3,sizeof(WarningInfo));
+		break;
+	case 0x31:
 		break;
 	default:
 		break;

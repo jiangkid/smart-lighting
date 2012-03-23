@@ -93,6 +93,11 @@ void CTabListView::UpDateMainFrame(void)
 	m_pMapView->MoveWindow(m_rect);
 	m_pMapView->ShowWindow(SW_HIDE);
 
+	m_pWarningView = new CWarningDlg();
+	m_pWarningView->Create(IDD_WARNING_DLG,&m_Tab);
+	m_pWarningView->MoveWindow(m_rect);
+	m_pWarningView->ShowWindow(SW_HIDE);
+
 
 	//RepositionBars(AFX_IDW_CONTROLBAR_FIRST,AFX_IDW_CONTROLBAR_LAST,0);
 }
@@ -122,6 +127,7 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 			send(theApp.m_ConnectSock,theApp.GID,5,0);
 			m_LightView->ShowWindow(SW_HIDE);
 			m_GprsInfoView->ShowWindow(SW_SHOW);
+			m_pWarningView->ShowWindow(SW_HIDE);
 			m_pMapView->ShowWindow(SW_HIDE);
 		}
 		break;
@@ -129,15 +135,23 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 		{
 			m_LightView->ShowWindow(SW_HIDE);
 			m_GprsInfoView->ShowWindow(SW_HIDE);
+			m_pWarningView->ShowWindow(SW_HIDE);
 			m_pMapView->ShowWindow(SW_HIDE);
 		}
 		break;
 	case 3:
+		{
+			m_LightView->ShowWindow(SW_HIDE);
+			m_GprsInfoView->ShowWindow(SW_HIDE);
+			m_pWarningView->ShowWindow(SW_SHOW);
+			m_pMapView->ShowWindow(SW_HIDE);
+		}
 		break;
 	case 4:
 		{
 			m_LightView->ShowWindow(SW_HIDE);
 			m_GprsInfoView->ShowWindow(SW_HIDE);
+			m_pWarningView->ShowWindow(SW_HIDE);
 			m_pMapView->ShowWindow(SW_SHOW);
 		}
 		break;
