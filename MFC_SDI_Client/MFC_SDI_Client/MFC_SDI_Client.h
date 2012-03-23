@@ -21,6 +21,7 @@
 #include "SplashWnd.h"
 #include "MainSetDlg.h"
 #include "GPRSLocaInfomation.h"
+#include "WarningDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -32,6 +33,7 @@ public:
 	SOCKET m_ConnectSock;
 	int	   m_port;//端口号
 	int    nRCount;
+	int nWarningCount;//警告个数
 	char   m_ip[20];//IP地址
 	CString strNamePass;
 	bool m_return;
@@ -58,6 +60,7 @@ public:
 	CRoudInfoView*		m_pRoadView;
 	CMainSetDlg*        m_pMainSetDlg;
 	CGPRSLocaInfomation*m_pLocalInfoDlg;
+	CWarningDlg*         m_pWarningInfoView;
 // 重写
 public:
 	virtual BOOL InitInstance();

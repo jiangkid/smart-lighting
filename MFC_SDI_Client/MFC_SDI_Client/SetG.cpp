@@ -199,10 +199,8 @@ void CSetG::OnBnClickedRadiot()
 		for (int n=0;n<4;n++)
 		{
 			str+=theApp.m_TInfo[i].TID[n];
-		}
-		
+		}	
 		m_ComT.InsertString(i,str);
-		//m_ComT.InsertString(i,ShowMessage(pTheApp->m_TInfo[i].TID,8));
 	}
 	CheckRadioButton(IDC_RADIOG,IDC_RADIOL,IDC_RADIOT);
 	UpdateData(true);
