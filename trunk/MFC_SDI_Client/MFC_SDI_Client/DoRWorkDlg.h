@@ -31,3 +31,5 @@ protected:
 	afx_msg void OnBnClickedBtnAll();
 	afx_msg void OnBnClickedBtnAll11();
 };
+
+////////////////
