@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "MFC_SDI_Client.h"
+#include "MainFrm.h"
 #include "TestDlg.h"
 
 
