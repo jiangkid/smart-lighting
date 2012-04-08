@@ -119,8 +119,6 @@ void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
 				SendContrlInfo(&hdr,pGetInfo1);
 				free(pGetInfo1);
 			}
-
-			
 		}
 		break;
 	case 2:

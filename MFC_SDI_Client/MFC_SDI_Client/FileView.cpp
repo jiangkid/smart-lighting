@@ -122,6 +122,7 @@ void CFileView::FillFileView()
 		tvSecond.item.iSelectedImage=2;
 		tvSecond.item.lParam=(LPARAM)GData;
 		HTREEITEM item_second=m_wndFileView.InsertItem (&tvSecond);
+		//free(GData);
 		int m(0);
 		for (m=0;m<m_InitInfo.TNum;m++)
 		{
@@ -140,6 +141,7 @@ void CFileView::FillFileView()
 				tvThree.item.iSelectedImage=3;
 				tvThree.item.lParam=(LPARAM)TData;
 				HTREEITEM item_third=m_wndFileView.InsertItem (&tvThree);
+				//free(TData);
 				int k(0);
 				for (k=0;k<m_InitInfo.RNum;k++)
 				{
@@ -160,6 +162,7 @@ void CFileView::FillFileView()
 						tvFour.item.iSelectedImage=4;
 						tvFour.item.lParam=(LPARAM)RData;
 						m_wndFileView.InsertItem (&tvFour);
+						//free(RData);
 					}
 				}
 			}
@@ -264,6 +267,7 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 			pPopup->TrackPopupMenu(TPM_LEFTALIGN|TPM_LEFTBUTTON,point.x,point.y,this); 
 		}
 	}
+	//delete itemData;
 }
 
 void CFileView::AdjustLayout()
@@ -368,7 +372,7 @@ void CFileView::OnOpenG()
 	pdlg->ShowWindow(SW_SHOW);
 }
 
-U8* CFileView::GPRSTranslationID(U8* buffer, int Length){	U8 c[1];	ZeroMemory(c,1);	int nCount = 0;	CString temp;	int i,j;	for (i=0;i<Length/2;i++)	{		CString temp="";		for (j=nCount*2;j<nCount*2+2;j++)		{			temp+=buffer[j];		}		sscanf(temp,"%2x",&c[nCount]);		nCount++;	}	return c;}
+U8* CFileView::GPRSTranslationID(U8* buffer, int Length){	U8* c = (U8*)malloc(1);	ZeroMemory(c,1);	int nCount = 0;	CString temp;	int i,j;	for (i=0;i<Length/2;i++)	{		CString temp="";		for (j=nCount*2;j<nCount*2+2;j++)		{			temp+=buffer[j];		}		sscanf(temp,"%2x",&c[nCount]);		nCount++;	}	return c;}
 void CFileView::OnR32848()//×éË«µÆ¿ª
 {
 	// TODO: Add your command handler code here
