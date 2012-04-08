@@ -213,7 +213,7 @@ void CRoudInfoView::RoadInfoToView(int nRCount)
 void CRoudInfoView::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
-	m_List.SelectAllItems();
+	//m_List.SelectAllItems();
 	m_List.SetFocus();
 }
 
@@ -250,7 +250,10 @@ void CRoudInfoView::OnBnClickedUpdataAll()
 			pGetInfo1->m_OrderType[0]=0x1A;
 			pGetInfo1->m_OrderObject[0]=0x33;
 			pGetInfo1->m_ActiveType[0]=0xBD;
-			memcpy(pGetInfo1->m_CheckData,GPRSTranslationID(theApp.m_RoadListInfo[i]->m_RoadID+4,2),1);
+			U8* ID;
+			ID=GPRSTranslationID(theApp.m_RoadListInfo[i]->m_RoadID+4,2);
+			memcpy(pGetInfo1->m_CheckData,ID,1);
+			free(ID);
 			pGetInfo1->m_CheckData[1]=0x01;
 			pGetInfo1->m_EndBuffer[1]=0xCC;
 			SendContrlInfo(&hdr,pGetInfo1);

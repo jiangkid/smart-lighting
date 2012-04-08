@@ -140,8 +140,8 @@ void CSetG::OnBnClickedRadiog()
 	// TODO: Add your control notification handler code here
 	m_ComG.ResetContent();
 	CheckRadioButton(IDC_RADIOG,IDC_RADIOL,IDC_RADIOG);
-	char buff[2]={'S',0x30};
-	send(theApp.m_ConnectSock,buff,2,0);
+	char buff[3]={'S',0x30,'#'};
+	send(theApp.m_ConnectSock,buff,3,0);
 	Sleep(1000);
 	for (int i=0;i<theApp.m_NumInfo.GNum;i++)
 	{
