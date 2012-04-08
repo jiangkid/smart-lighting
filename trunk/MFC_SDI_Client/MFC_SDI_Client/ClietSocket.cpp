@@ -181,7 +181,7 @@ void ChenkLogin(char* buff,int nRecvLength)
 			closesocket(theApp.m_ConnectSock);
 			AfxMessageBox(_T("用户名或者密码错误，请重新输入！"));
 			theApp.m_return=false;
-			//TerminateThread(theApp.h1,-1);
+			TerminateThread(theApp.h1,-1);
 		}
 		break;
 	default:
@@ -608,19 +608,19 @@ void UnpackLightInfo(char* buffer, int Length)
 	{		
 		if (buffer[2]==buffer[1])
 		{
-			memcpy(theApp.m_lightPack,buffer+3,Length-3);
+			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
 		}
 		else
-			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
+			memcpy(theApp.m_lightPack,buffer+3,Length-3);
 	}
 	else
 	{
 		if (buffer[2]==buffer[1])
 		{
-			memcpy(theApp.m_lightPack,buffer+3,Length-3);
+			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
 		}
 		else
-			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
+			memcpy(theApp.m_lightPack,buffer+3,Length-3);
 		TranslateLInfo(theApp.m_lightPack);
 	}
 }
@@ -1116,20 +1116,67 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 		break;
 	}
 }
-
 void CheckWarningInfo(unsigned char* buff, int nLength)
 {
-	WarningInfo* pWarningInfo=(WarningInfo*)malloc(sizeof(WarningInfo));
-	ZeroMemory(pWarningInfo,sizeof(WarningInfo));
-	switch(buff[1])
+	WarningInfo* pWarningInfo=(WarningInfo*)malloc(WARNLENGTH);
+	ZeroMemory(pWarningInfo,WARNLENGTH);
+  	switch(buff[1])
 	{
 	case 0x30:
-		theApp.nWarningCount++;
-		memcpy(pWarningInfo,buff+3,sizeof(WarningInfo));
+		{
+			theApp.nWarningCount++;
+			memcpy(pWarningInfo,buff+3,WARNLENGTH);
+			theApp.m_pWarningInfoView->OneWarningToShow(pWarningInfo,theApp.nWarningCount);
+			free(pWarningInfo);
+		}
 		break;
 	case 0x31:
+		{
+			if(buff[2]==0)
+				AfxMessageBox(_T("本次获取失败"));
+			else if (buff[2]!=0)
+			{
+				theApp.m_pWarningInfoView->warningpackCount++;
+				int i(0),j(0);
+				i=buff[2];
+				j=buff[3];
+				if (theApp.m_pWarningInfoView->warningpackCount<i)
+				{		
+					if (buff[2]==buff[3])
+					{
+						memcpy(theApp.m_warningPack+4092*(j-1),buff+4,4096-4);
+					}
+					else
+						memcpy(theApp.m_warningPack,buff+4,nLength-4);	
+				}
+				else
+				{
+					if (buff[2]==buff[3])
+					{
+						memcpy(theApp.m_warningPack+4092*(j-1),buff+4,4096-4);
+					}
+					else
+						memcpy(theApp.m_warningPack,buff+4,nLength-4);
+					TranslateWarningInfo(theApp.m_warningPack);
+				}
+			}
+		}
 		break;
 	default:
 		break;
 	}
+}
+//***************************************************************/
+//函数功能：waringpack解包
+//***************************************************************/
+void TranslateWarningInfo(U8* buff)
+{
+	int nCount(0);
+	nCount=buff[0];
+	for (int i(0);i<nCount;i++)
+	{
+		ZeroMemory(&theApp.m_WarningInfo[i],WARNLENGTH);
+		memcpy(&theApp.m_WarningInfo[i],buff+1+i*WARNLENGTH,WARNLENGTH);
+	}
+	theApp.m_pWarningInfoView->AllWarningToShow(nCount);
 }
