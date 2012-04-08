@@ -1,4 +1,3 @@
- 
 #pragma once
 
 // CWarningDlg dialog
@@ -33,6 +32,3 @@ public:
 	CComboBox m_TheGID;
 	int warningpackCount;
 };
- 
- 
- 
