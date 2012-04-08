@@ -169,7 +169,6 @@ void CLightView::OnBnClickedBtnAll()
 void CLightView::OnBnClickedBtnUpdata()
 {
 	// TODO: Add your control notification handler code here
-
 	for(int i=0;i<nCount;i++)
 	{
 		if (theApp.m_ZigbeeInfo[i]->Update==0x00)
