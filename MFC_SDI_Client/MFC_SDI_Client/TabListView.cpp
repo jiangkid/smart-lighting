@@ -111,6 +111,7 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 		{
 			m_LightView->ShowWindow(SW_SHOW);
 			m_GprsInfoView->ShowWindow(SW_HIDE);
+			m_pWarningView->ShowWindow(SW_HIDE);
 			m_pMapView->ShowWindow(SW_HIDE);
 		}
 		break;
