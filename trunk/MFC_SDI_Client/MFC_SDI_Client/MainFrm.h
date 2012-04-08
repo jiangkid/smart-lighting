@@ -68,7 +68,7 @@ public:
 	void SetDockingWindowIcons(BOOL bHiColorIcons);
 protected:
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
-	afx_msg void OnUpdateToolTexttips(CCmdUI* pCmdUI);
+	/*afx_msg void OnUpdateToolTexttips(CCmdUI* pCmdUI);*/
 	afx_msg void OnSettingChange(UINT uFlags, LPCTSTR lpszSection);
 	 
 public:
