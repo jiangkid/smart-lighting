@@ -123,9 +123,10 @@ typedef struct _WarningInfo//警告信息
 {
 	U8 WarningType;
 	U8 ID[16];
-	U8 WarningTime[19];
+	U8 InstallName[50];
 	U8 Name[20];
-	U8 Value[2];
+	U8 WarningTime[19];
+	U8 Value[4];
 }WarningInfo,*LPWarningInfo;
 
 typedef struct _ConTrlInfo//back的信息
@@ -244,3 +245,7 @@ void GPRSLocalInfo(char* buff,int nRecvLength);
 //函数功能：WarningInfo信息
 //***************************************************************/
 void CheckWarningInfo(unsigned char* buff, int nLength);
+//***************************************************************/
+//函数功能：waringpack解包
+//***************************************************************/
+void TranslateWarningInfo(U8* buff);
