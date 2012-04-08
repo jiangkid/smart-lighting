@@ -51,12 +51,24 @@
 #define RLENTH (sizeof(RoadListViewInfo))
 #define GLENTH (sizeof(GPRSInfo))
 #define TLENTH (sizeof(TerminalInfo))
+#define WARNLENGTH sizeof(WarningInfo)
 #define U8 unsigned char
 #define ON  _T("开")
 #define OFF _T("关")
 #define UNUPDATA _T("未更新")
-
-
+#define LOSTAV _T("A缺相")
+#define LOSTBV _T("B缺相")
+#define LOSTCV _T("C缺相")
+#define HAV _T("A相电压高")
+#define HBV _T("B相电压高")
+#define HCV _T("C相电压高")
+#define LAV _T("A相电压低")
+#define LBV _T("B相电压低")
+#define LCV _T("C相电压低")
+#define MAINC _T("主电故障")
+#define ASSISTC _T("备电故障")
+#define ROADHC _T("路电流超了")
+#define GPRSERROR _T("GPRS意外断开")
 
 
 #ifdef _UNICODE
