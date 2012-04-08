@@ -45,8 +45,7 @@ END_MESSAGE_MAP()
 static UINT indicators[] =
 {
 	ID_SEPARATOR,           // 状态行指示器
-	/*ID_INDICATOR_CLOCK,*/
-	ID_INDICATOR_CLOCK,
+	//ID_INDICATOR_CLOCK,
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,
@@ -131,83 +130,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	  
 	return 0;
 }
-//BOOL CMainFrame::OnToolTipText(UINT,NMHDR* pNMHDR,LRESULT* pResult)   
-//{   
-//	ASSERT(pNMHDR->code==TTN_NEEDTEXTA||pNMHDR->code==TTN_NEEDTEXTW);  
-//	//   UNICODE消息   
-//	TOOLTIPTEXTA* pTTTA=(TOOLTIPTEXTA*)pNMHDR;   
-//	TOOLTIPTEXTW* pTTTW=(TOOLTIPTEXTW*)pNMHDR;   
-//	CString strTipText;   
-//	UINT nID=pNMHDR->idFrom;  
-//	if   (pNMHDR->code==TTN_NEEDTEXTA&&(pTTTA->uFlags &TTF_IDISHWND)||   
-//		pNMHDR->code==TTN_NEEDTEXTW&&(pTTTW->uFlags&TTF_IDISHWND))   
-//	{   
-//		// idFrom为工具条的HWND     
-//		nID=::GetDlgCtrlID((HWND)nID);   
-//	}  
-//	if(nID!=0)   //不为分隔符   
-//	{   
-//		 
-//		 	switch(nID)
-//			{
-//			   case 1: 
-//                   strTipText.LoadString(ID_CAgain );
-//				   break;
-//			   case 2:
-//				   strTipText.LoadString(ID_RENEW );
-//				   break;
-//			   case 3:
-//				   strTipText.LoadString(ID_QUIT );
-//				   break;
-//			   case 4:
-//				   strTipText.LoadString(ID_SETUSER );
-//				   break;
-//			   case 5:
-//				   strTipText.LoadString(ID_Modify );
-//				   break;
-//			   case 6:
-//				   strTipText.LoadString(ID_SetG);
-//				   break;
-//			   case 7:
-//				   strTipText.LoadString(ID_UserControl);
-//				   break;
-//			   case 8:
-//				   strTipText.LoadString(ID_MainSet);
-//				   break;
-//			   default:
-//				   break;
-//			}
-//
-//			 strTipText=strTipText.Mid(strTipText.Find('\n',0)+1);
-//		 
-//    #ifndef   _UNICODE   
-//		if   (pNMHDR->code==TTN_NEEDTEXTA)   
-//		{   
-//			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
-//		}   
-//		else   
-//		{   
-//			_mbstowcsz(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
-//		}   
-//   #else   
-//		if   (pNMHDR->code==TTN_NEEDTEXTA)   
-//		{   
-//			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
-//		}   
-//		else   
-//		{   
-//			lstrcpyn(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
-//		}   
-//   #endif  
-//		*pResult   =   0;   
-//		//   使工具条提示窗口在最上面   
-//		::SetWindowPos(pNMHDR->hwndFrom,HWND_TOP,0,0,0,0,SWP_NOACTIVATE|   
-//			SWP_NOSIZE|SWP_NOMOVE|SWP_NOOWNERZORDER);     
-//		return   TRUE;   
-//	}   
-//	 
-//}  
-
 class CViewClientToolBar : public CMFCToolBar
 {
 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
