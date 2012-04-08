@@ -33,8 +33,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_TIMER()
 	ON_COMMAND(ID_UserControl, &CMainFrame::OnUsercontrol)
 	ON_COMMAND(ID_MainSet, &CMainFrame::OnMainset)
-	ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTW, 0, 0xFFFF, OnToolTipText)  //最新 
-	ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTA, 0, 0xFFFF, OnToolTipText)//最新
+	//ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTW, 0, 0xFFFF, OnToolTipText)  //最新 
+	//ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTA, 0, 0xFFFF, OnToolTipText)//最新
 	ON_COMMAND(ID_SHOW_TOOL, &CMainFrame::OnShowTool)
 	ON_COMMAND(ID_HIDE_TOOL, &CMainFrame::OnHideTool)
 	ON_COMMAND(ID_SHOW_TREE, &CMainFrame::OnShowTree)
@@ -45,6 +45,8 @@ END_MESSAGE_MAP()
 static UINT indicators[] =
 {
 	ID_SEPARATOR,           // 状态行指示器
+	/*ID_INDICATOR_CLOCK,*/
+	ID_INDICATOR_CLOCK,
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,
@@ -65,6 +67,7 @@ CMainFrame::~CMainFrame()
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
+	 
 	if (CFrameWndEx::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	//BOOL bNameValid;
@@ -123,86 +126,107 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar2.ShowPane(TRUE,FALSE,TRUE); 
  /*	UINT IDArray[] ={ID_CAgain,0,ID_RENEW,0,ID_FILE_NEW,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0 ,ID_APP_ABOUT,0};
  	m_wndToolBar2.SetButtons(IDArray,18); */
-	 theApp.nStatus[3]=0x01;
+	theApp.nStatus[3]=0x01;
 	TrayMessage(NIM_ADD,IDI_ICON4); 
+	  
 	return 0;
 }
-BOOL CMainFrame::OnToolTipText(UINT,NMHDR* pNMHDR,LRESULT* pResult)   
-{   
-	ASSERT(pNMHDR->code==TTN_NEEDTEXTA||pNMHDR->code==TTN_NEEDTEXTW);  
-	//   UNICODE消息   
-	TOOLTIPTEXTA* pTTTA=(TOOLTIPTEXTA*)pNMHDR;   
-	TOOLTIPTEXTW* pTTTW=(TOOLTIPTEXTW*)pNMHDR;   
-	CString strTipText;   
-	UINT nID=pNMHDR->idFrom;  
-	if   (pNMHDR->code==TTN_NEEDTEXTA&&(pTTTA->uFlags &TTF_IDISHWND)||   
-		pNMHDR->code==TTN_NEEDTEXTW&&(pTTTW->uFlags&TTF_IDISHWND))   
-	{   
-		// idFrom为工具条的HWND     
-		nID=::GetDlgCtrlID((HWND)nID);   
-	}  
-	if(nID!=0)   //不为分隔符   
-	{   
-		 
-		 	switch(nID)
-			{
-			   case 1: 
-                   strTipText.LoadString(ID_CAgain );
-				   break;
-			   case 2:
-				   strTipText.LoadString(ID_RENEW );
-				   break;
-			   case 3:
-				   strTipText.LoadString(ID_QUIT );
-				   break;
-			   case 4:
-				   strTipText.LoadString(ID_SETUSER );
-				   break;
-			   case 5:
-				   strTipText.LoadString(ID_Modify );
-				   break;
-			   case 6:
-				   strTipText.LoadString(ID_SetG);
-				   break;
-			   case 7:
-				   strTipText.LoadString(ID_UserControl);
-				   break;
-			   case 8:
-				   strTipText.LoadString(ID_MainSet);
-				   break;
-			   default:
-				   break;
-			}
+//BOOL CMainFrame::OnToolTipText(UINT,NMHDR* pNMHDR,LRESULT* pResult)   
+//{   
+//	ASSERT(pNMHDR->code==TTN_NEEDTEXTA||pNMHDR->code==TTN_NEEDTEXTW);  
+//	//   UNICODE消息   
+//	TOOLTIPTEXTA* pTTTA=(TOOLTIPTEXTA*)pNMHDR;   
+//	TOOLTIPTEXTW* pTTTW=(TOOLTIPTEXTW*)pNMHDR;   
+//	CString strTipText;   
+//	UINT nID=pNMHDR->idFrom;  
+//	if   (pNMHDR->code==TTN_NEEDTEXTA&&(pTTTA->uFlags &TTF_IDISHWND)||   
+//		pNMHDR->code==TTN_NEEDTEXTW&&(pTTTW->uFlags&TTF_IDISHWND))   
+//	{   
+//		// idFrom为工具条的HWND     
+//		nID=::GetDlgCtrlID((HWND)nID);   
+//	}  
+//	if(nID!=0)   //不为分隔符   
+//	{   
+//		 
+//		 	switch(nID)
+//			{
+//			   case 1: 
+//                   strTipText.LoadString(ID_CAgain );
+//				   break;
+//			   case 2:
+//				   strTipText.LoadString(ID_RENEW );
+//				   break;
+//			   case 3:
+//				   strTipText.LoadString(ID_QUIT );
+//				   break;
+//			   case 4:
+//				   strTipText.LoadString(ID_SETUSER );
+//				   break;
+//			   case 5:
+//				   strTipText.LoadString(ID_Modify );
+//				   break;
+//			   case 6:
+//				   strTipText.LoadString(ID_SetG);
+//				   break;
+//			   case 7:
+//				   strTipText.LoadString(ID_UserControl);
+//				   break;
+//			   case 8:
+//				   strTipText.LoadString(ID_MainSet);
+//				   break;
+//			   default:
+//				   break;
+//			}
+//
+//			 strTipText=strTipText.Mid(strTipText.Find('\n',0)+1);
+//		 
+//    #ifndef   _UNICODE   
+//		if   (pNMHDR->code==TTN_NEEDTEXTA)   
+//		{   
+//			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
+//		}   
+//		else   
+//		{   
+//			_mbstowcsz(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
+//		}   
+//   #else   
+//		if   (pNMHDR->code==TTN_NEEDTEXTA)   
+//		{   
+//			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
+//		}   
+//		else   
+//		{   
+//			lstrcpyn(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
+//		}   
+//   #endif  
+//		*pResult   =   0;   
+//		//   使工具条提示窗口在最上面   
+//		::SetWindowPos(pNMHDR->hwndFrom,HWND_TOP,0,0,0,0,SWP_NOACTIVATE|   
+//			SWP_NOSIZE|SWP_NOMOVE|SWP_NOOWNERZORDER);     
+//		return   TRUE;   
+//	}   
+//	 
+//}  
 
-			 strTipText=strTipText.Mid(strTipText.Find('\n',0)+1);
-		 
-    #ifndef   _UNICODE   
-		if   (pNMHDR->code==TTN_NEEDTEXTA)   
-		{   
-			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
-		}   
-		else   
-		{   
-			_mbstowcsz(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
-		}   
-   #else   
-		if   (pNMHDR->code==TTN_NEEDTEXTA)   
-		{   
-			lstrcpyn(pTTTA->szText,strTipText,sizeof(pTTTA->szText));   
-		}   
-		else   
-		{   
-			lstrcpyn(pTTTW->szText,strTipText,sizeof(pTTTW->szText));   
-		}   
-   #endif  
-		*pResult   =   0;   
-		//   使工具条提示窗口在最上面   
-		::SetWindowPos(pNMHDR->hwndFrom,HWND_TOP,0,0,0,0,SWP_NOACTIVATE|   
-			SWP_NOSIZE|SWP_NOMOVE|SWP_NOOWNERZORDER);     
-		return   TRUE;   
-	}   
-	 
-}  
+class CViewClientToolBar : public CMFCToolBar
+{
+	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
+	{
+		CMFCToolBar::OnUpdateCmdUI((CFrameWnd*) GetOwner(), bDisableIfNoHndler);
+	}
+
+	virtual BOOL AllowShowOnList() const { return FALSE; }
+
+	virtual BOOL OnUserToolTip(
+		CMFCToolBarButton* pButton,
+		CString& strTTText 
+		) const
+	{
+		strTTText=_T("dsadsa");   //只是测试，换成自己的就可以了，pButton是工具条上面的按钮，可以取得按钮的ID
+
+		return TRUE;
+	}
+};
 
 
   
@@ -338,8 +362,10 @@ void CMainFrame::OnClose()
 	if (AfxMessageBox(_T("你确定要关闭智能路灯控制系统吗?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
 	{
 		TrayMessage(NIM_DELETE,IDI_ICON4);
-		CFrameWndEx::OnClose();
 	}	
+	KillTimer(1);//销毁定时器
+	CFrameWndEx::OnClose();
+
 }
 void CMainFrame::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 {
@@ -451,6 +477,7 @@ bool CMainFrame::TrayMessage(DWORD dwMessage,UINT nIDI_ICON)
 
 void CMainFrame::OnTimer(UINT_PTR nIDEvent)
 {
+	
 	// TODO: Add your message handler code here and/or call default
 	static bool bol=true;
 	switch(nIDEvent)
@@ -491,10 +518,13 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent)
 // 		}
 		
 	default:
-		break;
-		
+		break;	
 	}
-	CFrameWndEx::OnTimer(nIDEvent);
+	CTime time;
+	time=CTime::GetCurrentTime();//得到当前时间
+	CString s=time.Format("%H:%M:%S");//转换时间格式
+	m_wndStatusBar.SetPaneText(m_wndStatusBar.CommandToIndex(ID_INDICATOR_CLOCK),s); //显示时钟
+	CFrameWnd::OnTimer(nIDEvent);
 }
 
 void CMainFrame::StartTimer(UINT_PTR nIDEvent)
