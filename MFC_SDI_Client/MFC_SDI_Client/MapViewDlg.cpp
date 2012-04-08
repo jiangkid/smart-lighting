@@ -5,7 +5,6 @@
 #include "MFC_SDI_Client.h"
 #include "MapViewDlg.h"
 
-
 // CMapViewDlg dialog
 
 IMPLEMENT_DYNAMIC(CMapViewDlg, CDialog)
@@ -15,7 +14,7 @@ CMapViewDlg::CMapViewDlg(CWnd* pParent /*=NULL*/)
 	, m_lat(_T(""))
 	, m_lng(_T(""))
 {
-
+	//EnableAutomation();
 }
 
 CMapViewDlg::~CMapViewDlg()
@@ -42,7 +41,7 @@ END_MESSAGE_MAP()
 BOOL CMapViewDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
+	//SetExternalDispatch(GetIDispatch(TRUE));
 	// TODO:  Add extra initialization here
 	CRect rect;
 	GetClientRect(&rect);
@@ -66,4 +65,9 @@ void CMapViewDlg::OnBnClickedButton1()
 	GetDlgItemText(IDC_EDIT2,str2);
 	m_be.SetDocument(m_Browser.get_Document());
 	m_be.CallJScript("addMarker",str1,str2);
+}
+
+void CMapViewDlg::ShowMessage(void)
+{
+	SetDlgItemText(IDC_EDIT3,"5");
 }
