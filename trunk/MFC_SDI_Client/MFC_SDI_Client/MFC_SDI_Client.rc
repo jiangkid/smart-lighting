@@ -1,3 +1,1035 @@
+<<<<<<< .mine
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\MFC_SDI_Client.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""          // 标准组件\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""l.CHS\\afxprint.rc""                // 打印/打印预览资源\r\n"
+    "#include ""l.CHS\\afxribbon.rc""               // MFC 功能区和控件条资源\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MFC_SDI_Client.ico"
+IDR_MFC_SDI_ClientTYPE  ICON                    "res\\MFC_SDI_ClientDoc.ico"
+IDI_CK                  ICON                    "ico\\100.ico"
+IDI_INPUT               ICON                    "ico\\103.ico"
+IDI_LIGHT_ON            ICON                    "ico\\Lamp1.ico"
+IDI_LIGHT_OFF           ICON                    "ico\\Lamp2.ico"
+IDI_FILE_VIEW           ICON                    "res\\file_view.ico"
+IDI_FILE_VIEW_HC        ICON                    "res\\file_view_hc.ico"
+IDI_CLASS_VIEW          ICON                    "res\\class_view.ico"
+IDI_CLASS_VIEW_HC       ICON                    "res\\class_view_hc.ico"
+IDI_ICON4               ICON                    "res\\kfm_home.ico"
+IDI_ICON5               ICON                    "res\\dsuiext.dll_28.ico"
+IDI_ICON6               ICON                    "res\\explorer.exe_0.ico"
+IDI_ICON7               ICON                    "res\\msoeres.dll_18.ico"
+IDI_ICON8               ICON                    "res\\newgame.ico"
+IDI_ICON9               ICON                    "res\\World.ico"
+IDI_ICON10              ICON                    "res\\icon10.ico"
+IDI_ICON13              ICON                    "res\\icon13.ico"
+IDI_ICON14              ICON                    "res\\icon14.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_CLASS_VIEW          BITMAP                  "res\\classview.bmp"
+IDB_CLASS_VIEW_24       BITMAP                  "res\\classview_hc.bmp"
+IDB_FILE_VIEW           BITMAP                  "res\\explorer.bmp"
+IDB_EXPLORER_24         BITMAP                  "res\\explorer_hc.bmp"
+IDB_FILE_VIEW_24        BITMAP                  "res\\fileview_hc.bmp"
+IDB_SORT_24             BITMAP                  "res\\sort_hc.bmp"
+IDB_SPLASH              BITMAP                  "res\\10000434340537.bmp"
+ID_MYBAR                BITMAP                  "res\\toolbar6.bmp"
+IDR_MAINFRAME           BITMAP                  "res\\toolbar1.bmp"
+IDR_MAINFRAME_256       BITMAP                  "res\\bmp00001.bmp"
+ID_5                    BITMAP                  "res\\bitmap12.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+ID_MYBAR TOOLBAR  16, 16
+BEGIN
+    BUTTON      ID_CAgain
+    SEPARATOR
+    BUTTON      ID_RENEW
+    SEPARATOR
+    BUTTON      ID_QUIT
+    SEPARATOR
+    BUTTON      ID_SETUSER
+    SEPARATOR
+    BUTTON      ID_Modify
+    SEPARATOR
+    BUTTON      ID_SetG
+    SEPARATOR
+    BUTTON      ID_UserControl
+    SEPARATOR
+    BUTTON      ID_MainSet
+END
+
+IDR_MAINFRAME TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_BUTTON32880
+    BUTTON      ID_BUTTON32881
+    BUTTON      ID_BUTTON32885
+END
+
+IDR_MAINFRAME_256 TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_BUTTON32882
+    BUTTON      ID_BUTTON32883
+    BUTTON      ID_BUTTON32886
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "系统"
+    BEGIN
+        MENUITEM "退出",                          ID_QUIT
+        MENUITEM "重新连接",                        ID_CAgain
+        MENUITEM "刷新",                          ID_RENEW
+    END
+    POPUP "管理"
+    BEGIN
+        MENUITEM "创建新用户",                       ID_SETUSER
+        MENUITEM "修改用户密码",                      ID_Modify
+        MENUITEM "创建区域",                        ID_SetG
+        MENUITEM "用户管理",                        ID_UserControl
+    END
+    POPUP "配置"
+    BEGIN
+        MENUITEM "配置主终端",                       ID_MainSet
+    END
+    POPUP "视图"
+    BEGIN
+        MENUITEM "显示快捷工具",                      ID_SHOW_TOOL
+        MENUITEM "隐藏快捷工具",                      ID_HIDE_TOOL
+        MENUITEM "显示系统机构",                      ID_SHOW_TREE
+        MENUITEM "隐藏系统机构",                      ID_HIDE_TREE
+    END
+    POPUP "测试"
+    BEGIN
+        MENUITEM "TEST",                        ID_32783
+        MENUITEM "1",                           ID_1
+        MENUITEM "ID_2",                        ID_2
+        MENUITEM "ID_3",                        ID_3
+        MENUITEM "ID_4",                        ID_4
+        MENUITEM "ID_5",                        ID_5
+        MENUITEM "ID_6",                        ID_6
+        MENUITEM "ID_7",                        ID_7
+        MENUITEM "ID_1",                        ID_8
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "关于 MFC_SDI_Client(&A)...",    ID_APP_ABOUT
+    END
+END
+
+IDR_POPUP_EDIT MENU 
+BEGIN
+    POPUP "编辑"
+    BEGIN
+        MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
+        MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
+        MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
+    END
+END
+
+IDR_POPUP_SORT MENU 
+BEGIN
+    POPUP "排序"
+    BEGIN
+        MENUITEM "按字母排序",                       ID_32790
+    END
+END
+
+IDR_POPUP_GPRS MENU 
+BEGIN
+    POPUP "GPRS管理"
+    BEGIN
+        MENUITEM "对GPRS操作",                     ID_OPEN_G
+        MENUITEM "1",                           ID_32792
+        MENUITEM "2",                           ID_32793
+        MENUITEM "3",                           ID_32794
+        MENUITEM "4",                           65535
+    END
+END
+
+IDR_POPUP_T MENU 
+BEGIN
+    POPUP "T管理"
+    BEGIN
+        MENUITEM "对此终端操作",                      ID_T32796
+    END
+END
+
+IDR_POPUP_R MENU 
+BEGIN
+    POPUP "R管理"
+    BEGIN
+        MENUITEM "打开",                          ID_OPEN_R
+        MENUITEM "对此路操作",                       ID_R_WORK
+        MENUITEM "对此路双灯开",                      ID_R32848
+        MENUITEM "对此路双灯关",                      ID_R32849
+        MENUITEM "对此路主灯开",                      ID_R32850
+        MENUITEM "对此路主灯关",                      ID_R32851
+        MENUITEM "对此路辅灯开",                      ID_R32852
+        MENUITEM "对此路辅灯关",                      ID_R32853
+    END
+END
+
+IDR_POPMENU MENU 
+BEGIN
+    POPUP "单灯操作"
+    BEGIN
+        MENUITEM "删除全部",                        ID_32799
+    END
+END
+
+IDR_HIDEMENU MENU 
+BEGIN
+    POPUP "托盘Menu"
+    BEGIN
+        MENUITEM "打开主界面",                       ID_OPENEXE
+        MENUITEM "退出",                          ID_QUITEXE
+    END
+END
+
+IDR_List_Menu MENU 
+BEGIN
+    POPUP "LightListViwe"
+    BEGIN
+        MENUITEM "对单个状态更新",                     ID_Updata_Status
+        MENUITEM "对单个电流更新",                     ID_Updata_Current
+    END
+    POPUP "RoadMenu"
+    BEGIN
+        MENUITEM "对单路电流1更新",                    ID_RC_Updata
+        MENUITEM "对单路电流2更新",                    ID_RC2_Updata
+        MENUITEM "对单路电流3更新",                    ID_RC3_Updata
+        MENUITEM "对单个状态更新",                     ID_RS_Updata
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 MFC_SDI_Client"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
+    LTEXT           "MFC_SDI_Client，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2011",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_Login DIALOGEX 0, 0, 87, 79
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "登入界面"
+FONT 12, "华文新魏", 400, 0, 0x86
+BEGIN
+    DEFPUSHBUTTON   "确定登入",IDOK,1,62,37,14
+    PUSHBUTTON      "下次登入",IDCANCEL,47,61,37,14
+    CTEXT           "身份",IDC_STATIC,1,21,31,10
+    COMBOBOX        IDC_COMBO_ID,32,19,48,33,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "用户名",IDC_STATIC,1,34,30,11
+    EDITTEXT        IDC_NAME,32,32,50,13,ES_AUTOHSCROLL
+    CTEXT           "密码",IDC_STATIC,1,49,30,11
+    EDITTEXT        IDC_PASSWORD,32,46,50,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "网络配置",IDC_BTN_SET,1,1,85,18
+END
+
+IDD_Config DIALOGEX 0, 0, 146, 82
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "主机地址配置界面"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,15,55,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,79,54,50,14
+    CTEXT           "主机IP地址",IDC_STATIC,19,18,40,8
+    CTEXT           "主机端口号",IDC_STATIC,19,34,41,8
+    EDITTEXT        IDC_EDIT1,71,14,60,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,71,32,60,14,ES_AUTOHSCROLL
+END
+
+IDD_SetUser DIALOGEX 0, 0, 155, 137
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "添加新用户"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "身份",IDC_STATIC,37,18,21,11
+    COMBOBOX        IDC_COMBO1,76,16,61,40,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "用户名",IDC_STATIC,26,39,38,9
+    EDITTEXT        IDC_UserName,76,34,61,14,ES_AUTOHSCROLL
+    CTEXT           "密码",IDC_STATIC,29,56,35,14
+    EDITTEXT        IDC_FPassWord,76,54,61,14,ES_AUTOHSCROLL
+    CTEXT           "重复密码",IDC_STATIC,28,75,35,10
+    EDITTEXT        IDC_SPassWord,76,74,61,14,ES_AUTOHSCROLL
+    LTEXT           "联系电话",IDC_STATIC,27,95,45,11
+    EDITTEXT        IDC_TelNum,76,94,61,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,24,114,50,14
+    PUSHBUTTON      "取消",IDCANCEL,86,114,50,14
+END
+
+IDD_Modify DIALOGEX 0, 0, 164, 121
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "华文新魏", 400, 0, 0x86
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,26,88,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,85,89,50,14
+    LTEXT           "重复密码",IDC_STATIC,30,70,33,8
+    LTEXT           "旧密码",IDC_STATIC,30,38,25,8
+    LTEXT           "新密码",IDC_STATIC,30,55,25,8
+    LTEXT           "用户名",IDC_STATIC,30,22,25,8
+    EDITTEXT        IDC_UserName,75,20,50,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_OLD_PW,75,36,50,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FPassWord,75,53,50,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SPassWord,75,68,50,12,ES_AUTOHSCROLL
+END
+
+IDD_Set DIALOGEX 0, 0, 478, 199
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Set区域界面"
+FONT 10, "华文新魏", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "取消设置",IDCANCEL,419,1,50,14
+    CTEXT           "已有用户名",IDC_STATIC,4,5,47,10
+    CTEXT           "区域ID",IDC_STATIC,22,46,24,8
+    EDITTEXT        IDC_GName,53,29,65,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COM_GID,53,45,66,73,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "添加区域",IDC_RADIOG,"Button",BS_AUTORADIOBUTTON,7,30,44,10
+    PUSHBUTTON      "添加区域",IDC_BTN_GSET,78,163,37,14
+    CTEXT           "终端ID",IDC_STATIC,147,46,24,8
+    EDITTEXT        IDC_TName,178,28,113,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COM_TID,177,44,115,58,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "添加终端",IDC_RADIOT,"Button",BS_AUTORADIOBUTTON,131,30,43,10
+    PUSHBUTTON      "添加终端",IDC_BTN_TSET,257,163,37,14
+    CTEXT           "路段ID",IDC_STATIC,317,44,24,8
+    EDITTEXT        IDC_RName,349,27,115,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COM_RID,347,42,117,130,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "添加路段",IDC_RADIOR,"Button",BS_AUTORADIOBUTTON,303,28,44,10
+    PUSHBUTTON      "添加路段",IDC_BTN_RSET,423,67,37,14
+    CTEXT           "区域ID",IDC_STATIC,313,126,24,8
+    EDITTEXT        IDC_LName,346,108,123,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COM_LID,345,124,124,131,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "添加灯",IDC_RADIOL,"Button",BS_AUTORADIOBUTTON,303,110,39,10
+    PUSHBUTTON      "添加单灯",IDC_BTN_LSET,426,163,37,14
+    COMBOBOX        IDC_COM_UserName,53,4,61,80,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "添加区域设置",IDC_STATIC,1,16,119,177
+    GROUPBOX        "添加终端设置",IDC_STATIC,127,17,168,175
+    GROUPBOX        "添加路段设置",IDC_STATIC,301,14,167,68
+    GROUPBOX        "添加单灯设置",IDC_STATIC,301,97,172,92
+    CTEXT           "GPRS(phone)",IDC_STATIC,8,68,44,8
+    CTEXT           "安装地点",IDC_STATIC,5,85,33,8
+    CTEXT           "安装时间",IDC_STATIC,3,117,33,8
+    EDITTEXT        IDC_GroupName,53,66,65,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_GArea,6,96,112,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_GDATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,37,115,80,12
+    EDITTEXT        IDC_GBusy,38,134,79,15,ES_MULTILINE | ES_WANTRETURN
+    CTEXT           "责任区",IDC_STATIC,7,141,25,8
+    CONTROL         "",IDC_TDATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,181,115,80,12
+    CTEXT           "安装时间",IDC_STATIC,142,116,33,8
+    CTEXT           "安装地点",IDC_STATIC,142,85,33,8
+    EDITTEXT        IDC_TArea,147,97,146,12,ES_AUTOHSCROLL
+    CTEXT           "责任区",IDC_STATIC,147,140,25,8
+    EDITTEXT        IDC_TBusy,181,134,79,15,ES_MULTILINE | ES_WANTRETURN
+END
+
+IDD_MainSet DIALOGEX 0, 0, 599, 273
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "配置主控设备"
+FONT 10, "华文新魏", 400, 0, 0x86
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,244,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,111,244,50,14
+    CTEXT           "GPRS个数",IDC_STATIC,34,20,56,12
+    CTEXT           "设备下终端数",IDC_STATIC,34,40,60,12
+    EDITTEXT        IDC_GNum,93,18,65,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TNum,93,38,65,13,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "一个终端下路数",IDC_STATIC,34,62,59,12
+    EDITTEXT        IDC_RNum,93,59,65,13,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "一路下的灯数",IDC_STATIC,35,81,57,13
+    EDITTEXT        IDC_LNum,94,79,65,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "生成地址",IDC_BTN_GetID,29,95,63,13
+    PUSHBUTTON      "保存地址",IDC_BTN_Save,96,94,62,14
+    EDITTEXT        IDC_EDIT7,167,15,234,254,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_DISABLED | WS_VSCROLL
+    PUSHBUTTON      "Demo",IDC_BUTTON1,62,244,48,13
+    GROUPBOX        "地址生成失败信息",IDC_STATIC,407,4,189,269
+    EDITTEXT        IDC_EDIT2,413,15,177,242,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_DISABLED | WS_VSCROLL
+    PUSHBUTTON      "终端ID添加",IDC_BUTTON2,124,132,39,15
+    PUSHBUTTON      "保存失败消息",IDC_BUTTON3,415,258,175,12
+    EDITTEXT        IDC_EDIT_TID,37,131,86,14,ES_AUTOHSCROLL
+    CTEXT           "终端ID",IDC_STATIC,7,134,29,10
+    GROUPBOX        "IEEE地址",IDC_STATIC,164,5,242,268
+    PUSHBUTTON      "GID添加",IDC_BUTTON4,124,113,39,15
+    EDITTEXT        IDC_EDIT_GID,37,114,86,14,ES_AUTOHSCROLL
+    CTEXT           "GPRSID",IDC_STATIC,7,114,29,10
+    CTEXT           "路段ID",IDC_STATIC,7,154,29,10
+    CTEXT           "单灯ID",IDC_STATIC,7,174,29,10
+    EDITTEXT        IDC_EDIT_RID,37,151,86,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_LID,37,172,86,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "路ID添加",IDC_BUTTON5,124,150,39,15
+    PUSHBUTTON      "等ID添加",IDC_BUTTON6,124,172,39,15
+END
+
+IDD_WaitDlg DIALOGEX 0, 0, 259, 98
+STYLE DS_SETFONT | WS_POPUP | WS_SYSMENU
+FONT 10, "华文新魏", 400, 0, 0x86
+BEGIN
+    LTEXT           "初始化可能需要几分钟，请耐心等待",IDC_STATIC,57,38,134,11
+    PUSHBUTTON      "确定",IDC_BUTTON1,95,57,46,17
+    CTEXT           "Static",IDC_STATIC_INIT,51,15,146,14
+END
+
+IDD_TEST DIALOGEX 0, 0, 316, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,205,162,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,259,162,50,14
+    PUSHBUTTON      "主灯开",IDC_BUTTON2,59,106,53,14
+    PUSHBUTTON      "辅灯开",IDC_BUTTON3,115,105,57,14
+    PUSHBUTTON      "双灯开",IDC_BUTTON4,181,107,51,13
+    PUSHBUTTON      "主灯关",IDC_BUTTON5,57,127,53,14
+    PUSHBUTTON      "辅灯关",IDC_BUTTON6,116,127,57,14
+    PUSHBUTTON      "双灯关",IDC_BUTTON7,181,126,51,15
+    PUSHBUTTON      "发送",IDC_BUTTON1,248,74,44,14
+    CTEXT           "m_First",IDC_STATIC,61,15,45,13
+    EDITTEXT        IDC_FIRST,105,15,101,12,ES_AUTOHSCROLL
+    CTEXT           "ID",IDC_STATIC,69,36,27,11
+    EDITTEXT        IDC_ID,105,34,101,12,ES_AUTOHSCROLL
+    CTEXT           "命令分类",IDC_STATIC,211,14,33,11
+    CTEXT           "命令对象",IDC_STATIC,211,26,33,9
+    CTEXT           "动作类型",IDC_STATIC,211,40,33,9
+    EDITTEXT        IDC_Type,249,14,41,9,ES_AUTOHSCROLL
+    EDITTEXT        IDC_order,249,26,41,9,ES_AUTOHSCROLL
+    EDITTEXT        IDC_active,249,39,41,9,ES_AUTOHSCROLL
+    EDITTEXT        IDC_activeType,227,57,65,11,ES_AUTOHSCROLL
+    CTEXT           "动作要求",IDC_STATIC,188,59,35,10
+    CTEXT           "头",IDC_STATIC,19,18,19,11
+    EDITTEXT        IDC_EDIT1,39,17,29,10,ES_AUTOHSCROLL
+    PUSHBUTTON      "Button8",IDC_BUTTON8,261,124,32,19
+    PUSHBUTTON      "Button9",IDC_BUTTON9,39,68,50,15
+END
+
+IDD_DoRWorkDlg DIALOGEX 0, 0, 387, 134
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "路的操作"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,259,113,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,330,113,50,14
+    GROUPBOX        "路的信息",IDC_STATIC,7,14,373,32
+    CTEXT           "路名",IDC_STATIC,19,26,42,10
+    EDITTEXT        IDC_RName,53,24,92,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "路ID",IDC_STATIC,149,26,25,10
+    EDITTEXT        IDC_RID,178,24,58,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "对此路关",IDC_BTN_Close,219,49,56,13
+    PUSHBUTTON      "对此路开",IDC_BTN_Open,324,48,56,13
+    CTEXT           "路的状态",IDC_STATIC,242,26,42,10
+    EDITTEXT        IDC_RName2,288,25,92,12,ES_AUTOHSCROLL | ES_READONLY
+END
+
+IDD_GWork DIALOGEX 0, 0, 316, 177
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,53,128,44,14
+    PUSHBUTTON      "Cancel",IDCANCEL,179,136,50,14
+    GROUPBOX        "Static",IDC_STATIC,7,7,302,83
+    CTEXT           "第一级名字",IDC_STATIC,23,25,48,11
+    CTEXT           "第一级ID",IDC_STATIC,166,25,48,11
+    EDITTEXT        IDC_GName,79,25,62,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_GID,215,25,62,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "TEST",IDC_BUTTON1,53,103,44,16
+END
+
+IDD_GroupWork DIALOGEX 0, 0, 316, 180
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,139,148,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,205,149,50,14
+    GROUPBOX        "创建组",IDC_STATIC,24,15,268,28
+    CTEXT           "组号",IDC_STATIC,30,26,29,10
+    EDITTEXT        IDC_GroupNum,61,26,27,11,ES_AUTOHSCROLL
+    CTEXT           "组名称",IDC_STATIC,96,26,33,11
+    EDITTEXT        IDC_GroupName,133,25,109,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定",IDC_GroupOK,245,25,38,14
+END
+
+IDD_VIEW_DLG DIALOGEX 0, 0, 506, 287
+STYLE DS_SETFONT | WS_CHILD
+FONT 14, "新宋体", 400, 0, 0x86
+BEGIN
+    CONTROL         "",IDC_VIEW_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTISELECT,0,0,505,287
+END
+
+IDD_DIALOG3 DIALOGEX 0, 0, 532, 318
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CONTROL         "",IDC_Light_View,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_ALIGNLEFT | WS_BORDER,2,19,527,295,WS_EX_DLGMODALFRAME | WS_EX_STATICEDGE
+    PUSHBUTTON      "全选",IDC_BTN_ALL,1,4,42,15
+    PUSHBUTTON      "对未更新的进行更新",IDC_BTN_UPDATA,47,3,83,16
+END
+
+IDD_Roud_Info DIALOGEX 0, 0, 565, 314
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 12, "华文新魏", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "全选",IDC_BUTTON1,1,5,37,19
+    PUSHBUTTON      "对未更新进行更新",IDC_Updata_ALL,38,5,72,18
+    CONTROL         "",IDC_R_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,24,561,289
+END
+
+IDD_User_CTRL DIALOGEX 0, 0, 465, 238
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "用户管理界面"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+IDD_LIGHT_DLG DIALOGEX 0, 0, 239, 127
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "华文楷体", 400, 0, 0x86
+BEGIN
+    CTEXT           "路名",IDC_STATIC,6,14,29,8
+    EDITTEXT        IDC_RoadName,34,14,71,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "区域",IDC_STATIC,6,3,24,8
+    EDITTEXT        IDC_GName,34,1,72,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "灯名",IDC_STATIC,6,27,29,8
+    CTEXT           "灯ID",IDC_STATIC,6,38,29,8
+    EDITTEXT        IDC_LighteName,34,26,71,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_LightID,34,38,71,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "主灯状态",IDC_STATIC,6,51,30,10
+    CTEXT           "辅灯状态",IDC_STATIC,72,51,33,10
+    PUSHBUTTON      "Button1",IDC_BTN_MAINStatus,36,50,17,17
+    PUSHBUTTON      "Button1",IDC_BTN_ASSISTStatus,58,50,17,17
+    PUSHBUTTON      "Button1",IDC_BTN_MAIN,6,67,48,14
+    PUSHBUTTON      "Button1",IDC_BTN_ASSIST,56,67,49,14
+    PUSHBUTTON      "双灯开",IDC_BTN_DON,6,82,99,14
+    PUSHBUTTON      "双灯关",IDC_BTN_DOFF,6,96,99,14
+    EDITTEXT        IDC_Progress,24,113,81,13,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "执行进度",IDC_STATIC,6,112,17,14
+END
+
+IDD_GPRS_INFO DIALOGEX 0, 0, 539, 333
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 12, "华文新魏", 400, 0, 0x86
+BEGIN
+    CONTROL         "",IDC_GINFO_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTILINE | WS_BORDER | 0x8,0,0,535,330,WS_EX_CLIENTEDGE
+END
+
+IDD_GPRSLocal DIALOGEX 0, 0, 602, 379
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 12, "华文新魏", 400, 0, 0x86
+BEGIN
+    CTEXT           "GPRSID",IDC_STATIC,11,15,34,9
+    EDITTEXT        IDC_EDIT_GID,52,13,75,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "GPRS名称",IDC_STATIC,131,15,34,9
+    EDITTEXT        IDC_EDIT_GNAME,170,12,69,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "GPRS(11号码)",IDC_STATIC,2,31,50,9
+    EDITTEXT        IDC_EDIT_GPHONE,53,31,71,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "GPRS安装时间",IDC_STATIC,239,31,53,9
+    EDITTEXT        IDC_EDIT_GTIME,290,30,65,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "GPRS安装地点",IDC_STATIC,125,31,53,9
+    EDITTEXT        IDC_EDIT_GLOCATION,175,30,64,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "GPRS责任区",IDC_STATIC,243,15,46,9
+    EDITTEXT        IDC_EDIT_GAREA,289,12,67,12,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_LIST_TERMINAL,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,5,47,596,330
+    GROUPBOX        "这个GPRS下终端的信息",IDC_STATIC,3,1,599,377
+    PUSHBUTTON      "修改信息",IDC_BTN_GMODIFY,362,14,45,28
+END
+
+IDD_MAP_VIEW DIALOGEX 0, 0, 843, 429
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 8, "华文新魏", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "Button1",IDC_BUTTON1,724,46,54,19
+    EDITTEXT        IDC_EDIT1,719,79,74,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,719,97,74,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_EXPLORER1,"{8856F961-340A-11D0-A96B-00C04FD705A2}",WS_TABSTOP,2,1,709,427
+    EDITTEXT        IDC_EDIT3,720,117,68,14,ES_AUTOHSCROLL
+END
+
+IDD_WARNING_DLG DIALOGEX 0, 0, 411, 287
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CONTROL         "",IDC_LIST_WARNING,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,18,410,268
+    PUSHBUTTON      "获取历史警告",IDC_BTN_GET,320,2,43,13
+    LTEXT           "起始时间",IDC_STATIC,155,5,28,9
+    CONTROL         "",IDC_BEGIN_DATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,185,3,45,12
+    CTEXT           "终止时间",IDC_STATIC,235,5,34,9
+    CONTROL         "",IDC_END_DATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,270,3,44,12
+    COMBOBOX        IDC_COM_GID,120,3,29,40,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "区域ID",IDC_STATIC,86,5,30,9
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "MFC_SDI_Client.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "MFC_SDI_Client.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_Login, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 86
+    END
+
+    IDD_Config, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 139
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 75
+    END
+
+    IDD_SetUser, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 152
+        TOPMARGIN, 7
+    END
+
+    IDD_Modify, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 157
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
+
+    IDD_Set, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 198
+    END
+
+    IDD_MainSet, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+    END
+
+    IDD_WaitDlg, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 252
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_TEST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_DoRWorkDlg, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 380
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 127
+    END
+
+    IDD_GWork, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_GroupWork, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_VIEW_DLG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 505
+    END
+
+    IDD_DIALOG3, DIALOG
+    BEGIN
+        RIGHTMARGIN, 529
+        BOTTOMMARGIN, 314
+    END
+
+    IDD_Roud_Info, DIALOG
+    BEGIN
+        RIGHTMARGIN, 530
+    END
+
+    IDD_User_CTRL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 458
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 237
+    END
+
+    IDD_LIGHT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+    END
+
+    IDD_GPRS_INFO, DIALOG
+    BEGIN
+        RIGHTMARGIN, 447
+        BOTTOMMARGIN, 330
+    END
+
+    IDD_GPRSLocal, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 339
+    END
+
+    IDD_MAP_VIEW, DIALOG
+    BEGIN
+        RIGHTMARGIN, 840
+    END
+
+    IDD_WARNING_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_MAP_VIEW DLGINIT
+BEGIN
+    IDC_EXPLORER1, 0x376, 160, 0
+0x0000, 0x0000, 0x004c, 0x0000, 0x6df8, 0x0000, 0x4240, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x004c, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 
+0x0000, 0xd0e0, 0x0057, 0x3573, 0x11cf, 0x69ae, 0x0008, 0x2e2b, 0x6212, 
+0x0008, 0x0000, 0x0000, 0x0000, 0x004c, 0x0000, 0x1401, 0x0002, 0x0000, 
+0x0000, 0x00c0, 0x0000, 0x0000, 0x4600, 0x0080, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE 初始化失败。请确保 OLE 库是正确的版本。"
+    IDP_SOCKETS_INIT_FAILED "Windows 套接字初始化失败。"
+END
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "MFC_SDI_Client\n\nMFC_SDI_Client\n\n\nMFCSDIClient.Document\nMFC_SDI_Client.Document"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "MFC_SDI_Client"
+    AFX_IDS_IDLEMESSAGE     "就绪"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "关于"
+    ID_APP_EXIT             "退出应用程序；提示保存文档\n退出"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_STATUS_BAR      "显示或隐藏状态栏\n切换状态栏"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "更改窗口大小"
+    AFX_IDS_SCMOVE          "更改窗口位置"
+    AFX_IDS_SCMINIMIZE      "将窗口缩小为图标"
+    AFX_IDS_SCMAXIMIZE      "使窗口最大化显示"
+    AFX_IDS_SCNEXTWINDOW    "切换到下一个文档窗口"
+    AFX_IDS_SCPREVWINDOW    "切换到前一个文档窗口"
+    AFX_IDS_SCCLOSE         "关闭活动窗口并提示保存文档"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "将窗口恢复到正常大小"
+    AFX_IDS_SCTASKLIST      "激活任务列表"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_STATUS_PANE1        "窗格 1"
+    IDS_STATUS_PANE2        "窗格 2"
+    IDS_TOOLBAR_STANDARD    "标准"
+    IDS_TOOLBAR_CUSTOMIZE   "自定义..."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_EXPLORER            "资源管理器"
+    IDS_EDIT_MENU           "编辑"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_BTN_MAIN             "主灯"
+    ID_BTN_ELSE             "辅灯"
+    ID_BTN_DOUBLE           "双灯"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_FILE_VIEW           "区域视图"
+    IDS_CLASS_VIEW          "组视图"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_RENEW                "刷新\n刷新"
+    ID_BUTTON32868          "修改用户密码"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_SETUSER              "创建新用户\n添加新用户"
+    ID_SetG                 "创建区域\n创建一个新区域"
+    ID_Modify               "修改用户密码\n修改用户密码"
+    ID_MainSet              "配置主终端\n设备控制主终端"
+    ID_CAgain               "重新连接\n重新连接"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_OPEN_R               "打开路"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_QUIT                 "退出\n是否退出"
+    ID_UserControl          "用户管理\n用户管理"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_BUTTON32884          "配置主终端"
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\MFC_SDI_Client.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"          // 标准组件
+#if !defined(_AFXDLL)
+#include "l.CHS\afxprint.rc"                // 打印/打印预览资源
+#include "l.CHS\afxribbon.rc"               // MFC 功能区和控件条资源
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
+=======
 // Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
@@ -1024,3 +2056,4 @@ LANGUAGE 4, 2
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 
+>>>>>>> .r419
