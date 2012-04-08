@@ -51,7 +51,10 @@ public:
 	ZigbeeInfo* m_ZigbeeInfo[512];//一个节点的信息最大512个显示的信息
 	RoadListViewInfo*   m_RoadListInfo[12];//1个终端下最大8路的信息
 	U8  m_lightPack[LENTH*1000];//包的缓冲大小定义成30K
+	U8  m_warningPack[WARNLENGTH*1000];//警告的缓冲
+	WarningInfo m_WarningInfo[256];//一次性最多可以获取历史警告256个
 	NumInfo m_NumInfo;
+	/*static int warningpack;*/
 	CWaitDlg			m_WaitDlg;
 	CFileView*			m_pFileView;
 	CLightView*			m_pLightListView;
@@ -64,7 +67,6 @@ public:
 // 重写
 public:
 	virtual BOOL InitInstance();
-
 // 实现
 	BOOL  m_bHiColorIcons;
 	virtual void PreLoadState();
