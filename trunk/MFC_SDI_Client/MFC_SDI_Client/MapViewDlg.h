@@ -25,4 +25,5 @@ public:
 	CWebBrowser m_Browser;
 	CString m_lat;
 	CString m_lng;
+	void ShowMessage(void);
 };
