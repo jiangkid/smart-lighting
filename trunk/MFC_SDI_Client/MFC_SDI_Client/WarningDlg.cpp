@@ -7,7 +7,7 @@
 #include "ReportCtrl.h"
 #include "afxdtctl.h"
 #include "afxwin.h"
-
+#include "ControlWaringDlg.h"
 // CWarningDlg dialog
 
 IMPLEMENT_DYNAMIC(CWarningDlg, CDialog)
@@ -247,6 +247,9 @@ void CWarningDlg::OnNMDblclkWarningDlg(NMHDR *pNMHDR, LRESULT *pResult)
 	{ 
 		//获取所点击的行和列的例子。 
 		//strText.Format("你点击了第%d行", pNMItemActivate->iItem); 
+		CControlWaringDlg dlg;
+		dlg.DoModal();
+
 	} 
 	*pResult = 0;
 }
