@@ -1,7 +1,7 @@
 // Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
-
+#include "l.chs\\afxprint.rc" // printing/print preview resources
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -29,7 +29,6 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 //
 // TEXTINCLUDE
 //
-
 1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
@@ -68,245 +67,8 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Icon
+// Cursor
 //
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\MFC_SDI_Client.ico"
-IDR_MFC_SDI_ClientTYPE  ICON                    "res\\MFC_SDI_ClientDoc.ico"
-IDI_CK                  ICON                    "ico\\100.ico"
-IDI_INPUT               ICON                    "ico\\103.ico"
-IDI_LIGHT_ON            ICON                    "ico\\Lamp1.ico"
-IDI_LIGHT_OFF           ICON                    "ico\\Lamp2.ico"
-IDI_FILE_VIEW           ICON                    "res\\file_view.ico"
-IDI_FILE_VIEW_HC        ICON                    "res\\file_view_hc.ico"
-IDI_CLASS_VIEW          ICON                    "res\\class_view.ico"
-IDI_CLASS_VIEW_HC       ICON                    "res\\class_view_hc.ico"
-IDI_ICON4               ICON                    "res\\kfm_home.ico"
-IDI_ICON5               ICON                    "res\\dsuiext.dll_28.ico"
-IDI_ICON6               ICON                    "res\\explorer.exe_0.ico"
-IDI_ICON7               ICON                    "res\\msoeres.dll_18.ico"
-IDI_ICON8               ICON                    "res\\newgame.ico"
-IDI_ICON9               ICON                    "res\\World.ico"
-IDI_ICON10              ICON                    "res\\icon10.ico"
-IDI_ICON13              ICON                    "res\\icon13.ico"
-IDI_ICON14              ICON                    "res\\icon14.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Bitmap
-//
-
-IDB_CLASS_VIEW          BITMAP                  "res\\classview.bmp"
-IDB_CLASS_VIEW_24       BITMAP                  "res\\classview_hc.bmp"
-IDB_FILE_VIEW           BITMAP                  "res\\explorer.bmp"
-IDB_EXPLORER_24         BITMAP                  "res\\explorer_hc.bmp"
-IDB_FILE_VIEW_24        BITMAP                  "res\\fileview_hc.bmp"
-IDB_SORT_24             BITMAP                  "res\\sort_hc.bmp"
-IDB_SPLASH              BITMAP                  "res\\10000434340537.bmp"
-ID_MYBAR                BITMAP                  "res\\toolbar6.bmp"
-IDR_MAINFRAME           BITMAP                  "res\\toolbar1.bmp"
-IDR_MAINFRAME_256       BITMAP                  "res\\bmp00001.bmp"
-ID_5                    BITMAP                  "res\\bitmap12.bmp"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Toolbar
-//
-
-ID_MYBAR TOOLBAR  16, 16
-BEGIN
-    BUTTON      ID_CAgain
-    SEPARATOR
-    BUTTON      ID_RENEW
-    SEPARATOR
-    BUTTON      ID_QUIT
-    SEPARATOR
-    BUTTON      ID_SETUSER
-    SEPARATOR
-    BUTTON      ID_Modify
-    SEPARATOR
-    BUTTON      ID_SetG
-    SEPARATOR
-    BUTTON      ID_UserControl
-    SEPARATOR
-    BUTTON      ID_MainSet
-END
-
-IDR_MAINFRAME TOOLBAR  16, 15
-BEGIN
-    BUTTON      ID_BUTTON32880
-    BUTTON      ID_BUTTON32881
-    BUTTON      ID_BUTTON32885
-END
-
-IDR_MAINFRAME_256 TOOLBAR  16, 15
-BEGIN
-    BUTTON      ID_BUTTON32882
-    BUTTON      ID_BUTTON32883
-    BUTTON      ID_BUTTON32886
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Menu
-//
-
-IDR_MAINFRAME MENU 
-BEGIN
-    POPUP "系统"
-    BEGIN
-        MENUITEM "退出",                          ID_QUIT
-        MENUITEM "重新连接",                        ID_CAgain
-        MENUITEM "刷新",                          ID_RENEW
-    END
-    POPUP "管理"
-    BEGIN
-        MENUITEM "创建新用户",                       ID_SETUSER
-        MENUITEM "修改用户密码",                      ID_Modify
-        MENUITEM "创建区域",                        ID_SetG
-        MENUITEM "用户管理",                        ID_UserControl
-    END
-    POPUP "配置"
-    BEGIN
-        MENUITEM "配置主终端",                       ID_MainSet
-    END
-    POPUP "视图"
-    BEGIN
-        MENUITEM "显示快捷工具",                      ID_SHOW_TOOL
-        MENUITEM "隐藏快捷工具",                      ID_HIDE_TOOL
-        MENUITEM "显示系统机构",                      ID_SHOW_TREE
-        MENUITEM "隐藏系统机构",                      ID_HIDE_TREE
-    END
-    POPUP "测试"
-    BEGIN
-        MENUITEM "TEST",                        ID_32783
-        MENUITEM "1",                           ID_1
-        MENUITEM "ID_2",                        ID_2
-        MENUITEM "ID_3",                        ID_3
-        MENUITEM "ID_4",                        ID_4
-        MENUITEM "ID_5",                        ID_5
-        MENUITEM "ID_6",                        ID_6
-        MENUITEM "ID_7",                        ID_7
-        MENUITEM "ID_1",                        ID_8
-    END
-    POPUP "帮助(&H)"
-    BEGIN
-        MENUITEM "关于 MFC_SDI_Client(&A)...",    ID_APP_ABOUT
-    END
-END
-
-IDR_POPUP_EDIT MENU 
-BEGIN
-    POPUP "编辑"
-    BEGIN
-        MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
-        MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
-        MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
-    END
-END
-
-IDR_POPUP_SORT MENU 
-BEGIN
-    POPUP "排序"
-    BEGIN
-        MENUITEM "按字母排序",                       ID_32790
-    END
-END
-
-IDR_POPUP_GPRS MENU 
-BEGIN
-    POPUP "GPRS管理"
-    BEGIN
-        MENUITEM "对GPRS操作",                     ID_OPEN_G
-        MENUITEM "1",                           ID_32792
-        MENUITEM "2",                           ID_32793
-        MENUITEM "3",                           ID_32794
-        MENUITEM "4",                           65535
-    END
-END
-
-IDR_POPUP_T MENU 
-BEGIN
-    POPUP "T管理"
-    BEGIN
-        MENUITEM "对此终端操作",                      ID_T32796
-    END
-END
-
-IDR_POPUP_R MENU 
-BEGIN
-    POPUP "R管理"
-    BEGIN
-        MENUITEM "打开",                          ID_OPEN_R
-        MENUITEM "对此路操作",                       ID_R_WORK
-        MENUITEM "对此路双灯开",                      ID_R32848
-        MENUITEM "对此路双灯关",                      ID_R32849
-        MENUITEM "对此路主灯开",                      ID_R32850
-        MENUITEM "对此路主灯关",                      ID_R32851
-        MENUITEM "对此路辅灯开",                      ID_R32852
-        MENUITEM "对此路辅灯关",                      ID_R32853
-    END
-END
-
-IDR_POPMENU MENU 
-BEGIN
-    POPUP "单灯操作"
-    BEGIN
-        MENUITEM "删除全部",                        ID_32799
-    END
-END
-
-IDR_HIDEMENU MENU 
-BEGIN
-    POPUP "托盘Menu"
-    BEGIN
-        MENUITEM "打开主界面",                       ID_OPENEXE
-        MENUITEM "退出",                          ID_QUITEXE
-    END
-END
-
-IDR_List_Menu MENU 
-BEGIN
-    POPUP "LightListViwe"
-    BEGIN
-        MENUITEM "对单个状态更新",                     ID_Updata_Status
-        MENUITEM "对单个电流更新",                     ID_Updata_Current
-    END
-    POPUP "RoadMenu"
-    BEGIN
-        MENUITEM "对单路电流1更新",                    ID_RC_Updata
-        MENUITEM "对单路电流2更新",                    ID_RC2_Updata
-        MENUITEM "对单路电流3更新",                    ID_RC3_Updata
-        MENUITEM "对单个状态更新",                     ID_RS_Updata
-    END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Accelerator
-//
-
-IDR_MAINFRAME ACCELERATORS 
-BEGIN
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
-    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
-    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
-    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
-    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
-    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
-    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
-    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
-    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
-    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
-    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
-    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
-END
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -563,11 +325,11 @@ BEGIN
     PUSHBUTTON      "确定",IDC_GroupOK,245,25,38,14
 END
 
-IDD_VIEW_DLG DIALOGEX 0, 0, 506, 287
+IDD_VIEW_DLG DIALOGEX 0, 0, 506, 317
 STYLE DS_SETFONT | WS_CHILD
 FONT 14, "新宋体", 400, 0, 0x86
 BEGIN
-    CONTROL         "",IDC_VIEW_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTISELECT,0,0,505,287
+    CONTROL         "",IDC_VIEW_TAB,"SysTabControl32",TCS_BUTTONS | TCS_MULTISELECT,0,0,505,317
 END
 
 IDD_DIALOG3 DIALOGEX 0, 0, 532, 318
@@ -659,11 +421,11 @@ BEGIN
     EDITTEXT        IDC_EDIT3,720,117,68,14,ES_AUTOHSCROLL
 END
 
-IDD_WARNING_DLG DIALOGEX 0, 0, 411, 287
+IDD_WARNING_DLG DIALOGEX 0, 0, 411, 296
 STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
 FONT 14, "华文新魏", 400, 0, 0x86
 BEGIN
-    CONTROL         "",IDC_LIST_WARNING,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,18,410,268
+    CONTROL         "",IDC_LIST_WARNING,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,18,410,267
     PUSHBUTTON      "获取历史警告",IDC_BTN_GET,320,2,43,13
     LTEXT           "起始时间",IDC_STATIC,155,5,28,9
     CONTROL         "",IDC_BEGIN_DATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,185,3,45,12
@@ -671,6 +433,256 @@ BEGIN
     CONTROL         "",IDC_END_DATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,270,3,44,12
     COMBOBOX        IDC_COM_GID,120,3,29,40,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CTEXT           "区域ID",IDC_STATIC,86,5,30,9
+END
+
+IDD_ControlWarning DIALOGEX 0, 0, 363, 362
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "打印预览",IDC_BTN_PRINTVIEW,282,329,54,16
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MFC_SDI_Client.ico"
+IDR_MFC_SDI_ClientTYPE  ICON                    "res\\MFC_SDI_ClientDoc.ico"
+IDI_CK                  ICON                    "ico\\100.ico"
+IDI_INPUT               ICON                    "ico\\103.ico"
+IDI_LIGHT_ON            ICON                    "ico\\Lamp1.ico"
+IDI_LIGHT_OFF           ICON                    "ico\\Lamp2.ico"
+IDI_FILE_VIEW           ICON                    "res\\file_view.ico"
+IDI_FILE_VIEW_HC        ICON                    "res\\file_view_hc.ico"
+IDI_CLASS_VIEW          ICON                    "res\\class_view.ico"
+IDI_CLASS_VIEW_HC       ICON                    "res\\class_view_hc.ico"
+IDI_ICON4               ICON                    "res\\kfm_home.ico"
+IDI_ICON5               ICON                    "res\\dsuiext.dll_28.ico"
+IDI_ICON6               ICON                    "res\\explorer.exe_0.ico"
+IDI_ICON7               ICON                    "res\\msoeres.dll_18.ico"
+IDI_ICON8               ICON                    "res\\newgame.ico"
+IDI_ICON9               ICON                    "res\\World.ico"
+IDI_ICON10              ICON                    "res\\icon10.ico"
+IDI_ICON13              ICON                    "res\\icon13.ico"
+IDI_ICON14              ICON                    "res\\icon14.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_CLASS_VIEW          BITMAP                  "res\\classview.bmp"
+IDB_CLASS_VIEW_24       BITMAP                  "res\\classview_hc.bmp"
+IDB_FILE_VIEW           BITMAP                  "res\\explorer.bmp"
+IDB_EXPLORER_24         BITMAP                  "res\\explorer_hc.bmp"
+IDB_FILE_VIEW_24        BITMAP                  "res\\fileview_hc.bmp"
+IDB_SORT_24             BITMAP                  "res\\sort_hc.bmp"
+IDB_SPLASH              BITMAP                  "res\\10000434340537.bmp"
+ID_MYBAR                BITMAP                  "res\\toolbar6.bmp"
+IDR_MAINFRAME           BITMAP                  "res\\toolbar1.bmp"
+IDR_MAINFRAME_256       BITMAP                  "res\\bmp00001.bmp"
+ID_5                    BITMAP                  "res\\bitmap12.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+ID_MYBAR TOOLBAR  16, 16
+BEGIN
+    BUTTON      ID_CAgain
+    SEPARATOR
+    BUTTON      ID_RENEW
+    SEPARATOR
+    BUTTON      ID_QUIT
+    SEPARATOR
+    BUTTON      ID_SETUSER
+    SEPARATOR
+    BUTTON      ID_Modify
+    SEPARATOR
+    BUTTON      ID_SetG
+    SEPARATOR
+    BUTTON      ID_UserControl
+    SEPARATOR
+    BUTTON      ID_MainSet
+END
+
+IDR_MAINFRAME TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_BUTTON32880
+    BUTTON      ID_BUTTON32881
+    BUTTON      ID_BUTTON32885
+END
+
+IDR_MAINFRAME_256 TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_BUTTON32882
+    BUTTON      ID_BUTTON32883
+    BUTTON      ID_BUTTON32886
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "系统"
+    BEGIN
+        MENUITEM "退出",                          ID_QUIT
+        MENUITEM "重新连接",                        ID_CAgain
+        MENUITEM "刷新",                          ID_RENEW
+    END
+    POPUP "管理"
+    BEGIN
+        MENUITEM "创建新用户",                       ID_SETUSER
+        MENUITEM "修改用户密码",                      ID_Modify
+        MENUITEM "创建区域",                        ID_SetG
+        MENUITEM "用户管理",                        ID_UserControl
+    END
+    POPUP "配置"
+    BEGIN
+        MENUITEM "配置主终端",                       ID_MainSet
+    END
+    POPUP "视图"
+    BEGIN
+        MENUITEM "显示快捷工具",                      ID_SHOW_TOOL
+        MENUITEM "隐藏快捷工具",                      ID_HIDE_TOOL
+        MENUITEM "显示系统机构",                      ID_SHOW_TREE
+        MENUITEM "隐藏系统机构",                      ID_HIDE_TREE
+    END
+    POPUP "测试"
+    BEGIN
+        MENUITEM "TEST",                        ID_32783
+        MENUITEM "1",                           ID_1
+        MENUITEM "ID_2",                        ID_2
+        MENUITEM "ID_3",                        ID_3
+        MENUITEM "ID_4",                        ID_4
+        MENUITEM "ID_5",                        ID_5
+        MENUITEM "ID_6",                        ID_6
+        MENUITEM "ID_7",                        ID_7
+        MENUITEM "ID_1",                        ID_8
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "关于 MFC_SDI_Client(&A)...",    ID_APP_ABOUT
+    END
+END
+
+IDR_POPUP_EDIT MENU 
+BEGIN
+    POPUP "编辑"
+    BEGIN
+        MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
+        MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
+        MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
+    END
+END
+
+IDR_POPUP_SORT MENU 
+BEGIN
+    POPUP "排序"
+    BEGIN
+        MENUITEM "按字母排序",                       ID_32790
+    END
+END
+
+IDR_POPUP_GPRS MENU 
+BEGIN
+    POPUP "GPRS管理"
+    BEGIN
+        MENUITEM "对GPRS操作",                     ID_OPEN_G
+        MENUITEM "1",                           ID_32792
+        MENUITEM "2",                           ID_32793
+        MENUITEM "3",                           ID_32794
+        MENUITEM "4",                           65535
+    END
+END
+
+IDR_POPUP_T MENU 
+BEGIN
+    POPUP "T管理"
+    BEGIN
+        MENUITEM "对此终端操作",                      ID_T32796
+    END
+END
+
+IDR_POPUP_R MENU 
+BEGIN
+    POPUP "R管理"
+    BEGIN
+        MENUITEM "打开",                          ID_OPEN_R
+        MENUITEM "对此路操作",                       ID_R_WORK
+        MENUITEM "对此路双灯开",                      ID_R32848
+        MENUITEM "对此路双灯关",                      ID_R32849
+        MENUITEM "对此路主灯开",                      ID_R32850
+        MENUITEM "对此路主灯关",                      ID_R32851
+        MENUITEM "对此路辅灯开",                      ID_R32852
+        MENUITEM "对此路辅灯关",                      ID_R32853
+    END
+END
+
+IDR_POPMENU MENU 
+BEGIN
+    POPUP "单灯操作"
+    BEGIN
+        MENUITEM "删除全部",                        ID_32799
+    END
+END
+
+IDR_HIDEMENU MENU 
+BEGIN
+    POPUP "托盘Menu"
+    BEGIN
+        MENUITEM "打开主界面",                       ID_OPENEXE
+        MENUITEM "退出",                          ID_QUITEXE
+    END
+END
+
+IDR_List_Menu MENU 
+BEGIN
+    POPUP "LightListViwe"
+    BEGIN
+        MENUITEM "对单个状态更新",                     ID_Updata_Status
+        MENUITEM "对单个电流更新",                     ID_Updata_Current
+    END
+    POPUP "RoadMenu"
+    BEGIN
+        MENUITEM "对单路电流1更新",                    ID_RC_Updata
+        MENUITEM "对单路电流2更新",                    ID_RC2_Updata
+        MENUITEM "对单路电流3更新",                    ID_RC3_Updata
+        MENUITEM "对单个状态更新",                     ID_RS_Updata
+    END
 END
 
 
@@ -811,6 +823,7 @@ BEGIN
     IDD_VIEW_DLG, DIALOG
     BEGIN
         RIGHTMARGIN, 505
+        BOTTOMMARGIN, 287
     END
 
     IDD_DIALOG3, DIALOG
@@ -856,6 +869,15 @@ BEGIN
     IDD_WARNING_DLG, DIALOG
     BEGIN
         LEFTMARGIN, 1
+        BOTTOMMARGIN, 287
+    END
+
+    IDD_ControlWarning, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 356
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 355
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -971,17 +993,17 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_RENEW                "\n刷新"
+    ID_RENEW                "刷新\n刷新"
     ID_BUTTON32868          "修改用户密码"
 END
 
 STRINGTABLE 
 BEGIN
-    ID_SETUSER              "\n添加新用户"
-    ID_SetG                 "\n创建一个新区域"
-    ID_Modify               "\n修改用户密码"
-    ID_MainSet              "\n设备控制主终端"
-    ID_CAgain               "\n重新连接"
+    ID_SETUSER              "创建新用户\n添加新用户"
+    ID_SetG                 "创建区域\n创建一个新区域"
+    ID_Modify               "修改用户密码\n修改用户密码"
+    ID_MainSet              "配置主终端\n设备控制主终端"
+    ID_CAgain               "重新连接\n重新连接"
 END
 
 STRINGTABLE 
@@ -991,8 +1013,8 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_QUIT                 "\n是否退出"
-    ID_UserControl          "\n用户管理"
+    ID_QUIT                 "退出\n是否退出"
+    ID_UserControl          "用户管理\n用户管理"
 END
 
 STRINGTABLE 
