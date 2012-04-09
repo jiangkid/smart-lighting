@@ -130,26 +130,25 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	  
 	return 0;
 }
-class CViewClientToolBar : public CMFCToolBar
-{
-	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
-	{
-		CMFCToolBar::OnUpdateCmdUI((CFrameWnd*) GetOwner(), bDisableIfNoHndler);
-	}
-
-	virtual BOOL AllowShowOnList() const { return FALSE; }
-
-	virtual BOOL OnUserToolTip(
-		CMFCToolBarButton* pButton,
-		CString& strTTText 
-		) const
-	{
-		strTTText=_T("dsadsa");   //只是测试，换成自己的就可以了，pButton是工具条上面的按钮，可以取得按钮的ID
-
-		return TRUE;
-	}
-};
-
+// class CViewClientToolBar : public CMFCToolBar
+// {
+// 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
+// 	{
+// 		CMFCToolBar::OnUpdateCmdUI((CFrameWnd*) GetOwner(), bDisableIfNoHndler);
+// 	}
+// 
+// 	virtual BOOL AllowShowOnList() const { return FALSE; }
+// 
+// 	virtual BOOL OnUserToolTip(
+// 		CMFCToolBarButton* pButton,
+// 		CString& strTTText 
+// 		) const
+// 	{
+// 		strTTText=_T("dsadsa");   //只是测试，换成自己的就可以了，pButton是工具条上面的按钮，可以取得按钮的ID
+// 		return TRUE;
+// 	}
+// };
+// 
 
   
 

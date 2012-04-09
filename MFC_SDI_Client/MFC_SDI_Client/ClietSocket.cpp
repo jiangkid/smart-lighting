@@ -1132,9 +1132,9 @@ void CheckWarningInfo(unsigned char* buff, int nLength)
 		break;
 	case 0x31:
 		{
-			if(buff[2]==0)
+			if(buff[2]==0x30)
 				AfxMessageBox(_T("本次获取失败"));
-			else if (buff[2]!=0)
+			else if (buff[2]!=0x30)
 			{
 				theApp.m_pWarningInfoView->warningpackCount++;
 				int i(0),j(0);
