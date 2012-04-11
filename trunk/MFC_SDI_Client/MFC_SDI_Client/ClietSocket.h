@@ -8,6 +8,12 @@ typedef struct _HEADER
 	u_short dataLen;
 }HDR,*LPHDR;
 
+typedef struct _HEADER2
+{
+	char dataCheck[1];
+	char nRet[1];
+}HDR2,*LPHDR2;
+
 ///////用户信息/////
 typedef struct _UserInfo
 {
@@ -129,6 +135,19 @@ typedef struct _WarningInfo//警告信息
 	U8 Value[4];
 }WarningInfo,*LPWarningInfo;
 
+typedef struct  _Decision//决策
+{
+	char name[20];			    //节假日或者特殊策略的名字
+	char strategyType[2];		//策略类型
+	char day[10];			        //星期几或者是特殊策略的某一日2012-04-08
+	char BeginDate[10];		    //节假日的开始日期  2012-04-08
+	char EndDate[10];		        //节假日的结束日期
+	char openTime[5];		        //12:00
+	char closeTime[5];
+	char Half_openTime[5];
+	char Half_closeTime[5];
+}Decision, *LPDecision;
+
 typedef struct _ConTrlInfo//back的信息
 {
 	U8 m_First[4];
@@ -249,3 +268,15 @@ void CheckWarningInfo(unsigned char* buff, int nLength);
 //函数功能：waringpack解包
 //***************************************************************/
 void TranslateWarningInfo(U8* buff);
+//***************************************************************/
+//函数功能：发送策略函数
+//***************************************************************/
+void SendDecision(LPHDR2 hdr,LPDecision contrlInfo);
+//***************************************************************/
+//函数功能：发送电流查询
+//***************************************************************/
+void SendCurrent();
+//***************************************************************/
+//函数功能：判断是否存成功策略
+//***************************************************************/
+void CheckDecisionInfo(U8* buff, int nLength);

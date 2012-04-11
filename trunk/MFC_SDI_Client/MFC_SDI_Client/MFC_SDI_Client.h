@@ -22,6 +22,7 @@
 #include "MainSetDlg.h"
 #include "GPRSLocaInfomation.h"
 #include "WarningDlg.h"
+#include "GprsInfoCtrlDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -63,7 +64,8 @@ public:
 	CRoudInfoView*		m_pRoadView;
 	CMainSetDlg*        m_pMainSetDlg;
 	CGPRSLocaInfomation*m_pLocalInfoDlg;
-	CWarningDlg*         m_pWarningInfoView;
+	CWarningDlg*        m_pWarningInfoView;
+	CGprsInfoCtrlDlg*   m_pGCInfoDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();
