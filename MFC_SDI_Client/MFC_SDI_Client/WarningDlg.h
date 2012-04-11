@@ -1,5 +1,5 @@
 #pragma once
-
+//#include "ControlWaringDlg.h"
 // CWarningDlg dialog
 
 class CWarningDlg : public CDialog
@@ -31,4 +31,5 @@ public:
 	afx_msg void OnNMDblclkWarningDlg(NMHDR *pNMHDR, LRESULT *pResult);
 	CComboBox m_TheGID;
 	int warningpackCount;
+	//CControlWaringDlg* m_pCtrlWarn;
 };
