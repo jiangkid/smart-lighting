@@ -128,11 +128,11 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
  				m_InitTrue=true;
  		} 
 /*测试代码*/
-    // 	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-    // 	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-    // 	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-  		//if (m_WaitDlg.DoModal()==IDCANCEL)
-  		//	m_return=FALSE;
+//      	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+//      	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+//      	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+//   		if (m_WaitDlg.DoModal()==IDCANCEL)
+//   			m_return=FALSE;
 	// 标准初始化
 	// 如果未使用这些功能并希望减小
 	// 最终可执行文件的大小，则应移除下列

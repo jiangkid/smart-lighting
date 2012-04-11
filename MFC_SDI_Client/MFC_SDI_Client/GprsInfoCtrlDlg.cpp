@@ -32,6 +32,7 @@ END_MESSAGE_MAP()
 BOOL CGprsInfoCtrlDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+	theApp.m_pGCInfoDlg=this;
 	TCITEM tcItem;
 	tcItem.mask = TCIF_TEXT;
 	tcItem.pszText = _T("基本信息");
@@ -102,22 +103,7 @@ void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
 				pGetInfo->m_ActiveType[0]=0xBD;
 				pGetInfo->m_EndBuffer[1]=0xCC;
 				SendContrlInfo(&hdr,pGetInfo);
-				Sleep(500);
 				free(pGetInfo);
-				ConTrlInfo* pGetInfo1=(ConTrlInfo*)malloc(sizeof(ConTrlInfo));
-				ZeroMemory(pGetInfo1,sizeof(ConTrlInfo));
-				pGetInfo1->m_First[0]=0x2F;
-				pGetInfo1->m_First[1]=0x43;
-				pGetInfo1->m_First[2]=0x2F;
-				pGetInfo1->m_First[3]=0x06;
-				memcpy(pGetInfo1->m_ID,theApp.TID+1,4);
-				pGetInfo1->m_OrderType[0]=0x1A;
-				pGetInfo1->m_OrderObject[0]=0x33;
-				pGetInfo1->m_ActiveType[0]=0xBD;
-				pGetInfo1->m_CheckData[0]=0xA0;
-				pGetInfo1->m_EndBuffer[1]=0xCC;
-				SendContrlInfo(&hdr,pGetInfo1);
-				free(pGetInfo1);
 			}
 		}
 		break;
@@ -127,4 +113,28 @@ void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
 		break;
 	}
 	*pResult = 0;
+}
+
+void CGprsInfoCtrlDlg::SendRCurrent()
+{
+	TerminalInfo* pGetTerminanlInfo=theApp.m_pLocalInfoDlg->GetSelTerminalInfo();
+	if (pGetTerminanlInfo==NULL)
+	{
+		AfxMessageBox(_T("请选择终端！"));
+		return;
+	}
+	ConTrlInfo* pGetInfo1=(ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetInfo1,sizeof(ConTrlInfo));
+	pGetInfo1->m_First[0]=0x2F;
+	pGetInfo1->m_First[1]=0x43;
+	pGetInfo1->m_First[2]=0x2F;
+	pGetInfo1->m_First[3]=0x06;
+	memcpy(pGetInfo1->m_ID,pGetTerminanlInfo->TID,4);
+	pGetInfo1->m_OrderType[0]=0x1A;
+	pGetInfo1->m_OrderObject[0]=0x33;
+	pGetInfo1->m_ActiveType[0]=0xBD;
+	pGetInfo1->m_CheckData[0]=0xA0;
+	pGetInfo1->m_EndBuffer[1]=0xCC;
+	SendContrlInfo(&hdr,pGetInfo1);
+	free(pGetInfo1);
 }
