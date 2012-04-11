@@ -69,7 +69,7 @@
 #define ASSISTC _T("备电故障")
 #define ROADHC _T("路电流超了")
 #define GPRSERROR _T("GPRS意外断开")
-
+#define DLONG sizeof(Decision)
 
 #ifdef _UNICODE
 #if defined _M_IX86

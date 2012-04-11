@@ -9,6 +9,11 @@
 #include "MySplitter.h"
 #include "TrueColorToolBar.h"
 #include "UserCtrDlg.h"
+#include "DecisionDlg.h"
+#include "NewDayDecisionDlg.h"
+#include "NewJDecisionDlg.h"
+#include "NewSpcialDecisionDlg.h"
+#include "NewWeekDecisionDlg.h"
 #define MYWM_NOTIFYICON WM_USER+100
 class CCoolBar;
 class CMainFrame  : public CFrameWndEx
@@ -52,7 +57,7 @@ protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnViewCustomize();
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
-	afx_msg BOOL   OnToolTipText(UINT,   NMHDR*   pNMHDR,   LRESULT*   pResult);
+	//afx_msg BOOL   OnToolTipText(UINT,   NMHDR*   pNMHDR,   LRESULT*   pResult);
 	DECLARE_MESSAGE_MAP()
 
 public:
@@ -96,6 +101,12 @@ protected:
 	afx_msg void OnShowTree();
 	afx_msg void OnHideTree();
 
+public:
+	afx_msg void OnCoommand();
+	afx_msg void OnNewday();
+	afx_msg void OnNewj();
+	afx_msg void OnNewweek();
+	afx_msg void OnNewspcial();
 };
 
 

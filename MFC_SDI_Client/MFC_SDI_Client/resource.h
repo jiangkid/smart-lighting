@@ -64,6 +64,7 @@
 #define IDD_DIALOG1                     316
 #define IDD_WaitDlg                     316
 #define IDD_TEST                        317
+#define IDR_HTML_NEWSPACIALDECISIONDLG  318
 #define IDI_ICON1                       319
 #define IDI_CK                          319
 #define IDI_ICON2                       320
@@ -108,18 +109,28 @@
 #define IDD_WARNING_DLG                 435
 #define IDI_ICON16                      436
 #define IDI_ICON17                      437
+#define IDD_ControlWarning              437
 #define IDI_ICON18                      438
+#define IDD_DECISION                    438
 #define IDI_ICON19                      439
+#define IDD_Day_S                       439
 #define IDR_TOOLBAR6                    440
 #define ID_MYBAR                        440
 #define IDI_ICON20                      440
+#define IDD_Week_S                      440
 #define IDI_ICON21                      441
+#define IDD_Jie_S                       441
 #define IDI_ICON22                      442
+#define IDD_Spcial_S                    442
 #define IDI_ICON23                      443
+#define IDD_New_DayD                    443
 #define IDB_BITMAP11                    444
 #define IDI_ICON24                      444
+#define IDD_New_WeekD                   444
 #define IDI_ICON25                      445
+#define IDD_New_JieD                    445
 #define IDI_ICON26                      446
+#define IDD_New_SpcialD                 446
 #define IDI_ICON27                      447
 #define IDI_ICON28                      448
 #define IDI_ICON29                      449
@@ -182,6 +193,7 @@
 #define IDC_BTN_TSET                    1031
 #define IDC_Updata_ALL                  1031
 #define IDC_BTN_Open                    1031
+#define IDC_BTN_QX                      1031
 #define IDC_RADIOR                      1032
 #define IDC_BUTTON10                    1032
 #define IDC_BTN_RSET                    1033
@@ -233,6 +245,7 @@
 #define IDC_TAB1                        1075
 #define IDC_LIST1                       1075
 #define IDC_LIST_TERMINAL               1075
+#define IDC_LIST_DATA                   1075
 #define IDC_BTN_GMODIFY                 1076
 #define IDC_EXPLORER1                   1083
 #define IDC_RADIO1                      1084
@@ -241,6 +254,61 @@
 #define IDC_END_DATA                    1087
 #define IDC_BTN_GET                     1088
 #define IDC_BUTTON9                     1089
+#define IDC_BTN_PRINTVIEW               1090
+#define IDC_EDIT_Type                   1091
+#define IDC_BEGINOPEN                   1092
+#define IDC_ENDOPEN                     1093
+#define IDC_BEGINHALF                   1094
+#define IDC_ENDHALF                     1095
+#define IDC_BTN_SURE                    1096
+#define IDC_BTN_CANCEL                  1097
+#define IDC_COMBO_TYPE                  1098
+#define IDC_WeekName                    1099
+#define IDC_WEEK1BA                     1100
+#define IDC_WEEK1EA                     1101
+#define IDC_WEEK1BH                     1102
+#define IDC_WEEK1EH                     1103
+#define IDC_WEEK2BA                     1104
+#define IDC_WEEK2EA                     1105
+#define IDC_WEEK2BH                     1106
+#define IDC_WEEK2EH                     1107
+#define IDC_WEEK3BA                     1108
+#define IDC_WEEK3EA                     1109
+#define IDC_WEEK3BH                     1110
+#define IDC_WEEK3EH                     1111
+#define IDC_WEEK4BA                     1112
+#define IDC_WEEK4EA                     1113
+#define IDC_WEEK4BH                     1114
+#define IDC_WEEK4EH                     1115
+#define IDC_WEEK5BA                     1116
+#define IDC_WEEK5EA                     1117
+#define IDC_WEEK5BH                     1118
+#define IDC_WEEK5EH                     1119
+#define IDC_WEEK6BA                     1120
+#define IDC_WEEK6EA                     1121
+#define IDC_WEEK6BH                     1122
+#define IDC_WEEK6EH                     1123
+#define IDC_WEEK7BA                     1124
+#define IDC_WEEK7EA                     1125
+#define IDC_WEEK7BH                     1126
+#define IDC_WEEK7EH                     1127
+#define IDC_BTN_CANCLE                  1128
+#define IDC_JName                       1129
+#define IDC_DATA                        1130
+#define IDC_BTN_D                       1131
+#define IDC_DATABA                      1132
+#define IDC_DATAEA                      1133
+#define IDC_DATABH                      1134
+#define IDC_DATAEH                      1135
+#define IDC_BTNSS                       1136
+#define IDC_BTNC                        1137
+#define IDC_SDATA                       1138
+#define IDC_BATIME                      1139
+#define IDC_EATIME                      1140
+#define IDC_BHTIME                      1141
+#define IDC_DATETIMEPICKER5             1142
+#define IDC_EHTIME                      1142
+#define IDC_BTN_BC                      1143
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -338,18 +406,26 @@
 #define ID_BUTTON32884                  32883
 #define ID_BUTTON32885                  32885
 #define ID_BUTTON32886                  32886
+#define ID_32887                        32887
+#define ID_NEWDAY                       32888
 #define ID_BUTTON32889                  32889
+#define ID_32889                        32889
+#define ID_32890                        32890
+#define ID_32891                        32891
+#define ID_JNEW                         32892
+#define ID_NEWWEEK                      32893
+#define ID_NEWJ                         32894
+#define ID_NEWSPCIAL                    32895
+#define ID_32896                        32896
+#define ID_Coommand                     32900
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        437
-#define _APS_NEXT_COMMAND_VALUE         32887
-#define _APS_NEXT_CONTROL_VALUE         1090
-#define _APS_NEXT_SYMED_VALUE           310
+#define _APS_NEXT_RESOURCE_VALUE        447
+#define _APS_NEXT_COMMAND_VALUE         32897
+#define _APS_NEXT_CONTROL_VALUE         1144
+#define _APS_NEXT_SYMED_VALUE           319
 #endif
 #endif
-
-
-

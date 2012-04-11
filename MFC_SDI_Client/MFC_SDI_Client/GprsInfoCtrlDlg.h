@@ -25,4 +25,5 @@ public:
 	CGPRSLocaInfomation* m_pGLocalVIew;
 	CRoudInfoView*       m_RoadView;
 	afx_msg void OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult);
+	void SendRCurrent();
 };
