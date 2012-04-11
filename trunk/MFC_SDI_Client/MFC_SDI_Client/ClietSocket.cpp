@@ -137,11 +137,19 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 							UpdataRoadStatusInfo(szBuf,iRet);
 							break;
 						}
+						if (szBuf[1]=='S'&&szBuf[2]==0x31)
+						{
+							SendCurrent();
+							break;
+						}
 					case 'G':
 						GPRSLocalInfo(szBuf,iRet);
 						break;
 					case 'X':	//警告
 						CheckWarningInfo((U8*)szBuf,iRet);
+						break;
+					case 'F':
+						CheckDecisionInfo((U8*)szBuf,iRet);
 						break;
 				default:
 						break;
@@ -578,6 +586,20 @@ void SendContrlInfo(LPHDR hdr,LPConTrlInfo contrlInfo)
 	memcpy(m_buf, (char*)hdr, HEADLEN);	
 	memcpy(m_buf + HEADLEN, (char*)contrlInfo, sizeof(ConTrlInfo));
 	int nRet = send(theApp.m_ConnectSock, m_buf, HEADLEN + hdr->dataLen, 0);
+	if (SOCKET_ERROR == nRet )
+	{
+		AfxMessageBox(_T("SendUserInfo数据失败。"));
+	}
+}
+void SendDecision(LPHDR2 hdr,LPDecision contrlInfo)
+{
+	hdr->dataCheck[0]='F';
+	hdr->nRet[0]=0x01;
+	char m_buf[MAX_BUF_SIZE];
+	ZeroMemory(m_buf,MAX_BUF_SIZE);
+	memcpy(m_buf, (char*)hdr, 2);	
+	memcpy(m_buf + 2, (char*)contrlInfo, sizeof(Decision));
+	int nRet = send(theApp.m_ConnectSock, m_buf, sizeof(Decision)+2, 0);
 	if (SOCKET_ERROR == nRet )
 	{
 		AfxMessageBox(_T("SendUserInfo数据失败。"));
@@ -1179,4 +1201,24 @@ void TranslateWarningInfo(U8* buff)
 		memcpy(&theApp.m_WarningInfo[i],buff+1+i*WARNLENGTH,WARNLENGTH);
 	}
 	theApp.m_pWarningInfoView->AllWarningToShow(nCount);
+}
+
+void SendCurrent()
+{
+	theApp.m_pGCInfoDlg->SendRCurrent();
+}
+
+void CheckDecisionInfo(U8* buff, int nLength)
+{
+	switch (buff[1])
+	{
+	case 0x30:
+		AfxMessageBox(_T("策略保存成功"));
+		break;
+	case 0x31:
+		AfxMessageBox(_T("策略保存失败"));
+		break;
+	default:
+		break;
+	}
 }

@@ -39,6 +39,11 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_HIDE_TOOL, &CMainFrame::OnHideTool)
 	ON_COMMAND(ID_SHOW_TREE, &CMainFrame::OnShowTree)
 	ON_COMMAND(ID_HIDE_TREE, &CMainFrame::OnHideTree)
+	ON_COMMAND(ID_Coommand, &CMainFrame::OnCoommand)
+	ON_COMMAND(ID_NEWDAY, &CMainFrame::OnNewday)
+	ON_COMMAND(ID_NEWJ, &CMainFrame::OnNewj)
+	ON_COMMAND(ID_NEWWEEK, &CMainFrame::OnNewweek)
+	ON_COMMAND(ID_NEWSPCIAL, &CMainFrame::OnNewspcial)
 END_MESSAGE_MAP()
  
 
@@ -496,4 +501,39 @@ void CMainFrame::OnHideTree()
 {
 	// TODO: Add your command handler code here
 	m_wndFileView.ShowPane(FALSE,FALSE,TRUE);
+}
+
+void CMainFrame::OnCoommand()
+{
+	// TODO: Add your command handler code here
+	CDecisionDlg dlg;
+	dlg.DoModal();
+}
+
+void CMainFrame::OnNewday()
+{
+	// TODO: Add your command handler code here
+	CNewDayDecisionDlg dlg;
+	dlg.DoModal();
+}
+
+void CMainFrame::OnNewj()
+{
+	// TODO: Add your command handler code here
+	CNewJDecisionDlg dlg;
+	dlg.DoModal();
+}
+
+void CMainFrame::OnNewweek()
+{
+	// TODO: Add your command handler code here
+	CNewWeekDecisionDlg dlg;
+	dlg.DoModal();
+}
+
+void CMainFrame::OnNewspcial()
+{
+	// TODO: Add your command handler code here
+	CNewSpcialDecisionDlg dlg;
+	dlg.DoModal();
 }
