@@ -1,7 +1,7 @@
 // Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
-#include "l.chs\\afxprint.rc" // printing/print preview resources
+
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -29,6 +29,7 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 //
 // TEXTINCLUDE
 //
+
 1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
@@ -64,11 +65,6 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Cursor
-//
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -443,6 +439,161 @@ BEGIN
     PUSHBUTTON      "打印预览",IDC_BTN_PRINTVIEW,282,329,54,16
 END
 
+IDD_DECISION DIALOGEX 0, 0, 363, 218
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "决策管理"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,1,1,360,216
+END
+
+IDD_Day_S DIALOGEX 0, 0, 328, 187
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "修改",IDC_BUTTON1,165,75,28,11
+END
+
+IDD_Week_S DIALOGEX 0, 0, 316, 180
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "星期修改",IDC_BUTTON1,205,117,32,12
+END
+
+IDD_Jie_S DIALOGEX 0, 0, 316, 180
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+END
+
+IDD_Spcial_S DIALOGEX 0, 0, 316, 180
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "特殊",IDC_BUTTON1,268,131,27,16
+END
+
+IDD_New_DayD DIALOGEX 0, 0, 105, 139
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "日策略新建"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "确定",IDC_BTN_SURE,11,118,32,13
+    CTEXT           "全开起始时间",IDC_STATIC,3,53,46,10
+    CTEXT           "策略名称",IDC_STATIC,13,34,35,9
+    LTEXT           "策略类型",IDC_STATIC,16,17,29,10
+    EDITTEXT        IDC_EDIT_Type,49,16,46,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT2,49,33,46,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_BEGINOPEN,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,53,52,32,13
+    CONTROL         "",IDC_ENDOPEN,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,53,67,32,13
+    CTEXT           "全开终止时间",IDC_STATIC,3,69,46,10
+    CTEXT           "半开起始时间",IDC_STATIC,3,85,46,10
+    CTEXT           "半开终止时间",IDC_STATIC,3,99,46,10
+    CONTROL         "",IDC_BEGINHALF,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,53,83,32,13
+    CONTROL         "",IDC_ENDHALF,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,53,99,32,13
+    PUSHBUTTON      "取消",IDC_BTN_CANCEL,50,118,44,13
+END
+
+IDD_New_WeekD DIALOGEX 0, 0, 249, 176
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "周决策新建"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CTEXT           "类型",IDC_STATIC,26,6,29,9
+    COMBOBOX        IDC_COMBO_TYPE,60,4,39,44,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "名称",IDC_STATIC,108,6,34,9
+    EDITTEXT        IDC_WeekName,151,5,53,12,ES_AUTOHSCROLL
+    CTEXT           "星期一",IDC_STATIC,14,41,34,9
+    CTEXT           "全开起始时间",IDC_STATIC,46,26,43,10
+    CTEXT           "全开终止时间",IDC_STATIC,93,26,43,10
+    CTEXT           "全开终止时间",IDC_STATIC,141,26,43,10
+    CTEXT           "半开终止时间",IDC_STATIC,190,26,43,10
+    CONTROL         "",IDC_WEEK1BA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,52,41,29,12
+    CONTROL         "",IDC_WEEK1EA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,99,41,29,12
+    CONTROL         "",IDC_WEEK1BH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,147,41,29,12
+    CONTROL         "",IDC_WEEK1EH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,197,41,29,12
+    CTEXT           "星期二",IDC_STATIC,14,59,34,9
+    CONTROL         "",IDC_WEEK2BA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,52,59,29,12
+    CONTROL         "",IDC_WEEK2EA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,99,59,29,12
+    CONTROL         "",IDC_WEEK2BH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,147,59,29,12
+    CONTROL         "",IDC_WEEK2EH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,197,59,29,12
+    CTEXT           "星期三",IDC_STATIC,14,76,34,9
+    CONTROL         "",IDC_WEEK3BA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,52,76,29,12
+    CONTROL         "",IDC_WEEK3EA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,99,76,29,12
+    CONTROL         "",IDC_WEEK3BH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,147,76,29,12
+    CONTROL         "",IDC_WEEK3EH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,197,76,29,12
+    CTEXT           "星期四",IDC_STATIC,14,92,34,9
+    CONTROL         "",IDC_WEEK4BA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,52,92,29,12
+    CONTROL         "",IDC_WEEK4EA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,99,92,29,12
+    CONTROL         "",IDC_WEEK4BH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,147,92,29,12
+    CONTROL         "",IDC_WEEK4EH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,197,92,29,12
+    CTEXT           "星期五",IDC_STATIC,14,108,34,9
+    CONTROL         "",IDC_WEEK5BA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,52,108,29,12
+    CONTROL         "",IDC_WEEK5EA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,99,108,29,12
+    CONTROL         "",IDC_WEEK5BH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,147,108,29,12
+    CONTROL         "",IDC_WEEK5EH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,197,108,29,12
+    CTEXT           "星期六",IDC_STATIC,14,124,34,9
+    CONTROL         "",IDC_WEEK6BA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,52,124,29,12
+    CONTROL         "",IDC_WEEK6EA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,99,124,29,12
+    CONTROL         "",IDC_WEEK6BH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,147,124,29,12
+    CONTROL         "",IDC_WEEK6EH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,197,124,29,12
+    CTEXT           "星期日",IDC_STATIC,14,141,34,9
+    CONTROL         "",IDC_WEEK7BA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,52,141,29,12
+    CONTROL         "",IDC_WEEK7EA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,99,141,29,12
+    CONTROL         "",IDC_WEEK7BH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,147,141,29,12
+    CONTROL         "",IDC_WEEK7EH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,197,141,29,12
+    PUSHBUTTON      "确定保存",IDC_BTN_SURE,86,159,36,11
+    PUSHBUTTON      "取消",IDC_BTN_CANCLE,146,160,36,11
+END
+
+IDD_New_JieD DIALOGEX 0, 0, 292, 151
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "节假日决策新建"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CTEXT           "策略类型",IDC_STATIC,5,5,29,10
+    EDITTEXT        IDC_Type,38,4,39,12,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "策略名称",IDC_STATIC,85,6,31,11
+    EDITTEXT        IDC_JName,121,5,48,12,ES_AUTOHSCROLL
+    CTEXT           "请选择节日日期",IDC_STATIC,9,24,57,11
+    CONTROL         "",IDC_DATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,85,23,44,12
+    GROUPBOX        "已选日期",IDC_STATIC,174,6,114,137
+    PUSHBUTTON      "选择",IDC_BTN_D,137,24,30,12
+    CONTROL         "",IDC_LIST_DATA,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,178,19,107,120
+    CTEXT           "全开起始时间",IDC_STATIC,14,43,66,12
+    CTEXT           "全开终止时间",IDC_STATIC,14,59,66,12
+    CTEXT           "半开起始时间",IDC_STATIC,14,74,66,12
+    CTEXT           "半开终止时间",IDC_STATIC,14,89,66,12
+    CONTROL         "",IDC_DATABA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,85,42,33,12
+    CONTROL         "",IDC_DATAEA,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,85,58,33,12
+    CONTROL         "",IDC_DATABH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,85,73,33,12
+    CONTROL         "",IDC_DATAEH,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,85,88,33,12
+    PUSHBUTTON      "确定保存",IDC_BTNSS,86,122,32,12
+    PUSHBUTTON      "取消",IDC_BTNC,132,122,34,12
+END
+
+IDD_New_SpcialD DIALOGEX 0, 0, 100, 136
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "特殊决策新建"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CONTROL         "",IDC_SDATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,48,27,47,13
+    CTEXT           "决策类型",IDC_STATIC,12,8,28,11
+    EDITTEXT        IDC_Type,48,6,47,13,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "特殊日期",IDC_STATIC,12,27,29,10
+    CTEXT           "全开起始时间",IDC_STATIC,3,45,43,10
+    CONTROL         "",IDC_BATIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,43,47,13
+    CONTROL         "",IDC_EATIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,61,47,13
+    CONTROL         "",IDC_BHTIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,78,47,13
+    CTEXT           "全开终止时间",IDC_STATIC,3,61,43,10
+    CTEXT           "半开起始时间",IDC_STATIC,3,79,43,10
+    CTEXT           "半开终止时间",IDC_STATIC,3,97,43,10
+    CONTROL         "",IDC_EHTIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,95,47,13
+    PUSHBUTTON      "确定保存",IDC_BTN_BC,6,117,37,12
+    PUSHBUTTON      "取消",IDC_BTN_QX,53,117,37,12
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -593,6 +744,14 @@ BEGIN
         MENUITEM "ID_7",                        ID_7
         MENUITEM "ID_1",                        ID_8
     END
+    POPUP "决策"
+    BEGIN
+        MENUITEM "决策设置",                        ID_Coommand
+        MENUITEM "日决策新建",                       ID_NEWDAY
+        MENUITEM "周决策新建",                       ID_NEWWEEK
+        MENUITEM "节假日决策新建",                     ID_NEWJ
+        MENUITEM "特殊决策新建",                      ID_NEWSPCIAL
+    END
     POPUP "帮助(&H)"
     BEGIN
         MENUITEM "关于 MFC_SDI_Client(&A)...",    ID_APP_ABOUT
@@ -657,6 +816,10 @@ BEGIN
     POPUP "单灯操作"
     BEGIN
         MENUITEM "删除全部",                        ID_32799
+    END
+    POPUP "日期操作"
+    BEGIN
+        MENUITEM "删除",                          ID_32896
     END
 END
 
@@ -878,6 +1041,60 @@ BEGIN
         RIGHTMARGIN, 356
         TOPMARGIN, 7
         BOTTOMMARGIN, 355
+    END
+
+    IDD_DECISION, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 361
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 217
+    END
+
+    IDD_Day_S, DIALOG
+    BEGIN
+        RIGHTMARGIN, 327
+        BOTTOMMARGIN, 185
+    END
+
+    IDD_Week_S, DIALOG
+    BEGIN
+        RIGHTMARGIN, 315
+    END
+
+    IDD_Jie_S, DIALOG
+    BEGIN
+        RIGHTMARGIN, 315
+        BOTTOMMARGIN, 178
+    END
+
+    IDD_Spcial_S, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 314
+        BOTTOMMARGIN, 178
+    END
+
+    IDD_New_DayD, DIALOG
+    BEGIN
+        RIGHTMARGIN, 103
+        BOTTOMMARGIN, 138
+    END
+
+    IDD_New_WeekD, DIALOG
+    BEGIN
+        RIGHTMARGIN, 247
+    END
+
+    IDD_New_JieD, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 150
+    END
+
+    IDD_New_SpcialD, DIALOG
+    BEGIN
+        RIGHTMARGIN, 97
+        BOTTOMMARGIN, 134
     END
 END
 #endif    // APSTUDIO_INVOKED
