@@ -57,7 +57,11 @@ protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnViewCustomize();
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
+	afx_msg void OnUpdatePane(CCmdUI *pCmdUI);
+ 
+ 
 	//afx_msg BOOL   OnToolTipText(UINT,   NMHDR*   pNMHDR,   LRESULT*   pResult);
+ 
 	DECLARE_MESSAGE_MAP()
 
 public:

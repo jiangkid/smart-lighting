@@ -132,16 +132,31 @@
 #define IDI_ICON26                      446
 #define IDD_New_SpcialD                 446
 #define IDI_ICON27                      447
+#define ID_INDICATOR_NAME               447
 #define IDI_ICON28                      448
 #define IDI_ICON29                      449
+#define IDI_ICON31                      449
 #define IDR_MAINFRAME_256               450
 #define IDI_ICON30                      450
+#define IDI_ICON32                      450
 #define IDB_BITMAP12                    451
+#define IDI_ICON33                      451
+#define IDI_ICON34                      452
+#define IDI_ICON35                      453
 #define IDI_ICON10                      454
+#define IDI_ICON36                      455
 #define IDB_BITMAP10                    456
+#define IDI_ICON37                      456
 #define ID_MYBAR_256                    457
+#define IDI_ICON38                      457
+#define IDI_ICON39                      458
+#define IDI_ICON40                      459
 #define IDI_ICON11                      460
+#define IDI_ICON41                      460
 #define IDI_ICON12                      461
+#define IDI_ICON42                      461
+#define IDI_ICON43                      462
+#define IDI_ICON44                      463
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -423,7 +438,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        447
+#define _APS_NEXT_RESOURCE_VALUE        464
 #define _APS_NEXT_COMMAND_VALUE         32897
 #define _APS_NEXT_CONTROL_VALUE         1144
 #define _APS_NEXT_SYMED_VALUE           319

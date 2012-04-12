@@ -644,6 +644,9 @@ IDI_ICON9               ICON                    "res\\World.ico"
 IDI_ICON10              ICON                    "res\\icon10.ico"
 IDI_ICON13              ICON                    "res\\icon13.ico"
 IDI_ICON14              ICON                    "res\\icon14.ico"
+IDI_ICON31              ICON                    "res\\icon31.ico"
+IDI_ICON40              ICON                    "res\\icon40.ico"
+IDI_ICON44              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120411082647671_easyicon_cn_32.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -667,7 +670,7 @@ ID_5                    BITMAP                  "res\\bitmap12.bmp"
 // Toolbar
 //
 
-ID_MYBAR TOOLBAR  16, 16
+ID_MYBAR TOOLBAR  32, 32
 BEGIN
     BUTTON      ID_CAgain
     SEPARATOR
@@ -684,6 +687,16 @@ BEGIN
     BUTTON      ID_UserControl
     SEPARATOR
     BUTTON      ID_MainSet
+    SEPARATOR
+    BUTTON      ID_Coommand
+    SEPARATOR
+    BUTTON      ID_NEWDAY
+    SEPARATOR
+    BUTTON      ID_NEWWEEK
+    SEPARATOR
+    BUTTON      ID_NEWJ
+    SEPARATOR
+    BUTTON      ID_NEWSPCIAL
 END
 
 IDR_MAINFRAME TOOLBAR  16, 15
@@ -1200,6 +1213,8 @@ BEGIN
     ID_BTN_MAIN             "主灯"
     ID_BTN_ELSE             "辅灯"
     ID_BTN_DOUBLE           "双灯"
+    ID_INDICATOR_CLOCK      "00:00:00"
+    ID_INDICATOR_TIME       "0000-00-00"
 END
 
 STRINGTABLE 
@@ -1210,17 +1225,17 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_RENEW                "刷新\n刷新"
+    ID_RENEW                "\n刷新"
     ID_BUTTON32868          "修改用户密码"
 END
 
 STRINGTABLE 
 BEGIN
-    ID_SETUSER              "创建新用户\n添加新用户"
-    ID_SetG                 "创建区域\n创建一个新区域"
-    ID_Modify               "修改用户密码\n修改用户密码"
-    ID_MainSet              "配置主终端\n设备控制主终端"
-    ID_CAgain               "重新连接\n重新连接"
+    ID_SETUSER              "\n添加新用户"
+    ID_SetG                 "\n创建一个新区域"
+    ID_Modify               "\n修改用户密码"
+    ID_MainSet              "\n设备控制主终端"
+    ID_CAgain               "\n重新连接"
 END
 
 STRINGTABLE 
@@ -1230,13 +1245,27 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_QUIT                 "退出\n是否退出"
-    ID_UserControl          "用户管理\n用户管理"
+    ID_QUIT                 "\n是否退出"
+    ID_UserControl          "\n用户管理"
 END
 
 STRINGTABLE 
 BEGIN
     ID_BUTTON32884          "配置主终端"
+    ID_NEWDAY               "\n日决策新建"
+    ID_NEWWEEK              "\n周决策新建"
+    ID_NEWJ                 "\n假日决策新建"
+    ID_NEWSPCIAL            "\n特殊决策新建"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_INDICATOR_NAME       "智能路灯控制系统"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_Coommand             "\n决策设置"
 END
 
 #endif    // Chinese (P.R.C.) resources
