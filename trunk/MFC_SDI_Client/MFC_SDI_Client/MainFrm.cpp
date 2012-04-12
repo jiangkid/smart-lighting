@@ -31,10 +31,11 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_OPENEXE, &CMainFrame::OnOpenexe)
 	ON_COMMAND(ID_QUIT, &CMainFrame::OnQuit)
 	ON_WM_TIMER()
+	ON_UPDATE_COMMAND_UI (ID_INDICATOR_CLOCK, OnUpdatePane)
+	ON_UPDATE_COMMAND_UI (ID_INDICATOR_TIME, OnUpdatePane)
+	ON_UPDATE_COMMAND_UI (ID_INDICATOR_NAME, OnUpdatePane)
 	ON_COMMAND(ID_UserControl, &CMainFrame::OnUsercontrol)
 	ON_COMMAND(ID_MainSet, &CMainFrame::OnMainset)
-	//ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTW, 0, 0xFFFF, OnToolTipText)  //最新 
-	//ON_NOTIFY_EX_RANGE(TTN_NEEDTEXTA, 0, 0xFFFF, OnToolTipText)//最新
 	ON_COMMAND(ID_SHOW_TOOL, &CMainFrame::OnShowTool)
 	ON_COMMAND(ID_HIDE_TOOL, &CMainFrame::OnHideTool)
 	ON_COMMAND(ID_SHOW_TREE, &CMainFrame::OnShowTree)
@@ -46,11 +47,12 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_NEWSPCIAL, &CMainFrame::OnNewspcial)
 END_MESSAGE_MAP()
  
-
 static UINT indicators[] =
 {
 	ID_SEPARATOR,           // 状态行指示器
-	//ID_INDICATOR_CLOCK,
+	ID_INDICATOR_NAME,
+	ID_INDICATOR_TIME,
+	ID_INDICATOR_CLOCK,
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,
@@ -132,31 +134,15 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
  	m_wndToolBar2.SetButtons(IDArray,18); */
 	theApp.nStatus[3]=0x01;
 	TrayMessage(NIM_ADD,IDI_ICON4); 
-	  
+	SetTimer(ID_INDICATOR_CLOCK,1000,NULL); 
 	return 0;
 }
-// class CViewClientToolBar : public CMFCToolBar
-// {
-// 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
-// 	{
-// 		CMFCToolBar::OnUpdateCmdUI((CFrameWnd*) GetOwner(), bDisableIfNoHndler);
-// 	}
-// 
-// 	virtual BOOL AllowShowOnList() const { return FALSE; }
-// 
-// 	virtual BOOL OnUserToolTip(
-// 		CMFCToolBarButton* pButton,
-// 		CString& strTTText 
-// 		) const
-// 	{
-// 		strTTText=_T("dsadsa");   //只是测试，换成自己的就可以了，pButton是工具条上面的按钮，可以取得按钮的ID
-// 		return TRUE;
-// 	}
-// };
-// 
+void CMainFrame::OnUpdatePane (CCmdUI *pCmdUI)  
+{     
+	pCmdUI->Enable (); 
+}
 
   
-
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWndEx::PreCreateWindow(cs) )
@@ -289,7 +275,8 @@ void CMainFrame::OnClose()
 	{
 		TrayMessage(NIM_DELETE,IDI_ICON4);
 	}	
-	KillTimer(1);//销毁定时器
+	else
+		return;
 	CFrameWndEx::OnClose();
 
 }
@@ -403,7 +390,6 @@ bool CMainFrame::TrayMessage(DWORD dwMessage,UINT nIDI_ICON)
 
 void CMainFrame::OnTimer(UINT_PTR nIDEvent)
 {
-	
 	// TODO: Add your message handler code here and/or call default
 	static bool bol=true;
 	switch(nIDEvent)
@@ -449,8 +435,11 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent)
 	CTime time;
 	time=CTime::GetCurrentTime();//得到当前时间
 	CString s=time.Format("%H:%M:%S");//转换时间格式
+	CString date=time.Format("%Y-%m-%d");
 	m_wndStatusBar.SetPaneText(m_wndStatusBar.CommandToIndex(ID_INDICATOR_CLOCK),s); //显示时钟
+	m_wndStatusBar.SetPaneText(m_wndStatusBar.CommandToIndex(ID_INDICATOR_TIME),date);
 	CFrameWnd::OnTimer(nIDEvent);
+
 }
 
 void CMainFrame::StartTimer(UINT_PTR nIDEvent)

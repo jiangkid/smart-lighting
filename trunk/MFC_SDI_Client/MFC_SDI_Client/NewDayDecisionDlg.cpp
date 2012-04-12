@@ -81,7 +81,7 @@ void CNewDayDecisionDlg::OnBnClickedBtnSure()
 	strName.ReleaseBuffer();
 	CTime m_GTimeBegin;
 	DWORD dwResult1= m_BeginOpenAll.GetTime(m_GTimeBegin);
-	if (dwResult1== GDT_VALID)
+	if (dwResult1==GDT_VALID)
 	{
 		if ((m_BeginOpenAll.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
 			strTime1 = m_GTimeBegin.Format(_T("%X"));
@@ -90,8 +90,8 @@ void CNewDayDecisionDlg::OnBnClickedBtnSure()
 			m_GTimeBegin.GetMinute());
 	}
 	CTime m_GTimeEnd;
-	DWORD dwResult2= m_EndOpenAll.GetTime(m_GTimeEnd);
-	if (dwResult2 == GDT_VALID)
+	DWORD dwResult2=m_EndOpenAll.GetTime(m_GTimeEnd);
+	if (dwResult2 ==GDT_VALID)
 	{
 		if ((m_EndOpenAll.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
 			strTime2 = m_GTimeEnd.Format(_T("%X"));

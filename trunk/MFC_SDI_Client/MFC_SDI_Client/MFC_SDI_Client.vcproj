@@ -203,11 +203,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ControlWaringDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CWebBrowser.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\CWebBrowser2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DayDecisionDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DecisionDlg.cpp"
 				>
 			</File>
 			<File
@@ -236,6 +248,10 @@
 			</File>
 			<File
 				RelativePath=".\IPSetDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\JieDecisionDlg.cpp"
 				>
 			</File>
 			<File
@@ -283,6 +299,30 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NewDayDecisionDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NewSpcialDecisionDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NewWeekDecisionDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PreviewPrint.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PrintFrame.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PrintView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ReportCtrl.cpp"
 				>
 			</File>
@@ -296,6 +336,10 @@
 			</File>
 			<File
 				RelativePath=".\SetNewUser.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpacialDecisionDlg.cpp"
 				>
 			</File>
 			<File
@@ -358,6 +402,10 @@
 				RelativePath=".\WebPage.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\WeekDecisionDlg.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -381,11 +429,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ControlWaringDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CWebBrowser.h"
 				>
 			</File>
 			<File
 				RelativePath=".\CWebBrowser2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DayDecisionDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DecisionDlg.h"
 				>
 			</File>
 			<File
@@ -414,6 +474,10 @@
 			</File>
 			<File
 				RelativePath=".\IPSetDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\JieDecisionDlg.h"
 				>
 			</File>
 			<File
@@ -461,6 +525,38 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NewDayDecisionDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NewJDecisionDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NewJDecisionDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NewSpcialDecisionDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NewWeekDecisionDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PreviewPrint.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PrintFrame.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PrintView.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ReportCtrl.h"
 				>
 			</File>
@@ -478,6 +574,10 @@
 			</File>
 			<File
 				RelativePath=".\SetNewUser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpacialDecisionDlg.h"
 				>
 			</File>
 			<File
@@ -526,6 +626,10 @@
 			</File>
 			<File
 				RelativePath=".\WebPage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WeekDecisionDlg.h"
 				>
 			</File>
 		</Filter>
@@ -604,6 +708,54 @@
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\×ÀÃæ\20120321125440417_easyicon_cn_16.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411072213914_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411072436465_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411072733215_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411082647671_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411093841694_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411094121254_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411094132870_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411094627893_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\2012041109483983_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411095032911_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411095215278_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120411100528793_easyicon_cn_32.ico"
 				>
 			</File>
 			<File
@@ -739,7 +891,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\icon31.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\ico\icon4.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\icon40.ico"
 				>
 			</File>
 			<File
