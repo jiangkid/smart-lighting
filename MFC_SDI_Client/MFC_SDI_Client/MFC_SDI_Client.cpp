@@ -11,7 +11,7 @@
 #include "MFC_SDI_ClientDoc.h"
 #include "MFC_SDI_ClientView.h"
 #include "SetG.h"
-#include "Modify.h"
+#include "ModifyAllDlg.h"
 #include "TestDlg.h"
 #include "CWebBrowser.h"
 #include "CWebBrowser2.h"
@@ -96,7 +96,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
 	}
 	AfxEnableControlContainer();
 //这是代码区 有用的
- 	 /*while(!m_InitTrue)
+ 	 while(!m_InitTrue)
  	{
    		while (!m_return)
    			{
@@ -126,13 +126,13 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
  			}
  			else 
  				m_InitTrue=true;
- 		} */
+ 		} 
 /*测试代码*/
-//      	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
-//      	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
-//      	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-//   		if (m_WaitDlg.DoModal()==IDCANCEL)
-//   			m_return=FALSE;
+     // 	GetPrivateProfileString("Server","serverip",NULL,m_ip,20,"D:\\server.ini");
+     // 	m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
+     // 	h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
+   		//if (m_WaitDlg.DoModal()==IDCANCEL)
+   		//	m_return=FALSE;
 	// 标准初始化
 	// 如果未使用这些功能并希望减小
 	// 最终可执行文件的大小，则应移除下列
@@ -252,7 +252,7 @@ void CMFC_SDI_ClientApp::OnSetg()
 void CMFC_SDI_ClientApp::OnModify()
 {
 	// TODO: Add your command handler code here
-	CModify dlg;
+	CModifyAllDlg dlg;
 	dlg.DoModal();
 }
 
@@ -288,12 +288,10 @@ int CMFC_SDI_ClientApp::ExitInstance()
 	
 	if (nRCount!=0)
 	{
-		for (int i(0);i<nRCount;i++)
-		{
-			free(m_RoadListInfo[i]);
-		}
+		free(m_RoadListInfo[nRCount]);
+		nRCount--;
 	}
-	else
+ 	else
 		return CWinAppEx::ExitInstance();
 }
 

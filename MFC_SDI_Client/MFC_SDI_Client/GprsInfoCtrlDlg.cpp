@@ -71,7 +71,7 @@ void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
 		break;
 	case 1 :
 		{
-			TerminalInfo* pGetTerminanlInfo=theApp.m_pLocalInfoDlg->GetSelTerminalInfo();
+			pGetTerminanlInfo=theApp.m_pLocalInfoDlg->GetSelTerminalInfo();
 			if (pGetTerminanlInfo==NULL)
 			{
 				AfxMessageBox(_T("«Î—°‘Ò÷’∂À£°"));
@@ -79,34 +79,15 @@ void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
 			}
 			else
 			{
-				CString str=_T("");
-				str+='R';
-				for (int i(0);i<4;i++)
-				{
-					str+=pGetTerminanlInfo->TID[i];
-				}
-				str+='#';
-				send(theApp.m_ConnectSock,str.GetBuffer(),6,0);
-				Sleep(500);
-
+				memcpy(theApp.TID+1,pGetTerminanlInfo->TID,4);
+				theApp.TID[0]='R';
+				theApp.TID[5]='#';
+				send(theApp.m_ConnectSock,theApp.TID,6,0);
 				m_pGLocalVIew->ShowWindow(SW_HIDE);
 				m_RoadView->ShowWindow(SW_SHOW);
-				ConTrlInfo* pGetInfo=(ConTrlInfo*)malloc(sizeof(ConTrlInfo));
-				ZeroMemory(pGetInfo,sizeof(ConTrlInfo));
-				pGetInfo->m_First[0]=0x2F;
-				pGetInfo->m_First[1]=0x43;
-				pGetInfo->m_First[2]=0x2F;
-				pGetInfo->m_First[3]=0x01;
-				memcpy(pGetInfo->m_ID,theApp.TID+1,4);
-				pGetInfo->m_OrderType[0]=0x1A;
-				pGetInfo->m_OrderObject[0]=0x32;
-				pGetInfo->m_ActiveType[0]=0xBD;
-				pGetInfo->m_EndBuffer[1]=0xCC;
-				SendContrlInfo(&hdr,pGetInfo);
-				free(pGetInfo);
+				break;
 			}
 		}
-		break;
 	case 2:
 		break;
 	case 3:
@@ -117,12 +98,6 @@ void CGprsInfoCtrlDlg::OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CGprsInfoCtrlDlg::SendRCurrent()
 {
-	TerminalInfo* pGetTerminanlInfo=theApp.m_pLocalInfoDlg->GetSelTerminalInfo();
-	if (pGetTerminanlInfo==NULL)
-	{
-		AfxMessageBox(_T("«Î—°‘Ò÷’∂À£°"));
-		return;
-	}
 	ConTrlInfo* pGetInfo1=(ConTrlInfo*)malloc(sizeof(ConTrlInfo));
 	ZeroMemory(pGetInfo1,sizeof(ConTrlInfo));
 	pGetInfo1->m_First[0]=0x2F;
@@ -135,6 +110,26 @@ void CGprsInfoCtrlDlg::SendRCurrent()
 	pGetInfo1->m_ActiveType[0]=0xBD;
 	pGetInfo1->m_CheckData[0]=0xA0;
 	pGetInfo1->m_EndBuffer[1]=0xCC;
+	Sleep(200);
 	SendContrlInfo(&hdr,pGetInfo1);
 	free(pGetInfo1);
 }
+void CGprsInfoCtrlDlg::SendRUpdata()
+{
+	ConTrlInfo* pGetInfo1=(ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGetInfo1,sizeof(ConTrlInfo));
+	pGetInfo1->m_First[0]=0x2F;
+	pGetInfo1->m_First[1]=0x43;
+	pGetInfo1->m_First[2]=0x2F;
+	pGetInfo1->m_First[3]=0x06;
+	memcpy(pGetInfo1->m_ID,pGetTerminanlInfo->TID,4);
+	pGetInfo1->m_OrderType[0]=0x1A;
+	pGetInfo1->m_OrderObject[0]=0x32;
+	pGetInfo1->m_ActiveType[0]=0xBD;
+	pGetInfo1->m_CheckData[0]=0xA0;
+	pGetInfo1->m_EndBuffer[1]=0xCC;
+	Sleep(200);
+	SendContrlInfo(&hdr,pGetInfo1);
+	free(pGetInfo1);
+}
+

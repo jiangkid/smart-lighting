@@ -18,7 +18,8 @@ CGPRSLocaInfomation::CGPRSLocaInfomation(CWnd* pParent /*=NULL*/)
 	, m_gprsarea(_T(""))
 	, m_gprslocation(_T(""))
 	, m_gprstime(_T(""))
-	,m_TerminalCount(0)
+	, m_TerminalCount(0)
+	, strID(_T(""))
 {
 }
 
@@ -41,6 +42,7 @@ void CGPRSLocaInfomation::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CGPRSLocaInfomation, CDialog)
 	ON_BN_CLICKED(IDC_BTN_GMODIFY, &CGPRSLocaInfomation::OnBnClickedBtnGmodify)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST_TERMINAL, &CGPRSLocaInfomation::OnNMDblclkListTerminal)
 END_MESSAGE_MAP()
 
 
@@ -152,4 +154,21 @@ void CGPRSLocaInfomation::OnBnClickedBtnGmodify()
 	// TODO: Add your control notification handler code here
 	CSetG dlg;
 	dlg.DoModal();
+}
+
+void CGPRSLocaInfomation::OnNMDblclkListTerminal(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	strID=_T("");
+	if(pNMItemActivate->iItem == -1)
+	{
+		return;
+	}
+	else
+	{
+		strID=m_List_Terminal.GetItemText(pNMItemActivate->iItem,0);
+	}
+
+	*pResult = 0;
 }

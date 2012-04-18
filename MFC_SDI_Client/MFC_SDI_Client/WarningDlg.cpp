@@ -220,8 +220,10 @@ void CWarningDlg::OneWarningToShow(WarningInfo* pWarning, int nRow)
 		}
 		break;
 	case 0x39:
+		{
 			m_ListWarning.InsertItem(nRow,strTime,strID,strArea,strName,GPRSERROR,strValue);
-		break;
+			break;
+		}
 
 	default:
 		break;

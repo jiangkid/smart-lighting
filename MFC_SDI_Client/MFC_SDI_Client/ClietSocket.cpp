@@ -137,7 +137,7 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 							UpdataRoadStatusInfo(szBuf,iRet);
 							break;
 						}
-						if (szBuf[1]=='S'&&szBuf[2]==0x31)
+						if (szBuf[1]==0x36)
 						{
 							SendCurrent();
 							break;
@@ -168,7 +168,6 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 		}
 		Sleep(100);
 	}
-
 __Error_End:
 	closesocket(pChatRoom->m_ConnectSock);
 	return TRUE;
@@ -223,13 +222,107 @@ void ChenkSet(char* buff,int nRecvLength)
 *************************************************************************************/
 void ChenkModify(char* buff,int nRecvLength)
 {
-	if (buff[0]=='M' && buff[1]=='0')
+	switch(buff[1])
 	{
-		AfxMessageBox(_T("修改密码成功！"));
-	}
-	else if (buff[0]=='M' && buff[1]=='1')
-	{
-		AfxMessageBox(_T("修改密码失败，请重新操作！"));
+	case 0x32:
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("修改密码成功！"));
+			break;
+		}
+		else
+		{
+			AfxMessageBox(_T("修改密码失败，请重新操作！"));
+			break;
+		}
+	case 0x33:
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("修改用户名成功！"));
+			break;
+		}
+		else
+		{
+			AfxMessageBox(_T("修改用户名失败，请重新操作！"));
+			break;
+		}
+	case 0x34:
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("修改电话号码成功！"));
+			break;
+		}
+		else
+		{
+			AfxMessageBox(_T("修改电话号码失败，请重新操作！"));
+			break;
+		}
+	case 0x35:
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("修改密码成功！"));
+			break;
+		}
+		else
+		{
+			AfxMessageBox(_T("修改密码失败，请重新操作！"));
+			break;
+		}
+	case 0x36:
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("修改电话号码成功！"));
+			break;
+		}
+		else
+		{
+			AfxMessageBox(_T("修改电话号码失败，请重新操作！"));
+			break;
+		}
+	case 0x37:
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("修改区域成功！"));
+			break;
+		}
+		else
+		{
+			AfxMessageBox(_T("修改区域失败，请重新操作！"));
+			break;
+		}
+	case 0x38:
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("修改信息成功！"));
+			break;
+		}
+		else
+		{
+			AfxMessageBox(_T("修改信息失败，请重新操作！"));
+			break;
+		}
+	case 0x31:
+		if (buff[2]==0x30)
+		{
+			int nCount(0);
+			nCount=buff[3];
+			for (int i(0);i<nCount;i++)
+			{
+				MUserInfo* pGetInfo = (MUserInfo*)malloc(sizeof(MUserInfo));
+				ZeroMemory(pGetInfo,sizeof(MUserInfo));
+				memcpy(pGetInfo,buff+4+i*sizeof(MUserInfo),sizeof(MUserInfo));
+				theApp.m_pUserCtrl->ShowUserInfo(i,pGetInfo);
+				free(pGetInfo);
+			}			
+		}
+		else
+		{
+			AfxMessageBox(_T("获取用户信息失败,请点刷新"));
+			//theApp.m_pUserCtrl->OnClose();
+		}
+		break;
+	default:
+		break;
 	}
 }
 /************************************************************************************
@@ -456,7 +549,6 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		}	
 		for (int i=4;buff[i]!='#';i++)
 		{
-			
 			if(buff[i]=='<')
 			{
 				int m(0);
@@ -665,17 +757,33 @@ void TranslateLInfo(U8* buffer)
 void TranslateRInfo(U8* buffer,int Length)
 {
 	int nLcont(0);
-	nLcont=buffer[1];
-	theApp.nRCount=buffer[1];
-	for (int i=0;i<nLcont;i++)
+	if (buffer[1]==0x30)
 	{
-		theApp.m_RoadListInfo[i]=(RoadListViewInfo*)malloc(RLENTH);
-		ZeroMemory(theApp.m_RoadListInfo[i],RLENTH);
-		memcpy(theApp.m_RoadListInfo[i],buffer+2+i*RLENTH,RLENTH);
+		nLcont=buffer[2];
+		theApp.nRCount=buffer[2];
+		for (int i=0;i<nLcont;i++)
+		{
+			theApp.m_RoadListInfo[i]=(RoadListViewInfo*)malloc(RLENTH);
+			ZeroMemory(theApp.m_RoadListInfo[i],RLENTH);
+			memcpy(theApp.m_RoadListInfo[i],buffer+3+i*RLENTH,RLENTH);
+		}
+		theApp.m_pRoadView->RoadInfoToView(nLcont);
 	}
-	theApp.m_pRoadView->RoadInfoToView(nLcont);
-	CMainFrame *pMain=(CMainFrame *)AfxGetApp()->m_pMainWnd;
-	pMain->StartTimer(1);
+	else
+	{
+		nLcont=buffer[1];
+		theApp.nRCount=buffer[1];
+		for (int i=0;i<nLcont;i++)
+		{
+			theApp.m_RoadListInfo[i]=(RoadListViewInfo*)malloc(RLENTH);
+			ZeroMemory(theApp.m_RoadListInfo[i],RLENTH);
+			memcpy(theApp.m_RoadListInfo[i],buffer+2+i*RLENTH,RLENTH);
+		}
+		theApp.m_pRoadView->RoadInfoToView(nLcont);
+		theApp.m_pGCInfoDlg->SendRUpdata();
+	}
+// 	CMainFrame *pMain=(CMainFrame *)AfxGetApp()->m_pMainWnd;
+// 	pMain->StartTimer(1);
 }
 
 void ChenkConnectAgain(char* buff,int nRecvLength)
@@ -788,7 +896,6 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 	switch (pGetRInfo->m_OrderType[0])
 	{
 	case 0xA1:
-		
 		if (pGetRInfo->m_ActiveType[0]==0xB1)
 		{
 			theApp.m_DlgMainONStatus=true;
@@ -943,7 +1050,7 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 				{
 					theApp.m_RoadListInfo[l]->m_RoadStatus=true;
 				}
-				theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+				theApp.m_pRoadView->RoadInfoToView(theApp.nRCount);
 			}
 		}
 		break;
