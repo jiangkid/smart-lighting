@@ -25,4 +25,5 @@ public:
 	CString m_SNewPassWord;
 	afx_msg void OnBnClickedOk();
 	void ClearBoard(void);
+	virtual BOOL OnInitDialog();
 };
