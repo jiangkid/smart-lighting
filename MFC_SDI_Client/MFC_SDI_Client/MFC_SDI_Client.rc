@@ -111,13 +111,12 @@ BEGIN
     EDITTEXT        IDC_EDIT2,71,32,60,14,ES_AUTOHSCROLL
 END
 
-IDD_SetUser DIALOGEX 0, 0, 155, 137
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_SetUser DIALOGEX 0, 0, 155, 179
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "添加新用户"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 12, "华文新魏", 400, 0, 0x86
 BEGIN
     LTEXT           "身份",IDC_STATIC,37,18,21,11
-    COMBOBOX        IDC_COMBO1,76,16,61,40,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CTEXT           "用户名",IDC_STATIC,26,39,38,9
     EDITTEXT        IDC_UserName,76,34,61,14,ES_AUTOHSCROLL
     CTEXT           "密码",IDC_STATIC,29,56,35,14
@@ -126,22 +125,23 @@ BEGIN
     EDITTEXT        IDC_SPassWord,76,74,61,14,ES_AUTOHSCROLL
     LTEXT           "联系电话",IDC_STATIC,27,95,45,11
     EDITTEXT        IDC_TelNum,76,94,61,14,ES_AUTOHSCROLL
-    DEFPUSHBUTTON   "确定",IDOK,24,114,50,14
-    PUSHBUTTON      "取消",IDCANCEL,86,114,50,14
+    DEFPUSHBUTTON   "确定",IDOK,21,140,50,14
+    PUSHBUTTON      "取消",IDCANCEL,83,140,50,14
+    EDITTEXT        IDC_AREA_NAME,76,113,61,13,ES_AUTOHSCROLL
+    CTEXT           "区域",IDC_STATIC,28,113,36,11
+    CTEXT           "普通用户",IDC_STATIC,75,17,58,11
 END
 
-IDD_Modify DIALOGEX 0, 0, 164, 121
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
-FONT 10, "华文新魏", 400, 0, 0x86
+IDD_Modify DIALOGEX 0, 0, 157, 138
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,26,88,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,85,89,50,14
+    DEFPUSHBUTTON   "确定",IDOK,75,86,50,14
     LTEXT           "重复密码",IDC_STATIC,30,70,33,8
     LTEXT           "旧密码",IDC_STATIC,30,38,25,8
     LTEXT           "新密码",IDC_STATIC,30,55,25,8
     LTEXT           "用户名",IDC_STATIC,30,22,25,8
-    EDITTEXT        IDC_UserName,75,20,50,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_UserName,75,20,50,12,ES_AUTOHSCROLL | ES_READONLY
     EDITTEXT        IDC_OLD_PW,75,36,50,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_FPassWord,75,53,50,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_SPassWord,75,68,50,12,ES_AUTOHSCROLL
@@ -229,7 +229,7 @@ BEGIN
     EDITTEXT        IDC_EDIT_RID,37,151,86,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_LID,37,172,86,14,ES_AUTOHSCROLL
     PUSHBUTTON      "路ID添加",IDC_BUTTON5,124,150,39,15
-    PUSHBUTTON      "等ID添加",IDC_BUTTON6,124,172,39,15
+    PUSHBUTTON      "灯ID添加",IDC_BUTTON6,124,172,39,15
 END
 
 IDD_WaitDlg DIALOGEX 0, 0, 259, 98
@@ -296,9 +296,9 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSM
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,53,128,44,14
-    PUSHBUTTON      "Cancel",IDCANCEL,179,136,50,14
-    GROUPBOX        "Static",IDC_STATIC,7,7,302,83
+    DEFPUSHBUTTON   "OK",IDOK,203,148,44,14
+    PUSHBUTTON      "Cancel",IDCANCEL,250,147,50,14
+    GROUPBOX        "Static",IDC_STATIC,7,7,302,47
     CTEXT           "第一级名字",IDC_STATIC,23,25,48,11
     CTEXT           "第一级ID",IDC_STATIC,166,25,48,11
     EDITTEXT        IDC_GName,79,25,62,12,ES_AUTOHSCROLL | ES_READONLY
@@ -346,11 +346,35 @@ BEGIN
     CONTROL         "",IDC_R_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,24,561,289
 END
 
-IDD_User_CTRL DIALOGEX 0, 0, 465, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_User_CTRL DIALOGEX 0, 0, 368, 173
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "用户管理界面"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 12, "华文新魏", 400, 0, 0x86
 BEGIN
+    GROUPBOX        "用户信息",IDC_STATIC,147,17,209,149
+    CONTROL         "",IDC_LIST_USER,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,153,23,197,143
+    CTEXT           "用户名",IDC_STATIC,19,25,39,12
+    CTEXT           "旧密码",IDC_STATIC,19,43,39,12
+    CTEXT           "新密码",IDC_STATIC,19,62,39,12
+    CTEXT           "重复新密码",IDC_STATIC,19,78,39,12
+    CTEXT           "电话号码",IDC_STATIC,19,94,39,12
+    CTEXT           "区域",IDC_STATIC,19,113,39,12
+    EDITTEXT        IDC_UESRNAME,61,23,55,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_OLDP,61,42,56,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NEWP1,61,59,56,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NEWP2,61,77,56,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PHONE,61,94,55,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_AREA,61,111,55,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定修改",IDC_M,27,135,39,14
+    PUSHBUTTON      "确定删除",IDC_DELETEUSER,92,135,39,14
+    PUSHBUTTON      "取消",IDC_BUTTON13,326,1,39,14
+    PUSHBUTTON      "刷新",IDC_RENEW,284,1,39,14
+    CONTROL         "修改密码",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,2,1,41,13
+    CONTROL         "删除用户",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,194,1,38,13
+    CONTROL         "增加新用户",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,238,1,43,13
+    CONTROL         "修改电话号码",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,43,1,52,13
+    CONTROL         "修改所有信息",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,142,1,50,13
+    CONTROL         "修改区域",IDC_RADIO6,"Button",BS_AUTORADIOBUTTON,98,1,41,13
 END
 
 IDD_LIGHT_DLG DIALOGEX 0, 0, 239, 127
@@ -594,6 +618,71 @@ BEGIN
     PUSHBUTTON      "取消",IDC_BTN_QX,53,117,37,12
 END
 
+IDD_TerminalDlg DIALOGEX 0, 0, 316, 208
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,187,185,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,255,184,50,14
+    CTEXT           "第一路",IDC_STATIC,8,30,30,11
+    CTEXT           "第二路",IDC_STATIC,8,45,30,11
+    CTEXT           "第三路",IDC_STATIC,8,60,30,11
+    CTEXT           "第四路",IDC_STATIC,8,72,30,11
+    CTEXT           "第五路",IDC_STATIC,8,86,30,11
+    CTEXT           "第六路",IDC_STATIC,8,99,30,11
+    CTEXT           "第七路",IDC_STATIC,8,113,30,11
+    CTEXT           "第八路",IDC_STATIC,8,126,30,11
+    CTEXT           "第九路",IDC_STATIC,8,141,30,11
+    CTEXT           "第十路",IDC_STATIC,8,156,30,11
+    CTEXT           "第十一路",IDC_STATIC,8,169,30,11
+    CTEXT           "第十二路",IDC_STATIC,8,180,30,11
+    CTEXT           "第四路",IDC_STATIC,8,73,30,11
+END
+
+IDD_CV_SET DIALOGEX 0, 0, 235, 171
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "阈值设置对话框"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,125,148,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,179,148,50,14
+END
+
+IDD_MAll DIALOGEX 0, 0, 190, 155
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "修改"
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,2,1,187,153
+END
+
+IDD_MName DIALOGEX 0, 0, 152, 136
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CTEXT           "用户名",IDC_STATIC,22,26,33,13
+    EDITTEXT        IDC_OldName,59,24,53,13,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "原密码",IDC_STATIC,23,45,33,13
+    EDITTEXT        IDC_PASS,59,44,53,13,ES_AUTOHSCROLL
+    CTEXT           "现用户名",IDC_STATIC,24,66,33,13
+    EDITTEXT        IDC_NewName,59,66,53,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定",IDC_BTN_YES,59,92,55,16
+END
+
+IDD_MPhone DIALOGEX 0, 0, 159, 159
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 14, "华文新魏", 400, 0, 0x86
+BEGIN
+    CTEXT           "用户名",IDC_STATIC,12,22,43,13
+    EDITTEXT        IDC_OLDN,64,19,47,14,ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "密码",IDC_STATIC,12,46,43,13
+    CTEXT           "电话号码",IDC_STATIC,13,71,43,13
+    EDITTEXT        IDC_PASSWORD,64,43,48,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_phonenum,64,70,48,15,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定",IDC_BTN_Y,63,99,49,16
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -646,7 +735,7 @@ IDI_ICON13              ICON                    "res\\icon13.ico"
 IDI_ICON14              ICON                    "res\\icon14.ico"
 IDI_ICON31              ICON                    "res\\icon31.ico"
 IDI_ICON40              ICON                    "res\\icon40.ico"
-IDI_ICON44              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120411082647671_easyicon_cn_32.ico"
+IDI_ICON44              ICON                    "res\\20120411082647671_easyicon_cn_32.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -730,13 +819,14 @@ BEGIN
     POPUP "管理"
     BEGIN
         MENUITEM "创建新用户",                       ID_SETUSER
-        MENUITEM "修改用户密码",                      ID_Modify
+        MENUITEM "修改用户",                        ID_Modify
         MENUITEM "创建区域",                        ID_SetG
         MENUITEM "用户管理",                        ID_UserControl
     END
     POPUP "配置"
     BEGIN
         MENUITEM "配置主终端",                       ID_MainSet
+        MENUITEM "阈值设置",                        ID_CV_SET
     END
     POPUP "视图"
     BEGIN
@@ -744,6 +834,14 @@ BEGIN
         MENUITEM "隐藏快捷工具",                      ID_HIDE_TOOL
         MENUITEM "显示系统机构",                      ID_SHOW_TREE
         MENUITEM "隐藏系统机构",                      ID_HIDE_TREE
+    END
+    POPUP "决策"
+    BEGIN
+        MENUITEM "决策设置",                        ID_Coommand
+        MENUITEM "日决策新建",                       ID_NEWDAY
+        MENUITEM "周决策新建",                       ID_NEWWEEK
+        MENUITEM "节假日决策新建",                     ID_NEWJ
+        MENUITEM "特殊决策新建",                      ID_NEWSPCIAL
     END
     POPUP "测试"
     BEGIN
@@ -756,14 +854,6 @@ BEGIN
         MENUITEM "ID_6",                        ID_6
         MENUITEM "ID_7",                        ID_7
         MENUITEM "ID_1",                        ID_8
-    END
-    POPUP "决策"
-    BEGIN
-        MENUITEM "决策设置",                        ID_Coommand
-        MENUITEM "日决策新建",                       ID_NEWDAY
-        MENUITEM "周决策新建",                       ID_NEWWEEK
-        MENUITEM "节假日决策新建",                     ID_NEWJ
-        MENUITEM "特殊决策新建",                      ID_NEWSPCIAL
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -933,17 +1023,15 @@ BEGIN
 
     IDD_SetUser, DIALOG
     BEGIN
-        LEFTMARGIN, 7
+        LEFTMARGIN, 1
         RIGHTMARGIN, 152
-        TOPMARGIN, 7
     END
 
     IDD_Modify, DIALOG
     BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 157
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 114
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 155
+        BOTTOMMARGIN, 136
     END
 
     IDD_Set, DIALOG
@@ -1015,10 +1103,10 @@ BEGIN
 
     IDD_User_CTRL, DIALOG
     BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 458
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 237
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 365
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 166
     END
 
     IDD_LIGHT_DLG, DIALOG
@@ -1108,6 +1196,37 @@ BEGIN
     BEGIN
         RIGHTMARGIN, 97
         BOTTOMMARGIN, 134
+    END
+
+    IDD_TerminalDlg, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 315
+    END
+
+    IDD_CV_SET, DIALOG
+    BEGIN
+        RIGHTMARGIN, 233
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_MAll, DIALOG
+    BEGIN
+        RIGHTMARGIN, 189
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_MName, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 150
+        BOTTOMMARGIN, 135
+    END
+
+    IDD_MPhone, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 157
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -1226,14 +1345,14 @@ END
 STRINGTABLE 
 BEGIN
     ID_RENEW                "\n刷新"
-    ID_BUTTON32868          "修改用户密码"
+    ID_BUTTON32868          "修改用户"
 END
 
 STRINGTABLE 
 BEGIN
     ID_SETUSER              "\n添加新用户"
     ID_SetG                 "\n创建一个新区域"
-    ID_Modify               "\n修改用户密码"
+    ID_Modify               "\n修改用户"
     ID_MainSet              "\n设备控制主终端"
     ID_CAgain               "\n重新连接"
 END
