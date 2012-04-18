@@ -122,10 +122,19 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 			theApp.GID[2]=theApp.TID[1];
 			theApp.GID[3]=theApp.TID[2];
 			theApp.GID[4]='#';
-			send(theApp.m_ConnectSock,theApp.GID,5,0);
-			Sleep(500);
-			theApp.GID[1]=0x31;
-			send(theApp.m_ConnectSock,theApp.GID,5,0);
+			if (theApp.GID[2]==0x00&&theApp.GID[3]==0x00)
+			{
+				AfxMessageBox(_T("GID错误，请先打开路信息"));
+				return;
+			}
+			else
+			{
+				send(theApp.m_ConnectSock,theApp.GID,5,0);
+				Sleep(500);
+
+				theApp.GID[1]=0x31;
+				send(theApp.m_ConnectSock,theApp.GID,5,0);
+			}
 			m_LightView->ShowWindow(SW_HIDE);
 			m_GprsInfoView->ShowWindow(SW_SHOW);
 			m_pWarningView->ShowWindow(SW_HIDE);

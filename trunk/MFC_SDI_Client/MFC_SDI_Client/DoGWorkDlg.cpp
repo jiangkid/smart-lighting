@@ -31,7 +31,6 @@ void CDoGWorkDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CDoGWorkDlg, CDialog)
-	ON_BN_CLICKED(IDC_BUTTON1, &CDoGWorkDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -47,26 +46,6 @@ BOOL CDoGWorkDlg::OnInitDialog()
 	UpdateData(FALSE);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
-}
-
-void CDoGWorkDlg::OnBnClickedButton1()
-{
-	// TODO: Add your control notification handler code here
-// 	ConTrlInfo* pGetRInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
-// 	ZeroMemory(pGetRInfo,sizeof(ConTrlInfo));
-// 
-// 	pGetRInfo->m_First[0]=0x2F;
-// 	pGetRInfo->m_First[1]=0x43;
-// 	pGetRInfo->m_First[2]=0x2F;
-// 	pGetRInfo->m_First[3]=0x01;
-// 	CString str;
-// 	GetDlgItemText(IDC_GID,str);
-// 	strcpy((char*)pGetRInfo->m_ID,str.GetBuffer(str.GetLength()));
-// 	pGetRInfo->m_OrderType[0]=0x0A;
-// 	pGetRInfo->m_OrderObject[0]=0xA3;
-// 	pGetRInfo->m_ActiveType[0]=0xBD;
-// 	pGetRInfo->m_EndBuffer[1]=0xCC;
-// 	SendContrlInfo(&hdr,pGetRInfo);
 }
 
 void CDoGWorkDlg::OnCancel()

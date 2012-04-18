@@ -27,7 +27,7 @@ CModify::~CModify()
 void CModify::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-
+	DDX_Text(pDX, IDC_UserName, m_UserName);
 }
 
 
@@ -56,12 +56,28 @@ void CModify::OnBnClickedOk()
 		AfxMessageBox(_T("请输入正确用户名"));
 		return;
 	}
-	else if (strcmp(m_FNewPassWord,m_SNewPassWord)!=0)
+	else 
+		if (m_FNewPassWord==_T("")||m_SNewPassWord==_T(""))
+		{
+			AfxMessageBox(_T("密码不能为空"));
+			return;
+		}
+		else
+			if (strcmp(m_FNewPassWord,m_SNewPassWord)!=0)
+			{
+				AfxMessageBox(_T("2次密码不一样，请重新输入"));
+				return;
+			}
+	if (userInfo[0].Idetify==0x30)
 	{
-		AfxMessageBox(_T("2次密码不一样，请重新输入"));
+		str.Format(_T("M20%s+%s+%s#"),m_UserName,m_OldPassWord,m_SNewPassWord);
 	}
-	str.Format(_T("M1%s+%s+%s#"),m_UserName,m_OldPassWord,m_SNewPassWord);
+	else
+	{
+		str.Format(_T("M21%s+%s+%s#"),m_UserName,m_OldPassWord,m_SNewPassWord);
+	}
 	send(pTheApp->m_ConnectSock,(char*)str.GetBuffer(),str.GetLength()*sizeof(TCHAR),0);
+	AfxMessageBox(_T("信息发送成功"));
 	ClearBoard();
 }
 
@@ -70,5 +86,19 @@ void CModify::ClearBoard(void)
 	SetDlgItemText(IDC_FPassWord,_T(""));
 	SetDlgItemText(IDC_OLD_PW,_T(""));
 	SetDlgItemText(IDC_SPassWord,_T(""));
-	SetDlgItemText(IDC_UserName,_T(""));
+	//SetDlgItemText(IDC_UserName,_T(""));
+}
+
+BOOL CModify::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+	for (int i(0);i<20;i++)
+	{
+		m_UserName+=userInfo[0].UserName[i];
+	}
+	UpdateData(FALSE);
+	// TODO:  Add extra initialization here
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
 }

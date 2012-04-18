@@ -118,13 +118,11 @@ void CDoRWorkDlg::OnBnClickedBtnAll()
 	{
 		pGetInfo->m_CheckData[3]=0x08;
 	}
-
 	pGetInfo->m_EndBuffer[1]=0xCC;
 	SendContrlInfo(&hdr,pGetInfo);
 	Sleep(500);
 	m_status="นุ";
 	UpdateData(false);
-
 }
 void CDoRWorkDlg::OnBnClickedBtnAll11()
 {

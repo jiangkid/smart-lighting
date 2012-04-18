@@ -45,6 +45,9 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_NEWJ, &CMainFrame::OnNewj)
 	ON_COMMAND(ID_NEWWEEK, &CMainFrame::OnNewweek)
 	ON_COMMAND(ID_NEWSPCIAL, &CMainFrame::OnNewspcial)
+	ON_UPDATE_COMMAND_UI(ID_Modify, &CMainFrame::OnUpdateModify)
+	ON_UPDATE_COMMAND_UI(ID_UserControl, &CMainFrame::OnUpdateUsercontrol)
+	ON_COMMAND(ID_CV_SET, &CMainFrame::OnCvSet)
 END_MESSAGE_MAP()
  
 static UINT indicators[] =
@@ -151,9 +154,13 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	//cs.x=300;
 	//cs.y=150;
 	//cs.style&=~WS_MAXIMIZEBOX; //禁用按动最大化按钮 
-	cs.style&=~WS_THICKFRAME;//禁止用户改变窗口大小
+	//cs.style&=~WS_THICKFRAME;//禁止用户改变窗口大小
 	//cs.style&=~WS_MINIMIZEBOX;
 	// TODO: 在此处通过修改
+	cs.style&=~FWS_ADDTOTITLE;//将FWS_ADDTOTITLE去掉
+	cs.lpszName = "智能路灯控制系统";//改变标题，替换自己的标题
+
+
 	//  CREATESTRUCT cs 来修改窗口类或样式
 	return TRUE;
 }
@@ -450,11 +457,13 @@ void CMainFrame::StartTimer(UINT_PTR nIDEvent)
 void CMainFrame::OnUsercontrol()
 {
 	// TODO: Add your command handler code here
-	Userdlg = (CUserCtrDlg *)malloc(sizeof(CUserCtrDlg));
-	Userdlg->CUserCtrDlg::CUserCtrDlg();
-	Userdlg->Create(IDD_User_CTRL, this);
-	Userdlg->CenterWindow();
-	Userdlg->ShowWindow(SW_SHOW);
+// 	Userdlg = (CUserCtrDlg *)malloc(sizeof(CUserCtrDlg));
+// 	Userdlg->CUserCtrDlg::CUserCtrDlg();
+// 	Userdlg->Create(IDD_User_CTRL, this);
+// 	Userdlg->CenterWindow();
+// 	Userdlg->ShowWindow(SW_SHOW);
+	CUserCtrDlg Userdlg;
+	Userdlg.DoModal();
 }
 
 void CMainFrame::OnMainset()
@@ -524,5 +533,29 @@ void CMainFrame::OnNewspcial()
 {
 	// TODO: Add your command handler code here
 	CNewSpcialDecisionDlg dlg;
+	dlg.DoModal();
+}
+
+void CMainFrame::OnUpdateModify(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->Enable(true);
+}
+
+void CMainFrame::OnUpdateUsercontrol(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	if(userInfo[0].Idetify==0x31)
+	{
+		pCmdUI->Enable(FALSE);
+	}
+	else
+		pCmdUI->Enable(true);
+}
+
+void CMainFrame::OnCvSet()
+{
+	// TODO: Add your command handler code here
+	CCVSetDlg dlg;
 	dlg.DoModal();
 }

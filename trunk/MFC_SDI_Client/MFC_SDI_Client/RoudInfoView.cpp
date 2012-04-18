@@ -64,9 +64,9 @@ void CRoudInfoView::RoadInfoToView(int nRCount)
 		CString strCurrent2=_T("");
 		CString strCurrent3=_T("");
  		CString strRID  =_T("");
-		strCurrent1.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent1/1000);
-		strCurrent2.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent2/1000);
-		strCurrent3.Format("%0.3fA",theApp.m_RoadListInfo[i]->nCurrent3/1000);
+		strCurrent1.Format("%0.3fA",(float)theApp.m_RoadListInfo[i]->nCurrent1/1000);
+		strCurrent2.Format("%0.3fA",(float)theApp.m_RoadListInfo[i]->nCurrent2/1000);
+		strCurrent3.Format("%0.3fA",(float)theApp.m_RoadListInfo[i]->nCurrent3/1000);
  		for (int n=0;n<20;n++)
  		{
  			strRName+=theApp.m_RoadListInfo[i]->m_RoadName[n];
@@ -81,6 +81,10 @@ void CRoudInfoView::RoadInfoToView(int nRCount)
  		}
 		switch (theApp.m_RoadListInfo[i]->m_Update)
 		{
+		case 0x00:
+			m_List.InsertItem(i,strTName,strRName,strRID,
+				UNUPDATA,UNUPDATA,UNUPDATA,UNUPDATA);
+			break;
 		case 0x10:
 			m_List.InsertItem(i,strTName,strRName,strRID,
 				UNUPDATA,UNUPDATA,UNUPDATA,strCurrent3);
@@ -208,6 +212,7 @@ void CRoudInfoView::RoadInfoToView(int nRCount)
 		default:
 			break;
 		}
+		//free(theApp.m_RoadListInfo[i]);
 	}
 }
 void CRoudInfoView::OnBnClickedButton1()
@@ -910,6 +915,10 @@ void CRoudInfoView::UpdataOneRoad(RoadListViewInfo* pGetInfo)
 			}
 			switch (pGetInfo->m_Update)
 			{
+			case 0x00:
+				m_List.InsertItem(n,strTName,strRName,strRID,
+					UNUPDATA,UNUPDATA,UNUPDATA,UNUPDATA);
+				break;
 			case 0x10:
 				m_List.InsertItem(n,strTName,strRName,strRID,
 					UNUPDATA,UNUPDATA,UNUPDATA,strCurrent3);

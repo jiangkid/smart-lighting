@@ -12,6 +12,7 @@ IMPLEMENT_DYNAMIC(CSetNewUser, CDialog)
 
 CSetNewUser::CSetNewUser(CWnd* pParent /*=NULL*/)
 	: CDialog(CSetNewUser::IDD, pParent)
+	, m_strAreaName(_T(""))
 {
 
 }
@@ -23,13 +24,12 @@ CSetNewUser::~CSetNewUser()
 void CSetNewUser::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_COMBO1, m_ctrComboBox);
+	DDX_Text(pDX, IDC_AREA_NAME, m_strAreaName);
 }
 
 
 BEGIN_MESSAGE_MAP(CSetNewUser, CDialog)
 	ON_BN_CLICKED(IDOK, &CSetNewUser::OnBnClickedOk)
-	ON_CBN_SELCHANGE(IDC_COMBO1, &CSetNewUser::OnCbnSelchangeCombo1)
 	ON_BN_CLICKED(IDCANCEL, &CSetNewUser::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
@@ -38,9 +38,6 @@ END_MESSAGE_MAP()
 BOOL CSetNewUser::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	m_ctrComboBox.AddString("管理员");
-	m_ctrComboBox.AddString("普通人员");
-	m_ctrComboBox.SetCurSel(1);
 	return TRUE;
 }
 void CSetNewUser::OnBnClickedOk()
@@ -53,14 +50,11 @@ void CSetNewUser::OnBnClickedOk()
 	CString strPassWord2;
 	CString strUserInfo;
 	CString strTelNum;
-	CString strIdentify;
 	char stridentify[3]="C";
-	int nIndex=m_ctrComboBox.GetCurSel();
 	GetDlgItemText(IDC_UserName,strName);
 	GetDlgItemText(IDC_FPassWord,strPassWord1);
 	GetDlgItemText(IDC_SPassWord,strPassWord2);
 	GetDlgItemText(IDC_TelNum,strTelNum);
-	GetDlgItemText(IDC_COMBO1,strIdentify);
 	if (strcmp(strPassWord1,strPassWord2)!=0)
 	{
 		AfxMessageBox("2次密码不一样，请确认");
@@ -73,17 +67,9 @@ void CSetNewUser::OnBnClickedOk()
 		}
 		else
 		{
-			 if (0==nIndex)
-			{
-				char *a="0";
-				strcat_s(stridentify,a);
-			}
-			if  (1==nIndex)
-			{
-				char *a="1";
-				strcat_s(stridentify,a);
-			} 			 
-			strUserInfo.Format(_T("%s+%s+%s+%s#"),stridentify,strName,strPassWord1,strTelNum);
+			char *a="1";
+			strcat_s(stridentify,a);		 
+			strUserInfo.Format(_T("%s+%s+%s+%s+%s#"),stridentify,strName,strPassWord1,strTelNum,m_strAreaName);
 			int iSend =send(pTheApp->m_ConnectSock,(char*)strUserInfo.GetBuffer(),
 				strUserInfo.GetLength()*sizeof(TCHAR),0);
 			strUserInfo.ReleaseBuffer();
