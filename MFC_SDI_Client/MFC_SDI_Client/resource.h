@@ -157,6 +157,11 @@
 #define IDI_ICON42                      461
 #define IDI_ICON43                      462
 #define IDI_ICON44                      463
+#define IDD_TerminalDlg                 464
+#define IDD_CV_SET                      465
+#define IDD_MAll                        467
+#define IDD_MName                       468
+#define IDD_MPhone                      469
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -209,8 +214,11 @@
 #define IDC_Updata_ALL                  1031
 #define IDC_BTN_Open                    1031
 #define IDC_BTN_QX                      1031
+#define IDC_BUTTON12                    1031
+#define IDC_DELETEUSER                  1031
 #define IDC_RADIOR                      1032
 #define IDC_BUTTON10                    1032
+#define IDC_BUTTON13                    1032
 #define IDC_BTN_RSET                    1033
 #define IDC_BUTTON11                    1033
 #define IDC_RADIOL                      1034
@@ -261,14 +269,20 @@
 #define IDC_LIST1                       1075
 #define IDC_LIST_TERMINAL               1075
 #define IDC_LIST_DATA                   1075
+#define IDC_LIST_USER                   1075
 #define IDC_BTN_GMODIFY                 1076
 #define IDC_EXPLORER1                   1083
 #define IDC_RADIO1                      1084
 #define IDC_LIST_WARNING                1085
+#define IDC_RADIO2                      1085
 #define IDC_BEGIN_DATA                  1086
+#define IDC_RADIO3                      1086
 #define IDC_END_DATA                    1087
+#define IDC_RADIO4                      1087
 #define IDC_BTN_GET                     1088
+#define IDC_RADIO5                      1088
 #define IDC_BUTTON9                     1089
+#define IDC_RADIO6                      1089
 #define IDC_BTN_PRINTVIEW               1090
 #define IDC_EDIT_Type                   1091
 #define IDC_BEGINOPEN                   1092
@@ -324,6 +338,22 @@
 #define IDC_DATETIMEPICKER5             1142
 #define IDC_EHTIME                      1142
 #define IDC_BTN_BC                      1143
+#define IDC_AREA_NAME                   1144
+#define IDC_UESRNAME                    1146
+#define IDC_OLDP                        1147
+#define IDC_NEWP1                       1148
+#define IDC_NEWP2                       1149
+#define IDC_PHONE                       1150
+#define IDC_AREA                        1151
+#define IDC_M                           1152
+#define IDC_OldName                     1153
+#define IDC_PASS                        1154
+#define IDC_NewName                     1155
+#define IDC_BTN_YES                     1156
+#define IDC_OLDN                        1158
+#define IDC_phonenum                    1159
+#define IDC_BTN_Y                       1160
+#define IDC_RENEW                       1162
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -432,15 +462,17 @@
 #define ID_NEWJ                         32894
 #define ID_NEWSPCIAL                    32895
 #define ID_32896                        32896
+#define ID_32897                        32897
+#define ID_CV_SET                       32898
 #define ID_Coommand                     32900
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        464
-#define _APS_NEXT_COMMAND_VALUE         32897
-#define _APS_NEXT_CONTROL_VALUE         1144
+#define _APS_NEXT_RESOURCE_VALUE        470
+#define _APS_NEXT_COMMAND_VALUE         32899
+#define _APS_NEXT_CONTROL_VALUE         1163
 #define _APS_NEXT_SYMED_VALUE           319
 #endif
 #endif

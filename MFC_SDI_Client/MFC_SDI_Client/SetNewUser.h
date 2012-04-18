@@ -23,8 +23,8 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnEnChangeUsername();
 	afx_msg void OnCbnSelchangeCombo1();
-	CComboBox m_ctrComboBox;
 	BOOL IsBegin;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedCancel();
+	CString m_strAreaName;
 };

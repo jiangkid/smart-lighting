@@ -94,9 +94,9 @@ typedef struct _RoadListViewInfo
 	U8 m_RoadID[6];
 	bool m_RoadStatus;
 	U8 m_Update;
-	float nCurrent1;
-	float nCurrent2;
-	float nCurrent3;
+	int nCurrent1;
+	int nCurrent2;
+	int nCurrent3;
 }RoadListViewInfo, *LPRoadListViewInfo;
 
 typedef struct _TreeInfo//Tree的信息
@@ -147,6 +147,14 @@ typedef struct  _Decision//决策
 	char Half_openTime[5];
 	char Half_closeTime[5];
 }Decision, *LPDecision;
+
+typedef struct _MUserInfo//back的信息
+{
+	U8 UserName[20];
+	U8 AreaName[20];
+	U8 PhoneNum[11];
+	U8 Time[19];
+}MUserInfo,*LPMUserInfo;
 
 typedef struct _ConTrlInfo//back的信息
 {

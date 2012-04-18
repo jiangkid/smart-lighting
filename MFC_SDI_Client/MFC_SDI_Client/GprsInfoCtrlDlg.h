@@ -24,6 +24,8 @@ public:
 	CTabCtrl m_Tab;
 	CGPRSLocaInfomation* m_pGLocalVIew;
 	CRoudInfoView*       m_RoadView;
+	TerminalInfo* pGetTerminanlInfo;
 	afx_msg void OnTcnSelchangeGinfoTab(NMHDR *pNMHDR, LRESULT *pResult);
 	void SendRCurrent();
+	void SendRUpdata();
 };
