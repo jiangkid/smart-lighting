@@ -44,7 +44,7 @@ END_MESSAGE_MAP()
 BOOL CDoRWorkDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
+	theApp.m_pDoRoadDld=this;
 	// TODO:  Add extra initialization here
  	m_RName = theApp.m_pRoadView->m_szRName;
  	RID = theApp.m_pRoadView->m_szLID;
@@ -56,14 +56,14 @@ BOOL CDoRWorkDlg::OnInitDialog()
 void CDoRWorkDlg::OnCancel()
 {
 	// TODO: Add your specialized code here and/or call the base class
-	DestroyWindow();
-	//CDialog::OnCancel();
+	//DestroyWindow();
+	CDialog::OnCancel();
 }
 void CDoRWorkDlg::PostNcDestroy()
 {
 	// TODO: Add your specialized code here and/or call the base class
-	this->~CDoRWorkDlg();
-	free(this);
+	//this->~CDoRWorkDlg();
+	//free(this);
 	CDialog::PostNcDestroy();
 }
 void CDoRWorkDlg::OnBnClickedBtnAll()
