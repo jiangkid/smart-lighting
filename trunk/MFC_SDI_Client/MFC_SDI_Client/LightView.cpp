@@ -35,6 +35,7 @@ BEGIN_MESSAGE_MAP(CLightView, CDialog)
 	ON_NOTIFY(NM_RCLICK, IDC_Light_View, &CLightView::OnNMRClickLightView)
 	ON_COMMAND(ID_Updata_Current, &CLightView::OnUpdataCurrent)
 	ON_COMMAND(ID_Updata_Status, &CLightView::OnUpdataStatus)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_Light_View, &CLightView::OnLvnItemchangedLightView)
 END_MESSAGE_MAP()
 
 
@@ -461,4 +462,10 @@ void CLightView::UpdataOneLight(ZigbeeInfo* pGetInfo)
 			}
 		}
 	}
+}
+void CLightView::OnLvnItemchangedLightView(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
 }
