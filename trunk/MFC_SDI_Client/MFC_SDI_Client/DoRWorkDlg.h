@@ -21,6 +21,7 @@ protected:
 
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void UpdateRoadstatus(bool nbool);
  	CString m_RName;
 	CString RID;
 	CString m_status;
@@ -30,6 +31,7 @@ protected:
 	virtual void PostNcDestroy();
 	afx_msg void OnBnClickedBtnAll();
 	afx_msg void OnBnClickedBtnAll11();
+	
 };
 
 ////////////////
