@@ -55,6 +55,8 @@ void CTabListView::Dump(CDumpContext& dc) const
 void CTabListView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
+	GetParentFrame()->RecalcLayout();
+	ResizeParentToFit();
 	UpDateMainFrame();
 // 	CRect rect;  
 // 	GetClientRect(&rect);  
@@ -75,7 +77,7 @@ void CTabListView::UpDateMainFrame(void)
 	m_Tab.InsertItem(2,_T("电表信息"),2);
 	m_Tab.InsertItem(3,_T("报警信息"),3);
 	m_Tab.InsertItem(4,_T("地图显示"),4);
- 	m_LightView = new CLightView();
+ 	m_LightView = new CLightView(); 
  	m_LightView->Create(IDD_DIALOG3,&m_Tab);
  	CRect m_rect;
  	m_Tab.GetClientRect(m_rect);
@@ -167,5 +169,5 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 		break;
 
 	}
-	*pResult = 0;
+	 *pResult = 0; 
 }
