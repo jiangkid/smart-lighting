@@ -25,6 +25,8 @@
 #include "GprsInfoCtrlDlg.h"
 #include "UserCtrDlg.h"
 #include "TerminalCtrlDlg.h"
+#include "DoRWorkDlg.h"
+#include "LightCtrlDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -70,6 +72,8 @@ public:
 	CGprsInfoCtrlDlg*   m_pGCInfoDlg;
 	CUserCtrDlg*        m_pUserCtrl;
 	CTerminalCtrlDlg*   m_pTerminalDlg;
+	CDoRWorkDlg*        m_pDoRoadDld;
+	CLightCtrlDlg*      m_pLightCtrlDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();

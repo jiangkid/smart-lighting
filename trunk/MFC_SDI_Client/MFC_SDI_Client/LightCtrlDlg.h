@@ -35,4 +35,6 @@ public:
 	afx_msg void OnBnClickedBtnMain();
 	afx_msg void OnBnClickedBtnAssist();
 	afx_msg void OnBnClickedBtnDoff();
+	void CheckMain(bool nMainStatus);
+	void CheckAssist(bool nAssistStatus);
 };

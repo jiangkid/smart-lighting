@@ -33,7 +33,7 @@ public:
 	bool ItemdataProc(DWORD dwData, LPARAM lParam);
 	afx_msg void OnBnClickedBtnAll();
 	afx_msg void OnBnClickedBtnUpdata();
-	CLightCtrlDlg* pDlg;
+	//CLightCtrlDlg* pDlg;
 	afx_msg void OnNMDblclkLightView(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMRClickLightView(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnUpdataCurrent();
