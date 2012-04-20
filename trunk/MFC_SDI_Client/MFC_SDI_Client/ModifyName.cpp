@@ -71,7 +71,7 @@ void CModifyName::OnBnClickedBtnYes()
 BOOL CModifyName::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
+	theApp.m_pModifyNameDlg=this;
 	// TODO:  Add extra initialization here
 	for (int i(0);i<20;i++)
 	{
@@ -80,4 +80,20 @@ BOOL CModifyName::OnInitDialog()
 	UpdateData(FALSE);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+void CModifyName::ChangeName(void)
+{
+	ZeroMemory(userInfo[0].UserName,10);
+	memcpy(userInfo[0].UserName,m_newName.GetBuffer(),10);
+	ClearBroad();
+}
+
+void CModifyName::ClearBroad(void)
+{
+	//m_newName=_T("");
+	//m_passwold=_T("");
+	//UpdateData(FALSE);
+	SetDlgItemText(IDC_PASS,_T(""));
+	SetDlgItemText(IDC_NewName,_T(""));
 }
