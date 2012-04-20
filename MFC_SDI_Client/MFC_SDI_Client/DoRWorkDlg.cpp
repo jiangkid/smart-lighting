@@ -120,9 +120,9 @@ void CDoRWorkDlg::OnBnClickedBtnAll()
 	}
 	pGetInfo->m_EndBuffer[1]=0xCC;
 	SendContrlInfo(&hdr,pGetInfo);
-	Sleep(500);
-	m_status="关";
-	UpdateData(false);
+// 	Sleep(500);
+// 	m_status="关";
+// 	UpdateData(false);
 }
 void CDoRWorkDlg::OnBnClickedBtnAll11()
 {
@@ -179,7 +179,15 @@ void CDoRWorkDlg::OnBnClickedBtnAll11()
 
 	pGetInfo->m_EndBuffer[1]=0xCC;
 	SendContrlInfo(&hdr,pGetInfo);
-	Sleep(500);
-	m_status="开";
-	UpdateData(false);
+}
+void CDoRWorkDlg::UpdateRoadstatus(bool nbool)
+{
+	if(nbool==false)
+	{
+		SetDlgItemText(IDC_RName2,_T("关"));
+	}
+	if(nbool==true)
+	{
+		SetDlgItemText(IDC_RName2,_T("开"));
+	}
 }

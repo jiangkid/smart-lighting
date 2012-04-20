@@ -274,11 +274,13 @@ void CLightView::OnNMDblclkLightView(NMHDR *pNMHDR, LRESULT *pResult)
 		m_szGName=m_List.GetItemText(pNMItemActivate->iItem,1);
 		m_szMainStatus=m_List.GetItemText(pNMItemActivate->iItem,6);
 		m_szAssistStatus=m_List.GetItemText(pNMItemActivate->iItem,7);
-		pDlg = (CLightCtrlDlg *)malloc(sizeof(CLightCtrlDlg));
-		pDlg->CLightCtrlDlg::CLightCtrlDlg();
-		pDlg->Create(IDD_LIGHT_DLG, this);
-		pDlg->CenterWindow();
-		pDlg->ShowWindow(SW_SHOW);
+// 		pDlg = (CLightCtrlDlg *)malloc(sizeof(CLightCtrlDlg));
+// 		pDlg->CLightCtrlDlg::CLightCtrlDlg();
+// 		pDlg->Create(IDD_LIGHT_DLG, this);
+// 		pDlg->CenterWindow();
+// 		pDlg->ShowWindow(SW_SHOW);
+		CLightCtrlDlg dlg;
+		dlg.DoModal();
 	} 
 	m_szLID=_T("");
 	m_szLName=_T("");

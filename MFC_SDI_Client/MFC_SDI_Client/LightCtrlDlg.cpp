@@ -49,7 +49,7 @@ END_MESSAGE_MAP()
 BOOL CLightCtrlDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
+	theApp.m_pLightCtrlDlg=this;
 	// TODO:  Add extra initialization here
 	m_GName=theApp.m_pLightListView->m_szGName;
 	m_RName=theApp.m_pLightListView->m_szRName;
@@ -83,14 +83,14 @@ BOOL CLightCtrlDlg::OnInitDialog()
 void CLightCtrlDlg::OnCancel()
 {
 	// TODO: Add your specialized code here and/or call the base class
-	DestroyWindow();
-	//CDialog::OnCancel();
+	//DestroyWindow();
+	CDialog::OnCancel();
 }
 void CLightCtrlDlg::PostNcDestroy()
 {
 	// TODO: Add your specialized code here and/or call the base class
-	this->~CLightCtrlDlg();
-	free(this);
+	//this->~CLightCtrlDlg();
+	//free(this);
 	CDialog::PostNcDestroy();
 }
 void CLightCtrlDlg::OnBnClickedBtnDon()
@@ -109,21 +109,6 @@ void CLightCtrlDlg::OnBnClickedBtnDon()
 	pGetRInfo->m_ActiveType[0]=0xB1;
 	pGetRInfo->m_EndBuffer[1]=0xCC;
 	SendContrlInfo(&hdr,pGetRInfo);
-	Sleep(5000);
-	if (theApp.m_DlgDoubleONStatus)
-	{
-		GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
-		m_MainStatus.SetIcon(IDI_LIGHT_ON);
-		m_AssistStatus.SetIcon(IDI_LIGHT_ON);
-		GetDlgItem(IDC_BTN_MAIN)->SetWindowText("主灯关"); 
-		GetDlgItem(IDC_BTN_ASSIST)-> SetWindowText("辅灯关");
-		theApp.m_DlgDoubleONStatus=false;
-	}
-	else
-	{
-		GetDlgItem(IDC_Progress)->SetWindowText("命令操作失败");
-		return;
-	}
 }
 
 void CLightCtrlDlg::OnBnClickedBtnMain()
@@ -146,38 +131,12 @@ void CLightCtrlDlg::OnBnClickedBtnMain()
 		pGetRInfo->m_ActiveType[0]=0xB1;
 		pGetRInfo->m_EndBuffer[1]=0xCC;
 		SendContrlInfo(&hdr,pGetRInfo);
-		Sleep(5000);
-		if (theApp.m_DlgMainONStatus)
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
-			m_MainStatus.SetIcon(IDI_LIGHT_ON);
-			GetDlgItem(IDC_BTN_MAIN)->SetWindowText("主灯关"); 
-			theApp.m_DlgMainONStatus=false;
-		}
-		else
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作失败");
-			return;
-		}
 	}
 	else
 	{
 		pGetRInfo->m_ActiveType[0]=0xB2;
 		pGetRInfo->m_EndBuffer[1]=0xCC;
 		SendContrlInfo(&hdr,pGetRInfo);
-		Sleep(5000);
-		if (theApp.m_DlgMainOFFStatus)
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
-			m_MainStatus.SetIcon(IDI_LIGHT_OFF);
-			GetDlgItem(IDC_BTN_MAIN)->SetWindowText("主灯开"); 
-			theApp.m_DlgMainOFFStatus=false;
-		}
-		else
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作失败");
-			return;
-		}
 	}
 }
 
@@ -202,19 +161,6 @@ void CLightCtrlDlg::OnBnClickedBtnAssist()
 		pGetRInfo->m_OrderObject[0]=0xA2;
 		pGetRInfo->m_EndBuffer[1]=0xCC;
 		SendContrlInfo(&hdr,pGetRInfo);
-		Sleep(5000);
-		if (theApp.m_DlgAssistONStatus)
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
-			m_AssistStatus.SetIcon(IDI_LIGHT_ON);
-			GetDlgItem(IDC_BTN_ASSIST)-> SetWindowText("辅灯关");
-			theApp.m_DlgAssistONStatus=false;
-		}
-		else
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作失败");
-			return;
-		}
 	}
 	else
 	{
@@ -222,23 +168,7 @@ void CLightCtrlDlg::OnBnClickedBtnAssist()
 		pGetRInfo->m_OrderObject[0]=0xA2;
 		pGetRInfo->m_EndBuffer[1]=0xCC;
 		SendContrlInfo(&hdr,pGetRInfo);
-		Sleep(5000);
-		if (theApp.m_DlgAssistOFFStatus)
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
-			m_AssistStatus.SetIcon(IDI_LIGHT_OFF);
-			GetDlgItem(IDC_BTN_ASSIST)-> SetWindowText("辅灯开");
-			theApp.m_DlgAssistOFFStatus=false;
-		}
-		else
-		{
-			GetDlgItem(IDC_Progress)->SetWindowText("命令操作失败");
-			return;
-		}
 	}
-		
-	
-
 }
 
 void CLightCtrlDlg::OnBnClickedBtnDoff()
@@ -257,19 +187,37 @@ void CLightCtrlDlg::OnBnClickedBtnDoff()
 	pGetRInfo->m_ActiveType[0]=0xB2;
 	pGetRInfo->m_EndBuffer[1]=0xCC;
 	SendContrlInfo(&hdr,pGetRInfo);
-	Sleep(5000);
-	if (theApp.m_DlgDoubleOFFStatus)
+
+}
+
+void CLightCtrlDlg::CheckMain(bool nMainStatus)
+{
+	if (nMainStatus==true)
 	{
 		GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
-		m_MainStatus.SetIcon(IDI_LIGHT_OFF);
-		m_AssistStatus.SetIcon(IDI_LIGHT_OFF);
+		m_MainStatus.SetIcon(IDI_LIGHT_ON);
 		GetDlgItem(IDC_BTN_MAIN)->SetWindowText("主灯开"); 
-		GetDlgItem(IDC_BTN_ASSIST)-> SetWindowText("辅灯开");
-		theApp.m_DlgDoubleOFFStatus=false;
 	}
 	else
 	{
-		GetDlgItem(IDC_Progress)->SetWindowText("命令操作失败");
-		return;
+		GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
+		m_MainStatus.SetIcon(IDI_LIGHT_OFF);
+		GetDlgItem(IDC_BTN_MAIN)->SetWindowText("主灯关"); 
+	}
+}
+
+void CLightCtrlDlg::CheckAssist(bool nAssistStatus)
+{
+	if (nAssistStatus==true)
+	{
+		GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
+		m_AssistStatus.SetIcon(IDI_LIGHT_ON);
+		GetDlgItem(IDC_BTN_MAIN)->SetWindowText("辅灯开"); 
+	}
+	else
+	{
+		GetDlgItem(IDC_Progress)->SetWindowText("命令操作成功");
+		m_AssistStatus.SetIcon(IDI_LIGHT_OFF);
+		GetDlgItem(IDC_BTN_MAIN)->SetWindowText("辅灯关"); 
 	}
 }
