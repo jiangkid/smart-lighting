@@ -736,6 +736,9 @@ IDI_ICON14              ICON                    "res\\icon14.ico"
 IDI_ICON31              ICON                    "res\\icon31.ico"
 IDI_ICON40              ICON                    "res\\icon40.ico"
 IDI_ICON44              ICON                    "res\\20120411082647671_easyicon_cn_32.ico"
+IDI_ICON51              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120420092547975_easyicon_cn_32.ico"
+IDI_ICON52              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120420092833203_easyicon_cn_32.ico"
+IDI_ICON53              ICON                    "C:\\Documents and Settings\\Administrator\\桌面\\20120420094041496_easyicon_cn_32.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -786,6 +789,16 @@ BEGIN
     BUTTON      ID_NEWJ
     SEPARATOR
     BUTTON      ID_NEWSPCIAL
+    SEPARATOR
+    BUTTON      ID_SHOW_TOOL
+    SEPARATOR
+    BUTTON      ID_HIDE_TOOL
+    SEPARATOR
+    BUTTON      ID_SHOW_TREE
+    SEPARATOR
+    BUTTON      ID_HIDE_TREE
+    SEPARATOR
+    BUTTON      ID_CV_SET
 END
 
 IDR_MAINFRAME TOOLBAR  16, 15
@@ -831,7 +844,7 @@ BEGIN
     POPUP "视图"
     BEGIN
         MENUITEM "显示快捷工具",                      ID_SHOW_TOOL
-        MENUITEM "隐藏快捷工具",                      ID_HIDE_TOOL
+        MENUITEM "隐藏快捷工具",                      ID_HIDE_TREE
         MENUITEM "显示系统机构",                      ID_SHOW_TREE
         MENUITEM "隐藏系统机构",                      ID_HIDE_TREE
     END
@@ -1346,6 +1359,10 @@ STRINGTABLE
 BEGIN
     ID_RENEW                "\n刷新"
     ID_BUTTON32868          "修改用户"
+    ID_SHOW_TOOL            "\n显示快捷工具"
+    ID_HIDE_TOOL            "\n隐藏快捷工具"
+    ID_SHOW_TREE            "\n显示系统机构"
+    ID_HIDE_TREE            "\n隐藏系统机构"
 END
 
 STRINGTABLE 
@@ -1384,6 +1401,7 @@ END
 
 STRINGTABLE 
 BEGIN
+    ID_CV_SET               "\n阀值设置"
     ID_Coommand             "\n决策设置"
 END
 
