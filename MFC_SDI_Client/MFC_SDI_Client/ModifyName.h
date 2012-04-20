@@ -24,4 +24,6 @@ public:
 	CString m_passwold;
 	CString m_newName;
 	virtual BOOL OnInitDialog();
+	void ChangeName(void);
+	void ClearBroad(void);
 };
