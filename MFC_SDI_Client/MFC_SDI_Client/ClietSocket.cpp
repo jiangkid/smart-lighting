@@ -239,6 +239,7 @@ void ChenkModify(char* buff,int nRecvLength)
 		if (buff[2]==0x30)
 		{
 			AfxMessageBox(_T("修改用户名成功！"));
+			theApp.m_pModifyNameDlg->ChangeName();
 			break;
 		}
 		else
