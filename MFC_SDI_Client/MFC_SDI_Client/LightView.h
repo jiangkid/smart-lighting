@@ -21,10 +21,8 @@ public:
 
 // Dialog Data
 	enum { IDD = IDD_DIALOG3 };
-
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
@@ -39,4 +37,5 @@ public:
 	afx_msg void OnUpdataCurrent();
 	afx_msg void OnUpdataStatus();
 	void UpdataOneLight(ZigbeeInfo* pGetInfo);
+	afx_msg void OnLvnItemchangedLightView(NMHDR *pNMHDR, LRESULT *pResult);
 };
