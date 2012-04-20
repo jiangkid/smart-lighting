@@ -157,11 +157,20 @@
 #define IDI_ICON42                      461
 #define IDI_ICON43                      462
 #define IDI_ICON44                      463
+#define IDI_ICON45                      464
 #define IDD_TerminalDlg                 464
+#define IDI_ICON46                      465
 #define IDD_CV_SET                      465
+#define IDI_ICON47                      466
+#define IDI_ICON48                      467
 #define IDD_MAll                        467
+#define IDI_ICON49                      468
 #define IDD_MName                       468
+#define IDI_ICON50                      469
 #define IDD_MPhone                      469
+#define IDI_ICON51                      470
+#define IDI_ICON52                      471
+#define IDI_ICON53                      472
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -470,7 +479,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        470
+#define _APS_NEXT_RESOURCE_VALUE        473
 #define _APS_NEXT_COMMAND_VALUE         32899
 #define _APS_NEXT_CONTROL_VALUE         1163
 #define _APS_NEXT_SYMED_VALUE           319
