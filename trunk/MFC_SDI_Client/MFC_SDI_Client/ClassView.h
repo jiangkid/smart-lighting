@@ -18,7 +18,6 @@ class CClassView : public CDockablePane
 public:
 	CClassView();
 	virtual ~CClassView();
-
 	void AdjustLayout();
 	void OnChangeVisualStyle();
 
@@ -27,7 +26,6 @@ protected:
 	CViewTree m_wndClassView;
 	CImageList m_ClassViewImages;
 	UINT m_nCurrSort;
-
 	void FillClassView();
 
 // ÖØÐ´
