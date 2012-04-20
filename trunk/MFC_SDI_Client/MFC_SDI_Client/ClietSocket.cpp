@@ -895,28 +895,10 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 	}
 	switch (pGetRInfo->m_OrderType[0])
 	{
-	case 0xA1:
-		if (pGetRInfo->m_ActiveType[0]==0xB1)
-		{
-			theApp.m_DlgMainONStatus=true;
-			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+		case 0xA1:
+			if (pGetRInfo->m_ActiveType[0]==0xB1)
 			{
-				CString str2=_T("");
-				for (int m=0;m<16;m++)
-				{
-					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
-				}
-				if (strcmp(str1,str2)==0)
-				{
-					theApp.m_ZigbeeInfo[n]->MainStatus=true;
-				}
-				theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
-			}
-		}
-		else
-			if (pGetRInfo->m_ActiveType[0]==0xB2)
-			{
-				theApp.m_DlgMainOFFStatus=true;
+				theApp.m_DlgMainONStatus=true;
 				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
 				{
 					CString str2=_T("");
@@ -926,140 +908,183 @@ void CheckCtrlBackInfo(char* buff,int nRecvLength)
 					}
 					if (strcmp(str1,str2)==0)
 					{
-						theApp.m_ZigbeeInfo[n]->MainStatus=false;
+						theApp.m_ZigbeeInfo[n]->MainStatus=true;
 					}
 					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
+					theApp.m_pLightCtrlDlg->CheckMain(true);
+					break;
 				}
+				
 			}
-		break;
-	case 0xA2:
-		if (pGetRInfo->m_ActiveType[0]==0xB1)
-		{
-			theApp.m_DlgAssistONStatus=true;
-			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
-			{
-				CString str2=_T("");
-				for (int m=0;m<16;m++)
+			else
+				if (pGetRInfo->m_ActiveType[0]==0xB2)
 				{
-					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
-				}
-				if (strcmp(str1,str2)==0)
-				{
-					theApp.m_ZigbeeInfo[n]->AssistStatus=true;
-				}
-				theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
-			}
-		}
-		else
-			if (pGetRInfo->m_ActiveType[0]=0xB2)
-			{
-				theApp.m_DlgAssistOFFStatus=true;
-				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
-				{
-					CString str2=_T("");
-					for (int m=0;m<16;m++)
+					theApp.m_DlgMainOFFStatus=true;
+					for (int n=0;n<theApp.m_pLightListView->nCount;n++)
 					{
-						str2+=theApp.m_ZigbeeInfo[n]->LID[m];
-					}
-					if (strcmp(str1,str2)==0)
-					{
-						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
-					}
-					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
-			}
-		break;
-	case 0xA3:
-		if (pGetRInfo->m_ActiveType[0]==0xB1)
-		{
-			theApp.m_DlgDoubleONStatus=true;
-			for (int n=0;n<theApp.m_pLightListView->nCount;n++)
-			{
-				CString str2=_T("");
-				for (int m=0;m<16;m++)
-				{
-					str2+=theApp.m_ZigbeeInfo[n]->LID[m];
-				}
-				if (strcmp(str1,str2)==0)
-				{
-					theApp.m_ZigbeeInfo[n]->MainStatus=true;
-					theApp.m_ZigbeeInfo[n]->AssistStatus=true;
-					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
-				}
-			}
-		}
-		else
-			if (pGetRInfo->m_ActiveType[0]==0xB2)
-			{
-				theApp.m_DlgDoubleOFFStatus=true;
-				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
-				{
-					CString str2=_T("");
-					for (int m=0;m<16;m++)
-					{
-						str2+=theApp.m_ZigbeeInfo[n]->LID[m];
-					}
-					if (strcmp(str1,str2)==0)
-					{
-						theApp.m_ZigbeeInfo[n]->MainStatus=false;
-						theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+						CString str2=_T("");
+						for (int m=0;m<16;m++)
+						{
+							str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+						}
+						if (strcmp(str1,str2)==0)
+						{
+							theApp.m_ZigbeeInfo[n]->MainStatus=false;
+						}
 						theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
+						theApp.m_pLightCtrlDlg->CheckMain(false);
+						break;
 					}
-					//theApp.m_pLightListView->LightToView(theApp.m_pLightListView->nCount);
 				}
-			}
-		break;
-	case 0x32:
-		if (pGetRInfo->m_ActiveType[0]==0x12)
-		{
-			for (int l=0;l<theApp.m_pRoadView->nCount;l++)
+			break;
+		case 0xA2:
+			if (pGetRInfo->m_ActiveType[0]==0xB1)
 			{
-				CString str2=_T("");
-				CString str3=_T("");
-				for (int k(0);k<6;k++)
+				theApp.m_DlgAssistONStatus=true;
+				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
 				{
-					str2+=theApp.m_RoadListInfo[l]->m_RoadID[k];
+					CString str2=_T("");
+					for (int m=0;m<16;m++)
+					{
+						str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+					}
+					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
+					theApp.m_pLightCtrlDlg->CheckAssist(true);
+					break;
 				}
-				for (int j(0);j<4;j++)
-				{
-					str3+=pGetRInfo->m_ID[j];
-				}
-				str3+=CharToCString(&pGetRInfo->m_CheckData[3],1);
-				if (strcmp(str2,str3)==0)
-				{
-					theApp.m_RoadListInfo[l]->m_RoadStatus=false;
-				}
-				theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+				
 			}
-		}
-		if (pGetRInfo->m_ActiveType[0]==0x13)
-		{
-			for (int l=0;l<theApp.m_pRoadView->nCount;l++)
+			else
+				if (pGetRInfo->m_ActiveType[0]=0xB2)
+				{
+					theApp.m_DlgAssistOFFStatus=true;
+					for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+					{
+						CString str2=_T("");
+						for (int m=0;m<16;m++)
+						{
+							str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+						}
+						if (strcmp(str1,str2)==0)
+						{
+							theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+						}
+						theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
+						theApp.m_pLightCtrlDlg->CheckAssist(true);
+						break;
+					}
+					
+				}
+			break;
+		case 0xA3:
+			if (pGetRInfo->m_ActiveType[0]==0xB1)
 			{
-				CString str2=_T("");
-				CString str3=_T("");
-				for (int k(0);k<6;k++)
+				theApp.m_DlgDoubleONStatus=true;
+				for (int n=0;n<theApp.m_pLightListView->nCount;n++)
 				{
-					str2+=theApp.m_RoadListInfo[l]->m_RoadID[k];
+					CString str2=_T("");
+					for (int m=0;m<16;m++)
+					{
+						str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+					}
+					if (strcmp(str1,str2)==0)
+					{
+						theApp.m_ZigbeeInfo[n]->MainStatus=true;
+						theApp.m_ZigbeeInfo[n]->AssistStatus=true;
+						theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
+						//theApp.m_pDoRoadDld->UpdateRoadstatus(true);
+						theApp.m_pLightCtrlDlg->CheckAssist(true);
+						theApp.m_pLightCtrlDlg->CheckMain(true);
+						break;
+					}
 				}
-				for (int j(0);j<4;j++)
-				{
-					str3+=pGetRInfo->m_ID[j];
-				}
-				str3+=CharToCString(&pGetRInfo->m_CheckData[3],1);
-				if (strcmp(str2,str3)==0)
-				{
-					theApp.m_RoadListInfo[l]->m_RoadStatus=true;
-				}
-				theApp.m_pRoadView->RoadInfoToView(theApp.nRCount);
+
 			}
-		}
-		break;
-	default:
-		break;
+			else
+				if (pGetRInfo->m_ActiveType[0]==0xB2)
+				{
+					theApp.m_DlgDoubleOFFStatus=true;
+					for (int n=0;n<theApp.m_pLightListView->nCount;n++)
+					{
+						CString str2=_T("");
+						for (int m=0;m<16;m++)
+						{
+							str2+=theApp.m_ZigbeeInfo[n]->LID[m];
+						}
+						if (strcmp(str1,str2)==0)
+						{
+							theApp.m_ZigbeeInfo[n]->MainStatus=false;
+							theApp.m_ZigbeeInfo[n]->AssistStatus=false;
+							theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
+							theApp.m_pLightCtrlDlg->CheckAssist(false);
+							theApp.m_pLightCtrlDlg->CheckMain(false);
+							break;
+						}
+					}	
+				}
+			break;
+		case 0x32:
+			if (pGetRInfo->m_ActiveType[0]==0x12)
+			{
+				for (int l=0;l<theApp.m_pRoadView->nCount;l++)
+				{
+					CString str2=_T("");
+					CString str3=_T("");
+					for (int k(0);k<6;k++)
+					{
+						str2+=theApp.m_RoadListInfo[l]->m_RoadID[k];
+					}
+					for (int j(0);j<4;j++)
+					{
+						str3+=pGetRInfo->m_ID[j];
+					}
+					str3+=CharToCString(&pGetRInfo->m_CheckData[3],1);
+					if (strcmp(str2,str3)==0)
+					{
+						theApp.m_RoadListInfo[l]->m_RoadStatus=false;
+					}
+					theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[l]);
+					//theApp.m_pRoadView->RoadInfoToView(theApp.m_pRoadView->nCount);
+					theApp.m_pDoRoadDld->UpdateRoadstatus(false);
+					break;
+				}
+				
+			}
+			if (pGetRInfo->m_ActiveType[0]==0x13)
+			{
+				for (int l=0;l<theApp.m_pRoadView->nCount;l++)
+				{
+					CString str2=_T("");
+					CString str3=_T("");
+					for (int k(0);k<6;k++)
+					{
+						str2+=theApp.m_RoadListInfo[l]->m_RoadID[k];
+					}
+					for (int j(0);j<4;j++)
+					{
+						str3+=pGetRInfo->m_ID[j];
+					}
+					str3+=CharToCString(&pGetRInfo->m_CheckData[3],1);
+					if (strcmp(str2,str3)==0)
+					{
+						theApp.m_RoadListInfo[l]->m_RoadStatus=true;
+					}
+					theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[l]);
+					//theApp.m_pRoadView->RoadInfoToView(theApp.nRCount);
+					theApp.m_pDoRoadDld->UpdateRoadstatus(true);
+					break;
+				}
+			}
+			break;
+		default:
+			break;
 		}
 	free(pGetRInfo);
 	}
-}
 
 void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 {

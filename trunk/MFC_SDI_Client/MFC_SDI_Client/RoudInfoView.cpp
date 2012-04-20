@@ -745,11 +745,8 @@ void CRoudInfoView::OnNMDblclkRList(NMHDR *pNMHDR, LRESULT *pResult)
 		m_szGName=m_List.GetItemText(pNMItemActivate->iItem,3);
 		m_szLID=m_List.GetItemText(pNMItemActivate->iItem,2);
 		m_szRName=m_List.GetItemText(pNMItemActivate->iItem,1);
-		pDlg = (CDoRWorkDlg *)malloc(sizeof(CDoRWorkDlg));
-		pDlg->CDoRWorkDlg::CDoRWorkDlg();
-		pDlg->Create(IDD_DoRWorkDlg, this);
-		pDlg->CenterWindow();
-		pDlg->ShowWindow(SW_SHOW);
+		CDoRWorkDlg dlg;
+		dlg.DoModal();
 	} 
 	m_szLID=_T("");
 	m_szLName=_T("");
