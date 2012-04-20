@@ -133,7 +133,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar2.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndToolBar2);
 	m_wndToolBar2.ShowPane(TRUE,FALSE,TRUE); 
- /*	UINT IDArray[] ={ID_CAgain,0,ID_RENEW,0,ID_FILE_NEW,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0 ,ID_APP_ABOUT,0};
+ 	/*UINT IDArray[] ={ID_CAgain,0,ID_RENEW,0,ID_FILE_NEW,0,ID_3,0,ID_4,0,ID_5,0,ID_6,0,ID_7,0 ,ID_APP_ABOUT,0};
  	m_wndToolBar2.SetButtons(IDArray,18); */
 	theApp.nStatus[3]=0x01;
 	TrayMessage(NIM_ADD,IDI_ICON4); 
