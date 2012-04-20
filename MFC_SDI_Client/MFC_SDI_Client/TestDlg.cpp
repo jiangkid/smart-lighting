@@ -184,7 +184,7 @@ char* CTestDlg::Translation_ID(char* buffer, int Length)
 		sscanf(temp,"%2x",&c[nCount]);
 		nCount++;
 	}
-	return c;
+	 return c; 
 }
 void CTestDlg::OnBnClickedButton8()
 {
