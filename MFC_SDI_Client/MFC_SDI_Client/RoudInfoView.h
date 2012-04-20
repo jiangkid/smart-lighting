@@ -17,7 +17,7 @@ public:
 	CString m_szLID;
 	CString m_szLID1;
 	CString m_szGName;
-	CDoRWorkDlg* pDlg;
+	//CDoRWorkDlg* pDlg;
 // Dialog Data
 	enum { IDD = IDD_Roud_Info };
 
