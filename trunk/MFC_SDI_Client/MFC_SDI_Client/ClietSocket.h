@@ -287,4 +287,4 @@ void SendCurrent();
 //***************************************************************/
 //函数功能：判断是否存成功策略
 //***************************************************************/
-void CheckDecisionInfo(U8* buff, int nLength);
+void CheckDecisionInfo(U8* buff, int nLength); 
