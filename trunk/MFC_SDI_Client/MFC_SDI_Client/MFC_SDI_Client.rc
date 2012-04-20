@@ -736,9 +736,9 @@ IDI_ICON14              ICON                    "res\\icon14.ico"
 IDI_ICON31              ICON                    "res\\icon31.ico"
 IDI_ICON40              ICON                    "res\\icon40.ico"
 IDI_ICON44              ICON                    "res\\20120411082647671_easyicon_cn_32.ico"
-IDI_ICON51              ICON                    "C:\\Documents and Settings\\Administrator\\×ÀÃæ\\20120420092547975_easyicon_cn_32.ico"
-IDI_ICON52              ICON                    "C:\\Documents and Settings\\Administrator\\×ÀÃæ\\20120420092833203_easyicon_cn_32.ico"
-IDI_ICON53              ICON                    "C:\\Documents and Settings\\Administrator\\×ÀÃæ\\20120420094041496_easyicon_cn_32.ico"
+IDI_ICON51              ICON                    "res\\20120420092547975_easyicon_cn_32.ico"
+IDI_ICON52              ICON                    "res\\20120420092833203_easyicon_cn_32.ico"
+IDI_ICON53              ICON                    "res\\20120420094041496_easyicon_cn_32.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
