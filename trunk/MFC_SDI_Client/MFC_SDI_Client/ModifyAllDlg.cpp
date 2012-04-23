@@ -80,6 +80,11 @@ void CModifyAllDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 		m_pMPhone->ShowWindow(SW_HIDE);
 		break;
 	case 2:
+		if (userInfo[0].Idetify==0x30)
+		{
+			AfxMessageBox(_T("管理员没有电话号码"));
+			//return;
+		}
 		m_pModifyPass->ShowWindow(SW_HIDE);
 		m_pModifyName->ShowWindow(SW_HIDE);
 		m_pMPhone->ShowWindow(SW_SHOW);
