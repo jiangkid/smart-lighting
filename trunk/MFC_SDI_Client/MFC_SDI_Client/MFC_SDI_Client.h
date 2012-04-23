@@ -28,6 +28,7 @@
 #include "DoRWorkDlg.h"
 #include "LightCtrlDlg.h"
 #include "ModifyName.h"
+#include "SetNewUser.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -76,6 +77,7 @@ public:
 	CDoRWorkDlg*        m_pDoRoadDld;
 	CLightCtrlDlg*      m_pLightCtrlDlg;
 	CModifyName*        m_pModifyNameDlg;
+	CSetNewUser*        m_pSetNewUserDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();

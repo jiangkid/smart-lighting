@@ -24,4 +24,5 @@ public:
 	CString m_strphone;
 	afx_msg void OnBnClickedBtnY();
 	virtual BOOL OnInitDialog();
+	bool EnableWindow(unsigned int uID, bool bEnable);
 };

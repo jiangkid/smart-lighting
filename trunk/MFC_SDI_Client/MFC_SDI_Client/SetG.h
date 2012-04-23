@@ -39,7 +39,7 @@ public:
 	CString m_TName;
 	CString m_RName;
 	CString m_LName;
-	CComboBox m_UserNameSet;
+	//CComboBox m_UserNameSet;
 	afx_msg void OnBnClickedBtnTset();
 	afx_msg void OnBnClickedBtnRset();
 	afx_msg void OnBnClickedBtnLset();

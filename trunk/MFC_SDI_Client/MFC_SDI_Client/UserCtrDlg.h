@@ -37,7 +37,6 @@ public:
 	CString m_phone;
 	CString m_areaname;
 	afx_msg void OnBnClickedM();
-	afx_msg void OnBnClickedButton12();
 	afx_msg void OnBnClickedRenew();
 	bool EnableWindow(UINT uID, bool bEnable);
 	afx_msg void OnBnClickedRadio1();
@@ -47,4 +46,5 @@ public:
 	afx_msg void OnBnClickedRadio3();
 	int GetChenkRadio(void);
 	afx_msg void OnBnClickedRadio6();
+	afx_msg void OnBnClickedDeleteuser();
 };

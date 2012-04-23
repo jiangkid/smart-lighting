@@ -8,6 +8,12 @@ typedef struct _HEADER
 	u_short dataLen;
 }HDR,*LPHDR;
 
+typedef struct _BIND
+{
+	char GID[2];
+	char GlobalArea[20];
+}BIND,*LPBIND;
+
 typedef struct _HEADER2
 {
 	char dataCheck[1];
@@ -20,6 +26,7 @@ typedef struct _UserInfo
 	char UserName[10];
 	char PassWord[12];
 	char Idetify;
+	char AreaName[20];
 }USERINFO,*LPUSERINFO;
 
 typedef struct _GInfo//G的信息
@@ -153,7 +160,7 @@ typedef struct _MUserInfo//back的信息
 	U8 UserName[20];
 	U8 AreaName[20];
 	U8 PhoneNum[11];
-	U8 Time[19];
+	U8 Time[20];
 }MUserInfo,*LPMUserInfo;
 
 typedef struct _ConTrlInfo//back的信息
@@ -168,14 +175,18 @@ typedef struct _ConTrlInfo//back的信息
 }ConTrlInfo,*LPConTrlInfo;
 
 extern HDR hdr;				//全局包体
-extern USERINFO userInfo[9];//全局用户信息（要动态，在想办法解决）
+extern USERINFO userInfo[20];//全局用户信息（要动态，在想办法解决）
 extern IintInfo m_InitInfo; //初始化信息
 extern LInfo m_LInfo;
 extern bool BGTrue;
 extern bool BTTrue;
 extern bool BRTrue;
 extern bool BLTrue;
-
+//***************************************************************/
+//功能:判断用户删除是否成功ChenkDelete
+//***************************************************************/
+void ChenkDelete(char* buff,int nRecvLength);
+//***************************************************************/
 //***************************************************************/
 //功能:判断用户登录是否成功
 //***************************************************************/
