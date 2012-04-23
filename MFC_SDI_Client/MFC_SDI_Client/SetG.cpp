@@ -40,7 +40,7 @@ void CSetG::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TName, m_TName);
 	DDX_Text(pDX, IDC_RName, m_RName);
 	DDX_Text(pDX, IDC_LName, m_LName);
-	DDX_Control(pDX, IDC_COM_UserName, m_UserNameSet);
+	//DDX_Control(pDX, IDC_COM_UserName, m_UserNameSet);
 	DDX_Text(pDX, IDC_GroupName, m_GPhoneNum);
 	DDV_MaxChars(pDX, m_GPhoneNum, 11);
 	DDX_Text(pDX, IDC_GArea, m_GArea);
@@ -109,27 +109,27 @@ BOOL CSetG::OnInitDialog()
 	m_ComL.SetCurSel(-1);
 	m_ComR.SetCurSel(-1);
 	m_ComT.SetCurSel(-1);
-	m_UserNameSet.SetCurSel(-1);
- 	if (userInfo[0].Idetify==0x30)
- 	{
- 		EnableWindow(IDC_COM_UserName,TRUE);
- 		char buff[2]={'S',0x29};
- 		send(theApp.m_ConnectSock,buff,2,0);
- 		//Sleep(100*pTheApp->m_NumInfo.UserNum);
-		Sleep(1000);
-		Sleep(100*theApp.m_NumInfo.UserNum);
- 		for (int i=0;i<theApp.m_NumInfo.UserNum;i++)
- 		{
-			CString str1;
-//			memcpy(str,userInfo[i+1].UserName+1,sizeof(userInfo[i+1].UserName)-1);
-			str1.Format("%s",userInfo[i+1].UserName);
- 			m_UserNameSet.InsertString(i,str1);
- 		}
- 	}
- 	else if(userInfo[0].Idetify==0x31)
- 	{
- 		EnableWindow(IDC_COM_UserName,FALSE);
- 	}
+/*	m_UserNameSet.SetCurSel(-1);*/
+//  	if (userInfo[0].Idetify==0x30)
+//  	{
+//  		EnableWindow(IDC_COM_UserName,TRUE);
+//  		char buff[2]={'S',0x29};
+//  		send(theApp.m_ConnectSock,buff,2,0);
+//  		//Sleep(100*pTheApp->m_NumInfo.UserNum);
+// 		Sleep(1000);
+// 		Sleep(100*theApp.m_NumInfo.UserNum);
+//  		for (int i=0;i<theApp.m_NumInfo.UserNum;i++)
+//  		{
+// 			CString str1=_T("");
+// //			memcpy(str,userInfo[i+1].UserName+1,sizeof(userInfo[i+1].UserName)-1);
+// 			str1.Format("%s",userInfo[i+1].AreaName);
+//  			m_UserNameSet.InsertString(i,str1);
+//  		}
+//  	}
+//  	else if(userInfo[0].Idetify==0x31)
+//  	{
+//  		EnableWindow(IDC_COM_UserName,FALSE);
+//  	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -360,7 +360,7 @@ void CSetG::OnBnClickedBtnGset()
 	str+=buff[0];
 	str+=buff[1];
 	nRet=m_ComG.GetCurSel();
-	nRetUser=m_UserNameSet.GetCurSel();
+//	nRetUser=m_UserNameSet.GetCurSel();
  	if (m_GName=="" || nRet==-1)
  	{
  		AfxMessageBox(_T("区域名或ID不能不能为空，请确认！"));
@@ -371,8 +371,8 @@ void CSetG::OnBnClickedBtnGset()
  		str+=theApp.m_GInfo[nRet].GID[1];
  		str+="+";
  		str+=m_GName;
- 		str+="+";
- 		str+=userInfo[nRetUser+1].UserName;
+//  	str+="+";
+//  	str+=userInfo[nRetUser+1].UserName;
  		str+="+";
  		str+=m_GPhoneNum;
 		str+="+";

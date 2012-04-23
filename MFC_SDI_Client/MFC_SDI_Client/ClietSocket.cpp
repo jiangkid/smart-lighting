@@ -6,7 +6,7 @@
 #include "MFC_SDI_ClientDoc.h"
 
 HDR hdr;
-USERINFO userInfo[9];
+USERINFO userInfo[20];
 IintInfo m_InitInfo;
 extern CMFC_SDI_ClientApp theApp;
 
@@ -151,6 +151,9 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					case 'F':
 						CheckDecisionInfo((U8*)szBuf,iRet);
 						break;
+					case 'D':
+						ChenkDelete(szBuf,iRet);
+						break;
 				default:
 						break;
 					}
@@ -195,6 +198,35 @@ void ChenkLogin(char* buff,int nRecvLength)
 		break;
 	}
 }
+//***************************************************************/
+//功能:判断用户删除是否成功ChenkDelete
+//***************************************************************/
+void ChenkDelete(char* buff,int nRecvLength)
+{
+	switch (buff[1])
+	{
+	case '1':
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("删除用户成功"));
+		}
+		else
+			AfxMessageBox(_T("删除用户不成功"));
+		
+		break;
+	case '2':
+		if (buff[2]==0x30)
+		{
+			AfxMessageBox(_T("删除区域成功"));
+		}
+		else
+			AfxMessageBox(_T("删除区域不成功"));
+		
+		break;
+	default:
+		break;
+	}
+}
 /************************************************************************************
 功能:判断创建用户是否成功
 返回的格式:C 0/1#
@@ -222,6 +254,7 @@ void ChenkSet(char* buff,int nRecvLength)
 *************************************************************************************/
 void ChenkModify(char* buff,int nRecvLength)
 {
+	BIND* pGetInfo = (BIND*)malloc(sizeof(BIND));
 	switch(buff[1])
 	{
 	case 0x32:
@@ -321,6 +354,24 @@ void ChenkModify(char* buff,int nRecvLength)
 			AfxMessageBox(_T("获取用户信息失败,请点刷新"));
 			//theApp.m_pUserCtrl->OnClose();
 		}
+		break;
+	case 0x39:
+		if (buff[2]==0x31)
+		{
+			AfxMessageBox(_T("获取BIND信息失败"));
+			return;
+		}
+		else
+			if (buff[2]==0x30)
+			{
+					int nCount = buff[3];
+					for (int i(0);i<nCount;i++)
+					{
+						ZeroMemory(pGetInfo,sizeof(BIND));
+						memcpy(pGetInfo,buff+4+i*sizeof(BIND),sizeof(BIND));
+						theApp.m_pSetNewUserDlg->FullFillListBind(i,pGetInfo);
+					}
+			}
 		break;
 	default:
 		break;
@@ -427,6 +478,30 @@ void ChenkGetGID(char* buff,int nRecvLength)
 			}
 		}
 	}
+	if (buff[0]=='S'&&buff[1]==0x28 && buff[2]=='1')
+	{
+		AfxMessageBox(_T("获取用户Location失败，请关闭窗口重新获取！"));
+	}
+	else if (buff[0]=='S'&&buff[1]==0x28 && buff[2]=='0')
+	{
+		theApp.m_NumInfo.UserNum=buff[3];
+		int n(0);
+		for (int i=4;buff[i]!='#';i++)
+		{				
+			if (buff[i]=='<')
+			{
+				int m(0);
+				n++;
+				ZeroMemory(&userInfo[n],sizeof(USERINFO));
+				for(;buff[i+1]!='>';i++)
+				{
+					userInfo[n].AreaName[m]=buff[i+1];
+					m++;
+				}
+				theApp.m_pSetNewUserDlg->FullFillList(n-1,&userInfo[n]);
+			}
+		}
+	}
 	if(buff[0]=='S'&&buff[1]==0x39 && buff[2]=='1')
 	{
 		AfxMessageBox(_T("GPRS设置不成功，请重试！"));
@@ -459,7 +534,22 @@ void ChenkGetGID(char* buff,int nRecvLength)
 	{
 		AfxMessageBox(_T("单灯设置成功！"));
 	}
-
+	if(buff[0]=='S'&&buff[1]==0x40 && buff[2]=='1')
+	{
+		AfxMessageBox(_T("绑定不成功，请重试！"));
+	}
+	else if (buff[0]=='S'&&buff[1]==0x40 && buff[2]=='0')
+	{
+		AfxMessageBox(_T("绑定成功！"));
+	}
+	if(buff[0]=='S'&&buff[1]==0x41 && buff[2]=='1')
+	{
+		AfxMessageBox(_T("解除绑定不成功，请重试！"));
+	}
+	else if (buff[0]=='S'&&buff[1]==0x41 && buff[2]=='0')
+	{
+		AfxMessageBox(_T("解除绑定成功！"));
+	}
 }
 /************************************************************************************
 功能:发送用户登录信息
@@ -875,7 +965,7 @@ void UpdataZigbeeCurrentInfo(char* buff,int nRecvLength)
 				if (strcmp(str1,str2)==0)
 				{
 					theApp.m_ZigbeeInfo[n]->Update|=0x40;
-					float nCurrent=pGetRInfo->m_CheckData[2]*256+pGetRInfo->m_CheckData[3];
+					float nCurrent=(float)pGetRInfo->m_CheckData[2]*256+pGetRInfo->m_CheckData[3];
 					theApp.m_ZigbeeInfo[n]->current=nCurrent;
 					theApp.m_pLightListView->UpdataOneLight(theApp.m_ZigbeeInfo[n]);
 				}
@@ -1118,7 +1208,7 @@ void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 					}
 					if (strcmp(str1,str2)==0)
 					{
-						theApp.m_RoadListInfo[n]->nCurrent1=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
+						theApp.m_RoadListInfo[n]->nCurrent1=(pGetRInfo->m_CheckData[2]*256+pGetRInfo
 							->m_CheckData[3]);
 						theApp.m_RoadListInfo[n]->m_Update|=0x40;
 						theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
@@ -1137,7 +1227,7 @@ void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 					}
 					if (strcmp(str1,str2)==0)
 					{
-						theApp.m_RoadListInfo[n]->nCurrent2=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
+						theApp.m_RoadListInfo[n]->nCurrent2=(pGetRInfo->m_CheckData[2]*256+pGetRInfo
 							->m_CheckData[3]);
 						theApp.m_RoadListInfo[n]->m_Update|=0x20;
 						theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);
@@ -1156,7 +1246,7 @@ void UpdataRoadCurrentInfo(char* buff,int nRecvLength)
 					}
 					if (strcmp(str1,str2)==0)
 					{
-						theApp.m_RoadListInfo[n]->nCurrent3=(float)(pGetRInfo->m_CheckData[2]*256+pGetRInfo
+						theApp.m_RoadListInfo[n]->nCurrent3=(pGetRInfo->m_CheckData[2]*256+pGetRInfo
 							->m_CheckData[3]);
 						theApp.m_RoadListInfo[n]->m_Update|=0x10;
 						theApp.m_pRoadView->UpdataOneRoad(theApp.m_RoadListInfo[n]);

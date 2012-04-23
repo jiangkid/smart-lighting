@@ -77,7 +77,18 @@ BOOL CMphoneDlg::OnInitDialog()
 	{
 		m_strName+=userInfo[0].UserName[i];
 	}
+	if(userInfo[0].Idetify==0x30)
+	{
+		EnableWindow(IDC_PASSWORD,FALSE);
+		EnableWindow(IDC_phonenum,FALSE);
+		EnableWindow(IDC_BTN_Y,FALSE);
+	}
 	UpdateData(FALSE);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+bool CMphoneDlg::EnableWindow(unsigned int uID, bool bEnable)
+{
+	return GetDlgItem(uID)->EnableWindow(bEnable);
 }
