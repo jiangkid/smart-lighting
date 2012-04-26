@@ -58,14 +58,6 @@ void CTabListView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	UpDateMainFrame();
-// 	CRect rect;  
-// 	GetClientRect(&rect);  
-// 	m_Browser1.SetWindowPos(NULL, rect.TopLeft().x, rect.top, rect.Width(), rect.Height(), NULL);  
-// 	COleVariant varEmpty;  
-// 	CString str("www.baidu.com");  
-// 	//COleVariant varUrl(str);  
-// 	m_Browser1.Navigate(str, varEmpty, varEmpty, varEmpty, varEmpty);  
-
 	// TODO: Add your specialized code here and/or call the base class
 }
 
@@ -99,7 +91,7 @@ void CTabListView::UpDateMainFrame(void)
 	m_pWarningView->Create(IDD_WARNING_DLG,&m_Tab);
 	m_pWarningView->MoveWindow(m_rect);
 	m_pWarningView->ShowWindow(SW_HIDE);
-
+	
 
 	//RepositionBars(AFX_IDW_CONTROLBAR_FIRST,AFX_IDW_CONTROLBAR_LAST,0);
 }

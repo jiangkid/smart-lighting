@@ -112,7 +112,7 @@ BOOL CMFC_SDI_ClientApp::InitInstance()
    					m_port=GetPrivateProfileInt("Server","serverport",0,"D:\\server.ini");
    					strNamePass.Format(_T("%s"),dlg.m_szNamePassword);
    					h1=::CreateThread(NULL, 0, ConnectThreadFunc, this, 0, NULL);
-  					Sleep(2000);
+  					Sleep(5000);
    				}
    			}
  			char a[3]={'L','G','#'};

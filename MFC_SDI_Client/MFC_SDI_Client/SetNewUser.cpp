@@ -179,14 +179,14 @@ void CSetNewUser::OnNMDblclkList2(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: Add your control notification handler code here
-	CString str=m_List1.GetItemText(pNMItemActivate->iItem,1);
+	CString str=m_List1.GetItemText(pNMItemActivate->iItem,0);
+	str1=m_List1.GetItemText(pNMItemActivate->iItem,1);
 	SetDlgItemText(IDC_NAME3,_T(""));
 	SetDlgItemText(IDC_NAME4,_T(""));
-	SetDlgItemText(IDC_NAME4,str);
-	str1=m_List1.GetItemText(pNMItemActivate->iItem,0);
-	SetDlgItemText(IDC_NAME3,str1);
+	SetDlgItemText(IDC_NAME3,str);
 	SetDlgItemText(IDC_NAME5,_T(""));
-	SetDlgItemText(IDC_NAME5,str1);
+	SetDlgItemText(IDC_NAME5,str);
+	SetDlgItemText(IDC_NAME4,str1);
 	*pResult = 0;
 }
 
@@ -229,13 +229,13 @@ void CSetNewUser::OnBnClickedOk2()
 	CString strLocation=_T("");
 	GetDlgItemText(IDC_NAME2,strLocation);
 	GetDlgItemText(IDC_NAME3,strGID);
-	if (str1!=_T(""))
-	{
-		AfxMessageBox(_T("GPRS和区域已经绑定,请先解除绑定"));
-		return;
-	}
-	else
-	{
+ 	if (str1!=_T(""))
+ 	{
+ 		AfxMessageBox(_T("GPRS和区域已经绑定,请先解除绑定"));
+ 		return;
+ 	}
+ 	else
+ 	{
 		char c[2]={'S',0x40};
 		CString str=c;
 		str+=strGID;
