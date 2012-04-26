@@ -33,4 +33,5 @@ public:
 	afx_msg void OnBnClickedBtnSet();
 	CString m_UserName;
 	CString m_PassWord;
+	afx_msg void OnBnClickedCancel();
 };

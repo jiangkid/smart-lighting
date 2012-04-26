@@ -41,6 +41,7 @@
 #include <afxcview.h>
 #include "SkinPPLIB/SkinPPWTL.h"
 #include <afxdisp.h>
+#include <afxdhtml.h>
 
 
 #define MAX_BUF_SIZE 4096			//接收和发送缓存大小
@@ -69,7 +70,7 @@
 #define ROADHC _T("路电流超了")
 #define GPRSERROR _T("GPRS意外断开")
 #define DLONG sizeof(Decision)
-
+#define MAPLENGTH sizeof(MAPInfo)
 #ifdef _UNICODE
 #if defined _M_IX86
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")

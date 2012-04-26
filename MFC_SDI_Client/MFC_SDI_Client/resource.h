@@ -74,7 +74,11 @@
 #define IDI_BASE_INFO                   320
 #define IDI_ICON3                       321
 #define IDI_INPUT                       321
+#define IDR_HTML_MAPTOVIEWDLG           322
+#define IDR_HTML_MAPTOVIEW              323
 #define IDI_LIGHT_ON                    324
+#define IDR_HTML_MAPVIEWDLG             325
+#define IDR_HTML_MAPINFOMATIONHTML      326
 #define IDI_LIGHT_OFF                   327
 #define IDI_ICON4                       354
 #define IDB_PNG1                        355
@@ -165,6 +169,10 @@
 #define IDD_MAll                        467
 #define IDD_MName                       468
 #define IDD_MPhone                      469
+#define IDD_DIALOG4                     470
+#define IDD_HTMLMAP                     470
+#define IDR_HTML1                       471
+#define IDR_HTML2                       472
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
 #define IDC_EDIT1                       1002
@@ -480,9 +488,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        470
+#define _APS_NEXT_RESOURCE_VALUE        473
 #define _APS_NEXT_COMMAND_VALUE         32899
 #define _APS_NEXT_CONTROL_VALUE         1164
-#define _APS_NEXT_SYMED_VALUE           319
+#define _APS_NEXT_SYMED_VALUE           330
 #endif
 #endif
