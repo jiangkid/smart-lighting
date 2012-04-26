@@ -43,7 +43,6 @@ BEGIN_MESSAGE_MAP(CUserCtrDlg, CDialog)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_USER, &CUserCtrDlg::OnNMDblclkListUser)
 	ON_BN_CLICKED(IDC_BUTTON13, &CUserCtrDlg::OnBnClickedButton13)
 	ON_BN_CLICKED(IDC_M, &CUserCtrDlg::OnBnClickedM)
-	ON_BN_CLICKED(IDC_BUTTON12, &CUserCtrDlg::OnBnClickedButton12)
 	ON_BN_CLICKED(IDC_RENEW, &CUserCtrDlg::OnBnClickedRenew)
 	ON_BN_CLICKED(IDC_RADIO1, &CUserCtrDlg::OnBnClickedRadio1)
 	ON_BN_CLICKED(IDC_RADIO4, &CUserCtrDlg::OnBnClickedRadio4)
@@ -51,6 +50,7 @@ BEGIN_MESSAGE_MAP(CUserCtrDlg, CDialog)
 	ON_BN_CLICKED(IDC_RADIO2, &CUserCtrDlg::OnBnClickedRadio2)
 	ON_BN_CLICKED(IDC_RADIO3, &CUserCtrDlg::OnBnClickedRadio3)
 	ON_BN_CLICKED(IDC_RADIO6, &CUserCtrDlg::OnBnClickedRadio6)
+	ON_BN_CLICKED(IDC_DELETEUSER, &CUserCtrDlg::OnBnClickedDeleteuser)
 END_MESSAGE_MAP()
 
 
@@ -102,7 +102,7 @@ void CUserCtrDlg::ShowUserInfo(int nItem, MUserInfo* pGetInfo)
 	CString strArea=_T("");
 	CString strPhone=_T("");
 	CString strTime=_T("");
-	for (int i(0);i<19;i++)
+	for (int i(0);i<20;i++)
 	{
 		strTime+=pGetInfo->Time[i];
 	}
@@ -155,7 +155,7 @@ void CUserCtrDlg::OnBnClickedM()
 	case 1:
 		{
 			CString str=_T("");
-			if (m_new1==_T("")||m_new2==_T("")||m_strOldP==_T(""))
+			if (m_strOldP==_T(""))
 			{
 				AfxMessageBox(_T("密码不能为空"));
 				return;
@@ -169,7 +169,7 @@ void CUserCtrDlg::OnBnClickedM()
 				else
 					if (AfxMessageBox(_T("你确定要修改?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
 					{
-						str.Format("M31%s+%s+%s#",m_UserName,m_strOldP,m_new1);
+						str.Format("M51%s+%s+%s#",m_UserName,m_strOldP,m_new1);
 						send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
 						str.ReleaseBuffer();
 					}
@@ -178,7 +178,7 @@ void CUserCtrDlg::OnBnClickedM()
 	case 2:
 		{
 			CString str=_T("");
-			if (m_new1==_T("")||m_new2==_T("")||m_strOldP==_T(""))
+			if (m_strOldP==_T(""))
 			{
 				AfxMessageBox(_T("密码不能为空"));
 				return;
@@ -186,7 +186,7 @@ void CUserCtrDlg::OnBnClickedM()
 			else
 				if (AfxMessageBox(_T("你确定要修改?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
 				{
-					str.Format("M31%s+%s+%s#",m_UserName,m_strOldP,m_phone);
+					str.Format("M61%s+%s+%s#",m_UserName,m_strOldP,m_phone);
 					send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
 					str.ReleaseBuffer();
 				}
@@ -195,13 +195,13 @@ void CUserCtrDlg::OnBnClickedM()
 	case 3:
 		{
 			CString str=_T("");
-			if (m_new1==_T("")||m_new2==_T("")||m_strOldP==_T(""))
+			if (m_strOldP==_T(""))
 			{
 				AfxMessageBox(_T("密码不能为空"));
 				return;
 			}
 			else
-				if (strcmp(m_new1,m_new2)!=0)
+				if (m_new1==_T("")||m_new2==_T("")||strcmp(m_new1,m_new2)!=0)
 				{
 					AfxMessageBox(_T("2次密码不一样，请重新输入"));
 					return;
@@ -209,7 +209,7 @@ void CUserCtrDlg::OnBnClickedM()
 				else 
 					if (AfxMessageBox(_T("你确定要修改?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
 					{
-						str.Format("M31%s+%s+%s+%s+%s#",m_UserName,m_strOldP,m_new1,m_phone,m_areaname);
+						str.Format("M81%s+%s+%s+%s+%s#",m_UserName,m_strOldP,m_new1,m_phone,m_areaname);
 						send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
 						str.ReleaseBuffer();
 					}
@@ -218,7 +218,7 @@ void CUserCtrDlg::OnBnClickedM()
 	case 4:
 		{
 			CString str=_T("");
-			if (m_new1==_T("")||m_new2==_T("")||m_strOldP==_T(""))
+			if (m_strOldP==_T(""))
 			{
 				AfxMessageBox(_T("密码不能为空"));
 				return;
@@ -226,45 +226,12 @@ void CUserCtrDlg::OnBnClickedM()
 			else 
 				if (AfxMessageBox(_T("你确定要修改?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
 				{
-					str.Format("M31%s+%s+%s#",m_UserName,m_strOldP,m_areaname);
+					str.Format("M71%s+%s+%s#",m_UserName,m_strOldP,m_areaname);
 					send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
 					str.ReleaseBuffer();
 				}
 		}
 		break;
-	default:
-		AfxMessageBox(_T("选择操作类型"));
-		break;
-	}
-}
-
-void CUserCtrDlg::OnBnClickedButton12()
-{
-	// TODO: Add your control notification handler code here
-	UpdateData(TRUE);
-	int nRet = GetChenkRadio();
-	switch (nRet)
-	{
-	case 5:
-		if (m_UserName==_T(""))
-		{
-			AfxMessageBox(_T("请选择要删除的用户"));
-			return;
-		}
-		else 
-			if(m_strOldP==_T(""))
-			{
-				AfxMessageBox(_T("请输入该用户的密码"));
-			}
-			else if (AfxMessageBox(_T("你确定要删除?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
-			{
-
-				CString str=_T("");
-				str.Format("D1%s+%s#",m_UserName,m_strOldP);
-				send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
-				str.ReleaseBuffer();
-			}
-			break;
 	default:
 		AfxMessageBox(_T("选择操作类型"));
 		break;
@@ -373,4 +340,37 @@ void CUserCtrDlg::OnBnClickedRadio6()
 	EnableWindow(IDC_DELETEUSER,FALSE);
 	EnableWindow(IDC_M,true);
 
+}
+
+void CUserCtrDlg::OnBnClickedDeleteuser()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	int nRet = GetChenkRadio();
+	switch (nRet)
+	{
+	case 5:
+		if (m_UserName==_T(""))
+		{
+			AfxMessageBox(_T("请选择要删除的用户"));
+			return;
+		}
+		else 
+			if(m_strOldP==_T(""))
+			{
+				AfxMessageBox(_T("请输入该用户的密码"));
+			}
+			else if (AfxMessageBox(_T("你确定要删除?"),MB_YESNO|MB_ICONEXCLAMATION)==IDYES)
+			{
+
+				CString str=_T("");
+				str.Format("D1%s+%s#",m_UserName,m_strOldP);
+				send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
+				str.ReleaseBuffer();
+			}
+			break;
+	default:
+		AfxMessageBox(_T("选择操作类型"));
+		break;
+	}
 }
