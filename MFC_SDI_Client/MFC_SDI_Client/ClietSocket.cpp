@@ -811,21 +811,21 @@ void UnpackLightInfo(char* buffer, int Length)
 	j=buffer[2];
 	if (nRetPack<i)
 	{		
-		if (buffer[2]==buffer[1])
+		if (buffer[2]!=buffer[1])
 		{
 			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
 		}
 		else
-			memcpy(theApp.m_lightPack,buffer+3,Length-3);
+			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,Length-3);
 	}
 	else
 	{
-		if (buffer[2]==buffer[1])
+		if (buffer[2]!=buffer[1])
 		{
 			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,4096-3);
 		}
 		else
-			memcpy(theApp.m_lightPack,buffer+3,Length-3);
+			memcpy(theApp.m_lightPack+4093*(j-1),buffer+3,Length-3);
 		TranslateLInfo(theApp.m_lightPack);
 	}
 }
@@ -1323,13 +1323,13 @@ CString CharToCString(unsigned char* str, int nLength)
 	strShow.Format(_T("%s"), szText);
 	return strShow;
 }
-
+static int nRetMapRet(0);
 void GPRSLocalInfo(char* buff,int nRecvLength)
 {
 	GPRSInfo* pGetInfo=(GPRSInfo*)malloc(GLENTH);
 	ZeroMemory(pGetInfo,GLENTH);
-	TerminalInfo* pGetTInfo = (TerminalInfo*)malloc(TLENTH);
-	ZeroMemory(pGetTInfo,TLENTH);					
+	TerminalInfo* pGetTInfo1 = (TerminalInfo*)malloc(TLENTH);
+	ZeroMemory(pGetTInfo1,TLENTH);
 	switch(buff[1])
 	{
 	case 0x30://GPRS信息
@@ -1349,12 +1349,45 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 			int n=buff[3];
 			for (int i(0);i<n;i++)
 			{
-				memcpy(pGetTInfo,buff+4+i*TLENTH,TLENTH);
-				memcpy(&theApp.m_TerminalInfo[i],pGetTInfo,TLENTH);
-				ZeroMemory(pGetTInfo,TLENTH);
+				memcpy(pGetTInfo1,buff+4+i*TLENTH,TLENTH);
+				memcpy(&theApp.m_TerminalInfo[i],pGetTInfo1,TLENTH);
+				ZeroMemory(pGetTInfo1,TLENTH);
 			}
 			theApp.m_pLocalInfoDlg->ShowTerminalInfo(n);
-			free(pGetTInfo);
+			free(pGetTInfo1);
+		}
+		else
+			AfxMessageBox(_T("获取GPRS基本信息错误"));
+		break;
+	case 0x32:
+		{
+			nRetMapRet++;
+			if (buff[2]==0x30)
+			{
+				int i=buff[3];
+				int j=buff[4];
+				if (nRetMapRet<i)
+				{		
+					if (buff[2]!=buff[1])
+					{
+						memcpy(theApp.m_MapInfoPack+4091*(j-1),buff+5,4096-5);
+					}
+					else
+						memcpy(theApp.m_MapInfoPack+4091*(j-1),buff+5,nRecvLength-5);
+				}
+				else
+				{
+					if (buff[2]!=buff[1])
+					{
+						memcpy(theApp.m_MapInfoPack+4091*(j-1),buff+5,4096-5);
+					}
+					else
+						memcpy(theApp.m_MapInfoPack+4091*(j-1),buff+5,nRecvLength-5);
+					TranslateMapInfo(theApp.m_MapInfoPack);
+				}
+			}
+			else
+				AfxMessageBox(_T("获取已有信息错误"));
 		}
 		break;
 	default:
@@ -1387,21 +1420,21 @@ void CheckWarningInfo(unsigned char* buff, int nLength)
 				j=buff[3];
 				if (theApp.m_pWarningInfoView->warningpackCount<i)
 				{		
-					if (buff[2]==buff[3])
+					if (buff[2]!=buff[3])
 					{
 						memcpy(theApp.m_warningPack+4092*(j-1),buff+4,4096-4);
 					}
 					else
-						memcpy(theApp.m_warningPack,buff+4,nLength-4);	
+						memcpy(theApp.m_warningPack+4092*(j-1),buff+4,nLength-4);	
 				}
 				else
 				{
-					if (buff[2]==buff[3])
+					if (buff[2]!=buff[3])
 					{
 						memcpy(theApp.m_warningPack+4092*(j-1),buff+4,4096-4);
 					}
 					else
-						memcpy(theApp.m_warningPack,buff+4,nLength-4);
+						memcpy(theApp.m_warningPack+4092*(j-1),buff+4,nLength-4);
 					TranslateWarningInfo(theApp.m_warningPack);
 				}
 			}
@@ -1410,6 +1443,22 @@ void CheckWarningInfo(unsigned char* buff, int nLength)
 	default:
 		break;
 	}
+}
+//***************************************************************/
+//函数功能：地图信息解包
+//***************************************************************/
+void TranslateMapInfo(U8* buff)
+{
+	nRetMapRet=0;
+	MAPInfo* pGetTInfo2 = (MAPInfo*)malloc(sizeof(MAPInfo));
+	int nCount=buff[1];
+	for (int i(0);i<nCount;i++)
+	{
+		ZeroMemory(pGetTInfo2,sizeof(MAPInfo));
+		memcpy(pGetTInfo2,buff+i*MAPLENGTH,MAPLENGTH);
+		theApp.m_pMapViewDlg->ShowInfomation(i,pGetTInfo2);		
+	}
+	free(pGetTInfo2);
 }
 //***************************************************************/
 //函数功能：waringpack解包
