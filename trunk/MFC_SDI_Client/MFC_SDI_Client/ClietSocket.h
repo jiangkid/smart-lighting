@@ -163,6 +163,26 @@ typedef struct _MUserInfo//back的信息
 	U8 Time[20];
 }MUserInfo,*LPMUserInfo;
 
+typedef struct _MAPInfo//地图信息
+{
+	U8  UserName[20];
+	U8  GlableAreaName[20];//大区名字
+	U8  GID[2];
+	U8  Longtitude[10];//经度
+	U8  Latitude[10];//纬度
+	U8  Time[20];//安装时间
+	U8  TeminalName[4][20];//第一个终端名字
+}MAPInfo,*LPMAPInfo;
+
+typedef struct _PointInfo//坐标信息
+{
+	U8  GID[2];
+	int Longtitude;//经度
+	int Latitude;//纬度
+	char LongtitudeSave[10];
+	char LatitudeSave[10];
+}PointInfo,*LPPointInfo;
+
 typedef struct _ConTrlInfo//back的信息
 {
 	U8 m_First[4];
@@ -299,3 +319,7 @@ void SendCurrent();
 //函数功能：判断是否存成功策略
 //***************************************************************/
 void CheckDecisionInfo(U8* buff, int nLength); 
+//***************************************************************/
+//函数功能：地图信息解包
+//***************************************************************/
+void TranslateMapInfo(U8* buff);

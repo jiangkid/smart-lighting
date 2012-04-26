@@ -5,6 +5,7 @@
 #include "GprsInfoCtrlDlg.h"
 #include "MapViewDlg.h"
 #include "WarningDlg.h"
+#include "MapInfomation.h"
 // CTabListView form view
 
 class CTabListView : public CFormView

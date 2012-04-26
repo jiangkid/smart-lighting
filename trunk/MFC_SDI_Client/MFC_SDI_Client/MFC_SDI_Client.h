@@ -29,6 +29,8 @@
 #include "LightCtrlDlg.h"
 #include "ModifyName.h"
 #include "SetNewUser.h"
+#include "MapInfomation.h"
+#include "MapViewDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -59,6 +61,7 @@ public:
 	RoadListViewInfo*   m_RoadListInfo[12];//1个终端下最大8路的信息
 	U8  m_lightPack[LENTH*1000];//包的缓冲大小定义成30K
 	U8  m_warningPack[WARNLENGTH*1000];//警告的缓冲
+	U8  m_MapInfoPack[MAPLENGTH*64];//警告的缓冲
 	WarningInfo m_WarningInfo[256];//一次性最多可以获取历史警告256个
 	NumInfo m_NumInfo;
 	/*static int warningpack;*/
@@ -78,6 +81,8 @@ public:
 	CLightCtrlDlg*      m_pLightCtrlDlg;
 	CModifyName*        m_pModifyNameDlg;
 	CSetNewUser*        m_pSetNewUserDlg;
+	CMapInfomation*     m_pMapInfoDlg;
+	CMapViewDlg*        m_pMapViewDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();
