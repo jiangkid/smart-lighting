@@ -13,9 +13,7 @@ IMPLEMENT_DYNCREATE(CMapInfomation, CDHtmlDialog)
 CMapInfomation::CMapInfomation(CWnd* pParent /*=NULL*/)
 	: CDHtmlDialog(CMapInfomation::IDD, CMapInfomation::IDH, pParent)
 {
-
 	EnableAutomation();
-
 }
 
 CMapInfomation::~CMapInfomation()
@@ -178,7 +176,7 @@ bool CMapInfomation::GetJScript(CComPtr<IDispatch>& spDisp)
 	if( m_spHtmlDoc==NULL )
 		return FALSE;
 
-	HRESULT hr = m_spHtmlDoc->get_Script(&spDisp);
+	HRESULT hr = this->m_spHtmlDoc->get_Script(&spDisp);
 	ATLASSERT(SUCCEEDED(hr));
 	return SUCCEEDED(hr);
 }

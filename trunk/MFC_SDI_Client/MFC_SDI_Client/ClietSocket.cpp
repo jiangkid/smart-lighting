@@ -1368,7 +1368,7 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 				int j=buff[4];
 				if (nRetMapRet<i)
 				{		
-					if (buff[2]!=buff[1])
+					if (buff[3]!=buff[4])
 					{
 						memcpy(theApp.m_MapInfoPack+4091*(j-1),buff+5,4096-5);
 					}
@@ -1377,7 +1377,7 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 				}
 				else
 				{
-					if (buff[2]!=buff[1])
+					if (buff[3]!=buff[4])
 					{
 						memcpy(theApp.m_MapInfoPack+4091*(j-1),buff+5,4096-5);
 					}
@@ -1451,12 +1451,14 @@ void TranslateMapInfo(U8* buff)
 {
 	nRetMapRet=0;
 	MAPInfo* pGetTInfo2 = (MAPInfo*)malloc(sizeof(MAPInfo));
-	int nCount=buff[1];
+	int nCount=buff[0];
 	for (int i(0);i<nCount;i++)
 	{
 		ZeroMemory(pGetTInfo2,sizeof(MAPInfo));
-		memcpy(pGetTInfo2,buff+i*MAPLENGTH,MAPLENGTH);
-		theApp.m_pMapViewDlg->ShowInfomation(i,pGetTInfo2);		
+		memcpy(pGetTInfo2,buff+1+MAPLENGTH*i,MAPLENGTH);
+		ZeroMemory(&theApp.m_MapInfo[i],MAPLENGTH);
+		memcpy(&theApp.m_MapInfo[i],pGetTInfo2,MAPLENGTH);
+		theApp.m_pMapViewDlg->ShowInfomation(i,pGetTInfo2);	
 	}
 	free(pGetTInfo2);
 }
