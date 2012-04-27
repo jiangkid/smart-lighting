@@ -207,6 +207,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CVSetDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CWebBrowser.cpp"
 				>
 			</File>
@@ -255,7 +259,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\JWSetDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LightCtrlDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LightOnOffDlg.cpp"
 				>
 			</File>
 			<File
@@ -272,6 +284,10 @@
 			</File>
 			<File
 				RelativePath=".\MainSetDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MapInfomation.cpp"
 				>
 			</File>
 			<File
@@ -295,11 +311,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ModifyAllDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ModifyName.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MphoneDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MySplitter.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\NewDayDecisionDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NewJDecisionDlg.cpp"
 				>
 			</File>
 			<File
@@ -328,6 +360,10 @@
 			</File>
 			<File
 				RelativePath=".\RoudInfoView.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RtuSetDlg.cpp"
 				>
 			</File>
 			<File
@@ -433,6 +469,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CVSetDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CWebBrowser.h"
 				>
 			</File>
@@ -481,7 +521,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\JWSetDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LightCtrlDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LightOnOffDlg.h"
 				>
 			</File>
 			<File
@@ -498,6 +546,10 @@
 			</File>
 			<File
 				RelativePath=".\MainSetDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MapInfomation.h"
 				>
 			</File>
 			<File
@@ -521,15 +573,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ModifyAllDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ModifyName.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MphoneDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MySplitter.h"
 				>
 			</File>
 			<File
 				RelativePath=".\NewDayDecisionDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\NewJDecisionDlg.cpp"
 				>
 			</File>
 			<File
@@ -542,6 +602,10 @@
 			</File>
 			<File
 				RelativePath=".\NewWeekDecisionDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PolicyManage.h"
 				>
 			</File>
 			<File
@@ -566,6 +630,10 @@
 			</File>
 			<File
 				RelativePath=".\RoudInfoView.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RtuSetDlg.h"
 				>
 			</File>
 			<File
@@ -723,6 +791,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\2012041108260882_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120411082647671_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\20120411082647671_easyicon_cn_32.ico"
 				>
 			</File>
@@ -756,6 +832,46 @@
 			</File>
 			<File
 				RelativePath="..\..\..\20120411100528793_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\2012041203182241_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120412034744696_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120412110237297---www.ico.la---.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120412110333625---www.ico.la---.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120420092547975_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120420092547975_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120420092833203_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120420092833203_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120420094041496_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120420094041496_easyicon_cn_32.ico"
 				>
 			</File>
 			<File
@@ -824,6 +940,10 @@
 			</File>
 			<File
 				RelativePath=".\res\dsuiext.dll_28.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\e8429daa0244cdb9e12c3b9e85e0a2a9.ico"
 				>
 			</File>
 			<File
@@ -903,11 +1023,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\icon5.ico"
+				RelativePath=".\ico\icon5.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\ico\icon5.ico"
+				RelativePath=".\res\icon5.ico"
 				>
 			</File>
 			<File
