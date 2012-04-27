@@ -34,5 +34,6 @@ public:
 	void ShowInfomation(int nItem, MAPInfo* pGetInfo);
 	CReportCtrl m_List;
 	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton4();
 };
 #endif
