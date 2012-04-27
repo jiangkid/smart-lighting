@@ -32,6 +32,8 @@ protected:
 	afx_msg void OnBnClickedBtnAll();
 	afx_msg void OnBnClickedBtnAll11();
 	
+public:
+	afx_msg void OnEnChangeRname();
 };
 
 ////////////////

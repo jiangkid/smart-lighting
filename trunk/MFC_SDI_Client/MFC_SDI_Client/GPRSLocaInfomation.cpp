@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "MFC_SDI_Client.h"
 #include "GPRSLocaInfomation.h"
+#include "RtuSetDlg.h"
 
 
 // CGPRSLocaInfomation dialog
@@ -161,14 +162,20 @@ void CGPRSLocaInfomation::OnNMDblclkListTerminal(NMHDR *pNMHDR, LRESULT *pResult
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: Add your control notification handler code here
 	strID=_T("");
-	if(pNMItemActivate->iItem == -1)
+	strName=_T("");
+	if(pNMItemActivate->iItem==-1)
 	{
 		return;
 	}
 	else
-	{
+	{	
 		strID=m_List_Terminal.GetItemText(pNMItemActivate->iItem,0);
+		strName=m_List_Terminal.GetItemText(pNMItemActivate->iItem,1);  
+		CRtuSetDlg dlg;
+		dlg.DoModal();
 	}
 
 	*pResult = 0;
 }
+
+ 
