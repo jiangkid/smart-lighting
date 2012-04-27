@@ -177,6 +177,7 @@
 #define IDD_LIGHTONOFF                  475
 #define IDD_JWDU_SET                    476
 #define IDD_RTU_SET                     477
+#define IDR_HTML3                       479
 #define IDC_BUTTON12                    999
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
@@ -532,7 +533,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        479
+#define _APS_NEXT_RESOURCE_VALUE        480
 #define _APS_NEXT_COMMAND_VALUE         32899
 #define _APS_NEXT_CONTROL_VALUE         1165
 #define _APS_NEXT_SYMED_VALUE           319
