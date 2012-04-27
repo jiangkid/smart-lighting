@@ -35,6 +35,7 @@ BEGIN_MESSAGE_MAP(CMapViewDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, &CMapViewDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMapViewDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMapViewDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CMapViewDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -63,20 +64,30 @@ BOOL CMapViewDlg::OnInitDialog()
 void CMapViewDlg::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
-	UpdateData(TRUE);
-	CString str1;
-	CString str2;
-	GetDlgItemText(IDC_EDIT1,str1);
-	GetDlgItemText(IDC_EDIT2,str2);
-	//const CString& str[];
-	theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
+// 	UpdateData(TRUE);
+// 	CString str1;
+// 	CString str2;
+// 	GetDlgItemText(IDC_EDIT1,str1);
+// 	GetDlgItemText(IDC_EDIT2,str2);
+// 	theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
 	
 }
 
-void CMapViewDlg::ShowMessage(CString str1,CString str2)
+void CMapViewDlg::ShowMessage(const CString str1,const CString str2)
 {
-	SetDlgItemText(IDC_EDIT1,str1);
-	SetDlgItemText(IDC_EDIT2,str2);
+	//SetDlgItemText(IDC_EDIT1,str1);
+	//SetDlgItemText(IDC_EDIT2,str2);
+	//CString str3=str1;
+	//CString str4=str2;
+	//theApp.m_pMapInfoDlg->CallJScript("addMarker",str3,str4,NULL);
+// 	int nCount = m_List.GetItemCount();
+// 	for (int i(0);i<nCount;i++)
+// 	{
+// 		CString str1 = m_List.GetItemText(i,1);
+// 		CString str2 = m_List.GetItemText(i,2);
+// 		theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
+// 	}
+	
 }
 
 void CMapViewDlg::OnBnClickedButton2()
@@ -137,15 +148,26 @@ void CMapViewDlg::ShowInfomation(int nItem, MAPInfo* pGetInfo)
 			strName+=pGetInfo->GlableAreaName[k];
 		}
 	}
-	m_List.InsertItem(nItem,strID,strLatitude,strLongtitude);
-	theApp.m_pMapInfoDlg->CallJScript("addMarker",strLongtitude,strLatitude,NULL);
+	if(strLongtitude==""||strLatitude=="")
+	{
+		m_List.InsertItem(nItem,strID,strLongtitude,strLatitude);
+		m_List.SetItemData(nItem,(DWORD)&theApp.m_MapInfo[nItem]);
+	}
+	else
+	{
+		m_List.InsertItem(nItem,strID,strLongtitude,strLatitude);
+		m_List.SetItemData(nItem,(DWORD)&theApp.m_MapInfo[nItem]);
+		//ShowMessage(strLongtitude,strLatitude);
+		//theApp.m_pMapInfoDlg->CallJScript("addMarker",strLongtitude,strLatitude,NULL);
+	}
+	
 }
 
 void CMapViewDlg::OnBnClickedButton3()
 {
 	// TODO: Add your control notification handler code here
-	theApp.m_pMapInfoDlg->CallJScript("clearOverlays",NULL);
-
+	//theApp.m_pMapInfoDlg->CallJScript("clearOverlays",NULL);
+	m_List.DeleteAllItems();
 	if(userInfo[0].Idetify==0x30)
 	{
 		char c[3]={'G',0x32,0x30};
@@ -163,5 +185,35 @@ void CMapViewDlg::OnBnClickedButton3()
 		str+='#';
 		send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
 		str.ReleaseBuffer();
+	}
+}
+
+void CMapViewDlg::OnBnClickedButton4()
+{
+	// TODO: Add your control notification handler code here
+	int nCount = m_List.GetItemCount();
+	for (int i(0);i<nCount;i++)
+	{
+		CString strTerminal[4];
+		CString strIntallTime;
+		CString strUserName;
+		CString strName;
+		CString str1 = m_List.GetItemText(i,1);
+		CString str2 = m_List.GetItemText(i,2);
+		MAPInfo* pGetInfo = (MAPInfo*)m_List.GetItemData(i);
+		for (int n(0);n<20;n++)
+		{
+			strIntallTime+=pGetInfo->Time[n];
+			strName+=pGetInfo->GlableAreaName[n];
+			strUserName+=pGetInfo->UserName[n];
+		}
+		for (int j(0);j<4;j++)
+		{
+			for (int m(0);m<20;m++)
+			{
+				strTerminal[j]+=pGetInfo->TeminalName[j][m];
+			}
+		}
+		theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
 	}
 }

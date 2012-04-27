@@ -58,6 +58,7 @@ void CTabListView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	UpDateMainFrame();
+	//m_Tab.SetCurSel(4);
 	// TODO: Add your specialized code here and/or call the base class
 }
 
@@ -119,6 +120,11 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 			if (theApp.GID[2]==0x00&&theApp.GID[3]==0x00)
 			{
 				AfxMessageBox(_T("GID错误，请先打开路信息"));
+				m_Tab.SetCurSel(0);
+				m_LightView->ShowWindow(SW_SHOW);
+				m_GprsInfoView->ShowWindow(SW_HIDE);
+				m_pWarningView->ShowWindow(SW_HIDE);
+				m_pMapView->ShowWindow(SW_HIDE);
 				return;
 			}
 			else
@@ -128,11 +134,11 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 
 				theApp.GID[1]=0x31;
 				send(theApp.m_ConnectSock,theApp.GID,5,0);
+				m_LightView->ShowWindow(SW_HIDE);
+				m_GprsInfoView->ShowWindow(SW_SHOW);
+				m_pWarningView->ShowWindow(SW_HIDE);
+				m_pMapView->ShowWindow(SW_HIDE);
 			}
-			m_LightView->ShowWindow(SW_HIDE);
-			m_GprsInfoView->ShowWindow(SW_SHOW);
-			m_pWarningView->ShowWindow(SW_HIDE);
-			m_pMapView->ShowWindow(SW_HIDE);
 		}
 		break;
 	case 2:
@@ -159,7 +165,6 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 			m_pMapView->ShowWindow(SW_SHOW);
 		}
 		break;
-
 	}
 	 *pResult = 0; 
 }
