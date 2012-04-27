@@ -44,4 +44,5 @@ public:
 	afx_msg void OnBnClickedButton6();
 	afx_msg void OnBnClickedButton3();
 	CString m_error;
+	afx_msg void OnBnClickedCancel();
 };
