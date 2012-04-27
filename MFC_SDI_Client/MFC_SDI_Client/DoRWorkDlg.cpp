@@ -36,6 +36,7 @@ void CDoRWorkDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDoRWorkDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_Close, &CDoRWorkDlg::OnBnClickedBtnAll)
 	ON_BN_CLICKED(IDC_BTN_Open, &CDoRWorkDlg::OnBnClickedBtnAll11)
+	ON_EN_CHANGE(IDC_RName, &CDoRWorkDlg::OnEnChangeRname)
 END_MESSAGE_MAP()
 
 
@@ -190,4 +191,9 @@ void CDoRWorkDlg::UpdateRoadstatus(bool nbool)
 	{
 		SetDlgItemText(IDC_RName2,_T("¿ª"));
 	}
+}
+void CDoRWorkDlg::OnEnChangeRname()
+{
+	 
+	// TODO:  Add your control notification handler code here
 }

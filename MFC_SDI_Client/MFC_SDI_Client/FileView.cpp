@@ -82,7 +82,7 @@ int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 // 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
 	
-//	FillFileView();
+ 	//FillFileView();
 	AdjustLayout();
 
 	return 0;
@@ -278,7 +278,7 @@ void CFileView::AdjustLayout()
 	}
 	CRect rectClient;
 	GetClientRect(rectClient);
-	//int cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
+	 //int cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
 	//m_wndToolBar.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
 	//m_wndFileView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
 	m_wndFileView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + 1, rectClient.Width() - 2, rectClient.Height() - 2, SWP_NOACTIVATE | SWP_NOZORDER);
@@ -372,7 +372,25 @@ void CFileView::OnOpenG()
 	pdlg->ShowWindow(SW_SHOW);
 }
 
-U8* CFileView::GPRSTranslationID(U8* buffer, int Length){	U8* c = (U8*)malloc(1);	ZeroMemory(c,1);	int nCount = 0;	CString temp;	int i,j;	for (i=0;i<Length/2;i++)	{		CString temp="";		for (j=nCount*2;j<nCount*2+2;j++)		{			temp+=buffer[j];		}		sscanf(temp,"%2x",&c[nCount]);		nCount++;	}	return c;}
+U8* CFileView::GPRSTranslationID(U8* buffer, int Length)
+{
+	U8* c = (U8*)malloc(1);
+	ZeroMemory(c,1);
+	int nCount = 0;
+	CString temp;
+	int i,j;
+	for (i=0;i<Length/2;i++)
+	{
+		CString temp="";
+		for (j=nCount*2;j<nCount*2+2;j++)
+		{
+			temp+=buffer[j];
+		}
+		sscanf(temp,"%2x",&c[nCount]);
+		nCount++;
+	}
+	return c;
+}
 void CFileView::OnR32848()//组双灯开
 {
 	// TODO: Add your command handler code here

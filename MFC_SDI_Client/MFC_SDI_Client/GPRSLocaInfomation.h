@@ -28,10 +28,12 @@ public:
 	CString m_gprslocation;
 	CString m_gprstime;
 	CString strID;
+	CString strName;
 	int     m_TerminalCount;
 	CReportCtrl m_List_Terminal;
 	TerminalInfo* GetSelTerminalInfo(void);
 	void ShowTerminalInfo(int nTcount);
 	afx_msg void OnBnClickedBtnGmodify();
 	afx_msg void OnNMDblclkListTerminal(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnEnChangeEditGid();
 };

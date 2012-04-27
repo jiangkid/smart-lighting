@@ -8,7 +8,7 @@
 HDR hdr;
 USERINFO userInfo[20];
 IintInfo m_InitInfo;
-extern CMFC_SDI_ClientApp theApp;
+//extern CMFC_SDI_ClientApp theApp;
 
 BOOL SOCKET_Select(SOCKET hSocket, int nTimeOut, BOOL bRead)
 {
