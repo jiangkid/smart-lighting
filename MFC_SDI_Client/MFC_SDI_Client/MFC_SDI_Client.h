@@ -62,6 +62,7 @@ public:
 	U8  m_lightPack[LENTH*1000];//包的缓冲大小定义成30K
 	U8  m_warningPack[WARNLENGTH*1000];//警告的缓冲
 	U8  m_MapInfoPack[MAPLENGTH*64];//警告的缓冲
+	MAPInfo m_MapInfo[64];
 	WarningInfo m_WarningInfo[256];//一次性最多可以获取历史警告256个
 	NumInfo m_NumInfo;
 	/*static int warningpack;*/
