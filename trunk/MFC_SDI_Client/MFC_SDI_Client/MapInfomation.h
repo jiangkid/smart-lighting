@@ -34,7 +34,9 @@ protected:
 public:
 	bool CallJScript(const CString strFunc, _variant_t* pVarResult = NULL);
 	bool CallJScript(const CString strFunc, const CString strArg1, _variant_t* pVarResult = NULL);
-	bool CMapInfomation::CallJScript(const CString strFunc, const CString strArg1,const CString strArg2,_variant_t* pVarResult = NULL);
+	bool CallJScript(const CString strFunc, const CString strArg1,const CString strArg2,_variant_t* pVarResult = NULL);
+	bool CallJScript(const CString strFunc, const CString strArg1, const CString strArg2,const CString strArg3, const CString strArg4,
+					 const CString strArg5,const CString strArg6,const CString strArg7,const CString strArg8,_variant_t* pVarResult);
 	bool CallJScript(const CString strFunc , const CStringArray& paramArray, _variant_t* pVarResult = NULL);
 	bool GetJScript(CComPtr<IDispatch>& spDisp);
 };
