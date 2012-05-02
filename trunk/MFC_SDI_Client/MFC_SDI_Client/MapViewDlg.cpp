@@ -64,12 +64,12 @@ BOOL CMapViewDlg::OnInitDialog()
 void CMapViewDlg::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
-// 	UpdateData(TRUE);
-// 	CString str1;
-// 	CString str2;
-// 	GetDlgItemText(IDC_EDIT1,str1);
-// 	GetDlgItemText(IDC_EDIT2,str2);
-// 	theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
+	// 	UpdateData(TRUE);
+	// 	CString str1;
+	// 	CString str2;
+	// 	GetDlgItemText(IDC_EDIT1,str1);
+	// 	GetDlgItemText(IDC_EDIT2,str2);
+	// 	theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
 	
 }
 
@@ -80,13 +80,14 @@ void CMapViewDlg::ShowMessage(const CString str1,const CString str2)
 	//CString str3=str1;
 	//CString str4=str2;
 	//theApp.m_pMapInfoDlg->CallJScript("addMarker",str3,str4,NULL);
-// 	int nCount = m_List.GetItemCount();
-// 	for (int i(0);i<nCount;i++)
-// 	{
-// 		CString str1 = m_List.GetItemText(i,1);
-// 		CString str2 = m_List.GetItemText(i,2);
-// 		theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
-// 	}
+	// 	int nCount = m_List.GetItemCount();
+	// 	for (int i(0);i<nCount;i++)
+	// 	{
+	// 		CString str1 = m_List.GetItemText(i,1);
+	// 		CString str2 = m_List.GetItemText(i,2);
+	// 		theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
+	// 	}
+	//	theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
 	
 }
 
@@ -168,6 +169,7 @@ void CMapViewDlg::OnBnClickedButton3()
 	// TODO: Add your control notification handler code here
 	//theApp.m_pMapInfoDlg->CallJScript("clearOverlays",NULL);
 	m_List.DeleteAllItems();
+	//theApp.m_pMapInfoDlg->CallJScript("clearOverlays",NULL);
 	if(userInfo[0].Idetify==0x30)
 	{
 		char c[3]={'G',0x32,0x30};
@@ -198,9 +200,14 @@ void CMapViewDlg::OnBnClickedButton4()
 		CString strIntallTime;
 		CString strUserName;
 		CString strName;
+		CString strID;
 		CString str1 = m_List.GetItemText(i,1);
 		CString str2 = m_List.GetItemText(i,2);
 		MAPInfo* pGetInfo = (MAPInfo*)m_List.GetItemData(i);
+		for (int y(0);y<2;y++)
+		{
+			strID+=pGetInfo->GID[y];
+		}
 		for (int n(0);n<20;n++)
 		{
 			strIntallTime+=pGetInfo->Time[n];
@@ -214,6 +221,6 @@ void CMapViewDlg::OnBnClickedButton4()
 				strTerminal[j]+=pGetInfo->TeminalName[j][m];
 			}
 		}
-		theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,NULL);
+		theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,strID,strName,strTerminal[0],strTerminal[1],strTerminal[2],strTerminal[3],NULL);
 	}
 }

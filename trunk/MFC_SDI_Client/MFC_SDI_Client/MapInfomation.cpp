@@ -93,7 +93,22 @@ void CMapInfomation::Func1(const CString strLongtitude,const CString strLatitude
 	str2.Format("%s",strLatitude);
 	theApp.m_pMapViewDlg->ShowMessage(str1,str2);
 }
-
+bool CMapInfomation::CallJScript(const CString strFunc, const CString strArg1, const CString strArg2,
+								 const CString strArg3, const CString strArg4,
+								 const CString strArg5, const CString strArg6,
+								 const CString strArg7, const CString strArg8,_variant_t* pVarResult)
+{
+	CStringArray paramArray;
+	paramArray.Add(strArg1);
+	paramArray.Add(strArg2);
+	paramArray.Add(strArg3);
+	paramArray.Add(strArg4);
+	paramArray.Add(strArg5);
+	paramArray.Add(strArg6);
+	paramArray.Add(strArg7);
+	paramArray.Add(strArg8);
+	return CallJScript(strFunc,paramArray,pVarResult);
+}
 
 bool CMapInfomation::CallJScript(const CString strFunc, _variant_t* pVarResult)
 {
