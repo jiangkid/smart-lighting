@@ -895,8 +895,6 @@ BEGIN
     SEPARATOR
     BUTTON      ID_MainSet
     SEPARATOR
-    BUTTON      ID_Coommand
-    SEPARATOR
     BUTTON      ID_NEWDAY
     SEPARATOR
     BUTTON      ID_NEWWEEK
@@ -965,7 +963,6 @@ BEGIN
     END
     POPUP "决策"
     BEGIN
-        MENUITEM "决策设置",                        ID_Coommand
         MENUITEM "日决策新建",                       ID_NEWDAY
         MENUITEM "周决策新建",                       ID_NEWWEEK
         MENUITEM "节假日决策新建",                     ID_NEWJ
@@ -1386,6 +1383,13 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
+
+IDR_HTML2               HTML                    "C:\\HTMLPage1.htm"
 
 /////////////////////////////////////////////////////////////////////////////
 //
