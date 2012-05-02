@@ -31,6 +31,7 @@
 #include "SetNewUser.h"
 #include "MapInfomation.h"
 #include "MapViewDlg.h"
+#include "MapCtrlDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -84,6 +85,7 @@ public:
 	CSetNewUser*        m_pSetNewUserDlg;
 	CMapInfomation*     m_pMapInfoDlg;
 	CMapViewDlg*        m_pMapViewDlg;
+	CMapCtrlDlg*		m_pMapCtrlDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();
