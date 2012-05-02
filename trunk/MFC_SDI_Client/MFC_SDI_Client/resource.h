@@ -177,7 +177,11 @@
 #define IDD_LIGHTONOFF                  475
 #define IDD_JWDU_SET                    476
 #define IDD_RTU_SET                     477
+<<<<<<< .mine
+#define IDD_MAPCTRL                     480
+=======
 #define IDR_HTML3                       479
+>>>>>>> .r499
 #define IDC_BUTTON12                    999
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
@@ -200,8 +204,10 @@
 #define IDC_EDIT_GTIME                  1005
 #define IDC_active                      1006
 #define IDC_EDIT_GLOCATION              1006
+#define IDC_EDIT5                       1006
 #define IDC_UserName                    1007
 #define IDC_EDIT_GAREA                  1007
+#define IDC_EDIT6                       1007
 #define IDC_FPassWord                   1008
 #define IDC_GName                       1010
 #define IDC_TName                       1011
@@ -417,6 +423,7 @@
 #define IDC_EDIT_BOXID                  1163
 #define IDC_LIST2                       1163
 #define IDC_EDIT_BOXNAME                1164
+#define IDC_SPLIT1                      1171
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -533,9 +540,13 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
+<<<<<<< .mine
+#define _APS_NEXT_RESOURCE_VALUE        481
+=======
 #define _APS_NEXT_RESOURCE_VALUE        480
+>>>>>>> .r499
 #define _APS_NEXT_COMMAND_VALUE         32899
-#define _APS_NEXT_CONTROL_VALUE         1165
+#define _APS_NEXT_CONTROL_VALUE         1172
 #define _APS_NEXT_SYMED_VALUE           319
 #endif
 #endif
