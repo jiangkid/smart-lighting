@@ -625,16 +625,16 @@ CAPTION "特殊决策新建"
 FONT 14, "华文新魏", 400, 0, 0x86
 BEGIN
     CONTROL         "",IDC_SDATA,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,48,27,47,13
-    CTEXT           "决策类型",IDC_STATIC,12,8,28,11
+    CTEXT           "决策类型",IDC_STATIC,12,8,35,9
     EDITTEXT        IDC_Type,48,6,47,13,ES_AUTOHSCROLL | ES_READONLY
-    LTEXT           "特殊日期",IDC_STATIC,12,27,29,10
-    CTEXT           "全开起始时间",IDC_STATIC,3,45,43,10
+    LTEXT           "特殊日期",IDC_STATIC,12,27,31,10
+    CTEXT           "全开起始时间",IDC_STATIC,0,45,46,10
     CONTROL         "",IDC_BATIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,43,47,13
     CONTROL         "",IDC_EATIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,61,47,13
     CONTROL         "",IDC_BHTIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,78,47,13
-    CTEXT           "全开终止时间",IDC_STATIC,3,61,43,10
-    CTEXT           "半开起始时间",IDC_STATIC,3,79,43,10
-    CTEXT           "半开终止时间",IDC_STATIC,3,97,43,10
+    CTEXT           "全开终止时间",IDC_STATIC,0,61,46,10
+    CTEXT           "半开起始时间",IDC_STATIC,0,79,46,10
+    CTEXT           "半开终止时间",IDC_STATIC,0,97,46,10
     CONTROL         "",IDC_EHTIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,48,95,47,13
     PUSHBUTTON      "确定保存",IDC_BTN_BC,6,117,37,12
     PUSHBUTTON      "取消",IDC_BTN_QX,53,117,37,12
@@ -796,6 +796,28 @@ BEGIN
     LTEXT           "终端箱名字",IDC_STATIC,155,2,41,17
     EDITTEXT        IDC_EDIT_BOXID,84,2,41,9,ES_AUTOHSCROLL | ES_READONLY
     EDITTEXT        IDC_EDIT_BOXNAME,201,1,45,10,ES_AUTOHSCROLL | ES_READONLY
+END
+
+IDD_MAPCTRL DIALOGEX 0, 0, 425, 304
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "地图控制"
+FONT 10, "Microsoft Sans Serif", 700, 0, 0x0
+BEGIN
+    GROUPBOX        "地图控制中心",IDC_STATIC,7,7,411,290
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,66,411,231
+    LTEXT           "GPRSID",IDC_STATIC,15,22,27,8
+    EDITTEXT        IDC_EDIT1,44,20,39,11,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "GPRS责任区",IDC_STATIC,202,22,42,8
+    EDITTEXT        IDC_EDIT2,251,21,39,11,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "GPRS名称",IDC_STATIC,107,22,34,8
+    EDITTEXT        IDC_EDIT3,149,21,39,11,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "GPRS",IDC_STATIC,20,43,23,8
+    EDITTEXT        IDC_EDIT4,45,41,39,11,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "GPRS安装时间",IDC_STATIC,201,43,49,8
+    EDITTEXT        IDC_EDIT5,252,42,39,11,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "GPRS安装地点",IDC_STATIC,95,43,47,8
+    EDITTEXT        IDC_EDIT6,150,42,39,11,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Button1",IDC_BUTTON1,312,25,36,22
 END
 
 
@@ -1380,12 +1402,29 @@ BEGIN
         TOPMARGIN, 19
         BOTTOMMARGIN, 309
     END
+
+    IDD_MAPCTRL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 418
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 297
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
 //
+<<<<<<< .mine
+// HTML
+//
+
+IDR_HTML2               HTML                    "D:\\vc++资料\\HTMLPage1.htm"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+=======
 // HTML
 //
 
@@ -1393,6 +1432,7 @@ IDR_HTML2               HTML                    "C:\\HTMLPage1.htm"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+>>>>>>> .r495
 // String Table
 //
 
