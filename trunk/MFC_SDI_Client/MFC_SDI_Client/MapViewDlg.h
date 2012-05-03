@@ -7,6 +7,8 @@
 #include "MapInfomation.h"
 #include "afxcmn.h"
 #include "ReportCtrl.h"
+
+#include "MapCtrlDlg.h"
 class CMapViewDlg : public CDialog
 {
 	DECLARE_DYNAMIC(CMapViewDlg)
@@ -17,7 +19,6 @@ public:
 
 
 	CMapInfomation* m_pMapInfo ;
-
 // Dialog Data
 	enum { IDD = IDD_MAP_VIEW };
 
@@ -35,5 +36,7 @@ public:
 	CReportCtrl m_List;
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton4();
+//	afx_msg void OnLvnItemchangedList1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 };
 #endif
