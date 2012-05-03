@@ -32,6 +32,7 @@
 #include "MapInfomation.h"
 #include "MapViewDlg.h"
 #include "MapCtrlDlg.h"
+#include "JWSetDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -44,11 +45,14 @@ public:
 	int	   m_port;//端口号
 	int    nRCount;
 	int    nWarningCount;//警告个数
+	int    nGeshu;
 	char   m_ip[20];//IP地址
 	CString strNamePass;
+	char strGffID[2];
 	bool m_return;
 	bool m_InitTrue;
 	bool m_connected;
+	bool m_where;
 	HANDLE h1;
 	char TID[6];
 	char GID[5];
@@ -58,6 +62,7 @@ public:
 	RInfo m_RInfo[196];//路的个数196 RName RID
 	LInfo m_LInfo[1024];//单灯个数1024 LName LID
 	TerminalInfo m_TerminalInfo[4];//1个GPRS下4个终端，最大
+	TerminalInfo m_TerminalInfoMap[4];
 	ZigbeeInfo* m_ZigbeeInfo[512];//一个节点的信息最大512个显示的信息
 	RoadListViewInfo*   m_RoadListInfo[12];//1个终端下最大8路的信息
 	U8  m_lightPack[LENTH*1000];//包的缓冲大小定义成30K
@@ -86,6 +91,7 @@ public:
 	CMapInfomation*     m_pMapInfoDlg;
 	CMapViewDlg*        m_pMapViewDlg;
 	CMapCtrlDlg*		m_pMapCtrlDlg;
+	CJWSetDlg*          m_pJWSet;
 // 重写
 public:
 	virtual BOOL InitInstance();

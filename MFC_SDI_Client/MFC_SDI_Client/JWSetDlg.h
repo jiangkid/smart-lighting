@@ -10,7 +10,7 @@ class CJWSetDlg : public CDialog
 public:
 	CJWSetDlg(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CJWSetDlg();
-
+	int nGeshu;
 // Dialog Data
 	enum { IDD = IDD_JWDU_SET };
 
@@ -20,4 +20,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk2();
+	afx_msg void OnBnClickedOk();
+	virtual BOOL OnInitDialog();
+	CString strLA;
+	CString strLO;
+	void ShowJW(void);
 };

@@ -36,4 +36,5 @@ public:
 	afx_msg void OnBnClickedBtnGmodify();
 	afx_msg void OnNMDblclkListTerminal(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnEnChangeEditGid();
+	CString m_GGGGGGID;
 };

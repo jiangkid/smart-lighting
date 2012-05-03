@@ -177,11 +177,9 @@
 #define IDD_LIGHTONOFF                  475
 #define IDD_JWDU_SET                    476
 #define IDD_RTU_SET                     477
-<<<<<<< .mine
+
 #define IDD_MAPCTRL                     480
-=======
-#define IDR_HTML3                       479
->>>>>>> .r499
+
 #define IDC_BUTTON12                    999
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
