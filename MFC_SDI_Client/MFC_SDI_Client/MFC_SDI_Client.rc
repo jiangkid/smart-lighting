@@ -776,14 +776,11 @@ IDD_JWDU_SET DIALOGEX 0, 0, 206, 299
 STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
 FONT 14, "Microsoft Sans Serif", 700, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "应用到地图",IDOK,78,114,46,16
-    EDITTEXT        IDC_EDIT1,108,40,44,12,ES_AUTOHSCROLL
-    LTEXT           "时区",IDC_STATIC,59,41,39,8
-    LTEXT           "经度设置",IDC_STATIC,59,64,42,8
-    LTEXT           "纬度设置",IDC_STATIC,59,89,42,8
-    EDITTEXT        IDC_EDIT2,108,62,45,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT3,108,84,45,12,ES_AUTOHSCROLL
-    GROUPBOX        "经纬度设置",IDC_STATIC,53,28,109,125
+    LTEXT           "经度设置",IDC_STATIC,58,49,42,8
+    LTEXT           "纬度设置",IDC_STATIC,57,75,42,8
+    EDITTEXT        IDC_EDIT2,106,48,45,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT3,106,70,45,12,ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "经纬度设置",IDC_STATIC,53,28,108,73
 END
 
 IDD_RTU_SET DIALOGEX 0, 0, 308, 314
@@ -801,23 +798,23 @@ END
 IDD_MAPCTRL DIALOGEX 0, 0, 425, 304
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "地图控制"
-FONT 10, "Microsoft Sans Serif", 700, 0, 0x0
+FONT 12, "华文新魏", 400, 0, 0x86
 BEGIN
     GROUPBOX        "地图控制中心",IDC_STATIC,7,7,411,290
-    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,66,411,231
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,15,65,403,232
     LTEXT           "GPRSID",IDC_STATIC,15,22,27,8
     EDITTEXT        IDC_EDIT1,44,20,39,11,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "GPRS责任区",IDC_STATIC,202,22,42,8
-    EDITTEXT        IDC_EDIT2,251,21,39,11,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT2,149,22,39,11,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "GPRS名称",IDC_STATIC,107,22,34,8
-    EDITTEXT        IDC_EDIT3,149,21,39,11,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT3,251,21,48,11,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "GPRS",IDC_STATIC,20,43,23,8
     EDITTEXT        IDC_EDIT4,45,41,39,11,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "GPRS安装时间",IDC_STATIC,201,43,49,8
-    EDITTEXT        IDC_EDIT5,252,42,39,11,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT5,149,42,39,11,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "GPRS安装地点",IDC_STATIC,95,43,47,8
-    EDITTEXT        IDC_EDIT6,150,42,39,11,ES_AUTOHSCROLL | ES_READONLY
-    PUSHBUTTON      "Button1",IDC_BUTTON1,312,25,36,22
+    EDITTEXT        IDC_EDIT6,252,41,47,11,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "修改信息",IDC_BUTTON1,312,25,36,22
 END
 
 
@@ -1416,15 +1413,6 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-<<<<<<< .mine
-// HTML
-//
-
-IDR_HTML2               HTML                    "D:\\vc++资料\\HTMLPage1.htm"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-=======
 // HTML
 //
 
@@ -1432,7 +1420,6 @@ IDR_HTML2               HTML                    "C:\\HTMLPage1.htm"
 
 /////////////////////////////////////////////////////////////////////////////
 //
->>>>>>> .r495
 // String Table
 //
 
