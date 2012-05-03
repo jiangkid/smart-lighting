@@ -54,6 +54,7 @@ END_DHTML_EVENT_MAP()
 
 BEGIN_DISPATCH_MAP(CMapInfomation, CDHtmlDialog)
 	DISP_FUNCTION(CMapInfomation, "Func1", Func1, VT_EMPTY, VTS_BSTR VTS_BSTR)
+	DISP_FUNCTION(CMapInfomation, "ShowMapCtrl", ShowMapCtrl, VT_EMPTY, VTS_BSTR)
 END_DISPATCH_MAP()
 
 // Note: we add support for IID_IMapInfomation to support typesafe binding
@@ -195,3 +196,23 @@ bool CMapInfomation::GetJScript(CComPtr<IDispatch>& spDisp)
 	ATLASSERT(SUCCEEDED(hr));
 	return SUCCEEDED(hr);
 }
+
+void CMapInfomation::ShowMapCtrl(CString strID)
+{
+	ZeroMemory(theApp.strGffID,2);
+	strcpy(theApp.strGffID,strID);
+	CMapCtrlDlg	dlg;
+	dlg.DoModal();
+}
+
+BOOL CMapInfomation::CanAccessExternal()
+{
+	// we trust all com object (haha, you can make virus)
+	return TRUE;
+}
+//void CMapInfomation::AssertValid() const
+//{
+//	CDHtmlDialog::AssertValid();
+//
+//	// TODO: Add your specialized code here and/or call the base class
+//}

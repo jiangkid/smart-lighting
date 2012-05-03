@@ -757,6 +757,24 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 		::SendMessage(m_wnd,WM_CLOSE,0,0);
 		Sleep(500);
 		theApp.m_pFileView->FillFileView();
+		if(userInfo[0].Idetify==0x30)
+		{
+			char c[3]={'G',0x32,0x30};
+			CString str = c;
+			str+=userInfo[0].UserName;
+			str+='#';
+			send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
+			str.ReleaseBuffer();
+		}
+		else
+		{
+			char c[3]={'G',0x32,0x31};
+			CString str = c;
+			str+=userInfo[0].UserName;
+			str+='#';
+			send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
+			str.ReleaseBuffer();
+		}
 	}
 }
 
@@ -1328,6 +1346,8 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 {
 	GPRSInfo* pGetInfo=(GPRSInfo*)malloc(GLENTH);
 	ZeroMemory(pGetInfo,GLENTH);
+	GPRSInfo* pGetInfo3=(GPRSInfo*)malloc(GLENTH);
+	ZeroMemory(pGetInfo3,GLENTH);
 	TerminalInfo* pGetTInfo1 = (TerminalInfo*)malloc(TLENTH);
 	ZeroMemory(pGetTInfo1,TLENTH);
 	switch(buff[1])
@@ -1389,6 +1409,34 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 			else
 				AfxMessageBox(_T("获取已有信息错误"));
 		}
+		break;
+	case 0x33://GPRS信息
+		if (buff[2]==0x30)
+		{
+			memcpy(pGetInfo3,buff+3,GLENTH);
+			Sleep(500);
+			theApp.m_pMapCtrlDlg->ShowLocalInfo(pGetInfo3);
+			free(pGetInfo3);
+			theApp.m_pMapCtrlDlg->SendTMessage();
+		}
+		else
+			AfxMessageBox(_T("获取GPRS基本信息错误"));
+		break;
+	case 0x34://终端信息
+		if(buff[2]==0x30)
+		{
+			int n=buff[3];
+			for (int i(0);i<n;i++)
+			{
+				memcpy(pGetTInfo1,buff+4+i*TLENTH,TLENTH);
+				memcpy(&theApp.m_TerminalInfoMap[i],pGetTInfo1,TLENTH);
+				ZeroMemory(pGetTInfo1,TLENTH);
+			}
+			theApp.m_pMapCtrlDlg->ShowTerminalInfo(n);
+			free(pGetTInfo1);
+		}
+		else
+			AfxMessageBox(_T("获取GPRS基本信息错误"));
 		break;
 	default:
 		break;
@@ -1452,6 +1500,7 @@ void TranslateMapInfo(U8* buff)
 	nRetMapRet=0;
 	MAPInfo* pGetTInfo2 = (MAPInfo*)malloc(sizeof(MAPInfo));
 	int nCount=buff[0];
+	theApp.nGeshu = nCount;
 	for (int i(0);i<nCount;i++)
 	{
 		ZeroMemory(pGetTInfo2,sizeof(MAPInfo));

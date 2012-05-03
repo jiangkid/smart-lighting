@@ -47,6 +47,8 @@ CMFC_SDI_ClientApp::CMFC_SDI_ClientApp()
 , m_DlgDoubleONStatus(false)
 , m_DlgDoubleOFFStatus(false)
 , nWarningCount(0)
+, m_where(false)
+, nGeshu(0)
 {
 	m_bHiColorIcons = TRUE;
 	h1=NULL;
