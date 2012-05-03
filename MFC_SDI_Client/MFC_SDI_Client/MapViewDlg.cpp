@@ -36,6 +36,8 @@ BEGIN_MESSAGE_MAP(CMapViewDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMapViewDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMapViewDlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMapViewDlg::OnBnClickedButton4)
+//	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST1, &CMapViewDlg::OnLvnItemchangedList1)
+ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CMapViewDlg::OnNMDblclkList1)
 END_MESSAGE_MAP()
 
 
@@ -223,4 +225,28 @@ void CMapViewDlg::OnBnClickedButton4()
 		}
 		theApp.m_pMapInfoDlg->CallJScript("addMarker",str1,str2,strID,strName,strTerminal[0],strTerminal[1],strTerminal[2],strTerminal[3],NULL);
 	}
+}
+
+//void CMapViewDlg::OnLvnItemchangedList1(NMHDR *pNMHDR, LRESULT *pResult)
+//{
+//	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+//	// TODO: Add your control notification handler code here
+//	*pResult = 0;
+//}
+
+void CMapViewDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	if (pNMItemActivate->iItem==-1)
+	{
+		return;
+	}
+	else
+	{
+		CString strLatitude = m_List.GetItemText(pNMItemActivate->iItem,1);
+		CString strLongtitude = m_List.GetItemText(pNMItemActivate->iItem,2);
+		theApp.m_pMapInfoDlg->CallJScript("CenterMarker",strLatitude,strLongtitude);
+	}
+	*pResult = 0;
 }

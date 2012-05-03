@@ -21,6 +21,7 @@ CGPRSLocaInfomation::CGPRSLocaInfomation(CWnd* pParent /*=NULL*/)
 	, m_gprstime(_T(""))
 	, m_TerminalCount(0)
 	, strID(_T(""))
+	, m_GGGGGGID(_T(""))
 {
 }
 
@@ -57,9 +58,11 @@ void CGPRSLocaInfomation::ShowLocationInfo(GPRSInfo* pGetInfo)
 	m_gprsname=_T("");
 	m_gprsphone=_T("");
 	m_gprstime=_T("");
+	m_GGGGGGID=_T("");
 	for (int i(0);i<2;i++)
 	{
 		m_gprsid+=pGetInfo->gID[i];
+		m_GGGGGGID+=pGetInfo->gID[i];
 	}
 	for (int n(0);n<20;n++)
 	{
@@ -169,12 +172,12 @@ void CGPRSLocaInfomation::OnNMDblclkListTerminal(NMHDR *pNMHDR, LRESULT *pResult
 	}
 	else
 	{	
+		theApp.m_where = false;
 		strID=m_List_Terminal.GetItemText(pNMItemActivate->iItem,0);
 		strName=m_List_Terminal.GetItemText(pNMItemActivate->iItem,1);  
 		CRtuSetDlg dlg;
 		dlg.DoModal();
 	}
-
 	*pResult = 0;
 }
 

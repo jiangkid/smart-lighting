@@ -82,6 +82,7 @@ void CRtuSetDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 			m_pJWDlg->ShowWindow(SW_SHOW);
 			m_pLightDlg->ShowWindow(SW_HIDE);
 			m_pDecision->ShowWindow(SW_HIDE);
+			theApp.m_pJWSet->ShowJW();
 			break;
 		case 2:
 			m_pDecision->ShowWindow(SW_SHOW);
@@ -95,8 +96,16 @@ void CRtuSetDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 void CRtuSetDlg::ShowTerminalBoxInfo() 
 {
 	 m_pGPRS=theApp.m_pLocalInfoDlg;
-	 SetDlgItemText(IDC_EDIT_BOXID,m_pGPRS->strID);
-	 SetDlgItemText(IDC_EDIT_BOXNAME,m_pGPRS->strName);  
+	 if (theApp.m_where)
+	 {
+		 SetDlgItemText(IDC_EDIT_BOXID,theApp.m_pMapCtrlDlg->strID);
+		 SetDlgItemText(IDC_EDIT_BOXNAME,theApp.m_pMapCtrlDlg->strName);  
+	 }
+	 else
+	 {
+		 SetDlgItemText(IDC_EDIT_BOXID,m_pGPRS->strID);
+		 SetDlgItemText(IDC_EDIT_BOXNAME,m_pGPRS->strName);  
+	 }
 }
 
 
