@@ -78,6 +78,7 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				EmbedManifest="false"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -187,6 +188,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\AllDesitionCtrl.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BCMenu.cpp"
 				>
 			</File>
@@ -219,7 +224,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DayDecisionDlg.cpp"
+				RelativePath=".\DCTRLDlg.cpp"
 				>
 			</File>
 			<File
@@ -255,10 +260,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\JieDecisionDlg.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\JWSetDlg.cpp"
 				>
 			</File>
@@ -284,6 +285,10 @@
 			</File>
 			<File
 				RelativePath=".\MainSetDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MapCtrlDlg.cpp"
 				>
 			</File>
 			<File
@@ -438,16 +443,16 @@
 				RelativePath=".\WebPage.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\WeekDecisionDlg.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\AllDesitionCtrl.h"
+				>
+			</File>
 			<File
 				RelativePath=".\BCMenu.h"
 				>
@@ -481,7 +486,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DayDecisionDlg.h"
+				RelativePath=".\DCTRLDlg.h"
 				>
 			</File>
 			<File
@@ -517,10 +522,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\JieDecisionDlg.h"
-				>
-			</File>
-			<File
 				RelativePath=".\JWSetDlg.h"
 				>
 			</File>
@@ -546,6 +547,10 @@
 			</File>
 			<File
 				RelativePath=".\MainSetDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MapCtrlDlg.h"
 				>
 			</File>
 			<File
@@ -602,10 +607,6 @@
 			</File>
 			<File
 				RelativePath=".\NewWeekDecisionDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PolicyManage.h"
 				>
 			</File>
 			<File
@@ -694,10 +695,6 @@
 			</File>
 			<File
 				RelativePath=".\WebPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WeekDecisionDlg.h"
 				>
 			</File>
 		</Filter>
@@ -795,11 +792,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\20120411082647671_easyicon_cn_32.ico"
+				RelativePath="..\..\..\20120411082647671_easyicon_cn_32.ico"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\20120411082647671_easyicon_cn_32.ico"
+				RelativePath=".\res\20120411082647671_easyicon_cn_32.ico"
 				>
 			</File>
 			<File
@@ -859,11 +856,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\20120420092833203_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\res\20120420092833203_easyicon_cn_32.ico"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\20120420092833203_easyicon_cn_32.ico"
+				RelativePath=".\res\20120420094041496_easyicon_cn_32.ico"
 				>
 			</File>
 			<File
@@ -871,7 +872,35 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\20120420094041496_easyicon_cn_32.ico"
+				RelativePath="..\..\..\20120508034452348_easyicon_cn_37.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120508034834468_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120508035130812_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120508035442976_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120508040842320_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120508041229136_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120508044009784_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\20120508044715352_easyicon_cn_32.ico"
 				>
 			</File>
 			<File
@@ -1023,11 +1052,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ico\icon5.ico"
+				RelativePath=".\res\icon45.ico"
 				>
 			</File>
 			<File
 				RelativePath=".\res\icon5.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\ico\icon5.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\icon51.ico"
 				>
 			</File>
 			<File
@@ -1163,6 +1200,16 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\..\HTMLPage1.htm"
+			DeploymentContent="true"
+			>
+		</File>
+		<File
+			RelativePath="D:\vc++×ÊÁÏ\HTMLPage1.htm"
+			DeploymentContent="true"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>
