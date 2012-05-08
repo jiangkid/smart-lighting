@@ -29,6 +29,7 @@ void CMapViewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT1, m_lat);
 	DDX_Text(pDX, IDC_EDIT2, m_lng);
 	DDX_Control(pDX, IDC_LIST1, m_List);
+	DDX_Control(pDX, IDC_COMBO1, m_ComBox);
 }
 
 BEGIN_MESSAGE_MAP(CMapViewDlg, CDialog)
@@ -58,6 +59,7 @@ BOOL CMapViewDlg::OnInitDialog()
 	m_pMapInfo->MoveWindow(rect);
 	m_pMapInfo->ShowWindow(SW_SHOW);
 
+	m_ComBox.SetCurSel(-1);
 	return TRUE;  
 	// return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -109,8 +111,19 @@ void CMapViewDlg::OnBnClickedButton2()
 	memcpy(sendbuff,c,2);
 	PointInfo* pGetInfo = (PointInfo*)malloc(sizeof(PointInfo));
 	ZeroMemory(pGetInfo,sizeof(PointInfo));
-	pGetInfo->GID[0]='0';
-	pGetInfo->GID[1]='1';
+	int nCount(0);
+	nCount=m_ComBox.GetCurSel();
+	if (nCount==-1)
+	{
+		AfxMessageBox(_T("ÇëÑ¡ÔñÒªÌí¼ÓÖÕ¶ËID"));
+		return;
+	}
+	CString str;
+	m_ComBox.GetLBText(nCount,str);
+	memcpy(&pGetInfo->GID,str.GetBuffer(),2);
+	str.ReleaseBuffer(2);
+	//pGetInfo->GID[0]='0';
+	//pGetInfo->GID[1]='1';
 	pGetInfo->Longtitude=a*100;
 	pGetInfo->Latitude=b*100;
 	memcpy(pGetInfo->LongtitudeSave,str1.GetBuffer(),str1.GetLength());
@@ -163,7 +176,7 @@ void CMapViewDlg::ShowInfomation(int nItem, MAPInfo* pGetInfo)
 		//ShowMessage(strLongtitude,strLatitude);
 		//theApp.m_pMapInfoDlg->CallJScript("addMarker",strLongtitude,strLatitude,NULL);
 	}
-	
+	m_ComBox.InsertString(nItem,strID);
 }
 
 void CMapViewDlg::OnBnClickedButton3()
@@ -171,6 +184,12 @@ void CMapViewDlg::OnBnClickedButton3()
 	// TODO: Add your control notification handler code here
 	//theApp.m_pMapInfoDlg->CallJScript("clearOverlays",NULL);
 	m_List.DeleteAllItems();
+	int nCount = m_ComBox.GetCount();
+	for (int i(0);i<nCount;i++)
+	{
+		m_ComBox.DeleteString(i);
+	}
+	//m_ComBox.Clear();
 	//theApp.m_pMapInfoDlg->CallJScript("clearOverlays",NULL);
 	if(userInfo[0].Idetify==0x30)
 	{

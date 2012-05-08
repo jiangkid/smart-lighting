@@ -53,7 +53,9 @@ CMFC_SDI_ClientApp::CMFC_SDI_ClientApp()
 	m_bHiColorIcons = TRUE;
 	h1=NULL;
 	ZeroMemory(nStatus,4);
+	ZeroMemory(sendTerminal,4);
 	nRCount=0;
+	//m_Desition=0x00;
 	//m_InitInfo=(IintInfo*)malloc(sizeof(IintInfo));
 	//ZeroMemory(m_InitInfo,sizeof(IintInfo));
 	// TODO: 在此处添加构造代码，

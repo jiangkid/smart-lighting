@@ -28,8 +28,8 @@ void CNewDayDecisionDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_Type, m_Type);
 	DDX_Control(pDX, IDC_BEGINOPEN, m_BeginOpenAll);
 	DDX_Control(pDX, IDC_ENDOPEN, m_EndOpenAll);
-	DDX_Control(pDX, IDC_BEGINHALF, m_BeginHalf);
-	DDX_Control(pDX, IDC_ENDHALF, m_EndHalf);
+// 	DDX_Control(pDX, IDC_BEGINHALF, m_BeginHalf);
+// 	DDX_Control(pDX, IDC_ENDHALF, m_EndHalf);
 	DDX_Text(pDX, IDC_EDIT2, strName);
 }
 
@@ -49,8 +49,8 @@ BOOL CNewDayDecisionDlg::OnInitDialog()
 	UpdateData(FALSE);
 	m_BeginOpenAll.SetFormat("HH:mm");
 	m_EndOpenAll.SetFormat("HH:mm");
-	m_BeginHalf.SetFormat("HH:mm");
-	m_EndHalf.SetFormat("HH:mm");
+	//m_BeginHalf.SetFormat("HH:mm");
+	//m_EndHalf.SetFormat("HH:mm");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -67,8 +67,8 @@ void CNewDayDecisionDlg::OnBnClickedBtnSure()
 	UpdateData(TRUE);
 	CString strTime1=_T("");
 	CString strTime2=_T("");
-	CString strTime3=_T("");
-	CString strTime4=_T("");
+	//CString strTime3=_T("");
+	//CString strTime4=_T("");
 	if (strName==_T(""))
 	{
 		AfxMessageBox(_T("决策名不能为空！"));
@@ -99,34 +99,34 @@ void CNewDayDecisionDlg::OnBnClickedBtnSure()
 			strTime2.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult3= m_BeginHalf.GetTime(m_GTimeBeginHalf);
-	if (dwResult3== GDT_VALID)
-	{
-		if ((m_BeginHalf.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime3 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime3.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult4= m_EndHalf.GetTime(m_GTimeEndHalf);
-	if (dwResult4 == GDT_VALID)
-	{
-		if ((m_EndHalf.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime4 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime4.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult3= m_BeginHalf.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult3== GDT_VALID)
+// 	{
+// 		if ((m_BeginHalf.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime3 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime3.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult4= m_EndHalf.GetTime(m_GTimeEndHalf);
+// 	if (dwResult4 == GDT_VALID)
+// 	{
+// 		if ((m_EndHalf.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime4 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime4.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo->openTime,strTime1.GetBuffer(),5);
 	memcpy(pGetInfo->closeTime,strTime2.GetBuffer(),5);
-	memcpy(pGetInfo->Half_openTime,strTime3.GetBuffer(),5);
-	memcpy(pGetInfo->Half_closeTime,strTime4.GetBuffer(),5);
+//	memcpy(pGetInfo->Half_openTime,strTime3.GetBuffer(),5);
+//	memcpy(pGetInfo->Half_closeTime,strTime4.GetBuffer(),5);
 	strTime1.ReleaseBuffer();
 	strTime2.ReleaseBuffer();
-	strTime3.ReleaseBuffer();
-	strTime4.ReleaseBuffer();
+	//strTime3.ReleaseBuffer();
+	//strTime4.ReleaseBuffer();
 	HDR2 hdr2;
 	SendDecision(&hdr2,pGetInfo);
 	free(pGetInfo);

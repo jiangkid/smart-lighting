@@ -41,13 +41,11 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_SHOW_TREE, &CMainFrame::OnShowTree)
 	ON_COMMAND(ID_HIDE_TREE, &CMainFrame::OnHideTree)
 	ON_COMMAND(ID_Coommand, &CMainFrame::OnCoommand)
-	ON_COMMAND(ID_NEWDAY, &CMainFrame::OnNewday)
-	ON_COMMAND(ID_NEWJ, &CMainFrame::OnNewj)
-	ON_COMMAND(ID_NEWWEEK, &CMainFrame::OnNewweek)
-	ON_COMMAND(ID_NEWSPCIAL, &CMainFrame::OnNewspcial)
 	ON_UPDATE_COMMAND_UI(ID_Modify, &CMainFrame::OnUpdateModify)
 	ON_UPDATE_COMMAND_UI(ID_UserControl, &CMainFrame::OnUpdateUsercontrol)
 	ON_COMMAND(ID_CV_SET, &CMainFrame::OnCvSet)
+	ON_COMMAND(ID_32899, &CMainFrame::On32899)
+	ON_COMMAND(ID_ViewAll, &CMainFrame::OnViewall)
 END_MESSAGE_MAP()
  
 static UINT indicators[] =
@@ -504,36 +502,8 @@ void CMainFrame::OnHideTree()
 void CMainFrame::OnCoommand()
 {
 	// TODO: Add your command handler code here
-	CDecisionDlg dlg;
-	dlg.DoModal();
-}
-
-void CMainFrame::OnNewday()
-{
-	// TODO: Add your command handler code here
-	CNewDayDecisionDlg dlg;
-	dlg.DoModal();
-}
-
-void CMainFrame::OnNewj()
-{
-	// TODO: Add your command handler code here
-	CNewJDecisionDlg dlg;
-	dlg.DoModal();
-}
-
-void CMainFrame::OnNewweek()
-{
-	// TODO: Add your command handler code here
-	CNewWeekDecisionDlg dlg;
-	dlg.DoModal();
-}
-
-void CMainFrame::OnNewspcial()
-{
-	// TODO: Add your command handler code here
-	CNewSpcialDecisionDlg dlg;
-	dlg.DoModal();
+// 	CDecisionDlg dlg;
+// 	dlg.DoModal();
 }
 
 void CMainFrame::OnUpdateModify(CCmdUI *pCmdUI)
@@ -557,5 +527,20 @@ void CMainFrame::OnCvSet()
 {
 	// TODO: Add your command handler code here
 	CCVSetDlg dlg;
+	dlg.DoModal();
+}
+
+void CMainFrame::On32899()
+{
+	// TODO: Add your command handler code here
+	CDecisionDlg dlg;
+	//CAllDesitionCtrl dlg;
+	dlg.DoModal();
+}
+
+void CMainFrame::OnViewall()
+{
+	// TODO: Add your command handler code here
+	CAllDesitionCtrl dlg;
 	dlg.DoModal();
 }
