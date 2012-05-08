@@ -142,6 +142,16 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 							SendCurrent();
 							break;
 						}
+						if (szBuf[1]==0x37)
+						{
+							if (theApp.m_pTabListView->m_later)
+								break;
+							else
+							{
+								CheckInfo(szBuf,iRet);
+								break;
+							}
+						}
 					case 'G':
 						GPRSLocalInfo(szBuf,iRet);
 						break;
@@ -154,6 +164,14 @@ DWORD WINAPI ConnectThreadFunc(LPVOID pParam)
 					case 'D':
 						ChenkDelete(szBuf,iRet);
 						break;
+					case 'T':
+						{
+							AfxMessageBox(_T("用户在其他地方登入"));
+							theApp.m_connected=TRUE;
+							theApp.m_return=false;
+							TerminateThread(theApp.h1,0);
+							break;
+						}					
 				default:
 						break;
 					}
@@ -550,6 +568,41 @@ void ChenkGetGID(char* buff,int nRecvLength)
 	{
 		AfxMessageBox(_T("解除绑定成功！"));
 	}
+	if(buff[0]=='S'&&buff[1]==0x44 && buff[3]=='1')
+	{
+		switch (buff[2])
+		{
+		case 'T':
+			AfxMessageBox(_T("设置特殊策略不成功，请重试！"));
+			break;
+		case 'Z':
+			AfxMessageBox(_T("设置周策略不成功，请重试！"));
+			break;
+		case 'J':
+			AfxMessageBox(_T("设置节假日策略不成功，请重试！"));
+			break;
+		default:
+			break;
+		}
+
+	}
+	else if (buff[0]=='S'&&buff[1]==0x44 && buff[3]=='0')
+	{
+		switch (buff[2])
+		{
+		case 'T':
+			AfxMessageBox(_T("设置特殊策略成功，请重试！"));
+			break;
+		case 'Z':
+			AfxMessageBox(_T("设置周策略成功，请重试！"));
+			break;
+		case 'J':
+			AfxMessageBox(_T("设置节假日策略成功，请重试！"));
+			break;
+		default:
+			break;
+		}
+	}
 }
 /************************************************************************************
 功能:发送用户登录信息
@@ -775,6 +828,7 @@ void ChenkInitInfo(char* buff,int nRecvLength)
 			send(theApp.m_ConnectSock,str.GetBuffer(),str.GetLength(),0);
 			str.ReleaseBuffer();
 		}
+		Sleep(500);
 	}
 }
 
@@ -1344,12 +1398,17 @@ CString CharToCString(unsigned char* str, int nLength)
 static int nRetMapRet(0);
 void GPRSLocalInfo(char* buff,int nRecvLength)
 {
+	CString str =_T("");
 	GPRSInfo* pGetInfo=(GPRSInfo*)malloc(GLENTH);
 	ZeroMemory(pGetInfo,GLENTH);
 	GPRSInfo* pGetInfo3=(GPRSInfo*)malloc(GLENTH);
 	ZeroMemory(pGetInfo3,GLENTH);
 	TerminalInfo* pGetTInfo1 = (TerminalInfo*)malloc(TLENTH);
 	ZeroMemory(pGetTInfo1,TLENTH);
+	StrategyInfo* pGetTInfo2 = (StrategyInfo*)malloc(sizeof(StrategyInfo));
+	ZeroMemory(pGetTInfo2,sizeof(StrategyInfo));
+	StrategyInfo* pGetTInfo4 = (StrategyInfo*)malloc(sizeof(StrategyInfo));
+	ZeroMemory(pGetTInfo4,sizeof(StrategyInfo));
 	switch(buff[1])
 	{
 	case 0x30://GPRS信息
@@ -1417,7 +1476,7 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 			Sleep(500);
 			theApp.m_pMapCtrlDlg->ShowLocalInfo(pGetInfo3);
 			free(pGetInfo3);
-			theApp.m_pMapCtrlDlg->SendTMessage();
+			theApp.m_pMapCtrlDlg->SendTMessage(theApp.sendTerminal);
 		}
 		else
 			AfxMessageBox(_T("获取GPRS基本信息错误"));
@@ -1434,6 +1493,367 @@ void GPRSLocalInfo(char* buff,int nRecvLength)
 			}
 			theApp.m_pMapCtrlDlg->ShowTerminalInfo(n);
 			free(pGetTInfo1);
+		}
+		else
+			AfxMessageBox(_T("获取GPRS基本信息错误"));
+		break;
+	case 0x35:
+		if (buff[2]==0x30)
+		{
+			for (int ni(0);ni<4;ni++)
+			{
+				for (int nj(0);nj<7;nj++)
+				{
+					ZeroMemory(&theApp.m_ZhouAll[ni][nj],sizeof(StrategyInfo));
+					ZeroMemory(&theApp.m_JieAll[nj],sizeof(StrategyInfo));
+				}
+			}
+			ZeroMemory(&theApp.m_TeshuAll[0],sizeof(StrategyInfo));
+			int k(0);
+			int n = buff[3];
+			for (int i(0);i<n;i++)
+			{
+				memcpy(pGetTInfo2,buff+4+i*sizeof(StrategyInfo),sizeof(StrategyInfo));
+				switch (pGetTInfo2->strategyType)
+				{
+				case 0x02:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo2->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[0][0],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[0][1],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[0][2],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[0][3],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[0][4],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[0][5],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[0][6],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					break;
+				case 0x03:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo2->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[1][0],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[1][1],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[1][2],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[1][3],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[1][4],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[1][5],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[1][6],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					break;
+				case 0x04:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo2->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[2][0],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[2][1],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[2][2],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[2][3],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[2][4],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[2][5],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[2][6],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					break;
+				case 0x05:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo2->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[3][0],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[3][1],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[3][2],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[3][3],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[3][4],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[3][5],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouAll[3][6],pGetTInfo2,sizeof(StrategyInfo));
+					}
+					break;
+				case 0x06:
+					memcpy(&theApp.m_JieAll[k],pGetTInfo2,sizeof(StrategyInfo));
+					k++;
+					break;
+				case 0x07:
+					memcpy(&theApp.m_TeshuAll[0],pGetTInfo2,sizeof(StrategyInfo));
+					break;
+				default:
+					break;
+				}
+				//memcpy(&theApp.m_DesitionAll[i],pGetTInfo2,sizeof(StrategyInfo));
+				ZeroMemory(pGetTInfo2,sizeof(StrategyInfo));
+			}
+			free(pGetTInfo2);
+		}
+		else
+			AfxMessageBox(_T("获取策略信息错误"));
+		break;
+	case 0x36:
+		for (int nj(0);nj<7;nj++)
+		{
+			ZeroMemory(&theApp.m_ZhouBand[nj],sizeof(StrategyInfo));
+			ZeroMemory(&theApp.m_JieAll[nj],sizeof(StrategyInfo));
+		}
+		ZeroMemory(&theApp.m_TeshuBand[0],sizeof(StrategyInfo));
+		ZeroMemory(&theApp.m_DataBand[0],sizeof(StrategyInfo));
+		if (buff[2]==0x30)
+		{
+			int k(0);
+			int n = buff[3];
+			for (int i(0);i<n;i++)
+			{
+				memcpy(pGetTInfo4,buff+4+i*sizeof(StrategyInfo),sizeof(StrategyInfo));
+				switch (pGetTInfo4->strategyType)
+				{
+				case 0x01:
+					memcpy(&theApp.m_DataBand[0],pGetTInfo4,sizeof(StrategyInfo));
+					theApp.m_DCtrlDlg->ShowBandInfoDate(pGetTInfo4);
+					break;
+				case 0x02:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo4->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[0],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[1],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[2],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[3],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[4],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[5],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[6],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					theApp.m_DCtrlDlg->ShowBandInfoWeek(pGetTInfo4);
+					break;
+				case 0x03:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo4->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[0],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[1],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[2],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[3],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[4],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[5],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[6],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					theApp.m_DCtrlDlg->ShowBandInfoWeek(pGetTInfo4);
+					break;
+				case 0x04:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo4->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[0],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[1],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[2],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[3],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[4],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[5],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[6],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					theApp.m_DCtrlDlg->ShowBandInfoWeek(pGetTInfo4);
+					break;
+				case 0x05:
+					str =_T("");
+					for(int nn(0);nn<11;nn++)
+					{
+						str+=pGetTInfo4->time[nn];
+					}
+					if (strcmp(_T("星期一"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[0],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期二"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[1],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期三"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[2],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期四"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[3],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期五"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[4],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期六"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[5],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					if (strcmp(_T("星期日"),str)==0)
+					{
+						memcpy(&theApp.m_ZhouBand[6],pGetTInfo4,sizeof(StrategyInfo));
+					}
+					theApp.m_DCtrlDlg->ShowBandInfoWeek(pGetTInfo4);
+					break;
+				case 0x06:
+					k++;
+					memcpy(&theApp.m_JieBand[k],pGetTInfo4,sizeof(StrategyInfo));
+					theApp.m_DCtrlDlg->ShowBandInfoJie(pGetTInfo4);
+					break;
+				case 0x07:
+					memcpy(&theApp.m_TeshuBand[0],pGetTInfo4,sizeof(StrategyInfo));
+					theApp.m_DCtrlDlg->ShowBandInfoTe(pGetTInfo4);
+					break;
+				default:
+					break;
+				}
+				ZeroMemory(pGetTInfo4,sizeof(StrategyInfo));
+			}
+			free(pGetTInfo4);
 		}
 		else
 			AfxMessageBox(_T("获取GPRS基本信息错误"));
@@ -1509,6 +1929,8 @@ void TranslateMapInfo(U8* buff)
 		memcpy(&theApp.m_MapInfo[i],pGetTInfo2,MAPLENGTH);
 		theApp.m_pMapViewDlg->ShowInfomation(i,pGetTInfo2);	
 	}
+	char c[2] = {'G',0x35};
+	send(theApp.m_ConnectSock,c,2,0);
 	free(pGetTInfo2);
 }
 //***************************************************************/
@@ -1544,4 +1966,33 @@ void CheckDecisionInfo(U8* buff, int nLength)
 	default:
 		break;
 	}
+}
+//***************************************************************/
+//函数功能：判断已经发了哪个终端查询电压
+//***************************************************************/
+void CheckInfo(char* buffer, int Length)
+{
+	switch (buffer[3])
+	{
+	case 0x31:
+		theApp.sendTerminal[0]=0x01;
+		break;
+	case 0x32:
+		theApp.sendTerminal[1]=0x01;
+		break;
+	case 0x33:
+		theApp.sendTerminal[2]=0x01;
+		break;
+	case 0x34:
+		theApp.sendTerminal[3]=0x01;
+		break;
+	default:
+		break;
+	}
+	if (theApp.m_pMapCtrlDlg->m_True)
+	{
+		theApp.m_pMapCtrlDlg->SendTMessage(theApp.sendTerminal);
+	}
+	else
+		theApp.m_pTabListView->GetVolita(theApp.sendTerminal);
 }
