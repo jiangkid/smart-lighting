@@ -2,8 +2,8 @@
 #include "JWSetDlg.h"
 #include "LightOnOffDlg.h"
 #include "afxwin.h"
-#include "DecisionDlg.h"
- 
+#include "DCTRLDlg.h"
+
  
  
 
@@ -30,7 +30,7 @@ public:
 	CJWSetDlg *m_pJWDlg;
 	CLightOnOffDlg *m_pLightDlg;
 	CGPRSLocaInfomation* m_pGPRS;
-	CDecisionDlg *m_pDecision;
+	CDCTRLDlg* m_pDecision;
 	CString m_strTerminalID;
 	CString m_strTerminalName;
 	CString m_BoxName;

@@ -151,8 +151,6 @@ typedef struct  _Decision//决策
 	char EndDate[10];		        //节假日的结束日期
 	char openTime[5];		        //12:00
 	char closeTime[5];
-	char Half_openTime[5];
-	char Half_closeTime[5];
 }Decision, *LPDecision;
 
 typedef struct _MUserInfo//back的信息
@@ -193,6 +191,16 @@ typedef struct _ConTrlInfo//back的信息
 	U8 m_CheckData[4];
 	U8 m_EndBuffer[2];
 }ConTrlInfo,*LPConTrlInfo;
+
+typedef struct _StrategyInfo     //策略信息
+{
+	bool sendtrue;
+	U8   strategyType;                //策略类型
+	U8   strategyName[20];       //策略名称
+	U8   time[11];                      //策略的日期
+	U8   OnTime[5];                  //开灯时间
+	U8   OffTime[5];                 //关灯时间
+}StrategyInfo, *pStrategyInfo;
 
 extern HDR hdr;				//全局包体
 extern USERINFO userInfo[20];//全局用户信息（要动态，在想办法解决）
@@ -255,6 +263,11 @@ BOOL SOCKET_Select(SOCKET hSocket, int nTimeOut = 100, BOOL bRead = FALSE);
 //***************************************************************/
 void SendContrlInfo(LPHDR hdr,LPConTrlInfo contrlInfo);
 void SendContrlInfo1(LPHDR hdr,LPConTrlInfo contrlInfo);
+//***************************************************************/
+//函数功能：判断已经发了哪个终端查询电压
+//***************************************************************/
+void CheckInfo(char* buffer, int Length);
+//***************************************************************/
 //***************************************************************/
 //函数功能：将大于4096的文件接收并存储
 //***************************************************************/

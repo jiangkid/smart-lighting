@@ -9,6 +9,7 @@
 #include "ReportCtrl.h"
 
 #include "MapCtrlDlg.h"
+#include "afxwin.h"
 class CMapViewDlg : public CDialog
 {
 	DECLARE_DYNAMIC(CMapViewDlg)
@@ -38,5 +39,6 @@ public:
 	afx_msg void OnBnClickedButton4();
 //	afx_msg void OnLvnItemchangedList1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
+	CComboBox m_ComBox;
 };
 #endif

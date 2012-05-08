@@ -26,7 +26,7 @@ public:
 	afx_msg void OnBnClickedBtnSure();
 	CDateTimeCtrl m_BeginOpenAll;
 	CDateTimeCtrl m_EndOpenAll;
-	CDateTimeCtrl m_BeginHalf;
-	CDateTimeCtrl m_EndHalf;
+	//CDateTimeCtrl m_BeginHalf;
+	//CDateTimeCtrl m_EndHalf;
 	CString strName;
 };

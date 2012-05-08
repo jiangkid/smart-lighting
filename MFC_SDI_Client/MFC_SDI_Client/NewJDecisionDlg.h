@@ -33,7 +33,7 @@ public:
 	afx_msg void OnBnClickedBtnss();
 	CDateTimeCtrl m_ba;
 	CDateTimeCtrl m_ea;
-	CDateTimeCtrl m_bh;
-	CDateTimeCtrl m_eh;
+	//CDateTimeCtrl m_bh;
+	//CDateTimeCtrl m_eh;
 	CString m_JName;
 };

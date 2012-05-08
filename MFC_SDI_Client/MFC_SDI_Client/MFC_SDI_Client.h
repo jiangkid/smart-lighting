@@ -33,6 +33,8 @@
 #include "MapViewDlg.h"
 #include "MapCtrlDlg.h"
 #include "JWSetDlg.h"
+#include "RtuSetDlg.h"
+#include "DCTRLDlg.h"
 // CMFC_SDI_ClientApp:
 // 有关此类的实现，请参阅 MFC_SDI_Client.cpp
 class CFileView;
@@ -49,11 +51,13 @@ public:
 	char   m_ip[20];//IP地址
 	CString strNamePass;
 	char strGffID[2];
+	char sendTerminal[4];
 	bool m_return;
 	bool m_InitTrue;
 	bool m_connected;
 	bool m_where;
 	HANDLE h1;
+	//char m_Desition;
 	char TID[6];
 	char GID[5];
 	char nStatus[4];//托盘状态4种
@@ -71,6 +75,13 @@ public:
 	MAPInfo m_MapInfo[64];
 	WarningInfo m_WarningInfo[256];//一次性最多可以获取历史警告256个
 	NumInfo m_NumInfo;
+	StrategyInfo m_DataBand[1];
+	StrategyInfo m_JieBand[7];
+	StrategyInfo m_ZhouAll[4][7];
+	StrategyInfo m_TeshuAll[1];
+	StrategyInfo m_JieAll[7];
+	StrategyInfo m_ZhouBand[7];
+	StrategyInfo m_TeshuBand[1];
 	/*static int warningpack;*/
 	CWaitDlg			m_WaitDlg;
 	CFileView*			m_pFileView;
@@ -92,6 +103,8 @@ public:
 	CMapViewDlg*        m_pMapViewDlg;
 	CMapCtrlDlg*		m_pMapCtrlDlg;
 	CJWSetDlg*          m_pJWSet;
+	CRtuSetDlg*         m_pRtuSetDlg;
+	CDCTRLDlg*          m_DCtrlDlg;
 // 重写
 public:
 	virtual BOOL InitInstance();

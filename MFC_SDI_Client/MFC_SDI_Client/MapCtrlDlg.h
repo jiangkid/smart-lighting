@@ -30,6 +30,9 @@ public:
 	void ShowLocalInfo(GPRSInfo* pGetInfo);
 	void ShowTerminalInfo(UINT nItem);
 	void SendGMessage(void);
-	void SendTMessage(void);
+	void SendTMessage(char* c);
 	CString m_GGGGID;
+	bool m_later;
+	bool m_True;
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
