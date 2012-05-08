@@ -25,8 +25,8 @@ public:
 	virtual BOOL OnInitDialog();
 	CDateTimeCtrl m_sd;
 	CDateTimeCtrl m_ba;
-	CDateTimeCtrl m_bh;
-	CDateTimeCtrl m_eh;
+	//CDateTimeCtrl m_bh;
+	//CDateTimeCtrl m_eh;
 	CDateTimeCtrl m_ea;
 	afx_msg void OnBnClickedBtnBc();
 };

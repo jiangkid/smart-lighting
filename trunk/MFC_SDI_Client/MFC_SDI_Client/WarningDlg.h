@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 //#include "ControlWaringDlg.h"
 // CWarningDlg dialog
 
@@ -32,4 +33,5 @@ public:
 	CComboBox m_TheGID;
 	int warningpackCount;
 	//CControlWaringDlg* m_pCtrlWarn;
+	CComboBox m_Box;
 };

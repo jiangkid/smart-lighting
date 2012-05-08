@@ -1,11 +1,9 @@
 #pragma once
 #include "afxcmn.h"
-#include "DayDecisionDlg.h"
-#include "WeekDecisionDlg.h"
-#include "JieDecisionDlg.h"
-#include "SpacialDecisionDlg.h"
 // CDecisionDlg dialog
-
+#include "NewJDecisionDlg.h"
+#include "NewSpcialDecisionDlg.h"
+#include "NewWeekDecisionDlg.h"
 class CDecisionDlg : public CDialog
 {
 	DECLARE_DYNAMIC(CDecisionDlg)
@@ -23,10 +21,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CTabCtrl m_Tab;
-	CDayDecisionDlg*  m_pDayDlg;
-	CWeekDecisionDlg* m_pWeekDlg;
-	CJieDecisionDlg*  m_pJieDlg;
-	CSpacialDecisionDlg* m_pSpacialDlg;
+	CNewWeekDecisionDlg* m_pWeekDlg;
+	CNewJDecisionDlg*  m_pJieDlg;
+	CNewSpcialDecisionDlg* m_pSpacialDlg;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
 };

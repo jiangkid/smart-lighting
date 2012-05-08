@@ -25,4 +25,6 @@ public:
 	CString strLA;
 	CString strLO;
 	void ShowJW(void);
+	afx_msg void OnBnClickedButton1();
+	void ShowDesitionStatus(StrategyInfo* nItem);
 };

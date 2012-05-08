@@ -15,7 +15,7 @@
 #include "NewSpcialDecisionDlg.h"
 #include "NewWeekDecisionDlg.h"
 #include "CVSetDlg.h"
-
+#include "AllDesitionCtrl.h"
 #define MYWM_NOTIFYICON WM_USER+100
 class CCoolBar;
 class CMainFrame  : public CFrameWndEx
@@ -108,13 +108,11 @@ protected:
 
 public:
 	afx_msg void OnCoommand();
-	afx_msg void OnNewday();
-	afx_msg void OnNewj();
-	afx_msg void OnNewweek();
-	afx_msg void OnNewspcial();
 	afx_msg void OnUpdateModify(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateUsercontrol(CCmdUI *pCmdUI);
 	afx_msg void OnCvSet();
+	afx_msg void On32899();
+	afx_msg void OnViewall();
 };
 
 

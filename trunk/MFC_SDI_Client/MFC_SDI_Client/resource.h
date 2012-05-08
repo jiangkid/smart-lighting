@@ -81,6 +81,7 @@
 #define IDR_HTML_MAPVIEWDLG             325
 #define IDR_HTML_MAPINFOMATIONHTML      326
 #define IDI_LIGHT_OFF                   327
+#define IDR_HTML_ZHOUDESITIONVIEW       328
 #define IDI_ICON4                       354
 #define IDB_PNG1                        355
 #define IDB_PNG2                        356
@@ -121,13 +122,10 @@
 #define IDI_ICON18                      438
 #define IDD_DECISION                    438
 #define IDI_ICON19                      439
-#define IDD_Day_S                       439
 #define IDR_TOOLBAR6                    440
 #define ID_MYBAR                        440
 #define IDI_ICON20                      440
-#define IDD_Week_S                      440
 #define IDI_ICON21                      441
-#define IDD_Jie_S                       441
 #define IDI_ICON22                      442
 #define IDD_Spcial_S                    442
 #define IDI_ICON23                      443
@@ -177,9 +175,11 @@
 #define IDD_LIGHTONOFF                  475
 #define IDD_JWDU_SET                    476
 #define IDD_RTU_SET                     477
-
+#define IDR_HTML3                       479
 #define IDD_MAPCTRL                     480
-
+#define IDD_DCTRL                       481
+#define IDD_DIALOG5                     482
+#define IDD_DIALOG6                     483
 #define IDC_BUTTON12                    999
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
@@ -236,13 +236,18 @@
 #define IDC_BTN_Open                    1031
 #define IDC_BTN_QX                      1031
 #define IDC_DELETEUSER                  1031
+#define IDC_BUTTON14                    1031
 #define IDC_RADIOR                      1032
 #define IDC_BUTTON10                    1032
 #define IDC_BUTTON13                    1032
+#define IDC_BUTTON15                    1032
 #define IDC_BTN_RSET                    1033
 #define IDC_BUTTON11                    1033
+#define IDC_BUTTON16                    1033
 #define IDC_RADIOL                      1034
+#define IDC_BUTTON17                    1034
 #define IDC_BTN_LSET                    1035
+#define IDC_BUTTON18                    1035
 #define IDC_COM_UserName                1036
 #define IDC_STATIC_INIT                 1037
 #define IDC_BUTTON2                     1038
@@ -276,7 +281,9 @@
 #define IDC_BTN_Close                   1066
 #define IDC_COMBO1                      1067
 #define IDC_EDIT_TID                    1068
+#define IDC_COMBO3                      1068
 #define IDC_EDIT_GID                    1069
+#define IDC_COMBO4                      1069
 #define IDC_EDIT_RID                    1070
 #define IDC_INFO_TAB                    1070
 #define IDC_GINFO_TAB                   1070
@@ -422,6 +429,7 @@
 #define IDC_LIST2                       1163
 #define IDC_EDIT_BOXNAME                1164
 #define IDC_SPLIT1                      1171
+#define IDC_COMBO2                      1172
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_SETUSER                      32773
@@ -532,19 +540,18 @@
 #define ID_32896                        32896
 #define ID_32897                        32897
 #define ID_CV_SET                       32898
+#define ID_32899                        32899
 #define ID_Coommand                     32900
+#define ID_32900                        32900
+#define ID_ViewAll                      32901
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-<<<<<<< .mine
-#define _APS_NEXT_RESOURCE_VALUE        481
-=======
-#define _APS_NEXT_RESOURCE_VALUE        480
->>>>>>> .r499
-#define _APS_NEXT_COMMAND_VALUE         32899
-#define _APS_NEXT_CONTROL_VALUE         1172
-#define _APS_NEXT_SYMED_VALUE           319
+#define _APS_NEXT_RESOURCE_VALUE        485
+#define _APS_NEXT_COMMAND_VALUE         32902
+#define _APS_NEXT_CONTROL_VALUE         1173
+#define _APS_NEXT_SYMED_VALUE           329
 #endif
 #endif

@@ -40,6 +40,9 @@ public:
 	CWarningDlg* m_pWarningView;
 	afx_msg void OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult);
 	//CWebBrowser m_Browser1;
+	void GetVolita(char* c);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	bool m_later;
 };
 
 
