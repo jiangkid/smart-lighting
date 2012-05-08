@@ -843,9 +843,9 @@ IDI_ICON14              ICON                    "res\\icon14.ico"
 IDI_ICON31              ICON                    "res\\icon31.ico"
 IDI_ICON40              ICON                    "res\\icon40.ico"
 IDI_ICON44              ICON                    "res\\20120411082647671_easyicon_cn_32.ico"
-IDI_ICON51              ICON                    "res\\20120420092547975_easyicon_cn_32.ico"
-IDI_ICON52              ICON                    "res\\20120420092833203_easyicon_cn_32.ico"
 IDI_ICON53              ICON                    "res\\20120420094041496_easyicon_cn_32.ico"
+IDI_ICON45              ICON                    "res\\icon45.ico"
+IDI_ICON51              ICON                    "res\\icon51.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -888,6 +888,10 @@ BEGIN
     BUTTON      ID_MainSet
     SEPARATOR
     BUTTON      ID_CV_SET
+    SEPARATOR
+    BUTTON      ID_32899
+    SEPARATOR
+    BUTTON      ID_ViewAll
 END
 
 IDR_MAINFRAME TOOLBAR  16, 15
@@ -1372,7 +1376,7 @@ END
 // HTML
 //
 
-IDR_HTML2               HTML                    "C:\\HTMLPage1.htm"
+IDR_HTML2               HTML                    "D:\\vc++资料\\HTMLPage1.htm"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1510,7 +1514,9 @@ END
 STRINGTABLE 
 BEGIN
     ID_CV_SET               "\n阀值设置"
+    ID_32899                "\n策略管理"
     ID_Coommand             "\n决策设置"
+    ID_ViewAll              "\n查看所有策略"
 END
 
 #endif    // Chinese (P.R.C.) resources
