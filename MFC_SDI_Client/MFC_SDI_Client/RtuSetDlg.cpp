@@ -39,6 +39,7 @@ END_MESSAGE_MAP()
 BOOL CRtuSetDlg::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
+	theApp.m_pRtuSetDlg=this;
 	ShowTerminalBoxInfo();
 
 	m_RtuTab.InsertItem(0,_T("¿ª¹ØµÆ"),0);
@@ -57,12 +58,11 @@ BOOL CRtuSetDlg::OnInitDialog()
 	m_pJWDlg->MoveWindow(m_rect);
 	m_pJWDlg->ShowWindow(SW_HIDE);
 	
-	m_pDecision=new CDecisionDlg();
-	m_pDecision->Create(IDD_DECISION,&m_RtuTab);
-	m_pDecision->MoveWindow(m_rect);
-	m_pDecision->ShowWindow(SW_HIDE);
+ 	m_pDecision=new CDCTRLDlg();
+ 	m_pDecision->Create(IDD_DCTRL,&m_RtuTab);
+ 	m_pDecision->MoveWindow(m_rect);
+ 	m_pDecision->ShowWindow(SW_HIDE);
 	 
-	
 	return true;
 }
 
@@ -72,7 +72,6 @@ void CRtuSetDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 	int sel=m_RtuTab.GetCurFocus();
 	switch(sel)
 	{
-
 	   case 0:
 			m_pLightDlg->ShowWindow(SW_SHOW);
 			m_pJWDlg->ShowWindow(SW_HIDE);
@@ -85,9 +84,18 @@ void CRtuSetDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 			theApp.m_pJWSet->ShowJW();
 			break;
 		case 2:
-			m_pDecision->ShowWindow(SW_SHOW);
-			m_pJWDlg->ShowWindow(SW_HIDE);
-			m_pLightDlg->ShowWindow(SW_HIDE);
+			{
+				CString str;
+				GetDlgItemText(IDC_EDIT_BOXID,str);
+				theApp.m_DCtrlDlg->EnableButton2(str);
+				char c[5] = {'G',0x36,0x00,0x00,'#'};
+				memcpy(&c[2],str.GetBuffer(2),2);
+				str.ReleaseBuffer(2);
+				send(theApp.m_ConnectSock,c,5,0);
+				m_pDecision->ShowWindow(SW_SHOW);
+				m_pJWDlg->ShowWindow(SW_HIDE);
+				m_pLightDlg->ShowWindow(SW_HIDE);
+			}
 			break;
 	}
 	*pResult = 0;
@@ -106,6 +114,7 @@ void CRtuSetDlg::ShowTerminalBoxInfo()
 		 SetDlgItemText(IDC_EDIT_BOXID,m_pGPRS->strID);
 		 SetDlgItemText(IDC_EDIT_BOXNAME,m_pGPRS->strName);  
 	 }
+	 UpdateData(true);
 }
 
 

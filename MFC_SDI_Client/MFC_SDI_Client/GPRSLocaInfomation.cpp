@@ -93,6 +93,7 @@ BOOL CGPRSLocaInfomation::OnInitDialog()
 	CDialog::OnInitDialog();
 	theApp.m_pLocalInfoDlg=this;
 	m_List_Terminal.SetHeadings("终端箱ID,80;终端箱名字,120;终端箱安装地点,120;责任区,120;安装时间,120;");
+	//m_List_Terminal.SetHeadings("终端箱ID,80;终端箱名字,120;终端箱安装地点,120;责任区,120;安装时间,120;A相电压值,80;B相电压值,80;C相电压值,80;");
 	m_List_Terminal.SetGridLines(TRUE);
 	// TODO:  Add extra initialization here
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -175,6 +176,14 @@ void CGPRSLocaInfomation::OnNMDblclkListTerminal(NMHDR *pNMHDR, LRESULT *pResult
 		theApp.m_where = false;
 		strID=m_List_Terminal.GetItemText(pNMItemActivate->iItem,0);
 		strName=m_List_Terminal.GetItemText(pNMItemActivate->iItem,1);  
+		char c[5] = {'G',0x36,0x00,0x00,'#'};
+		memcpy(&c[2],strID.GetBuffer(2),2);
+		//memcpy(&c[3],strID.GetBuffer(1),1);
+		strID.ReleaseBuffer(4);
+		//theApp.m_Desition = 0x00;
+		send(theApp.m_ConnectSock,c,5,0);
+
+		//strID.ReleaseBuffer(1);
 		CRtuSetDlg dlg;
 		dlg.DoModal();
 	}

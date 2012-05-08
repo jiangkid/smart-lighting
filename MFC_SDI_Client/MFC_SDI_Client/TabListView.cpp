@@ -12,6 +12,7 @@ IMPLEMENT_DYNCREATE(CTabListView, CFormView)
 
 CTabListView::CTabListView()
 	: CFormView(CTabListView::IDD)
+	, m_later(false)
 {
 
 }
@@ -30,6 +31,7 @@ void CTabListView::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CTabListView, CFormView)
 	ON_WM_SIZE()
 	ON_NOTIFY(TCN_SELCHANGE, IDC_VIEW_TAB, &CTabListView::OnTcnSelchangeViewTab)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -55,6 +57,7 @@ void CTabListView::Dump(CDumpContext& dc) const
 void CTabListView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
+	theApp.m_pTabListView=this;
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	UpDateMainFrame();
@@ -131,9 +134,10 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 			{
 				send(theApp.m_ConnectSock,theApp.GID,5,0);
 				Sleep(500);
-
-				theApp.GID[1]=0x31;
-				send(theApp.m_ConnectSock,theApp.GID,5,0);
+				
+				GetVolita(theApp.sendTerminal);
+				//theApp.GID[1]=0x31;
+				//send(theApp.m_ConnectSock,theApp.GID,5,0);
 				m_LightView->ShowWindow(SW_HIDE);
 				m_GprsInfoView->ShowWindow(SW_SHOW);
 				m_pWarningView->ShowWindow(SW_HIDE);
@@ -167,4 +171,121 @@ void CTabListView::OnTcnSelchangeViewTab(NMHDR *pNMHDR, LRESULT *pResult)
 		break;
 	}
 	 *pResult = 0; 
+}
+
+void CTabListView::GetVolita(char* c)
+{
+	ConTrlInfo* pGteInfo = (ConTrlInfo*)malloc(sizeof(ConTrlInfo));
+	ZeroMemory(pGteInfo,sizeof(ConTrlInfo));
+	switch (c[0])
+	{
+	case 0x00:
+		{
+			pGteInfo->m_First[0]=0x2F;
+			pGteInfo->m_First[1]=0x43;
+			pGteInfo->m_First[2]=0x2F;
+			pGteInfo->m_First[3]=0x06;
+			pGteInfo->m_ID[0]=theApp.GID[2];
+			pGteInfo->m_ID[1]=theApp.GID[3];
+			pGteInfo->m_ID[2]=0x30;
+			pGteInfo->m_ID[3]=0x31;
+			pGteInfo->m_OrderType[0]=0x1A;
+			pGteInfo->m_OrderObject[0]=0x34;
+			pGteInfo->m_ActiveType[0]=0xBD;
+			pGteInfo->m_CheckData[0]=0xA0;
+			pGteInfo->m_EndBuffer[1]=0xCC;
+			SendContrlInfo(&hdr,pGteInfo);
+			m_later = false;
+			SetTimer(1,5000,0);
+		}
+		break;
+	case 0x01:
+		switch(c[1])
+		{
+		case 0x00:
+			{
+				pGteInfo->m_First[0]=0x2F;
+				pGteInfo->m_First[1]=0x43;
+				pGteInfo->m_First[2]=0x2F;
+				pGteInfo->m_First[3]=0x06;
+				pGteInfo->m_ID[0]=theApp.GID[2];
+				pGteInfo->m_ID[1]=theApp.GID[3];
+				pGteInfo->m_ID[2]=0x30;
+				pGteInfo->m_ID[3]=0x32;
+				pGteInfo->m_OrderType[0]=0x1A;
+				pGteInfo->m_OrderObject[0]=0x34;
+				pGteInfo->m_ActiveType[0]=0xBD;
+				pGteInfo->m_CheckData[0]=0xA0;
+				pGteInfo->m_EndBuffer[1]=0xCC;
+				SendContrlInfo(&hdr,pGteInfo);
+			}
+			break;
+		case 0x01:
+			switch(c[2])
+			{
+			case 0x00:
+				{
+					pGteInfo->m_First[0]=0x2F;
+					pGteInfo->m_First[1]=0x43;
+					pGteInfo->m_First[2]=0x2F;
+					pGteInfo->m_First[3]=0x06;
+					pGteInfo->m_ID[0]=theApp.GID[2];
+					pGteInfo->m_ID[1]=theApp.GID[3];
+					pGteInfo->m_ID[2]=0x30;
+					pGteInfo->m_ID[3]=0x33;
+					pGteInfo->m_OrderType[0]=0x1A;
+					pGteInfo->m_OrderObject[0]=0x34;
+					pGteInfo->m_ActiveType[0]=0xBD;
+					pGteInfo->m_CheckData[0]=0xA0;
+					pGteInfo->m_EndBuffer[1]=0xCC;
+					SendContrlInfo(&hdr,pGteInfo);
+				}
+				break;
+			case 0x01:
+				switch (c[3])
+				{
+				case 0x00:
+					{
+						pGteInfo->m_First[0]=0x2F;
+						pGteInfo->m_First[1]=0x43;
+						pGteInfo->m_First[2]=0x2F;
+						pGteInfo->m_First[3]=0x06;
+						pGteInfo->m_ID[0]=theApp.GID[2];
+						pGteInfo->m_ID[1]=theApp.GID[3];
+						pGteInfo->m_ID[2]=0x30;
+						pGteInfo->m_ID[3]=0x34;
+						pGteInfo->m_OrderType[0]=0x1A;
+						pGteInfo->m_OrderObject[0]=0x34;
+						pGteInfo->m_ActiveType[0]=0xBD;
+						pGteInfo->m_CheckData[0]=0xA0;
+						pGteInfo->m_EndBuffer[1]=0xCC;
+						SendContrlInfo(&hdr,pGteInfo);
+					}
+					break;
+				case 0x01:
+					ZeroMemory(theApp.sendTerminal,4);
+					theApp.GID[1]=0x31;
+					send(theApp.m_ConnectSock,theApp.GID,5,0);
+					break;
+				}
+				break;
+			}
+			break;
+		}
+		break;
+	}
+}
+
+void CTabListView::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: Add your message handler code here and/or call default
+	if (nIDEvent==1)
+	{
+		m_later = true;
+		theApp.GID[1]=0x31;
+		send(theApp.m_ConnectSock,theApp.GID,5,0);
+		KillTimer(1);
+	}
+
+	CFormView::OnTimer(nIDEvent);
 }

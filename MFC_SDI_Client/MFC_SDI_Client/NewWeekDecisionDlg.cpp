@@ -27,32 +27,32 @@ void CNewWeekDecisionDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_TYPE, m_Type);
 	DDX_Control(pDX, IDC_WEEK1BA, m_week1BA);
 	DDX_Control(pDX, IDC_WEEK1EA, m_week1EA);
-	DDX_Control(pDX, IDC_WEEK1BH, m_week1BH);
-	DDX_Control(pDX, IDC_WEEK1EH, m_week1EH);
+// 	DDX_Control(pDX, IDC_WEEK1BH, m_week1BH);
+// 	DDX_Control(pDX, IDC_WEEK1EH, m_week1EH);
 	DDX_Control(pDX, IDC_WEEK2BA, m_week2BA);
 	DDX_Control(pDX, IDC_WEEK2EA, m_week2EA);
-	DDX_Control(pDX, IDC_WEEK2BH, m_week2BH);
-	DDX_Control(pDX, IDC_WEEK2EH, m_week2EH);
+// 	DDX_Control(pDX, IDC_WEEK2BH, m_week2BH);
+// 	DDX_Control(pDX, IDC_WEEK2EH, m_week2EH);
 	DDX_Control(pDX, IDC_WEEK3BA, m_week3BA);
 	DDX_Control(pDX, IDC_WEEK3EA, m_week3EA);
-	DDX_Control(pDX, IDC_WEEK3BH, m_week3BH);
-	DDX_Control(pDX, IDC_WEEK3EH, m_week3EH);
+// 	DDX_Control(pDX, IDC_WEEK3BH, m_week3BH);
+// 	DDX_Control(pDX, IDC_WEEK3EH, m_week3EH);
 	DDX_Control(pDX, IDC_WEEK4BA, m_week4BA);
 	DDX_Control(pDX, IDC_WEEK4EA, m_week4EA);
-	DDX_Control(pDX, IDC_WEEK4BH, m_week4BH);
-	DDX_Control(pDX, IDC_WEEK4EH, m_week4EH);
+// 	DDX_Control(pDX, IDC_WEEK4BH, m_week4BH);
+// 	DDX_Control(pDX, IDC_WEEK4EH, m_week4EH);
 	DDX_Control(pDX, IDC_WEEK5BA, m_week5BA);
 	DDX_Control(pDX, IDC_WEEK5EA, m_week5EA);
-	DDX_Control(pDX, IDC_WEEK5BH, m_week5BH);
-	DDX_Control(pDX, IDC_WEEK5EH, m_week5EH);
+// 	DDX_Control(pDX, IDC_WEEK5BH, m_week5BH);
+// 	DDX_Control(pDX, IDC_WEEK5EH, m_week5EH);
 	DDX_Control(pDX, IDC_WEEK6BA, m_week6BA);
 	DDX_Control(pDX, IDC_WEEK6EA, m_week6EA);
-	DDX_Control(pDX, IDC_WEEK6BH, m_week6BH);
-	DDX_Control(pDX, IDC_WEEK6EH, m_week6EH);
+// 	DDX_Control(pDX, IDC_WEEK6BH, m_week6BH);
+// 	DDX_Control(pDX, IDC_WEEK6EH, m_week6EH);
 	DDX_Control(pDX, IDC_WEEK7BA, m_week7BA);
 	DDX_Control(pDX, IDC_WEEK7EA, m_week7EA);
-	DDX_Control(pDX, IDC_WEEK7BH, m_week7BH);
-	DDX_Control(pDX, IDC_WEEK7EH, m_week7EH);
+// 	DDX_Control(pDX, IDC_WEEK7BH, m_week7BH);
+// 	DDX_Control(pDX, IDC_WEEK7EH, m_week7EH);
 	DDX_Text(pDX, IDC_WeekName, m_weekName);
 	//DDX_Control(pDX, IDC_WeekName, m_strName);
 }
@@ -78,32 +78,32 @@ BOOL CNewWeekDecisionDlg::OnInitDialog()
 	m_Type.SetCurSel(0);
 	m_week1BA.SetFormat("HH:mm");
 	m_week1EA.SetFormat("HH:mm");
-	m_week1BH.SetFormat("HH:mm");
-	m_week1EH.SetFormat("HH:mm");
+// 	m_week1BH.SetFormat("HH:mm");
+// 	m_week1EH.SetFormat("HH:mm");
 	m_week2BA.SetFormat("HH:mm");
 	m_week2EA.SetFormat("HH:mm");
-	m_week2BH.SetFormat("HH:mm");
-	m_week2EH.SetFormat("HH:mm");
+// 	m_week2BH.SetFormat("HH:mm");
+// 	m_week2EH.SetFormat("HH:mm");
 	m_week3BA.SetFormat("HH:mm");
 	m_week3EA.SetFormat("HH:mm");
-	m_week3BH.SetFormat("HH:mm");
-	m_week3EH.SetFormat("HH:mm");
+// 	m_week3BH.SetFormat("HH:mm");
+// 	m_week3EH.SetFormat("HH:mm");
 	m_week4BA.SetFormat("HH:mm");
 	m_week4EA.SetFormat("HH:mm");
-	m_week4BH.SetFormat("HH:mm");
-	m_week4EH.SetFormat("HH:mm");
+// 	m_week4BH.SetFormat("HH:mm");
+// 	m_week4EH.SetFormat("HH:mm");
 	m_week5BA.SetFormat("HH:mm");
 	m_week5EA.SetFormat("HH:mm");
-	m_week5BH.SetFormat("HH:mm");
-	m_week5EH.SetFormat("HH:mm");
+// 	m_week5BH.SetFormat("HH:mm");
+// 	m_week5EH.SetFormat("HH:mm");
 	m_week6BA.SetFormat("HH:mm");
 	m_week6EA.SetFormat("HH:mm");
-	m_week6BH.SetFormat("HH:mm");
-	m_week6EH.SetFormat("HH:mm");
+// 	m_week6BH.SetFormat("HH:mm");
+// 	m_week6EH.SetFormat("HH:mm");
 	m_week7BA.SetFormat("HH:mm");
 	m_week7EA.SetFormat("HH:mm");
-	m_week7BH.SetFormat("HH:mm");
-	m_week7EH.SetFormat("HH:mm");
+// 	m_week7BH.SetFormat("HH:mm");
+// 	m_week7EH.SetFormat("HH:mm");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -238,8 +238,8 @@ void CNewWeekDecisionDlg::GetInfo1(void)
 	m_weekName.ReleaseBuffer();
 	CString strTime11=_T("");
 	CString strTime12=_T("");
-	CString strTime13=_T("");
-	CString strTime14=_T("");
+	//CString strTime13=_T("");
+	//CString strTime14=_T("");
 	CTime m_GTimeBegin;
 	DWORD dwResult11= m_week1BA.GetTime(m_GTimeBegin);
 	if (dwResult11== GDT_VALID)
@@ -260,34 +260,34 @@ void CNewWeekDecisionDlg::GetInfo1(void)
 			strTime12.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult13= m_week1BH.GetTime(m_GTimeBeginHalf);
-	if (dwResult13== GDT_VALID)
-	{
-		if ((m_week1BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult14= m_week1EH.GetTime(m_GTimeEndHalf);
-	if (dwResult14 == GDT_VALID)
-	{
-		if ((m_week1EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult13= m_week1BH.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult13== GDT_VALID)
+// 	{
+// 		if ((m_week1BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult14= m_week1EH.GetTime(m_GTimeEndHalf);
+// 	if (dwResult14 == GDT_VALID)
+// 	{
+// 		if ((m_week1EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo1->openTime,strTime11.GetBuffer(),5);
 	memcpy(pGetInfo1->closeTime,strTime12.GetBuffer(),5);
-	memcpy(pGetInfo1->Half_openTime,strTime13.GetBuffer(),5);
-	memcpy(pGetInfo1->Half_closeTime,strTime14.GetBuffer(),5);
+	//memcpy(pGetInfo1->Half_openTime,strTime13.GetBuffer(),5);
+	//memcpy(pGetInfo1->Half_closeTime,strTime14.GetBuffer(),5);
 	strTime11.ReleaseBuffer();
 	strTime12.ReleaseBuffer();
-	strTime13.ReleaseBuffer();
-	strTime14.ReleaseBuffer();
+	//strTime13.ReleaseBuffer();
+	//strTime14.ReleaseBuffer();
 }
 void CNewWeekDecisionDlg::GetInfo2(void)
 {
@@ -322,30 +322,30 @@ void CNewWeekDecisionDlg::GetInfo2(void)
 			strTime22.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult23= m_week2BH.GetTime(m_GTimeBeginHalf);
-	if (dwResult23== GDT_VALID)
-	{
-		if ((m_week2BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime23 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime23.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult24= m_week1EH.GetTime(m_GTimeEndHalf);
-	if (dwResult24 == GDT_VALID)
-	{
-		if ((m_week2EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime24 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime24.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult23= m_week2BH.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult23== GDT_VALID)
+// 	{
+// 		if ((m_week2BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime23 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime23.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult24= m_week1EH.GetTime(m_GTimeEndHalf);
+// 	if (dwResult24 == GDT_VALID)
+// 	{
+// 		if ((m_week2EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime24 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime24.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo2->openTime,strTime21.GetBuffer(),5);
 	memcpy(pGetInfo2->closeTime,strTime22.GetBuffer(),5);
-	memcpy(pGetInfo2->Half_openTime,strTime23.GetBuffer(),5);
-	memcpy(pGetInfo2->Half_closeTime,strTime24.GetBuffer(),5);
+	//memcpy(pGetInfo2->Half_openTime,strTime23.GetBuffer(),5);
+	//memcpy(pGetInfo2->Half_closeTime,strTime24.GetBuffer(),5);
 	strTime21.ReleaseBuffer();
 	strTime22.ReleaseBuffer();
 	strTime23.ReleaseBuffer();
@@ -384,34 +384,34 @@ void CNewWeekDecisionDlg::GetInfo3(void)
 			strTime12.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult13= m_week3BH.GetTime(m_GTimeBeginHalf);
-	if (dwResult13== GDT_VALID)
-	{
-		if ((m_week3BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult14= m_week3EH.GetTime(m_GTimeEndHalf);
-	if (dwResult14 == GDT_VALID)
-	{
-		if ((m_week1EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult13= m_week3BH.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult13== GDT_VALID)
+// 	{
+// 		if ((m_week3BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult14= m_week3EH.GetTime(m_GTimeEndHalf);
+// 	if (dwResult14 == GDT_VALID)
+// 	{
+// 		if ((m_week1EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo3->openTime,strTime11.GetBuffer(),5);
 	memcpy(pGetInfo3->closeTime,strTime12.GetBuffer(),5);
-	memcpy(pGetInfo3->Half_openTime,strTime13.GetBuffer(),5);
-	memcpy(pGetInfo3->Half_closeTime,strTime14.GetBuffer(),5);
+	//memcpy(pGetInfo3->Half_openTime,strTime13.GetBuffer(),5);
+	//memcpy(pGetInfo3->Half_closeTime,strTime14.GetBuffer(),5);
 	strTime11.ReleaseBuffer();
 	strTime12.ReleaseBuffer();
-	strTime13.ReleaseBuffer();
-	strTime14.ReleaseBuffer();
+	//strTime13.ReleaseBuffer();
+	//strTime14.ReleaseBuffer();
 }
 void CNewWeekDecisionDlg::GetInfo4(void)
 {
@@ -424,8 +424,8 @@ void CNewWeekDecisionDlg::GetInfo4(void)
 	m_weekName.ReleaseBuffer();
 	CString strTime11=_T("");
 	CString strTime12=_T("");
-	CString strTime13=_T("");
-	CString strTime14=_T("");
+	//CString strTime13=_T("");
+	//CString strTime14=_T("");
 	CTime m_GTimeBegin;
 	DWORD dwResult11= m_week4BA.GetTime(m_GTimeBegin);
 	if (dwResult11== GDT_VALID)
@@ -446,34 +446,34 @@ void CNewWeekDecisionDlg::GetInfo4(void)
 			strTime12.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult13= m_week4BH.GetTime(m_GTimeBeginHalf);
-	if (dwResult13== GDT_VALID)
-	{
-		if ((m_week4BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult14= m_week4EH.GetTime(m_GTimeEndHalf);
-	if (dwResult14 == GDT_VALID)
-	{
-		if ((m_week4EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult13= m_week4BH.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult13== GDT_VALID)
+// 	{
+// 		if ((m_week4BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult14= m_week4EH.GetTime(m_GTimeEndHalf);
+// 	if (dwResult14 == GDT_VALID)
+// 	{
+// 		if ((m_week4EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo4->openTime,strTime11.GetBuffer(),5);
 	memcpy(pGetInfo4->closeTime,strTime12.GetBuffer(),5);
-	memcpy(pGetInfo4->Half_openTime,strTime13.GetBuffer(),5);
-	memcpy(pGetInfo4->Half_closeTime,strTime14.GetBuffer(),5);
+	//memcpy(pGetInfo4->Half_openTime,strTime13.GetBuffer(),5);
+	//memcpy(pGetInfo4->Half_closeTime,strTime14.GetBuffer(),5);
 	strTime11.ReleaseBuffer();
 	strTime12.ReleaseBuffer();
-	strTime13.ReleaseBuffer();
-	strTime14.ReleaseBuffer();
+	//strTime13.ReleaseBuffer();
+	//strTime14.ReleaseBuffer();
 }
 void CNewWeekDecisionDlg::GetInfo5(void)
 {
@@ -486,8 +486,8 @@ void CNewWeekDecisionDlg::GetInfo5(void)
 	m_weekName.ReleaseBuffer();
 	CString strTime11=_T("");
 	CString strTime12=_T("");
-	CString strTime13=_T("");
-	CString strTime14=_T("");
+	//CString strTime13=_T("");
+	//CString strTime14=_T("");
 	CTime m_GTimeBegin;
 	DWORD dwResult11= m_week5BA.GetTime(m_GTimeBegin);
 	if (dwResult11== GDT_VALID)
@@ -508,34 +508,34 @@ void CNewWeekDecisionDlg::GetInfo5(void)
 			strTime12.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult13= m_week5BH.GetTime(m_GTimeBeginHalf);
-	if (dwResult13== GDT_VALID)
-	{
-		if ((m_week5BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult14= m_week5EH.GetTime(m_GTimeEndHalf);
-	if (dwResult14 == GDT_VALID)
-	{
-		if ((m_week5EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult13= m_week5BH.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult13== GDT_VALID)
+// 	{
+// 		if ((m_week5BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult14= m_week5EH.GetTime(m_GTimeEndHalf);
+// 	if (dwResult14 == GDT_VALID)
+// 	{
+// 		if ((m_week5EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo5->openTime,strTime11.GetBuffer(),5);
 	memcpy(pGetInfo5->closeTime,strTime12.GetBuffer(),5);
-	memcpy(pGetInfo5->Half_openTime,strTime13.GetBuffer(),5);
-	memcpy(pGetInfo5->Half_closeTime,strTime14.GetBuffer(),5);
+    //memcpy(pGetInfo5->Half_openTime,strTime13.GetBuffer(),5);
+	//memcpy(pGetInfo5->Half_closeTime,strTime14.GetBuffer(),5);
 	strTime11.ReleaseBuffer();
 	strTime12.ReleaseBuffer();
-	strTime13.ReleaseBuffer();
-	strTime14.ReleaseBuffer();
+	//strTime13.ReleaseBuffer();
+	//strTime14.ReleaseBuffer();
 }
 void CNewWeekDecisionDlg::GetInfo6(void)
 {
@@ -548,8 +548,8 @@ void CNewWeekDecisionDlg::GetInfo6(void)
 	m_weekName.ReleaseBuffer();
 	CString strTime11=_T("");
 	CString strTime12=_T("");
-	CString strTime13=_T("");
-	CString strTime14=_T("");
+	//CString strTime13=_T("");
+	//CString strTime14=_T("");
 	CTime m_GTimeBegin;
 	DWORD dwResult11= m_week6BA.GetTime(m_GTimeBegin);
 	if (dwResult11== GDT_VALID)
@@ -570,34 +570,34 @@ void CNewWeekDecisionDlg::GetInfo6(void)
 			strTime12.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult13= m_week6BH.GetTime(m_GTimeBeginHalf);
-	if (dwResult13== GDT_VALID)
-	{
-		if ((m_week6BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult14= m_week6EH.GetTime(m_GTimeEndHalf);
-	if (dwResult14 == GDT_VALID)
-	{
-		if ((m_week6EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult13= m_week6BH.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult13== GDT_VALID)
+// 	{
+// 		if ((m_week6BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult14= m_week6EH.GetTime(m_GTimeEndHalf);
+// 	if (dwResult14 == GDT_VALID)
+// 	{
+// 		if ((m_week6EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo6->openTime,strTime11.GetBuffer(),5);
 	memcpy(pGetInfo6->closeTime,strTime12.GetBuffer(),5);
-	memcpy(pGetInfo6->Half_openTime,strTime13.GetBuffer(),5);
-	memcpy(pGetInfo6->Half_closeTime,strTime14.GetBuffer(),5);
+	//memcpy(pGetInfo6->Half_openTime,strTime13.GetBuffer(),5);
+	//memcpy(pGetInfo6->Half_closeTime,strTime14.GetBuffer(),5);
 	strTime11.ReleaseBuffer();
 	strTime12.ReleaseBuffer();
-	strTime13.ReleaseBuffer();
-	strTime14.ReleaseBuffer();
+	//strTime13.ReleaseBuffer();
+	//strTime14.ReleaseBuffer();
 }
 void CNewWeekDecisionDlg::GetInfo7(void)
 {
@@ -610,8 +610,8 @@ void CNewWeekDecisionDlg::GetInfo7(void)
 	m_weekName.ReleaseBuffer();
 	CString strTime11=_T("");
 	CString strTime12=_T("");
-	CString strTime13=_T("");
-	CString strTime14=_T("");
+	//CString strTime13=_T("");
+	//CString strTime14=_T("");
 	CTime m_GTimeBegin;
 	DWORD dwResult11= m_week7BA.GetTime(m_GTimeBegin);
 	if (dwResult11== GDT_VALID)
@@ -632,32 +632,32 @@ void CNewWeekDecisionDlg::GetInfo7(void)
 			strTime12.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult13= m_week7BH.GetTime(m_GTimeBeginHalf);
-	if (dwResult13== GDT_VALID)
-	{
-		if ((m_week7BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult14= m_week7EH.GetTime(m_GTimeEndHalf);
-	if (dwResult14 == GDT_VALID)
-	{
-		if ((m_week7EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult13= m_week7BH.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult13== GDT_VALID)
+// 	{
+// 		if ((m_week7BH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult14= m_week7EH.GetTime(m_GTimeEndHalf);
+// 	if (dwResult14 == GDT_VALID)
+// 	{
+// 		if ((m_week7EH.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	memcpy(pGetInfo7->openTime,strTime11.GetBuffer(),5);
 	memcpy(pGetInfo7->closeTime,strTime12.GetBuffer(),5);
-	memcpy(pGetInfo7->Half_openTime,strTime13.GetBuffer(),5);
-	memcpy(pGetInfo7->Half_closeTime,strTime14.GetBuffer(),5);
+	//memcpy(pGetInfo7->Half_openTime,strTime13.GetBuffer(),5);
+	//memcpy(pGetInfo7->Half_closeTime,strTime14.GetBuffer(),5);
 	strTime11.ReleaseBuffer();
 	strTime12.ReleaseBuffer();
-	strTime13.ReleaseBuffer();
-	strTime14.ReleaseBuffer();
+	//strTime13.ReleaseBuffer();
+	//strTime14.ReleaseBuffer();
 }

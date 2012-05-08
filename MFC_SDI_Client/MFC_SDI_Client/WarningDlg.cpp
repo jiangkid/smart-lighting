@@ -30,6 +30,7 @@ void CWarningDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BEGIN_DATA, m_DataBegin);
 	DDX_Control(pDX, IDC_END_DATA, m_DataEnd);
 	DDX_Control(pDX, IDC_COM_GID, m_TheGID);
+	DDX_Control(pDX, IDC_COMBO2, m_Box);
 }
 
 
@@ -48,8 +49,12 @@ BOOL CWarningDlg::OnInitDialog()
 	for (int i(0);i<m_InitInfo.GNum;i++)
 	{
 		CString str=_T("");
-		str+=m_InitInfo.m_InitGInfo->GID;
+		for (int n(0);n<2;n++)
+		{
+			str+=m_InitInfo.m_InitGInfo[i].GID[n];
+		}
 		m_TheGID.InsertString(i,str);
+
 	}
 	m_TheGID.SetCurSel(-1);
 	theApp.m_pWarningInfoView=this;
@@ -58,6 +63,17 @@ BOOL CWarningDlg::OnInitDialog()
 	m_ListWarning.SetHeadings
 		(_T("时间,120;对应故障ID,120;对应故障位置,120;对应名称,120;对应故障类型,120;对应故障具体值,120;处理情况，120"));
 	m_ListWarning.SetGridLines(TRUE);
+
+	m_Box.InsertString(0,_T("所有类型"));
+	m_Box.InsertString(1,_T("主电故障"));
+	m_Box.InsertString(2,_T("备电故障"));
+	m_Box.InsertString(3,_T("缺相故障"));
+	m_Box.InsertString(4,_T("相电压高"));
+	m_Box.InsertString(5,_T("相电压低"));
+	m_Box.InsertString(6,_T("电流故障"));
+	m_Box.InsertString(7,_T("控制箱故障"));
+
+	m_Box.SetCurSel(0);
 	// TODO:  Add extra initialization here
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -232,10 +248,111 @@ void CWarningDlg::OneWarningToShow(WarningInfo* pWarning, int nRow)
 void CWarningDlg::AllWarningToShow(int nWarningCount)
 {
 	m_ListWarning.DeleteAllItems();
-	for(int i(0);i<nWarningCount;i++)
+	int nCount = m_Box.GetCurSel();
+	switch (nCount)
 	{
-		OneWarningToShow(&theApp.m_WarningInfo[i],i);
+		case 0:
+		{
+			for(int i(0);i<nWarningCount;i++)
+			{
+				OneWarningToShow(&theApp.m_WarningInfo[i],i);
+			}
+		}
+			break;
+		case 1:
+			{
+				int n(0);
+				for(int i(0);i<nWarningCount;i++)
+				{
+					if (theApp.m_WarningInfo[i].WarningType==0x01)
+					{
+						OneWarningToShow(&theApp.m_WarningInfo[i],n);
+						n++;
+					}
+				}
+			}
+			break;
+		case 2:
+			{
+				int n(0);
+				for(int i(0);i<nWarningCount;i++)
+				{
+					if (theApp.m_WarningInfo[i].WarningType==0x02)
+					{
+						OneWarningToShow(&theApp.m_WarningInfo[i],n);
+						n++;
+					}
+				}
+			}
+			break;
+		case 3:
+			{
+				int n(0);
+				for(int i(0);i<nWarningCount;i++)
+				{
+					if (theApp.m_WarningInfo[i].WarningType==0x03)
+					{
+						OneWarningToShow(&theApp.m_WarningInfo[i],n);
+						n++;
+					}
+				}
+			}
+			break;
+		case 4:
+			{
+				int n(0);
+				for(int i(0);i<nWarningCount;i++)
+				{
+					if (theApp.m_WarningInfo[i].WarningType==0x04)
+					{
+						OneWarningToShow(&theApp.m_WarningInfo[i],n);
+						n++;
+					}
+				}
+			}
+			break;
+		case 5:
+			{
+				int n(0);
+				for(int i(0);i<nWarningCount;i++)
+				{
+					if (theApp.m_WarningInfo[i].WarningType==0x05)
+					{
+						OneWarningToShow(&theApp.m_WarningInfo[i],n);
+						n++;
+					}
+				}
+			}
+			break;
+		case 6:
+			{
+				int n(0);
+				for(int i(0);i<nWarningCount;i++)
+				{
+					if (theApp.m_WarningInfo[i].WarningType==0x33)
+					{
+						OneWarningToShow(&theApp.m_WarningInfo[i],n);
+						n++;
+					}
+				}
+			}
+			break;
+		case 7:
+			{
+				int n(0);
+				for(int i(0);i<nWarningCount;i++)
+				{
+					if (theApp.m_WarningInfo[i].WarningType==0x39)
+					{
+						OneWarningToShow(&theApp.m_WarningInfo[i],n);
+						n++;
+					}
+				}
+			}
+			break;
 	}
+
+
 }
 void CWarningDlg::OnNMDblclkWarningDlg(NMHDR *pNMHDR, LRESULT *pResult)
 {
@@ -251,7 +368,6 @@ void CWarningDlg::OnNMDblclkWarningDlg(NMHDR *pNMHDR, LRESULT *pResult)
 		//strText.Format("你点击了第%d行", pNMItemActivate->iItem); 
 		CControlWaringDlg dlg;
 		dlg.DoModal();
-
 	} 
 	*pResult = 0;
 }

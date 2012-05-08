@@ -31,8 +31,8 @@ void CNewJDecisionDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_DATA, m_List);
 	DDX_Control(pDX, IDC_DATABA, m_ba);
 	DDX_Control(pDX, IDC_DATAEA, m_ea);
-	DDX_Control(pDX, IDC_DATABH, m_bh);
-	DDX_Control(pDX, IDC_DATAEH, m_eh);
+	//DDX_Control(pDX, IDC_DATABH, m_bh);
+	//DDX_Control(pDX, IDC_DATAEH, m_eh);
 	DDX_Text(pDX, IDC_JName, m_JName);
 }
 
@@ -79,9 +79,9 @@ BOOL CNewJDecisionDlg::OnInitDialog()
 	m_List.SetGridLines(TRUE);
 	nCount[0]=0x00;
 	m_ba.SetFormat("HH:mm");
-	m_bh.SetFormat("HH:mm");
+	//m_bh.SetFormat("HH:mm");
 	m_ea.SetFormat("HH:mm");
-	m_eh.SetFormat("HH:mm");
+	//m_eh.SetFormat("HH:mm");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -131,8 +131,8 @@ void CNewJDecisionDlg::OnBnClickedBtnss()
 	int i = nCount[0];
 	CString strTime11=_T("");
 	CString strTime12=_T("");
-	CString strTime13=_T("");
-	CString strTime14=_T("");
+	//CString strTime13=_T("");
+	//CString strTime14=_T("");
 	char* c=(char*)malloc(DLONG*i+2);
 	ZeroMemory(c,DLONG*i+2);
 	HDR2 hdr2;
@@ -159,26 +159,26 @@ void CNewJDecisionDlg::OnBnClickedBtnss()
 			strTime12.Format("%d:%d",m_GTimeEnd.GetHour(),
 			m_GTimeEnd.GetMinute());
 	}
-	CTime m_GTimeBeginHalf;
-	DWORD dwResult13= m_bh.GetTime(m_GTimeBeginHalf);
-	if (dwResult13== GDT_VALID)
-	{
-		if ((m_bh.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
-		else
-			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
-			m_GTimeBeginHalf.GetMinute());
-	}
-	CTime m_GTimeEndHalf;
-	DWORD dwResult14= m_eh.GetTime(m_GTimeEndHalf);
-	if (dwResult14 == GDT_VALID)
-	{
-		if ((m_eh.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
-			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
-		else
-			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
-			m_GTimeEndHalf.GetMinute());
-	}
+// 	CTime m_GTimeBeginHalf;
+// 	DWORD dwResult13= m_bh.GetTime(m_GTimeBeginHalf);
+// 	if (dwResult13== GDT_VALID)
+// 	{
+// 		if ((m_bh.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime13 = m_GTimeBeginHalf.Format(_T("%X"));
+// 		else
+// 			strTime13.Format("%d:%d",m_GTimeBeginHalf.GetHour(),
+// 			m_GTimeBeginHalf.GetMinute());
+// 	}
+// 	CTime m_GTimeEndHalf;
+// 	DWORD dwResult14= m_eh.GetTime(m_GTimeEndHalf);
+// 	if (dwResult14 == GDT_VALID)
+// 	{
+// 		if ((m_eh.GetStyle() & DTS_TIMEFORMAT) == DTS_TIMEFORMAT)
+// 			strTime14 = m_GTimeEndHalf.Format(_T("%X"));
+// 		else
+// 			strTime14.Format("%d:%d",m_GTimeEndHalf.GetHour(),
+// 			m_GTimeEndHalf.GetMinute());
+// 	}
 	for (int n(0);n<i;n++)
 	{
 		Decision* pGetInfo = (Decision*)malloc(DLONG);
@@ -191,12 +191,12 @@ void CNewJDecisionDlg::OnBnClickedBtnss()
 		m_JName.ReleaseBuffer();
 		memcpy(pGetInfo->openTime,strTime11.GetBuffer(),5);
 		memcpy(pGetInfo->closeTime,strTime12.GetBuffer(),5);
-		memcpy(pGetInfo->Half_openTime,strTime13.GetBuffer(),5);
-		memcpy(pGetInfo->Half_closeTime,strTime14.GetBuffer(),5);
+		//memcpy(pGetInfo->Half_openTime,strTime13.GetBuffer(),5);
+		//memcpy(pGetInfo->Half_closeTime,strTime14.GetBuffer(),5);
 		strTime11.ReleaseBuffer();
 		strTime12.ReleaseBuffer();
-		strTime13.ReleaseBuffer();
-		strTime14.ReleaseBuffer();
+		//strTime13.ReleaseBuffer();
+		//strTime14.ReleaseBuffer();
 		pGetInfo->strategyType[0]='J';
 		memcpy(c+2+DLONG*n,pGetInfo,DLONG);
 		free(pGetInfo);

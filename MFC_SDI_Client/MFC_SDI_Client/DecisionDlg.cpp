@@ -37,30 +37,30 @@ END_MESSAGE_MAP()
 BOOL CDecisionDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	m_Tab.InsertItem(0,_T("日策略"),0);
-	m_Tab.InsertItem(1,_T("周策略"),1);
-	m_Tab.InsertItem(2,_T("节假日策略"),2);
-	m_Tab.InsertItem(3,_T("特殊策略"),3);
-	m_pDayDlg = new CDayDecisionDlg();
-	m_pDayDlg->Create(IDD_Day_S,&m_Tab);
+	//m_Tab.InsertItem(0,_T("日策略"),0);
+	m_Tab.InsertItem(0,_T("周策略"),0);
+	m_Tab.InsertItem(1,_T("节假日策略"),1);
+	m_Tab.InsertItem(2,_T("特殊策略"),2);
+//	m_pDayDlg = new CDayDecisionDlg();
+// 	m_pDayDlg->Create(IDD_Day_S,&m_Tab);
 	CRect m_rect;
 	m_Tab.GetClientRect(m_rect);
 	m_rect.DeflateRect(0,20,0,0);
-	m_pDayDlg->MoveWindow(m_rect);
-	m_pDayDlg->ShowWindow(SW_SHOW);
+// 	m_pDayDlg->MoveWindow(m_rect);
+// 	m_pDayDlg->ShowWindow(SW_SHOW);
 
-	m_pWeekDlg = new CWeekDecisionDlg();
-	m_pWeekDlg->Create(IDD_Week_S,&m_Tab);
+	m_pWeekDlg = new CNewWeekDecisionDlg();
+	m_pWeekDlg->Create(IDD_New_WeekD,&m_Tab);
 	m_pWeekDlg->MoveWindow(m_rect);
-	m_pWeekDlg->ShowWindow(SW_HIDE);
+	m_pWeekDlg->ShowWindow(SW_SHOW);
 
-	m_pJieDlg = new CJieDecisionDlg();
-	m_pJieDlg->Create(IDD_Jie_S,&m_Tab);
+	m_pJieDlg = new CNewJDecisionDlg();
+	m_pJieDlg->Create(IDD_New_JieD,&m_Tab);
 	m_pJieDlg->MoveWindow(m_rect);
 	m_pJieDlg->ShowWindow(SW_HIDE);
 
-	m_pSpacialDlg = new CSpacialDecisionDlg();
-	m_pSpacialDlg->Create(IDD_Spcial_S,&m_Tab);
+	m_pSpacialDlg = new CNewSpcialDecisionDlg();
+	m_pSpacialDlg->Create(IDD_New_SpcialD,&m_Tab);
 	m_pSpacialDlg->MoveWindow(m_rect);
 	m_pSpacialDlg->ShowWindow(SW_HIDE);
 	// TODO:  Add extra initialization here
@@ -75,29 +75,29 @@ void CDecisionDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 	switch(sel)
 	{
 	case 0:
-		m_pDayDlg->ShowWindow(SW_SHOW);
-		m_pWeekDlg->ShowWindow(SW_HIDE);
-		m_pJieDlg->ShowWindow(SW_HIDE);
-		m_pSpacialDlg->ShowWindow(SW_HIDE);
-		break;
-	case 1:
-		m_pDayDlg->ShowWindow(SW_HIDE);
+		//m_pDayDlg->ShowWindow(SW_SHOW);
 		m_pWeekDlg->ShowWindow(SW_SHOW);
 		m_pJieDlg->ShowWindow(SW_HIDE);
 		m_pSpacialDlg->ShowWindow(SW_HIDE);
 		break;
-	case 2:
-		m_pDayDlg->ShowWindow(SW_HIDE);
+	case 1:
+		//m_pDayDlg->ShowWindow(SW_HIDE);
 		m_pWeekDlg->ShowWindow(SW_HIDE);
 		m_pJieDlg->ShowWindow(SW_SHOW);
 		m_pSpacialDlg->ShowWindow(SW_HIDE);
 		break;
-	case 3:
-		m_pDayDlg->ShowWindow(SW_HIDE);
+	case 2:
+		//m_pDayDlg->ShowWindow(SW_HIDE);
 		m_pWeekDlg->ShowWindow(SW_HIDE);
 		m_pJieDlg->ShowWindow(SW_HIDE);
 		m_pSpacialDlg->ShowWindow(SW_SHOW);
 		break;
+// 	case 3:
+// 		m_pDayDlg->ShowWindow(SW_HIDE);
+// 		m_pWeekDlg->ShowWindow(SW_HIDE);
+// 		m_pJieDlg->ShowWindow(SW_HIDE);
+// 		m_pSpacialDlg->ShowWindow(SW_SHOW);
+// 		break;
 	}
 	*pResult = 0;
 }
