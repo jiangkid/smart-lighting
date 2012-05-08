@@ -180,6 +180,13 @@
 #define IDD_DCTRL                       481
 #define IDD_DIALOG5                     482
 #define IDD_DIALOG6                     483
+#define IDI_ICON45                      485
+#define IDI_ICON46                      486
+#define IDI_ICON47                      487
+#define IDI_ICON48                      488
+#define IDI_ICON49                      489
+#define IDI_ICON50                      490
+ 
 #define IDC_BUTTON12                    999
 #define IDC_BTN_SET                     1000
 #define IDC_COMBO_ID                    1001
@@ -549,7 +556,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        485
+#define _APS_NEXT_RESOURCE_VALUE        494
 #define _APS_NEXT_COMMAND_VALUE         32902
 #define _APS_NEXT_CONTROL_VALUE         1173
 #define _APS_NEXT_SYMED_VALUE           329
