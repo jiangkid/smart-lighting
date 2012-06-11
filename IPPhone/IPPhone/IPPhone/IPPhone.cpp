@@ -45,6 +45,12 @@ BOOL CIPPhoneApp::InitInstance()
 	InitCtrls.dwICC = ICC_WIN95_CLASSES;
 	InitCommonControlsEx(&InitCtrls);
 
+	if (!AfxOleInit)
+	{
+		AfxMessageBox(_T("³õÊ¼»¯OLE³ö´í!"));
+		return FALSE;
+	}
+
 	CWinApp::InitInstance();
 
 	AfxEnableControlContainer();

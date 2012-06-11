@@ -32,7 +32,7 @@ protected:
 
 private:
 	CImageList    m_ImageList;
-
+	
 public:
 	CButton m_BtnCallGroup;
 	CButton m_BtnCallMany;
@@ -43,4 +43,20 @@ public:
 	CButton m_BtnRevoke;
 
 	CCommunication  m_Communication;
+	afx_msg void OnBnClickedButton1();
+	CEdit m_Edit;
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton4();
+	afx_msg void OnBnClickedButton5();
+	afx_msg void OnBnClickedButton6();
+	afx_msg void OnBnClickedButton7();
+	afx_msg void OnBnClickedButton8();
+	afx_msg void OnBnClickedButton9();
+	afx_msg void OnBnClickedButton10();
+	afx_msg void OnBnClickedButton0();
+	afx_msg void OnBnClickedButton11();
+	afx_msg void OnBnClickedBtnCall();
+	afx_msg void OnBnClickedButRevoke();
+	afx_msg void OnBnClickedButAnswer();
 };
