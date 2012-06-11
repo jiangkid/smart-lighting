@@ -25,7 +25,8 @@
 
 #include <afxdisp.h>        // MFC 自动化类
 
-
+#include "winsock2.h"
+#pragma  comment(lib, "ws2_32.lib")
 
 #ifndef _AFX_NO_OLE_SUPPORT
 #include <afxdtctl.h>           // MFC 对 Internet Explorer 4 公共控件的支持
