@@ -62,6 +62,7 @@ void CIPPhoneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BTN_CALL, m_BtnCall);
 	DDX_Control(pDX, IDC_BUT_ANSWER, m_BtnStopCall);
 	DDX_Control(pDX, IDC_BUT_REVOKE, m_BtnRevoke);
+	DDX_Control(pDX, IDC_EDIT1, m_Edit);
 }
 
 BEGIN_MESSAGE_MAP(CIPPhoneDlg, CDialog)
@@ -69,6 +70,21 @@ BEGIN_MESSAGE_MAP(CIPPhoneDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	//}}AFX_MSG_MAP
+	ON_BN_CLICKED(IDC_BUTTON1, &CIPPhoneDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CIPPhoneDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CIPPhoneDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CIPPhoneDlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON5, &CIPPhoneDlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON6, &CIPPhoneDlg::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON7, &CIPPhoneDlg::OnBnClickedButton7)
+	ON_BN_CLICKED(IDC_BUTTON8, &CIPPhoneDlg::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_BUTTON9, &CIPPhoneDlg::OnBnClickedButton9)
+	ON_BN_CLICKED(IDC_BUTTON10, &CIPPhoneDlg::OnBnClickedButton10)
+	ON_BN_CLICKED(IDC_BUTTON0, &CIPPhoneDlg::OnBnClickedButton0)
+	ON_BN_CLICKED(IDC_BUTTON11, &CIPPhoneDlg::OnBnClickedButton11)
+	ON_BN_CLICKED(IDC_BTN_CALL, &CIPPhoneDlg::OnBnClickedBtnCall)
+	ON_BN_CLICKED(IDC_BUT_REVOKE, &CIPPhoneDlg::OnBnClickedButRevoke)
+	ON_BN_CLICKED(IDC_BUT_ANSWER, &CIPPhoneDlg::OnBnClickedButAnswer)
 END_MESSAGE_MAP()
 
 
@@ -108,7 +124,13 @@ BOOL CIPPhoneDlg::OnInitDialog()
 	m_BtnCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON2));
 	m_BtnStopCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON3));
 	m_BtnRevoke.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON4));
-//	m_BtnCall.SetImageList((PBUTTON_IMAGELIST )m_ImageList);
+	//初始化通信信息
+	if (!m_Communication.InitCommunication(24))
+	{
+		AfxMessageBox(_T("初始化通信信息失败！"));
+		return FALSE;
+	}
+	
 	
 
 
@@ -164,3 +186,134 @@ HCURSOR CIPPhoneDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+void CIPPhoneDlg::OnBnClickedButton1()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '1';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton2()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '2';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton3()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '3';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton4()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '4';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton5()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '5';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton6()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '6';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton7()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '7';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton8()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '8';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton9()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '9';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton10()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '*';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton0()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '0';
+	m_Edit.SetWindowText(ShowInfo);
+}
+
+void CIPPhoneDlg::OnBnClickedButton11()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo += '#';
+	m_Edit.SetWindowText(ShowInfo);
+}
+/***********************************************
+函数功能：接通电话或者连接
+***********************************************/
+void CIPPhoneDlg::OnBnClickedBtnCall()
+{
+	
+}
+
+void CIPPhoneDlg::OnBnClickedButRevoke()
+{
+	CString   ShowInfo;
+	UpdateData(TRUE);
+	m_Edit.GetWindowText(ShowInfo);
+	ShowInfo.Empty();
+	m_Edit.SetWindowText(ShowInfo);
+}
+/***********************************************
+函数功能：接通电话或者连接
+***********************************************/
+void CIPPhoneDlg::OnBnClickedButAnswer()
+{
+	
+}
