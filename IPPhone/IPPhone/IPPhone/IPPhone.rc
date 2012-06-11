@@ -71,6 +71,10 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\IPPhone.ico"
+IDI_ICON1               ICON                    "res\\icon1.ico"
+IDI_ICON2               ICON                    "res\\call.ico"
+IDI_ICON3               ICON                    "res\\stopcall.ico"
+IDI_ICON4               ICON                    "res\\back.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -88,15 +92,33 @@ BEGIN
     DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
 END
 
-IDD_IPPHONE_DIALOG DIALOGEX 0, 0, 320, 200
+IDD_IPPHONE_DIALOG DIALOGEX 0, 0, 278, 231
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "IPPhone"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,209,179,50,14
-    PUSHBUTTON      "取消",IDCANCEL,263,179,50,14
-    CTEXT           "TODO: 在此放置对话框控件。",IDC_STATIC,10,96,300,8
+    PUSHBUTTON      "呼叫/应答",IDC_BTN_CALL,115,187,48,29,BS_ICON
+    PUSHBUTTON      "拒接",IDC_BUT_ANSWER,216,188,48,28,BS_ICON
+    PUSHBUTTON      "最近通话",IDC_BUT_RECENTCALL,23,125,73,22
+    PUSHBUTTON      "联系人",IDC_BUT_CONTACTS,23,157,73,22
+    PUSHBUTTON      "组播",IDC_BUT_CALLGROUP,23,65,73,22
+    PUSHBUTTON      "群呼",IDC_BUT_CALLMANY,23,95,73,22
+    PUSHBUTTON      "1",IDC_BUTTON1,113,63,48,22
+    PUSHBUTTON      "2",IDC_BUTTON2,164,63,48,22
+    PUSHBUTTON      "3",IDC_BUTTON3,214,63,48,22
+    PUSHBUTTON      "4",IDC_BUTTON4,114,94,48,22
+    PUSHBUTTON      "5",IDC_BUTTON5,165,94,48,22
+    PUSHBUTTON      "6",IDC_BUTTON6,215,94,48,22
+    PUSHBUTTON      "7",IDC_BUTTON7,114,126,48,22
+    PUSHBUTTON      "8",IDC_BUTTON8,165,126,48,22
+    PUSHBUTTON      "9",IDC_BUTTON9,215,126,48,22
+    PUSHBUTTON      "*",IDC_BUTTON10,115,158,48,22
+    PUSHBUTTON      "0",IDC_BUTTON0,166,158,48,22
+    PUSHBUTTON      "#",IDC_BUTTON11,216,158,48,22
+    EDITTEXT        IDC_EDIT1,114,31,148,23,ES_AUTOHSCROLL
+    PUSHBUTTON      "撤销",IDC_BUT_REVOKE,167,187,47,29,BS_ICON
+    PUSHBUTTON      "配置",IDC_BUT_CONTACTS2,22,191,73,22
 END
 
 
@@ -158,9 +180,9 @@ BEGIN
     IDD_IPPHONE_DIALOG, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 313
+        RIGHTMARGIN, 271
         TOPMARGIN, 7
-        BOTTOMMARGIN, 193
+        BOTTOMMARGIN, 224
     END
 END
 #endif    // APSTUDIO_INVOKED

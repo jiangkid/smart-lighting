@@ -55,6 +55,13 @@ CIPPhoneDlg::CIPPhoneDlg(CWnd* pParent /*=NULL*/)
 void CIPPhoneDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUT_CALLGROUP, m_BtnCallGroup);
+	DDX_Control(pDX, IDC_BUT_CALLMANY, m_BtnCallMany);
+	DDX_Control(pDX, IDC_BUT_RECENTCALL, m_BtnRecentCall);
+	DDX_Control(pDX, IDC_BUT_CONTACTS, m_BtnContacts);
+	DDX_Control(pDX, IDC_BTN_CALL, m_BtnCall);
+	DDX_Control(pDX, IDC_BUT_ANSWER, m_BtnStopCall);
+	DDX_Control(pDX, IDC_BUT_REVOKE, m_BtnRevoke);
 }
 
 BEGIN_MESSAGE_MAP(CIPPhoneDlg, CDialog)
@@ -95,6 +102,15 @@ BOOL CIPPhoneDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	m_ImageList.Create(48, 48, ILC_COLOR24, 2, 0);
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON2));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON3));
+	m_BtnCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON2));
+	m_BtnStopCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON3));
+	m_BtnRevoke.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON4));
+//	m_BtnCall.SetImageList((PBUTTON_IMAGELIST )m_ImageList);
+	
+
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

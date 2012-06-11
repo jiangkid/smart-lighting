@@ -2,7 +2,8 @@
 //
 
 #pragma once
-
+#include "afxwin.h"
+#include "Communication.h"
 
 // CIPPhoneDlg ¶Ô»°¿ò
 class CIPPhoneDlg : public CDialog
@@ -28,4 +29,18 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
+private:
+	CImageList    m_ImageList;
+
+public:
+	CButton m_BtnCallGroup;
+	CButton m_BtnCallMany;
+	CButton m_BtnRecentCall;
+	CButton m_BtnContacts;
+	CButton m_BtnCall;
+	CButton m_BtnStopCall;
+	CButton m_BtnRevoke;
+
+	CCommunication  m_Communication;
 };
