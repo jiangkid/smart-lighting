@@ -35,6 +35,11 @@ CIPPhoneApp theApp;
 
 BOOL CIPPhoneApp::InitInstance()
 {
+	if (!AfxOleInit)
+	{
+		AfxMessageBox(_T("初始化OLE出错!"));
+		return FALSE;
+	}
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。否则，将无法创建窗口。
@@ -45,11 +50,7 @@ BOOL CIPPhoneApp::InitInstance()
 	InitCtrls.dwICC = ICC_WIN95_CLASSES;
 	InitCommonControlsEx(&InitCtrls);
 
-	if (!AfxOleInit)
-	{
-		AfxMessageBox(_T("初始化OLE出错!"));
-		return FALSE;
-	}
+	
 
 	CWinApp::InitInstance();
 
