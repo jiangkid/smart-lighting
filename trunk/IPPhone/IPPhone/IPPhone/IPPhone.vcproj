@@ -190,6 +190,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BasicConfig.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Communication.cpp"
 				>
 			</File>
@@ -199,6 +203,18 @@
 			</File>
 			<File
 				RelativePath=".\IPPhoneDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Keypad.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Linkman.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RecentCall.cpp"
 				>
 			</File>
 			<File
@@ -232,6 +248,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BasicConfig.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Communication.h"
 				>
 			</File>
@@ -241,6 +261,18 @@
 			</File>
 			<File
 				RelativePath=".\IPPhoneDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Keypad.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Linkman.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RecentCall.h"
 				>
 			</File>
 			<File
@@ -261,6 +293,38 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\res\2012061310352264_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120613103723735_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120613103741555_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120613103808691_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\2012061310382311_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120613103833590_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120613103900677_easyicon_cn_32.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\20120613103932140_easyicon_cn_32.ico"
+				>
+			</File>
 			<File
 				RelativePath=".\res\back.ico"
 				>
@@ -287,6 +351,14 @@
 			</File>
 			<File
 				RelativePath=".\res\stopcall.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\toolbar1.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\toolbar2.bmp"
 				>
 			</File>
 		</Filter>

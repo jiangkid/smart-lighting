@@ -55,14 +55,6 @@ CIPPhoneDlg::CIPPhoneDlg(CWnd* pParent /*=NULL*/)
 void CIPPhoneDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_BUT_CALLGROUP, m_BtnCallGroup);
-	DDX_Control(pDX, IDC_BUT_CALLMANY, m_BtnCallMany);
-	DDX_Control(pDX, IDC_BUT_RECENTCALL, m_BtnRecentCall);
-	DDX_Control(pDX, IDC_BUT_CONTACTS, m_BtnContacts);
-	DDX_Control(pDX, IDC_BTN_CALL, m_BtnCall);
-	DDX_Control(pDX, IDC_BUT_ANSWER, m_BtnStopCall);
-	DDX_Control(pDX, IDC_BUT_REVOKE, m_BtnRevoke);
-	DDX_Control(pDX, IDC_EDIT1, m_Edit);
 }
 
 BEGIN_MESSAGE_MAP(CIPPhoneDlg, CDialog)
@@ -70,21 +62,11 @@ BEGIN_MESSAGE_MAP(CIPPhoneDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	//}}AFX_MSG_MAP
-	ON_BN_CLICKED(IDC_BUTTON1, &CIPPhoneDlg::OnBnClickedButton1)
-	ON_BN_CLICKED(IDC_BUTTON2, &CIPPhoneDlg::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &CIPPhoneDlg::OnBnClickedButton3)
-	ON_BN_CLICKED(IDC_BUTTON4, &CIPPhoneDlg::OnBnClickedButton4)
-	ON_BN_CLICKED(IDC_BUTTON5, &CIPPhoneDlg::OnBnClickedButton5)
-	ON_BN_CLICKED(IDC_BUTTON6, &CIPPhoneDlg::OnBnClickedButton6)
-	ON_BN_CLICKED(IDC_BUTTON7, &CIPPhoneDlg::OnBnClickedButton7)
-	ON_BN_CLICKED(IDC_BUTTON8, &CIPPhoneDlg::OnBnClickedButton8)
-	ON_BN_CLICKED(IDC_BUTTON9, &CIPPhoneDlg::OnBnClickedButton9)
-	ON_BN_CLICKED(IDC_BUTTON10, &CIPPhoneDlg::OnBnClickedButton10)
-	ON_BN_CLICKED(IDC_BUTTON0, &CIPPhoneDlg::OnBnClickedButton0)
-	ON_BN_CLICKED(IDC_BUTTON11, &CIPPhoneDlg::OnBnClickedButton11)
-	ON_BN_CLICKED(IDC_BTN_CALL, &CIPPhoneDlg::OnBnClickedBtnCall)
-	ON_BN_CLICKED(IDC_BUT_REVOKE, &CIPPhoneDlg::OnBnClickedButRevoke)
-	ON_BN_CLICKED(IDC_BUT_ANSWER, &CIPPhoneDlg::OnBnClickedButAnswer)
+	
+	ON_COMMAND(5001, OnCall)
+	ON_COMMAND(5002, OnRecentCall)
+	ON_COMMAND(5003, OnLinkMan)
+	ON_COMMAND(5004, OnBasicConfig)
 END_MESSAGE_MAP()
 
 
@@ -95,7 +77,7 @@ BOOL CIPPhoneDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// 将“关于...”菜单项添加到系统菜单中。
-
+	UINT   array[4] = {5001, 5002, 5003, 5004};  
 	// IDM_ABOUTBOX 必须在系统命令范围内。
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
@@ -118,12 +100,94 @@ BOOL CIPPhoneDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-	m_ImageList.Create(48, 48, ILC_COLOR24, 2, 0);
-	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON2));
-	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON3));
-	m_BtnCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON2));
-	m_BtnStopCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON3));
-	m_BtnRevoke.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON4));
+	m_ImageList.Create(32, 32, ILC_COLOR32 | ILC_MASK, 8, 0);//ILC_MASK非图片区透明显示
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON5));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON6));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON7));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON8));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON9));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON10));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON11));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON12));
+
+	//工具栏
+	BOOL  Ret = m_ToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP|CBRS_GRIPPER |CBRS_TOOLTIPS| CBRS_FLYBY |  CBRS_SIZE_DYNAMIC , CRect(4,4,0,0)) ;
+	BOOL  Ret1 = m_ToolBar.LoadToolBar(IDR_TOOLBAR1);
+	if (!Ret  || !Ret1)
+	{
+		AfxMessageBox(_T("Load toolbar failed"));
+		return FALSE;
+	}
+	m_ToolBar.GetToolBarCtrl().SetImageList(&m_ImageList);
+	m_ToolBar.SetButtons(array, 4);
+	m_ToolBar.SetButtonText(0, _T("拨号盘"));
+	m_ToolBar.SetButtonText(1, _T("最近通话"));
+	m_ToolBar.SetButtonText(2, _T("联系人"));
+	m_ToolBar.SetButtonText(3, _T("本机配制"));
+	m_ToolBar.SetButtonInfo(0, array[0], TBBS_BUTTON, 3);
+	m_ToolBar.SetButtonInfo(1, array[1], TBBS_BUTTON, 0);
+	m_ToolBar.SetButtonInfo(2, array[2], TBBS_BUTTON, 7);
+	m_ToolBar.SetButtonInfo(3, array[3], TBBS_BUTTON, 2);
+	CSize  sizeButton, sizeImage;
+	sizeImage.cx = 32;
+	sizeImage.cy = 32;
+	sizeButton.cx = 100;
+	sizeButton.cy = 55;
+	m_ToolBar.SetSizes(sizeButton, sizeImage);
+	m_ToolBar.ShowWindow(SW_SHOW);
+	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0);  //重新调整工具栏大小
+
+	//创建显示子界面
+	CRect rcDlg;
+	GetDlgItem(IDC_PICTURE)->GetWindowRect(rcDlg);  //返回指定矩形窗口的边框大小，子界面的显示位置
+	ScreenToClient(rcDlg);//convert the coordinates坐标 of a RECT structure
+	
+	/*********拨号盘界面*********/
+	m_Keypad = new CKeypad;
+	m_Keypad->Create(IDD_DIALOG4);
+	m_Keypad->m_BtnCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON2));
+	m_Keypad->m_BtnStopCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON3));
+	m_Keypad->MoveWindow(rcDlg);//Changes the position of the control.
+	m_Keypad->m_BtnRevoke.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON4));
+	m_Keypad->ShowWindow(SW_SHOW);
+
+	/*********通话记录界面*********/
+	m_RecentCall = new CRecentCall;
+	m_RecentCall->Create(IDD_DIALOG1);
+	m_RecentCall->m_List.InsertColumn(0, _T("通话号码"));
+	m_RecentCall->m_List.InsertColumn(1, _T("公务电话IP"));
+	m_RecentCall->m_List.InsertColumn(2, _T("时间"));
+	m_RecentCall->m_List.InsertColumn(3, _T("方式"));
+	m_RecentCall->m_List.SetColumnWidth(0, 80);
+	m_RecentCall->m_List.SetColumnWidth(1, 115);
+	m_RecentCall->m_List.SetColumnWidth(2, 120);
+	m_RecentCall->m_List.SetColumnWidth(3, 90);
+	m_RecentCall->m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);//设置扩展风格
+	m_RecentCall->MoveWindow(rcDlg);
+	m_RecentCall->ShowWindow(SW_HIDE);
+
+	/*********联系人界面*********/
+	m_LinkMan = new CLinkman;
+	m_LinkMan->Create(IDD_DIALOG2);
+	m_LinkMan->m_list.InsertColumn(0, _T("编号"));
+	m_LinkMan->m_list.InsertColumn(1, _T("公务号码"));
+	m_LinkMan->m_list.InsertColumn(2, _T("公务电话IP"));
+	m_LinkMan->m_list.InsertColumn(3, _T("所属组号"));
+	m_LinkMan->m_list.InsertColumn(4, _T("群呼号"));
+	m_LinkMan->m_list.SetColumnWidth(0, 60);
+	m_LinkMan->m_list.SetColumnWidth(1, 80);
+	m_LinkMan->m_list.SetColumnWidth(2, 120);
+	m_LinkMan->m_list.SetColumnWidth(3, 70);
+	m_LinkMan->m_list.SetColumnWidth(4, 70);
+	m_LinkMan->m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);//设置扩展风格
+	m_LinkMan->MoveWindow(rcDlg);
+	m_LinkMan->ShowWindow(SW_HIDE);
+
+	/*********配置界面*********/
+	m_BasicConfig = new CBasicConfig;
+	m_BasicConfig->Create(IDD_DIALOG3);
+	m_BasicConfig->MoveWindow(rcDlg);
+	m_BasicConfig->ShowWindow(SW_HIDE);
 	//初始化通信信息
 	if (!m_Communication.InitCommunication(24))
 	{
@@ -131,9 +195,6 @@ BOOL CIPPhoneDlg::OnInitDialog()
 		return FALSE;
 	}
 	
-	
-
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -187,133 +248,62 @@ HCURSOR CIPPhoneDlg::OnQueryDragIcon()
 }
 
 
-void CIPPhoneDlg::OnBnClickedButton1()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '1';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton2()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '2';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton3()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '3';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton4()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '4';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton5()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '5';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton6()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '6';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton7()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '7';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton8()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '8';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton9()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '9';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton10()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '*';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton0()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '0';
-	m_Edit.SetWindowText(ShowInfo);
-}
-
-void CIPPhoneDlg::OnBnClickedButton11()
-{
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo += '#';
-	m_Edit.SetWindowText(ShowInfo);
-}
 /***********************************************
-函数功能：接通电话或者连接
+函数功能：显示拨号盘
 ***********************************************/
-void CIPPhoneDlg::OnBnClickedBtnCall()
+void CIPPhoneDlg::OnCall()
 {
+	m_RecentCall->ShowWindow(SW_HIDE);
+	m_LinkMan->ShowWindow(SW_HIDE);
+	m_BasicConfig->ShowWindow(SW_HIDE);
+	m_Keypad->GetFocus();
+	m_Keypad->ShowWindow(SW_SHOW);
 	
 }
-
-void CIPPhoneDlg::OnBnClickedButRevoke()
+/***********************************************
+函数功能：
+***********************************************/
+void CIPPhoneDlg::OnRecentCall()
 {
-	CString   ShowInfo;
-	UpdateData(TRUE);
-	m_Edit.GetWindowText(ShowInfo);
-	ShowInfo.Empty();
-	m_Edit.SetWindowText(ShowInfo);
+	m_Keypad->ShowWindow(SW_HIDE);
+	m_LinkMan->ShowWindow(SW_HIDE);
+	m_BasicConfig->ShowWindow(SW_HIDE);
+	m_RecentCall->GetFocus();
+	
+	m_RecentCall->ShowWindow(SW_SHOW);
 }
 /***********************************************
-函数功能：接通电话或者连接
+函数功能：
 ***********************************************/
-void CIPPhoneDlg::OnBnClickedButAnswer()
+void CIPPhoneDlg::OnLinkMan()
 {
-	
+	m_Keypad->ShowWindow(SW_HIDE);
+	m_RecentCall->ShowWindow(SW_HIDE);
+	m_BasicConfig->ShowWindow(SW_HIDE);
+	m_LinkMan->GetFocus();
+	m_LinkMan->ShowWindow(SW_SHOW);
+}
+/***********************************************
+函数功能：
+***********************************************/
+void CIPPhoneDlg::OnBasicConfig()
+{
+	CString  strIP, strPhone, strPort, strGroup;
+	::GetPrivateProfileString(_T("BasicConfig"), _T("IP"), _T("error"), strIP.GetBuffer(20),  20, _T(".//config.ini"));
+	strIP.ReleaseBuffer();
+	::GetPrivateProfileString(_T("BasicConfig"), _T("PhoneNumber"), _T("error"), strPhone.GetBuffer(20),  20, _T(".//config.ini"));
+	strPhone.ReleaseBuffer();
+	::GetPrivateProfileString(_T("BasicConfig"), _T("Port"), _T("error"),  strPort.GetBuffer(20),  20, _T(".//config.ini"));
+	strPort.ReleaseBuffer();
+	::GetPrivateProfileString(_T("BasicConfig"), _T("GroupNumber"), _T("error"), strGroup.GetBuffer(20),  20, _T(".//config.ini"));
+	strGroup.ReleaseBuffer();
+	m_Keypad->ShowWindow(SW_HIDE);
+	m_LinkMan->ShowWindow(SW_HIDE);
+	m_RecentCall->ShowWindow(SW_HIDE);
+	m_BasicConfig->GetFocus();
+	m_BasicConfig->m_OldIP.SetWindowText(strIP);
+	m_BasicConfig->m_OldPhone.SetWindowText(strPhone);
+	m_BasicConfig->m_OldPort.SetWindowText(strPort);
+	m_BasicConfig->m_OldGroup.SetWindowText(strGroup);
+	m_BasicConfig->ShowWindow(SW_SHOW);
 }
