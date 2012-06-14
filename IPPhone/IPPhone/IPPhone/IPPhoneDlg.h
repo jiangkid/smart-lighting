@@ -4,7 +4,10 @@
 #pragma once
 #include "afxwin.h"
 #include "Communication.h"
-
+#include "BasicConfig.h"
+#include "Linkman.h"
+#include "RecentCall.h"
+#include "Keypad.h"
 // CIPPhoneDlg ¶Ô»°¿ò
 class CIPPhoneDlg : public CDialog
 {
@@ -31,32 +34,23 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 private:
-	CImageList    m_ImageList;
-	
+	CImageList		m_ImageList;
+	CToolBar			m_ToolBar;
+	CRecentCall		*m_RecentCall;
+	CLinkman			*m_LinkMan;
+	CBasicConfig	*m_BasicConfig;
+	CKeypad			*m_Keypad;
 public:
-	CButton m_BtnCallGroup;
-	CButton m_BtnCallMany;
-	CButton m_BtnRecentCall;
-	CButton m_BtnContacts;
-	CButton m_BtnCall;
-	CButton m_BtnStopCall;
-	CButton m_BtnRevoke;
+	CButton	m_BtnCallGroup;
+	CButton	m_BtnCallMany;
+	CButton	m_BtnRecentCall;
+	CButton	m_BtnContacts;
+
 
 	CCommunication  m_Communication;
-	afx_msg void OnBnClickedButton1();
-	CEdit m_Edit;
-	afx_msg void OnBnClickedButton2();
-	afx_msg void OnBnClickedButton3();
-	afx_msg void OnBnClickedButton4();
-	afx_msg void OnBnClickedButton5();
-	afx_msg void OnBnClickedButton6();
-	afx_msg void OnBnClickedButton7();
-	afx_msg void OnBnClickedButton8();
-	afx_msg void OnBnClickedButton9();
-	afx_msg void OnBnClickedButton10();
-	afx_msg void OnBnClickedButton0();
-	afx_msg void OnBnClickedButton11();
-	afx_msg void OnBnClickedBtnCall();
-	afx_msg void OnBnClickedButRevoke();
-	afx_msg void OnBnClickedButAnswer();
+
+	afx_msg void OnCall();
+	afx_msg void OnRecentCall();
+	afx_msg void OnLinkMan();
+	afx_msg void OnBasicConfig();
 };
