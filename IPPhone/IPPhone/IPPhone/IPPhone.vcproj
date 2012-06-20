@@ -190,11 +190,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AudioCode.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BasicConfig.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\ClientSocket.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Communication.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Interface.cpp"
 				>
 			</File>
 			<File
@@ -214,11 +226,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ListenSocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MyWaveIn.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NewRelationShip.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\RecentCall.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RecSocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SendClient.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SortData.cpp"
 				>
 			</File>
 			<File
@@ -241,6 +273,18 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\UdpSocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WaveIn.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WaveOut.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -252,11 +296,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AudioCode.h"
+				>
+			</File>
+			<File
 				RelativePath=".\BasicConfig.h"
 				>
 			</File>
 			<File
+				RelativePath=".\ClientSocket.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Communication.h"
+				>
+			</File>
+			<File
+				RelativePath=".\head.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Interface.h"
 				>
 			</File>
 			<File
@@ -276,6 +336,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ListenSocket.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MyWaveIn.h"
+				>
+			</File>
+			<File
 				RelativePath=".\NewRelationShip.h"
 				>
 			</File>
@@ -284,11 +352,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RecSocket.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
 			<File
+				RelativePath=".\SendClient.h"
+				>
+			</File>
+			<File
 				RelativePath=".\skin\SkinPPWTL.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SortData.h"
 				>
 			</File>
 			<File
@@ -297,6 +377,18 @@
 			</File>
 			<File
 				RelativePath=".\targetver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UdpSocket.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WaveIn.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WaveOut.h"
 				>
 			</File>
 		</Filter>
