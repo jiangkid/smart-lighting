@@ -49,7 +49,7 @@ END_MESSAGE_MAP()
 CIPPhoneDlg::CIPPhoneDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CIPPhoneDlg::IDD, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	
 }
 
 void CIPPhoneDlg::DoDataExchange(CDataExchange* pDX)
@@ -67,6 +67,7 @@ BEGIN_MESSAGE_MAP(CIPPhoneDlg, CDialog)
 	ON_COMMAND(5002, OnRecentCall)
 	ON_COMMAND(5003, OnLinkMan)
 	ON_COMMAND(5004, OnBasicConfig)
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -75,7 +76,7 @@ END_MESSAGE_MAP()
 BOOL CIPPhoneDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
+	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	// 将“关于...”菜单项添加到系统菜单中。
 	UINT   array[4] = {5001, 5002, 5003, 5004};  
 	// IDM_ABOUTBOX 必须在系统命令范围内。
@@ -101,6 +102,7 @@ BOOL CIPPhoneDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	m_ImageList.Create(32, 32, ILC_COLOR32 | ILC_MASK, 8, 0);//ILC_MASK非图片区透明显示
+	m_ImageList.SetBkColor(GetSysColor(COLOR_BTNFACE));  //加了设置背景颜色。GetSysColor(COLOR_BTNFACE)为返回对话框背景的表面颜色
 	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON5));
 	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON6));
 	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON7));
@@ -143,7 +145,7 @@ BOOL CIPPhoneDlg::OnInitDialog()
 	ScreenToClient(rcDlg);//convert the coordinates坐标 of a RECT structure
 	
 	/*********拨号盘界面*********/
-	m_Keypad = new CKeypad;
+	m_Keypad = new CKeypad;   
 	m_Keypad->Create(IDD_DIALOG4);
 	m_Keypad->m_BtnCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON2));
 	m_Keypad->m_BtnStopCall.SetIcon(AfxGetApp()->LoadIcon(IDI_ICON3));
@@ -188,6 +190,7 @@ BOOL CIPPhoneDlg::OnInitDialog()
 	m_BasicConfig->Create(IDD_DIALOG3);
 	m_BasicConfig->MoveWindow(rcDlg);
 	m_BasicConfig->ShowWindow(SW_HIDE);
+
 	//初始化通信信息
 	if (!m_Communication.InitCommunication(24))
 	{
@@ -261,7 +264,7 @@ void CIPPhoneDlg::OnCall()
 	
 }
 /***********************************************
-函数功能：
+函数功能：显示最近通话信息
 ***********************************************/
 void CIPPhoneDlg::OnRecentCall()
 {
@@ -269,11 +272,11 @@ void CIPPhoneDlg::OnRecentCall()
 	m_LinkMan->ShowWindow(SW_HIDE);
 	m_BasicConfig->ShowWindow(SW_HIDE);
 	m_RecentCall->GetFocus();
-	
+	m_RecentCall->ShowRecentCallInfo();
 	m_RecentCall->ShowWindow(SW_SHOW);
 }
 /***********************************************
-函数功能：
+函数功能：显示联系人信息
 ***********************************************/
 void CIPPhoneDlg::OnLinkMan()
 {
@@ -281,10 +284,11 @@ void CIPPhoneDlg::OnLinkMan()
 	m_RecentCall->ShowWindow(SW_HIDE);
 	m_BasicConfig->ShowWindow(SW_HIDE);
 	m_LinkMan->GetFocus();
+	m_LinkMan->ShowLinkManInfo();
 	m_LinkMan->ShowWindow(SW_SHOW);
 }
 /***********************************************
-函数功能：
+函数功能：显示基本配置窗口
 ***********************************************/
 void CIPPhoneDlg::OnBasicConfig()
 {
@@ -306,4 +310,27 @@ void CIPPhoneDlg::OnBasicConfig()
 	m_BasicConfig->m_OldPort.SetWindowText(strPort);
 	m_BasicConfig->m_OldGroup.SetWindowText(strGroup);
 	m_BasicConfig->ShowWindow(SW_SHOW);
+}
+/***********************************************
+函数功能：关闭窗口
+***********************************************/
+void CIPPhoneDlg::OnClose()
+{
+	if (m_BasicConfig != NULL)
+	{
+		delete(m_BasicConfig);
+	}
+	if (m_Keypad != NULL)
+	{
+		delete(m_Keypad);
+	}	
+	if (m_RecentCall != NULL)
+	{
+		delete(m_RecentCall);
+	}
+	if (m_LinkMan != NULL)
+	{
+		delete(m_LinkMan);
+	}
+	CDialog::OnClose();
 }

@@ -106,7 +106,6 @@ EXSTYLE WS_EX_APPWINDOW
 CAPTION "IPPhone"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDFRAME,17,39,215,1
     CONTROL         "",IDC_PICTURE,"Static",SS_GRAYFRAME | SS_CENTERIMAGE,7,42,238,174
 END
 
@@ -152,9 +151,9 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     PUSHBUTTON      "7",IDC_BUTTON7,12,96,70,24
-    PUSHBUTTON      "呼叫/应答",IDC_BTN_CALL,12,153,70,25,BS_ICON
+    PUSHBUTTON      "  呼叫/应答",IDC_BTN_CALL,12,153,70,25,BS_ICON,WS_EX_RIGHT
     PUSHBUTTON      "8",IDC_BUTTON8,105,96,68,24
-    PUSHBUTTON      "拒接",IDC_BUT_ANSWER,195,154,69,24,BS_ICON
+    PUSHBUTTON      "    拒接",IDC_BUT_ANSWER,195,154,69,24,BS_ICON,WS_EX_RIGHT
     PUSHBUTTON      "1",IDC_BUTTON1,13,38,69,24
     PUSHBUTTON      "2",IDC_BUTTON2,105,38,70,24
     PUSHBUTTON      "3",IDC_BUTTON3,195,38,69,24
@@ -166,7 +165,24 @@ BEGIN
     PUSHBUTTON      "0",IDC_BUTTON0,105,125,68,24
     PUSHBUTTON      "#",IDC_BUTTON11,196,125,68,24
     EDITTEXT        IDC_EDIT1,14,10,249,20,ES_AUTOHSCROLL
-    PUSHBUTTON      "撤销",IDC_BUT_REVOKE,105,153,68,25,BS_ICON
+    PUSHBUTTON      "    撤销",IDC_BUT_REVOKE,105,153,68,25,BS_ICON,WS_EX_RIGHT
+END
+
+IDD_DIALOG5 DIALOGEX 0, 0, 169, 139
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "联系人组号 :",IDC_STATIC,25,63,48,10
+    LTEXT           "群呼号码 :",IDC_STATIC,25,83,48,10
+    LTEXT           "联系人电话 :",IDC_STATIC,26,23,48,10
+    LTEXT           "联系人IP :",IDC_STATIC,25,42,48,10
+    EDITTEXT        IDC_EDIT1,80,21,69,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,80,40,69,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,79,60,69,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT4,79,79,69,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定",IDC_BUT_OK,27,110,49,14
+    PUSHBUTTON      "取消",IDC_BUT_CANCEL,93,110,49,14
 END
 
 
@@ -260,6 +276,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 178
     END
+
+    IDD_DIALOG5, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 162
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 132
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -281,6 +305,26 @@ END
 //
 
 IDR_TOOLBAR1            BITMAP                  "res\\toolbar1.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "联系人"
+    BEGIN
+        MENUITEM "新建联系人",                       ID_32772
+        MENUITEM "修改联系人",                       ID_32773
+        MENUITEM "删除联系人",                       ID_32774
+    END
+    POPUP "通话信息"
+    BEGIN
+        MENUITEM "通话时长",                        ID_32775
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
