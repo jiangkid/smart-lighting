@@ -33,14 +33,14 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 
-private:
+public:
 	CImageList		m_ImageList;
 	CToolBar			m_ToolBar;
 	CRecentCall		*m_RecentCall;
 	CLinkman			*m_LinkMan;
 	CBasicConfig	*m_BasicConfig;
 	CKeypad			*m_Keypad;
-public:
+
 	CButton	m_BtnCallGroup;
 	CButton	m_BtnCallMany;
 	CButton	m_BtnRecentCall;
@@ -53,4 +53,5 @@ public:
 	afx_msg void OnRecentCall();
 	afx_msg void OnLinkMan();
 	afx_msg void OnBasicConfig();
+	afx_msg void OnClose();
 };

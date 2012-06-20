@@ -22,7 +22,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
-			CharacterSet="1"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NewRelationShip.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RecentCall.cpp"
 				>
 			</File>
@@ -272,11 +276,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NewRelationShip.h"
+				>
+			</File>
+			<File
 				RelativePath=".\RecentCall.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\skin\SkinPPWTL.h"
 				>
 			</File>
 			<File
